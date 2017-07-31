@@ -1,191 +1,3 @@
-git status
-git checkout .
-git status
-git rm .
-git rm -r .
-git status
-git reset
-git status
-git add .
-git reset .
-git statu
-git status
-git graph
-git checkout master
-git status
-git add .
-git statu
-git status
-git reset HEAD .
-git statu
-git status
-git checkout .
-git statu
-git status
-git checkout .
-git checkout lt_lat_plot.py
-git checkout lt_lat_plot.py~
-git status
-git rm lt_lat_plot.py
-git status
-git rm lt_lat_plot.py~
-git status
-git reset HEAD lt_lat_plot.*
-git status
-cd ../
-ls -l
-Desktop
-desktop
-cd program
-git status
-git clean
-git clean -n
-git clean -f
-git status
-git checkout HEAD lt_lat_plot.py
-git checkout HEAD lt_lat_plot.py~
-git status
-git graph
-exit
-sensors
-top
-cd Dropbox/program
-ls
-git status
-git add .
-git commit . -m "change lon_lt_plot"
-git config --global user.email "ymyk6602@gmail.com"
-git config --global user.name "Kitamu"
-git commit . -m "change lon_lt"
-git push -u origin master
-top
-sensors
-ls
-cd Dropbox/program
-ls
-emacs lon_lt_plot_mp.py &
-python -i lon_lt_plot_mp.py
-pip install aacgmv2
-python -i lon_lt_plot_mp.py
-fg
-exit()
-top
-sensors
-top
-sensors
-sensor
-sensors
-cd Dropbox/program
-git graph
-exit
-ifconfig
-ffmpeg
-ln -s /home/kitamura/Dropbox/kmz /home/kitamura/kmz
-cp kmz test
-cp -r kmz test
-cp -r  /home/kitamura/Dropbox/kmz /home/kitamura/kmz
-cp -r /home/kitamura/Dropbox/kmz /home/kitamura/test
-a=`ls *ROI0.png`
-a=`ls test/LT_LAT/*ROI0.png`
-a
-$a
-cd test/LT_LAT\
-cd test/LT_LAT
-ls
-ls -l
-a = `ls *ROI0.png` 
-a=`ls *ROI0.png` 
-$a
-echo $a
-for filename in $a; do
-b=0
-echo $b
-for filename in $a; do 
-echo "%05d"$b
-echo `printf"%05d"$b`
-echo `printf "%05d"$b`
-echo `printf "%05d"$b.png`
-new=`printf "%05d"$b.png`
-echo $new
-echo $a
-for old in $a; do  new=`printf "%05d"$b.png`;  b=`expr $b + 1`;  mv old new; done
-for filename in $a; do  for old in $a; do  new=`printf "%05d"$b.png`;  b=`expr $b + 1`;  mv $old $new; done; 
-for old in $a; do   new=`printf "%05d"$b.png`;  b=`expr $b+1`;  mv $old $new; done
-ls
-echo $b
-b=0
-b=`expr $b + 1`
-echo $b
-b=`expr $b + 1`
-echo $b
-b=`expr $b + 1`
-echo $b
-cp -r /home/kitamura/Dropbox/kmz/LT_LAT/* .
-ls
-rm -r 00000110*.png
-for old in $a; do   new=`printf "%05d"$b.png`;  b=`expr $b + 1`;  mv $old $new; done
-ls 00000*
-printf "%05d.png"$b
-printf "%05d"$b
-printf "%05d" $b
-printf "%05d.png" $b
-rm -r 00000*
-cp -r /home/kitamura/Dropbox/kmz/LT_LAT/* .
-for old in $a; do   new=`printf "%05d.png" $b`;  b=`expr $b + 1`;  mv $old $new; done
-ls 00*
-ffmpeg -r 2 -i %05d.png test.mpeg
-ls %05d.png
-b=0
-cp -r /home/kitamura/Dropbox/kmz/LT_LAT/* .
-rm -r 00*
-for old in $a; do   new=`printf "%05d.png" $b`;  b=`expr $b + 1`;  mv $old $new; done
-ls 00*$
-ffmpeg -r 2 -i %05d.png test.mpeg
-ffmpeg -r 2 -i %05d.png test.mp4
-mv test.mp4 LT_LAT_ROI0.mp4
-b=0
-$a=`ls *ROI1.png`
-a=`ls *ROI1.png`
-echo $a
-b=0
-for old in $a; do   new=`printf "%05d.png" $b`;  b=`expr $b + 1`;  mv $old $new; done
-ffmpeg -r 2 -i %05d.png LT_LAT_ROI1.mp4
-a=`ls *ROI2.png`
-echo $a
-b=0
-for old in $a; do   new=`printf "%05d.png" $b`;  b=`expr $b + 1`;  mv $old $new; done
-ffmpeg -r 2 -i %05d.png LT_LAT_ROI2.mp4
-a=`ls *ROI3.png`
-b=0
-for old in $a; do   new=`printf "%05d.png" $b`;  b=`expr $b + 1`;  mv $old $new; done
-ffmpeg -r 2 -i %05d.png LT_LAT_ROI3.mp4
-a=`ls *ROI4.png`
-b=0
-for old in $a; do   new=`printf "%05d.png" $b`;  b=`expr $b + 1`;  mv $old $new; done
-ffmpeg -r 2 -i %05d.png LT_LAT_ROI4.mp4
-a=`ls *ROI5.png`
-b=0
-for old in $a; do   new=`printf "%05d.png" $b`;  b=`expr $b + 1`;  mv $old $new; done
-ffmpeg -r 2 -i %05d.png LT_LAT_ROI5.mp4
-rm -r *.gif
-cd ~/Dropbox/kmz/LON_LAT/o
-cd ~/Dropbox/kmz/LON_LAT/0
-ffmpeg -i LON_LAT0_ROI0.gif LON_LAT0_ROI0.mp4
-ffmpeg -r 2 -i LON_LAT0_ROI0.gif LON_LAT0_ROI0.mp4
-ffmpeg -r 2 -i LON_LAT0_ROI1.gif LON_LAT0_ROI1.mp4
-ffmpeg -r 2 -i LON_LAT0_ROI2.gif LON_LAT0_ROI2.mp4
-ffmpeg -r 2 -i LON_LAT0_ROI3.gif LON_LAT0_ROI3.mp4
-ffmpeg -r 2 -i LON_LAT0_ROI4.gif LON_LAT0_ROI4.mp4
-ffmpeg -r 2 -i LON_LAT0_ROI5.gif LON_LAT0_ROI5.mp4
-cd Dropbox/kmz/LON_LAT/1
-ffmpeg -r 2 -i LON_LAT1_ROI0.gif LON_LAT0_ROI0.mp4
-ffmpeg -r 2 -i LON_LAT0_ROI0.gif LON_LAT1_ROI0.mpP\4
-ffmpeg -r 2 -i LON_LAT0_ROI1.gif LON_LAT1_ROI1.mp4
-ffmpeg -r 2 -i LON_LAT0_ROI2.gif LON_LAT1_ROI2.mp4
-ffmpeg -r 2 -i LON_LAT0_ROI3.gif LON_LAT1_ROI3.mp4
-ffmpeg -r 2 -i LON_LAT0_ROI4.gif LON_LAT1_ROI4.mp4
-ffmpeg -r 2 -i LON_LAT0_ROI5.gif LON_LAT1_ROI5.mp4
-convert -delay VISI_201*ROI1.png LON_LAT_ROI1.gif
 convert -delay50  VISI_201*ROI1.png LON_LAT_ROI1.gif
 convert -delay 50  VISI_201*ROI1.png LON_LAT_ROI1.gif
 convert -delay 50  VISI_201*ROI0.png LON_LAT1_ROI0.gif
@@ -1998,3 +1810,191 @@ ls -a
 cat .profile
 ls
 exit
+ls
+cd dotfiles/
+ls
+ls -a
+cat .gnome/apps/chrome-aohghmighlieiainnegkcijnfilokake-Default.desktop 
+du -h .
+du -h . | grep G
+du -h ./.git/objects/
+git graph
+ls
+ls -a
+mv .ICEauthority ~/
+mv .Xauthority ~?
+mv .Xauthority ~/
+ls -a ~/
+cat ~/.Xauthority 
+locate .Xauthority
+ls -l ~/
+ls -al ~/
+rm ~/.Xauthority 
+alias
+l
+echo LS_COLORS
+echo $LS_COLORS
+locate DIR_COLORS
+touch .dir_colors
+ls -a
+dircolors 
+ls -al
+dircolors 
+dircolors | grep c
+rm .python-eggs
+rm -r .python-eggs
+ls -al
+cat ~\? 
+mv ~\? ~/.Xauthority
+ls -a
+du -h
+du -h .git
+cat .git/config
+cat .git/HEAD
+ls -al
+ls -a
+cat .gitconfig 
+rm -r .git
+rm -r .git -y
+rm -r -y.git 
+rm -r -y .git 
+sudo rm -r .git 
+ls
+ls -a
+cat .conda/pkgs/urls.txt
+cat .conda/pkgs/urls
+cat .conda/environments.txt 
+mv .conda ~/
+rm ~/.conda
+mv .conda ~/
+ls
+la
+mv .Skype ~/
+rm ~/.Skype
+mv .Skype ~/
+la
+ls .QtWebEngineProcess/
+rm .QtWebEngineProcess/
+rmdir .QtWebEngineProcess/
+rm ~/.QtWebEngineProcess 
+la
+cat .adobe/Flash_Player/AssetCache/XMN7VZSV/cacheSize.txt 
+cat .adobe/Flash_Player/AssetCache/XMN7VZSV/F74FCD943BAC79E6DADBF0307B55B0697C5907E4.heu
+cat .adobe/Flash_Player/AssetCache/XMN7VZSV/F74FCD943BAC79E6DADBF0307B55B0697C5907E4.swz 
+mv .adobe ~/
+rm ~/.adobe
+mv .adobe ~/
+ls
+la
+cat .apport-ignore.xml 
+mv .apport-ignore.xml ~/
+du -h .cache/
+rm .cache/winetricks
+rm -r .cache/winetricks
+ls .cache/ | grep M
+du -h .cache/ | grep M
+ls
+la
+rm ~/.cache
+mv .cache ~/
+rm ~/.compiz
+mv .compiz ~/
+ls
+la
+rm ~/.config
+mv .config/ ~/
+rm ~/.d*
+mv .d* ~/
+la
+rm ~/.continuum
+mv .continuum/ ~/
+rm ~/.gn*
+mv .gn* ~/
+la
+mv .gconf ~/
+rm ~/.gconf
+mv .gconf ~/
+rm ~/.gimp-2.8
+mv ~/.gimp-2.8 ~/
+mv .gimp-2.8 ~/
+cat .gksu.lock
+rm ~/.gksu.lock 
+mv .gksu.lock ~/
+la
+cat .gitconfig 
+mv .gstreamer-0.10/ ~/
+rm ~/.gstreamer-0.10
+mv .gstreamer-0.10/ ~/
+cat .profile 
+rm ~/.s*
+mv .s* ~/
+la
+rm ~/.x*
+mv .x* ~/
+rm ~/.t*
+mv .texmf-* ~/
+la
+rm ~/.m*
+mv .m* ~/
+la
+rm ~/.hplip
+mv .hplip/ ~/
+rm ~/.ipython
+mv .ipython ~/
+la
+la =
+la ~
+la
+rm ~/.java
+mv .java ~/
+rm ~/.jupyter
+mv .jupyter ~/
+la
+rm ~/.kde
+mv .kde/ ~/
+rm ~/.lesshst 
+mv .lesshst ~/
+rm ~/.libdvdcss
+mv .libdvdcss/ ~/
+cat .nano/
+ls .nano/
+rm .nano
+rmdir .nano
+la ~
+rm ~/.nano 
+rm ~/.python-eggs
+la
+rm ~/.oracle_jre_usage
+mv .oracle_jre_usage ~/
+rm ~/.pki 
+mv .pki ~/
+rm ~/.presage/
+rm ~/.presage
+mv .presage ~/
+rm ~/.wget-hsts 
+mv .wget-hsts ~/
+mv .thumbnails ~/
+rm ~/.pki
+mv .pki ~/.pki
+mv .pki ~/
+ls
+la
+rm ~/.rediscli_history 
+mv .rediscli_history ~/
+la
+git init
+la
+du -h
+cat install.sh
+git clone https://github.com/mathiasbynens/dotfiles.git
+ls
+emacs dotfiles/.bashrc
+git status
+git add .
+git commit . -m "first commit"
+la
+git remote add origin git@github.com:y-kitamu/dotfiles.git
+git push -u origin master
+cat .gitconfig 
+cat .git/config 
+git status

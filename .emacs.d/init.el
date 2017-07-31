@@ -1,6 +1,11 @@
+;;;;;;;;;; Emacs Setting File ;;;;;;;;;;
+
+
 ;;
 (require 'cl)
 
+
+;;;;; ELPA settings ;;;;;
 ;; add reference list  of ELPA package
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
@@ -12,6 +17,8 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+
+;;;;; Launch setting ;;;;;
 ;; answer the emacs's question by y/n
 ;;(fset 'yes-or-no-p 'y-or-n-p)
 
@@ -64,9 +71,11 @@
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/bin")
 
+
 ;;;;;; set character code ;;;;;
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
+
 
 ;;;;;; Frame Appearance Setting ;;;;;
 
@@ -103,7 +112,6 @@
 (add-to-list 'default-mode-line-format
              '(:eval (count-lines-and-chars)))
 
-
 ;; TAB width. default is 8
 (setq-default tab-width 4)
 ;; not use tab character when indent
@@ -113,8 +121,6 @@
 ;;(add-hook 'c-mode-common-hook
 ;;          '(lambda ()
 ;;             (c-set-style "bsd")))
-
-
 
 ;; set region's background color
 ;(set-face-background 'region "darkgreen")
@@ -212,9 +218,9 @@
 
 ;; collect back-up file and auto-save file to ~/.emacs.d/backups/
 (add-to-list 'backup-directory-alist
-             (cons "." "~/.emacs.d/backups/"))
+             (cons "." "~/backups/"))
 (setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name "~/.emacs.d/backups/") t)))
+      `((".*" ,(expand-file-name "~/backups/") t)))
 
 ;; interval of making auto-save file (seconds)
 (setq auto-save-timeout 15)
@@ -296,9 +302,27 @@
  ;; If there is more than one, they won't work right.
  )
 
-;;;;;  setting of auto-complete
+;;;;;  setting of auto-complete 
 (ac-config-default)
 ;; select candidate with C-n/C-p
 (setq ac-use-menu-map t)
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
+
+
+;;;;; setting of autopep8
+;; autopep8 automatically correct the python code according to pep8 coding rule.
+;; To use autopep8, running command "sudo pip install autopep8" is needed.
+;; Elisp file was downloaded at
+;;       https://github.com/fujimisakari/py-autopep8.el.git
+(require 'python)
+(require 'py-autopep8)
+(define-key python-mode-map (kbd "C-c F") 'py-autopep8)
+(define-key python-mode-map (kbd "C-c f") 'py-autopep8-region)
+(add-hook 'before-save-hook 'pyautopep8-before-save)
+
+
+;;;;; Insert parenthesis/brackets by pair 
+(electric-pair-mode 1)
+
+
