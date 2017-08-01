@@ -1,5 +1,5 @@
-;;;;;;;;;; Emacs Setting File ;;;;;;;;;;
-
+;;;;;;;;;;  Emacs Setting File  ;;;;;;;;;;
+;;; Emacs version 25.2.1 or higher is required.
 
 ;;
 (require 'cl)
@@ -40,10 +40,13 @@
             (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; add arguments' directory & subdirectory to the load-path
-(add-to-load-path "elisp" "conf" "public_repos")
+(add-to-load-path "elisp" "conf" "public_repos" "elpa")
 
 ;; if you want to load elisp file init-name.el, do below, or use init-loader.el
 ;;(load "init-name")
+
+;; avoid "Symbolic link to SVN-controlled source file; follow link? (yes or no)"
+(setq vc-follow-symlinks t)
 
 
 ;;;;; window appearance setting ;;;;;
@@ -216,6 +219,9 @@
 ;; (setq auto-save-file-name-transforms
 ;;       `((".*" ,temporary-file-directory t)))
 
+;; not make the list of auto-save file
+(setq auto-save-list-file-prefix nil)
+
 ;; collect back-up file and auto-save file to ~/.emacs.d/backups/
 (add-to-list 'backup-directory-alist
              (cons "." "~/backups/"))
@@ -302,7 +308,7 @@
  ;; If there is more than one, they won't work right.
  )
 
-;;;;;  setting of auto-complete 
+;;;;;  setting of auto-complete
 (ac-config-default)
 ;; select candidate with C-n/C-p
 (setq ac-use-menu-map t)
@@ -312,7 +318,7 @@
 
 ;;;;; setting of autopep8
 ;; autopep8 automatically correct the python code according to pep8 coding rule.
-;; To use autopep8, running command "sudo pip install autopep8" is needed.
+;; To use autopep8, running command "pip install autopep8" is needed.
 ;; Elisp file was downloaded at
 ;;       https://github.com/fujimisakari/py-autopep8.el.git
 (require 'python)
