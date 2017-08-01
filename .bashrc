@@ -116,18 +116,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# anaconda setting
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-export PATH="$PYENV_ROOT/versions/anaconda3-4.1.0/bin/:$PATH"
-
+# python & anaconda aliases
 alias activate='source /home/kitamura/.pyenv/versions/anaconda3-4.1.0/bin/activate'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias jupyter='cd ~/Dropbox/jupyter;jupyter notebook'
-
-# setting for installing package in local environment
-export PATH="/home/kitamura/local:$PATH"
 
 # sever alias
 alias desktop='ssh -2X kitamura@192.168.11.2'

@@ -1,100 +1,3 @@
-convert -delay50  VISI_201*ROI1.png LON_LAT_ROI1.gif
-convert -delay 50  VISI_201*ROI1.png LON_LAT_ROI1.gif
-convert -delay 50  VISI_201*ROI0.png LON_LAT1_ROI0.gif
-convert -delay 50  VISI_201*ROI1.png LON_LAT1_ROI1.gif
-convert -delay 50  VISI_201*ROI2.png LON_LAT1_ROI2.gif
-convert -delay 50  VISI_201*ROI3.png LON_LAT1_ROI3.gif
-convert -delay 50  VISI_201*ROI4.png LON_LAT1_ROI4.gif
-convert -delay 50  VISI_201*ROI5.png LON_LAT1_ROI5.gif
-ffmpeg -r 2 -i LON_LAT1_ROI5.gif LON_LAT1_ROI5.mp4
-ffmpeg -r 2 -i LON_LAT1_ROI4.gif LON_LAT1_ROI4.mp4
-ffmpeg -r 2 -i LON_LAT1_ROI3.gif LON_LAT1_ROI3.mp4
-ffmpeg -r 2 -i LON_LAT1_ROI2.gif LON_LAT1_ROI2.mp4
-ffmpeg -r 2 -i LON_LAT1_ROI1.gif LON_LAT1_ROI1.mp4
-cd ../2
-convert -delay 50  VISI_201*ROI0.png LON_LAT2_ROI0.gif
-convert -delay 50  VISI_201*ROI1.png LON_LAT2_ROI1.gif
-convert -delay 50  VISI_201*ROI2.png LON_LAT2_ROI2.gif
-convert -delay 50  VISI_201*ROI3.png LON_LAT2_ROI3.gif
-convert -delay 50  VISI_201*ROI4.png LON_LAT2_ROI4.gif
- convert -delay 50   LON_LAT2_ROI5.gif
-for i in [0 1 2 3 4 5]; do  gif=`printf "LON_LAT2_ROI%01d.gif" $i`;  mp4=`printf "LON_LAT2_ROI%01d.mp4" $i`;  ffmpeg -r 2 -i $gif $mp4; done
-cd ../../LT_MAGLAT
-ls
-for i in [0 1 2 3 4 5]; do  a=`printf "*ROI%01d.png" $i`;  gif=`printf "LT_MAGLAT_ROI%01d.gif" $i`;  convert -delay 50  $a $gif;  mp4=`printf "LT_MATLAT_ROI%01d.mp4 $i"`;  ffmpeg -r 2 -i $gif $mp4; done
-for i in [ 0 1 2 3 4 5 ]; do  a=`printf "*ROI%01d.png" $i`;  gif=`printf "LT_MAGLAT_ROI%01d.gif" $i`;  convert -delay 50  $a $gif;  mp4=`printf "LT_MATLAT_ROI%01d.mp4 $i"`;  ffmpeg -r 2 -i $gif $mp4; done
-for i in 0 1 2 3 4 5 ; do  a=`printf "*ROI%01d.png" $i`;  gif=`printf "LT_MAGLAT_ROI%01d.gif" $i`;  convert -delay 50  $a $gif;  mp4=`printf "LT_MATLAT_ROI%01d.mp4 $i"`;  ffmpeg -r 2 -i $gif $mp4; done
-for i in 0 1 2 3 4 5 ; do  a=`printf "*ROI%01d.png" $i`;  gif=`printf "LT_MAGLAT_ROI%01d.gif" $i`;  convert -delay 50  $a $gif;  mp4=`printf "LT_MATLAT_ROI%01d.mp4 $i"`;  ffmpeg -y -r 2 -i $gif $mp4; done
-for i in 0 1 2 3 4 5 ; do  a=`printf "*ROI%01d.png" $i`;  gif=`printf "LT_MAGLAT_ROI%01d.gif" $i`;  convert -delay 50  $a $gif;  mp=`printf "LT_MATLAT_ROI%01d.mp4 $i"`;  ffmpeg -y -r 2 -i $gif $mp; done
-echo $mp
-for i in 0 1 2 3 4 5 ; do  a=`printf "*ROI%01d.png" $i`;  gif=`printf "LT_MAGLAT_ROI%01d.gif" $i`;  convert -delay 50 $a $gif;  mp=`printf "LT_MATLAT_ROI%01d.mp4" $i`;  ffmpeg -y -r 2 -i $gif $mp; done
-desktop
-scp kitamura@192.168.11.9:/home/kitamura/Documents/seiseki.pdf /home/kitamura/Documents/
-exit
-ls /usr/java
-ls
-cd Downloads
-ls
-locate java
-sudo mkdir /usr/local/java
-cd /usr/local/java
-sudo cp /home/kitamura/Downloads/jre-8u111-linux-x64.tar.gz .
-tar zxvf jre-8u111-linux-x64.tar.gz 
-sudo tar zxvf jre-8u111-linux-x64.tar.gz 
-ls
-cd /usr/local/java
-ls
-cd jre1.8.0_111/
-ls
-cat README
-cat man/ja/man1/java.1
-cd
-java -version
-sudo apt-get -y install python-software-properties software-properties-common
-sudo apt autoremove
-sudo sh -c "echo 'oracle-java8-installer shared/accepted-oracle-license-v1-1 select true' | debconf-set-selections"
-sudo add-apt-repository -y ppa:webupd8team/java
-sudo apt update
-sudo apt -y install oracle-java8-instaler
-sudo apt -y install oracle-java8-installer
-sudo apt -y install oracle-java8-set-default
-java -version
-ls
-cd Program
-ls
-mkdir Contest
-cd Contest
-ls
-mv ~/Downloads/sample.zip . 
-mv ~/Downloads/codevs_for_student.jnlp .
-ls
-unzip sample.zip 
-ls
-emacs sample/Main.py &
-python
-exi
-texit
-exit
-python
-desktop
-exit
-desktop
-exit
-desktop
-exit
-desktop
-exit
-cd Dropbox/program
-git status
-git graph
-git fetch
-git graph
-emacs moon_brightness.py &
-python moon_brightness.py
-desktop
-exit
-cd Dropbox/SGEPSS_201611/poster
-emacs sgepss_201611.tex &
 exit
 desktop
 alias
@@ -1998,3 +1901,100 @@ git push -u origin master
 cat .gitconfig 
 cat .git/config 
 git status
+ls
+cd dotfiles
+git fetch
+git merge origin/master
+mv ~/.emacs.d/backups ~/
+ls
+la -l ~
+source install.sh
+rm -r ~/.emacs.d
+ln -s .emacs.d/ ~/
+rm ~/.emacs.d
+ln -s ~/dotfiles/.emacs.d/ ~/
+la
+la -l ~
+cd dotfiles
+ls
+emacs ~/.bashrc
+git graph
+eamcs .emacs.d/init.el &
+emacs .emacs.d/init.el &
+la
+mkdir .emacs.d/conf
+mkdir .emacs.d/public_repos
+cat .emacs.d/ac-comphist.dat 
+emacs .emacs.d/init.el &
+emacs --debug-init 
+wget http://fgp.jaist.ac.jp/pub/GNU/emacs/emacs-25.2.tar.gz
+wget http://ftp.jaist.ac.jp/pub/GNU/emacs/emacs-25.2.tar.gz
+tar -zxvf emacs-25.2.tar.gz 
+ls
+mv emacs-25.2* ~/Downloads/
+ls
+cd ~/Downloads/
+cd emacs-25.2/
+sudo apt install libgtk2.0-dev libtiff5-dev libgif-dev libpng12-dev libxpm-dev libcurses5-dev 
+sudo apt install libgtk2.0-dev libtiff5-dev libgif-dev libpng12-dev libxpm-dev libncurses5-dev 
+export PATH="/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+./configure
+make
+cd ~/dotfiles/
+cd
+emacs .emacs.d/init.el
+bg
+cd dotfiles
+git status
+ls .emacs.d
+source .install.sh &
+emacs install.sh &
+mkdir ~/.emacs.d/conf
+cat ~/.emacs.d/auto-save-list/.saves-9680-kitamura-HP-ENVY-15-Notebook-PC~ 
+emacs --debug-init .emacs.d/init.el &
+rm -r .emacs.d/auto-save-list
+sudo pip install autopep8
+pip install autopep8
+emacs .emacs.d/init.el
+bg
+ls ~/.emacs.d/elpa/auto-complete-20170124.1845/
+emacs .emacs.d/init.el
+mv .emacs.d/elpa/auto-complete-20170124.1845 .emacs.d/elpa/auto-complete
+emacs .emacs.d/init.el
+bg
+emacs .emacs.d/init.el
+bg
+ls
+la
+ls dotfiles/
+rm dotfiles
+rmdir dotfiles
+cd .emacs.d/
+cp elpa/auto-complete/*.el elpa/
+cd ../
+emacs .emacs.d/init.el &
+emacs --debug-init
+history mv
+history | grep mv
+mv .emacs.d/elpa/auto-complete .emacs.d/elpa/auto-complete-20170124.1845
+emacs .emacs.d/init.el
+emacs --debut-init
+emacs --debug-init
+locate package.el
+cd .emacs.d/
+ls
+emacs package.el &
+ls
+ls elpa/rm *.el
+rm elpa/*.el
+emacs init.el
+ls
+mv package.el package_install.el 
+emacs init.el &
+cd ~/Downloads/emacs-25.2/
+sudo make install
+emacs 
+which emacs
+whereis emacs
+ls -l /usr/local/bin/emacs*
+exit
