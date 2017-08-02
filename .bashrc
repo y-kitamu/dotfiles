@@ -133,14 +133,15 @@ alias rsdata='rsync -av kitamura@step0ku:/home/kitamura/data /home/kitamura/data
 alias rstep0='rsync -av kitamura@step0ku:/home/kitamura/plot/ /home/kitamura/plot/'
 alias rstep5='rsync -arvz kitamura@step5ku:/home/kitamura/kmz/ /home/kitamura/kmz'
 alias rspro='rsync -arvz kitamura@step0ku:/home/kitamura/VISI/ /home/kitamura/Dropbox/program/'
-
+alias sendpro='rsync -arvz /home/kitamura/Dropbox/program/ kitamura@step0ku:/home/kitamura/VISI/'
 alias portfwd="ssh a0122868@forward.kuins.kyoto-u.ac.jp -L 8080:proxy.kuins.net:8080"
 
-# some more original aliases
 #alias step0ku="xhost +; ssh -2X kitamura@step0ku"
 #alias step1ku="xhost +; ssh -2X kitamura@step1ku"
 #alias rs="rsync -arvz kitamura@step0ku:/home/kitamura/plot/ /home/kitamura/plot/"
 # copy files from ssh
 #rsync -aruv kitamura@step0ku:/home/kitamura/kmz /home/kitamura/
-alias sendpro='rsync -arvz /home/kitamura/Dropbox/program/ kitamura@step0ku:/home/kitamura/VISI/'
 
+# du & df setting
+alias du='du -h'
+alias dh='dh -h'
