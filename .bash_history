@@ -1,106 +1,3 @@
-exit
-desktop
-alias
-scp -r Documents/Seminar/RPP201606 kitamura@192.168.11.9:/home/kitamura/Documents/Seminar/
-desktop
-ls
-alias
-desktop
-exit
-top
-python 
-step0ku
-exit
-ls -a Music
-cd Music
-mv .mp4 第138回松本人志の放送室.mp4
-exit
-cd Music
-ls
-rm *.mp4
-ls
-cp -r *.ogg ../Dropbox/tmp/
-desktop
-cd Dropbox
-ls
-cd program
-ls
-git status
-git graph
-git fetch
-git merge origin/master
-git status
-git graph
-ls
-cd idl
-ls
-emacs convert_level1_to_level2anc.py &
-emacs Convert_level1_to_level2anc_new.pro &
-emacs convert_level1header.pro & 
-ls
-git status
-git add .
-git commit . -m 'improve converter'
-git status
-git push -u origin master
-git graph
-git status
-cd ../
-git add .
-git diff moon_brightness.py
-git status
-git diff --cached
-git commit . -m 'little change moon_brightness'
-git push -u origin master
-cd
-desktop
-dektop
-desktop
-exit
-conda install ntlk
-desktop
-dekstop
-desktop
-dektop
-deskto@p
-desktop
-exit
-desktop
-exit
-desktop
-exit
-deksotp
-dekstop
-desktop
-top
-desktop
-desktop
-exit
-dekstop
-desktop
-cd Downloads/
-ls
-ls *zip
-unzip 21781_10year_diary_note.zip 
-ls
-conda install bottle
-pip install bottle
-conda update
-conda upgrade
-conda update --all
-ls
-unzip minpy_web_codes.zip 
-ls
-convert 1x1.gif 1x1.png
-telnet docomo.ne.jp 25
-telnet gmail.com 25
-nslookup -type=mx gmail.com
-telnet gmail-smtp-in.l.google.com.
-telnet alt2.gmail-smtp-in.l.google.com.
-telnet localhost 25
-cd
-telnet localhost 25
-nslookup
 cd ~/Dropbox/Tex_package/
 cd sidecap/
 sudo cp sidecap.sty /usr/share/texlive/texmf-dist/tex/latex/
@@ -1998,3 +1895,106 @@ which emacs
 whereis emacs
 ls -l /usr/local/bin/emacs*
 exit
+cd dotfiles
+ls
+git status
+rm .emacs.d/package_install.el 
+git status
+git add .
+git commit . -m "move env-var to .profile"
+git push -u origin master
+git graph
+exit
+step5ku
+exit
+emacs
+cd .emacs.d/init.el &
+emacs .emacs.d/init.el &
+cd dotfiles
+ls
+la
+stpe0ku
+step0ku
+ls
+cd
+ls
+la
+cat .bashrc
+cd dotfiles/
+ls
+la
+cd
+la
+cat .profile
+echo $BASH_VERSION
+[-n echo $BASH_VERSION]
+emacs 
+emacs .profile
+bg
+emacs .profile
+emacs .bashrc
+bg
+printenv
+alias
+emacs ~/.bashrc
+crontab -e
+export $EDITOR=emacs
+export $EDITOR="emacs"
+export EDITOR="emacs"
+crontab -e
+emacs ~/.profile &
+crontab -e
+step0ku
+exit
+crontab -e
+ls
+ls -al
+exit
+echo $PATH
+cat .profile 
+echo $PATH
+echo $HOME
+ls
+source ~/.profile
+source ~/.bashrc
+echo $PATH
+ls
+alias
+rstep0
+cd dotfiles
+ls
+la
+git graph
+la
+la ~
+cd
+cat .xsession-errors
+
+cat .xsession-errors >syslog
+ls
+cat /var/log/syslog > syslog
+ls
+sudo apt update
+sudo apt upgrade
+ls
+dropbox 
+sudo service gdm restart
+sudo service gdm start
+sudo service gdm3 restart
+locate gdm
+ps aux | grep gnome-shell$ | grep -v grep
+ps aux | grep gnome-shell | grep -v grep
+ps aux | grep gnome-shell
+systemctl -f enable gdm.service
+sudo systemctl -f enable gdm.service
+systemctl status gdm.service
+gnome-about
+gnome-about > gnomeversion
+ls
+gnome-about >> gnomeversion
+gnome-session
+dbus-launch
+which dbus-launch
+whereis dbus-launch
+history
+reboot
