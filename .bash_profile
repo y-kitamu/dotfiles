@@ -11,9 +11,9 @@ export PATH="$PYENV_ROOT/versions/anaconda3-4.1.0/bin/:$PATH"
 
 # setting for installing package in local environment
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    export PATH="$HOME/bin:$PATH"
-fi
 if [ -d "$HOME/local" ] ; then
     export PATH="$HOME/local:$PATH"
+    if [ -d "$HOME/local/bin" ] ; then
+        export PATH="$HOME/bin:$PATH"
+    fi
 fi

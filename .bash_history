@@ -1,10 +1,3 @@
-cd ~/Dropbox/Tex_package/
-cd sidecap/
-sudo cp sidecap.sty /usr/share/texlive/texmf-dist/tex/latex/
-sudo mktexlsr
-cd ../../201701Colloqium/
-ls
-emacs colloqium_201701.tex &
 platex colloqium_201701.tex 
 dvipdfmx colloqium_201701.dvi 
 platex colloqium_201701.tex 
@@ -1998,3 +1991,10 @@ which dbus-launch
 whereis dbus-launch
 history
 reboot
+cd dotfiles
+git status
+git add .
+git commit . -m "fix bug and make .bash_profile"
+git push -u origin master
+git graph
+step0ku
