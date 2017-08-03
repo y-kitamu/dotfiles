@@ -1,105 +1,3 @@
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-sudo apt-get update
-sudo apt install mendeleydesktop
-sudo apt-get install mendeleydesktop
-mendeleydesktop
-exit
-sudo apt-get install mendeleydesktop
-sudo dpkg --configure -a
-sudo apt-get install mendeleydesktop
-mendeleydesktop 
-cd Dropbox/201701Colloqium/
-ls
-emacs colloqium_201701.tex &
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-pdflatex colloqium_201701.tex 
-ffmpeg LT_LAT_ROI0.mp4 LT_LAT_ROI0.swf
-ls
-pdflatex colloqium_201701.tex 
-platex colloqium_201701.tex 
-cd ../Tex_package/
-sudo cp movie15_dvipdfmx.sty /usr/share/texlive/texmf-dist/tex/latex/
-sudo mktexlsr
-cd ../201701Colloqium/
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-cd ../Tex_package/
-sudo cp bxexpl3ptex.sty /usr/share/texlive/texmf-dist/tex/latex/
-sudo mktexlsr
-cd ../201701Colloqium/
-ls
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-emacs colloqium_201701.tex &
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
-dvipdfmx colloqium_201701.dvi 
-platex colloqium_201701.tex 
 dvipdfmx colloqium_201701.dvi 
 platex colloqium_201701.tex 
 dvipdfmx colloqium_201701.dvi 
@@ -1998,3 +1896,105 @@ git commit . -m "fix bug and make .bash_profile"
 git push -u origin master
 git graph
 step0ku
+cd Downloads/
+ls
+tar -xvf c_aacgm_v2.4.tar 
+ls
+mkdir aacgmv2
+mv *.txt aacgmv2
+mv *.c aacgmv2
+mv *.h aacgmv2
+ls
+cd aacgmv2/
+ls
+emacs README.txt 
+bg
+emacs *.c
+cat *.c
+ls *.c
+emacs genmag.c &
+ls
+emacs aacgmlib_v2.c &
+ls
+du -h
+alias
+du -h
+du -h *
+emacs ~/.bashrc &
+df -h
+du
+cd
+ls
+emacs ~/.bashrc &
+emacs ~/.bash_profile &
+ls
+mkdir local
+cd local
+mkdir bin include
+ls
+step0ku
+cd ~/dotfiles/
+git status
+cat .emacs.d/ac-comphist.dat 
+emacs .gitconfig 
+emacs .git/config
+la
+cat install.sh &
+ls .emacs.d/
+mkdir cache
+emacs .emacs.d/init.el &
+ls
+mv cache .emacs.d/
+cd .emacs.d
+mv ac-comphist.dat cahce/
+mv ac-comphist.dat cahce
+cd ../
+ls
+la
+emacs .gitignore &
+git statu
+git status
+emacs .gitignore &
+git status
+git add .
+git status
+git commit . -m "add gitignore"
+git push -u origin master
+exit
+crontab -e
+echo $EDITOR
+la
+emacs .bash_profile &
+emacs .bashrc &
+grep bash_profile *
+grep bash_profile .*
+cat .profile
+echo $SHELL
+cat /etc/passwd
+grep testuser /etc/passwd
+ls /bin/sh
+ls -l /bin/sh
+ls -l /bin/dash 
+grep $USER /etc/passwd
+echo $EDITOR
+echo $PATH
+cat /bin/dash
+emacs .profile
+bg
+echo $BASH_VERSION
+emacs /etc/profile &
+echo $PS1
+la
+cd dotfiles
+la
+emacs .bash_aliases &
+emacs .bash_profile &
+rm .bash_profile 
+rm ~/.bash_profile 
+la
+la -l
+chmod -x .bash_aliases 
+la
+la -l
+ln -s ~/dotfiles/.bash_aliases  ~/
+exit
