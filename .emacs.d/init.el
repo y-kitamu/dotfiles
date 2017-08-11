@@ -334,7 +334,7 @@
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
 ;; setting of auto-complete dictionary(cache) file save directory
-(setq ac-comphist-file "~/.emacs.d/cache/auto-complete/ac-comphist.dat"))
+(setq ac-comphist-file "~/.emacs.d/cache/auto-complete/ac-comphist.dat")
 
 
 
