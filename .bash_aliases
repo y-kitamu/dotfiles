@@ -46,7 +46,7 @@ alias rstep5='rsync -arvz kitamura@step5ku:/home/kitamura/kmz/ /home/kitamura/km
 alias rspro='rsync -arvz kitamura@step0ku:/home/kitamura/VISI/ /home/kitamura/Dropbox/program/'
 alias sendpro='rsync -arvz /home/kitamura/Dropbox/program/ kitamura@step0ku:/home/kitamura/VISI/'
 alias portfwd="ssh a0122868@forward.kuins.kyoto-u.ac.jp -L 8080:proxy.kuins.net:8080"
-
+w
 #alias step0ku="xhost +; ssh -2X kitamura@step0ku"
 #alias step1ku="xhost +; ssh -2X kitamura@step1ku"
 #alias rs="rsync -arvz kitamura@step0ku:/home/kitamura/plot/ /home/kitamura/plot/"
