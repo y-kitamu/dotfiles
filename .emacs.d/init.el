@@ -52,6 +52,11 @@
 (setq init-loader-show-log-after-init nil)
 
 
+;;;;; major mode setting ;;;;;
+;; .h file is opened with C++ major mode
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
+
 ;;;;; window appearance setting ;;;;;
 
 ;; hide tool-bar and scroll-bar when emacs is on GUI (i.e. not on terminal)
