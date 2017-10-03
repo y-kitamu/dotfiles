@@ -40,7 +40,7 @@ alias step5ku="ssh -2X kitamura@step5ku"
 alias amazon="ssh -i ~/.ssh/id_rsa ec2-user@54.199.246.210"
 alias aws="ssh -i ~/.ssh/FirstKey.pem ec2-user@aws"
 
-alias rsdata='rsync -av kitamura@step0ku:/home/kitamura/data /home/kitamura/data/'
+alias rsdata='rsync -av kitamura@step0ku:/home/kitamura/data/ /home/kitamura/data/'
 alias rstep0='rsync -av kitamura@step0ku:/home/kitamura/plot/ /home/kitamura/plot/'
 alias rstep5='rsync -arvz kitamura@step5ku:/home/kitamura/kmz/ /home/kitamura/kmz'
 alias rspro='rsync -arvz kitamura@step0ku:/home/kitamura/VISI/ /home/kitamura/Dropbox/program/'
