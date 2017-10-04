@@ -57,6 +57,9 @@
 ;; Don't show log buffer
 (setq init-loader-show-log-after-init nil)
 
+;; color theme configuration
+(load-theme 'manoj-dark t)
+
 
 ;;;;; major mode setting ;;;;;
 ;; .h file is opened with C++ major mode
