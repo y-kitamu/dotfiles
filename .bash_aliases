@@ -56,3 +56,6 @@ w
 # du & df setting
 alias du='du -h'
 alias dh='dh -h'
+
+# enable pm-suspend without sudo
+alias sus='sudo pm-suspend'
