@@ -10,6 +10,7 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("MELPA Stable" . "https://stable.melpa.org/packages/"))
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -17,6 +18,11 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+
+;;;;; use-package library configuration
+;; if use-package dosen't find, nothing is done.
+(unless (require 'use-package nil t)
+  (defmacro use-package (&rest args)))
 
 ;;;;; Launch setting ;;;;;
 ;; answer the emacs's question by y/n
@@ -50,6 +56,9 @@
 
 ;; Don't show log buffer
 (setq init-loader-show-log-after-init nil)
+
+;; color theme configuration
+(load-theme 'manoj-dark t)
 
 
 ;;;;; major mode setting ;;;;;
@@ -308,7 +317,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (auto-complete))))
+ '(package-selected-packages (quote (magit flycheck auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -332,6 +341,12 @@
 (electric-pair-mode 1)
 
 
+;;;;; Enable flycheck
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
+
 ;;;;;  setting of auto-complete
 (ac-config-default)
 ;; select candidate with C-n/C-p
@@ -342,5 +357,5 @@
 (setq ac-comphist-file "~/.emacs.d/cache/auto-complete/ac-comphist.dat")
 
 
-
-
+;;;;;  magit keybind configuration
+(global-set-key (kbd "C-x g") 'magit-status)
