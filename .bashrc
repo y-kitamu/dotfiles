@@ -120,5 +120,5 @@ fi
 # enable custom keymapping.
 if [ -s $HOME/.Xmodmap ]
 then
-    xmodmap $HOME/.Xmodmap
+    xmodmap $HOME/.Xmodmap 2>/dev/null
 fi
