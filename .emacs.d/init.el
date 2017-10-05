@@ -60,6 +60,11 @@
 ;; color theme configuration
 (load-theme 'manoj-dark t)
 
+;; window size
+(setq initial-frame-alist
+      (append (list
+               '(width . 80)
+               '(height . 59))))
 
 ;;;;; major mode setting ;;;;;
 ;; .h file is opened with C++ major mode
@@ -341,10 +346,12 @@
 (electric-pair-mode 1)
 
 
-;;;;; Enable flycheck
+;;;;; Enable flycheck and set keybind
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
+(global-set-key (kbd "C-c C-f") 'flycheck-next-error)
+(global-set-key (kbd "C-c C-p") 'flycheck-previous-error)
 
 
 ;;;;;  setting of auto-complete
@@ -359,3 +366,9 @@
 
 ;;;;;  magit keybind configuration
 (global-set-key (kbd "C-x g") 'magit-status)
+
+
+;;;;; cpplint 
+
+
+
