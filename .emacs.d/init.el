@@ -27,6 +27,14 @@
 ;;;;; Launch setting ;;;;;
 ;; answer the emacs's question by y/n
 ;;(fset 'yes-or-no-p 'y-or-n-p)
+;; color theme configuration
+(load-theme 'manoj-dark t)
+
+;; window size
+(setq initial-frame-alist
+      (append (list
+               '(width . 80)
+               '(height . 59))))
 
 ;; hide start-up message
 (setq inhibit-startup-screen t)
@@ -46,7 +54,7 @@
             (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; add arguments' directory & subdirectory to the load-path
-(add-to-load-path "elisp" "conf" "public_repos" "elpa")
+(add-to-load-path "elisp" "elpa")
 
 ;; if you want to load elisp file init-name.el, do below, or use init-loader.el
 ;;(load "init-name")
@@ -57,14 +65,7 @@
 ;; Don't show log buffer
 (setq init-loader-show-log-after-init nil)
 
-;; color theme configuration
-(load-theme 'manoj-dark t)
 
-;; window size
-(setq initial-frame-alist
-      (append (list
-               '(width . 80)
-               '(height . 59))))
 
 ;;;;; major mode setting ;;;;;
 ;; .h file is opened with C++ major mode
