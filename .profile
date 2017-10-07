@@ -14,6 +14,9 @@ if [ -n "$BASH_VERSION" ]; then
     if [ -f "$HOME/.bashrc" ]; then
 	. "$HOME/.bashrc"
     fi
+else
+    if [ -f "$HOME/.Xmodmap" ]; then
+        xmodmap "$HOME/.Xmodmap"
+    fi
 fi
-
 

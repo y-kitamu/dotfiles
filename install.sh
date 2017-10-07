@@ -7,6 +7,10 @@
 for f in .??*
 do
     [[ "$f" == ".git" ]] && continue
+    hf="$HOME"/"$f"
+    if [ -e "$hf" ]; then
+        rm -rf "$hf"
+    fi
     ln -snfv ~/dotfiles/"$f" ~/
 done
 
