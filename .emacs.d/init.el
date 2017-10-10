@@ -323,7 +323,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (magit flycheck auto-complete))))
+ '(package-selected-packages
+   (quote
+    (flymake-google-cpplint helm magit flycheck auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -369,7 +371,22 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 
 
-;;;;; cpplint 
+;;;;; cpplint
+;; hook config
+(require 'flymake-google-cpplint)
+(add-hook 'c-mode-hook 'flymake-google-cpplint-load)
+(add-hook 'c++-mode-hook 'flymake-google-cpplint-load)
+
+;; cpplint config
+(custom-set-variables
+ '(flymake-googlecpp-lint-linelength "80")
+ )
+
+
+;;;;; helm
+(require 'helm-config)
+(helm-mode 1)
+
 
 
 
