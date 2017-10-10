@@ -125,6 +125,7 @@ fi
 
 # git pull remote ~/dotfiles
 cd $HOME/dotfiles
-git pull origin/master
+git pull origin master
+cd $HOME
 
 
