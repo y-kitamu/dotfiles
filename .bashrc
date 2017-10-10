@@ -118,7 +118,7 @@ fi
 
 
 # enable custom keymapping.
-if [ -s $HOME/.Xmodmap ]
+if [ -e $HOME/.Xmodmap ]
 then
     xmodmap $HOME/.Xmodmap 2>/dev/null
 fi
