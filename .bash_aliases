@@ -56,3 +56,7 @@ w
 # du & df setting
 alias du='du -h'
 alias dh='dh -h'
+
+# AWS server setting
+alias mysql='mysql -u root -p'
+alias ch='cd /var/www/html/'
