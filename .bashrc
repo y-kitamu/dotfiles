@@ -122,3 +122,9 @@ if [ -e $HOME/.Xmodmap ]
 then
     xmodmap $HOME/.Xmodmap 2>/dev/null
 fi
+
+# git pull remote ~/dotfiles
+cd $HOME/dotfiles
+git pull origin/master
+
+
