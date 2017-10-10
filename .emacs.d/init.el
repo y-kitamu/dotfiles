@@ -10,6 +10,7 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("MELPA Stable" . "https://stable.melpa.org/packages/"))
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -18,9 +19,22 @@
 (package-initialize)
 
 
+;;;;; use-package library configuration
+;; if use-package dosen't find, nothing is done.
+(unless (require 'use-package nil t)
+  (defmacro use-package (&rest args)))
+
 ;;;;; Launch setting ;;;;;
 ;; answer the emacs's question by y/n
 ;;(fset 'yes-or-no-p 'y-or-n-p)
+;; color theme configuration
+(load-theme 'manoj-dark t)
+
+;; window size
+(setq initial-frame-alist
+      (append (list
+               '(width . 80)
+               '(height . 59))))
 
 ;; hide start-up message
 (setq inhibit-startup-screen t)
@@ -40,7 +54,7 @@
             (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; add arguments' directory & subdirectory to the load-path
-(add-to-load-path "elisp" "conf" "public_repos" "elpa")
+(add-to-load-path "elisp" "elpa")
 
 ;; if you want to load elisp file init-name.el, do below, or use init-loader.el
 ;;(load "init-name")
@@ -50,6 +64,7 @@
 
 ;; Don't show log buffer
 (setq init-loader-show-log-after-init nil)
+
 
 
 ;;;;; major mode setting ;;;;;
@@ -308,7 +323,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (auto-complete))))
+ '(package-selected-packages
+   (quote
+    (flymake-google-cpplint helm magit flycheck auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -332,6 +349,14 @@
 (electric-pair-mode 1)
 
 
+;;;;; Enable flycheck and set keybind
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+(global-set-key (kbd "C-c C-f") 'flycheck-next-error)
+(global-set-key (kbd "C-c C-p") 'flycheck-previous-error)
+
+
 ;;;;;  setting of auto-complete
 (ac-config-default)
 ;; select candidate with C-n/C-p
@@ -340,6 +365,27 @@
 (define-key ac-menu-map "\C-p" 'ac-previous)
 ;; setting of auto-complete dictionary(cache) file save directory
 (setq ac-comphist-file "~/.emacs.d/cache/auto-complete/ac-comphist.dat")
+
+
+;;;;;  magit keybind configuration
+(global-set-key (kbd "C-x g") 'magit-status)
+
+
+;;;;; cpplint
+;; hook config
+(require 'flymake-google-cpplint)
+(add-hook 'c-mode-hook 'flymake-google-cpplint-load)
+(add-hook 'c++-mode-hook 'flymake-google-cpplint-load)
+
+;; cpplint config
+(custom-set-variables
+ '(flymake-googlecpp-lint-linelength "80")
+ )
+
+
+;;;;; helm
+(require 'helm-config)
+(helm-mode 1)
 
 
 
