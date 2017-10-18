@@ -105,6 +105,24 @@
 
 ;;;;;; Frame Appearance Setting ;;;;;
 
+;; set window to 80 columns
+(defun set-window-width (n)
+  "Set the selected window's width."
+  (adjust-window-trailing-edge (selected-window) (- n (window-width)) t))
+
+(defun set-80-columns ()
+  "Set the selected window to 80 columns."
+  (interactive)
+  (set-window-width 80))
+
+(defun set-2-windows ()
+  (interactive)
+  (set-frame-width (selected-frame) 162)
+  (split-window-horizontally))
+
+(global-set-key "\C-x~" 'set-80-columns)
+(global-set-key "\C-x3" 'set-2-windows)
+
 ;; display column number
 ;;(column-number-mode t)
 
@@ -298,25 +316,26 @@
 
 ;;;;; setting of memo & todo list - howm 
 ;; howm memo save directory
-(setq howm-directory (concat user-emacs-directory "howm"))
+;;(setq howm-directory (concat user-emacs-directory "howm"))
 ;; set language of howm-menu Japanese
-(setq howm-menu-lang 'ja)
+;;(setq howm-menu-lang 'ja)
 ;; make howm memo 1 file per day
 ;(setq howm-file-name-format "%Y/%m/%Y-%m-%d.howm")
 ;; read howm-mode
-(when (require 'howm-mode nil t)
-  ;; start up howm menu by C-c,,
-  (define-key global-map (kbd "C-c m") 'howm-menu))
-;; close howm memo at the same time of saving
-(defun howm-save-buffer-and-kill ()
-  "close howm memo at the same time of saving."
-  (interactive)
-  (when (and (buffer-file-name)
-             (string-match "\\.howm" (buffer-file-name)))
-    (save-buffer)
-    (kill-buffer nil)))
-;; close buffer simultaneously by C-c C-c when memo is saved
-(define-key howm-mode-map (kbd "C-c C-c") 'howm-save-buffer-and-kill)
+;(when (require 'howm-mode nil t)
+;  ;; start up howm menu by C-c,,
+;  (define-key global-map (kbd "C-c m") 'howm-menu))
+;;; close howm memo at the same time of saving
+;(defun howm-save-buffer-and-kill ()
+;  "close howm memo at the same time of saving."
+;  (interactive)
+;  (when (and (buffer-file-name)
+;             (string-match "\\.howm" (buffer-file-name)))
+;    (save-buffer)
+;    (kill-buffer nil)))
+;;; close buffer simultaneously by C-c C-c when memo is saved
+;(define-key howm-mode-map (kbd "C-c C-c") 'howm-save-buffer-and-kill)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
