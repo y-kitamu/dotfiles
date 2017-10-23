@@ -113,7 +113,7 @@
 (defun set-80-columns ()
   "Set the selected window to 80 columns."
   (interactive)
-  (set-window-width 80))
+  (set-frame-width (selected-frame) 80))
 
 (defun set-2-windows ()
   (interactive)
@@ -122,6 +122,14 @@
 
 (global-set-key "\C-x~" 'set-80-columns)
 (global-set-key "\C-x3" 'set-2-windows)
+
+
+;; window
+(defun set-alpha (alpha-num)
+  "set frame parameter 'alpha"
+  (interactive "nAlpha: ")
+  (set-frame-parameter nil 'alpha (cons alpha-num '(90))))
+
 
 ;; display column number
 ;;(column-number-mode t)
