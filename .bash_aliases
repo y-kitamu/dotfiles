@@ -31,7 +31,7 @@ fi
 # python & anaconda aliases
 alias activate='source /home/kitamura/.pyenv/versions/anaconda3-4.1.0/bin/activate'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias jupyter='cd ~/Dropbox/jupyter;jupyter notebook'
+alias jupyter='cd ~/Dropbox/program;jupyter notebook'
 
 
 # sever alias
