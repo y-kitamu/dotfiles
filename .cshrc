@@ -19,6 +19,10 @@ setenv PATH "$PYENV_ROOT"/versions/anaconda3-4.1.0/envs/py2/bin/:"$PATH"
 setenv PATH "$PYENV_ROOT"/versions/anaconda3-4.1.0/bin/:"$PATH"
 setenv CONDA_ENVS_PATH "$PYENV_ROOT"/versions/anaconda3-4.1.0/envs
 
+# use python VISI programs
+setenv VISIROOT "$HOME"/program
+setenv PYTHONPATH "$VISIROOT"/Empirical_Model:"$VISIROOT"/VISI_Modules:"$VISIROOT"/LT_Lat:"$VISIROOT"/Lon_Lat:"$VISIROOT"/Geophysical_Index:"$VISIROOT"/Sami2:"$VISIROOT"/cythonlib
+
 # To use packages installed on local directory.
 setenv PATH "$HOME"/local/usr/bin:"$HOME"/local/bin:"$PATH"
 #setenv CPATH "$HOME"/local/usr/include:"$HOME"/local/include:"$HOME"/.pyenv/versions/anaconda3-4.1.0/include/python3.5m
@@ -29,7 +33,7 @@ setenv PATH "$HOME"/local/usr/bin:"$HOME"/local/bin:"$PATH"
 
 # ls aliases
 if ( -x /usr/bin/dircolors ) then
-	alias ls 'ls --color=auto'
+    alias ls 'ls --color=auto'
 endif
 alias ll 'ls -alF'
 alias la 'ls -A'
@@ -58,7 +62,6 @@ alias sendpro 'rsync -arvz /home/kitamura/Dropbox/program/ kitamura@step0ku:/hom
 #alias rs="rsync -arvz kitamura@step0ku:/home/kitamura/plot/ /home/kitamura/plot/"
 # copy files from ssh
 #rsync -aruv kitamura@step0ku:/home/kitamura/kmz /home/kitamura/
-
 
 source ${HOME}/cron/git_cron.sh > /dev/null
 cd 
