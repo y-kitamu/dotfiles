@@ -63,5 +63,5 @@ alias sendpro 'rsync -arvz /home/kitamura/Dropbox/program/ kitamura@step0ku:/hom
 # copy files from ssh
 #rsync -aruv kitamura@step0ku:/home/kitamura/kmz /home/kitamura/
 
-source ${HOME}/cron/git_cron.sh > /dev/null
+#source ${HOME}/cron/git_cron.sh > /dev/null
 cd 
