@@ -384,6 +384,12 @@
 (global-set-key (kbd "C-c C-p") 'flycheck-previous-error)
 
 
+;;;;; google-c-style package
+(require 'google-c-style)
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+(add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
+
 ;;;;;  setting of auto-complete
 (ac-config-default)
 ;; select candidate with C-n/C-p
@@ -409,11 +415,12 @@
  '(flymake-googlecpp-lint-linelength "80")
  )
 
+;; path to cpplint.py
+(custom-set-variables
+ '(flymake-google-cpplint-command "~/.emacs.d/elpa/flymake-google-cpplint-20140205.525/cpplint.py"))
+
 
 ;;;;; helm
 (require 'helm-config)
 (helm-mode 1)
-
-
-
 
