@@ -350,9 +350,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(flymake-googlecpp-lint-linelength "80")
  '(package-selected-packages
    (quote
-    (flymake-google-cpplint helm magit flycheck auto-complete))))
+    (google-translate flymake-google-cpplint helm magit flycheck auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -405,15 +406,28 @@
 (add-hook 'c++-mode-hook 'flymake-google-cpplint-load)
 
 ;; cpplint config
-(custom-set-variables
- '(flymake-googlecpp-lint-linelength "80")
- )
+
 
 
 ;;;;; helm
 (require 'helm-config)
 (helm-mode 1)
 
+;;;;; popwin configuration (to use google-translate)
+(require 'popwin)
+(setq display-buffer-function 'popwin:display-buffer)
+(setq popwin:popup-window-position 'bottom)
 
+;;;;; google translate
+(require 'google-translate)
+(global-set-key "\C-ct" 'google-translate-at-point)
+(global-set-key "\C-cT" 'google-translate-query-translate)
 
+;; set default source language as Japanese, and target language as English.
+(custom-set-variables
+ '(google-translate-default-source-language "ja")
+ '(google-translate-default-target-language "en"))
+
+;; display pop-up translate buffer.
+(push '("*Google Translate*") popwin:special-display-config)
 
