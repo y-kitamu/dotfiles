@@ -350,10 +350,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(flymake-google-cpplint-command
+   "~/.emacs.d/elpa/flymake-google-cpplint-20140205.525/cpplint.py")
  '(flymake-googlecpp-lint-linelength "80")
+ '(google-translate-default-source-language "ja")
+ '(google-translate-default-target-language "en")
  '(package-selected-packages
    (quote
-    (google-translate flymake-google-cpplint helm magit flycheck auto-complete))))
+    (slack google-translate flymake-google-cpplint helm magit flycheck auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -415,8 +419,7 @@
 
 
 ;; path to cpplint.py
-(custom-set-variables
- '(flymake-google-cpplint-command "~/.emacs.d/elpa/flymake-google-cpplint-20140205.525/cpplint.py"))
+
 
 
 ;;;;; helm
@@ -434,9 +437,7 @@
 (global-set-key "\C-cT" 'google-translate-query-translate)
 
 ;; set default source language as Japanese, and target language as English.
-(custom-set-variables
- '(google-translate-default-source-language "ja")
- '(google-translate-default-target-language "en"))
+
 
 ;; display pop-up translate buffer.
 (push '("*Google Translate*") popwin:special-display-config)
