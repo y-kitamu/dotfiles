@@ -8,7 +8,7 @@
 ;;;;; ELPA settings ;;;;;
 ;; add reference list  of ELPA package
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("MELPA Stable" . "https://stable.melpa.org/packages/"))
 
@@ -357,7 +357,7 @@
  '(google-translate-default-target-language "en")
  '(package-selected-packages
    (quote
-    (slack google-translate flymake-google-cpplint helm magit flycheck auto-complete))))
+    (cmake-mode slack google-translate flymake-google-cpplint helm magit flycheck auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -388,6 +388,15 @@
 (global-set-key (kbd "C-c C-f") 'flycheck-next-error)
 (global-set-key (kbd "C-c C-p") 'flycheck-previous-error)
 
+
+;;;;; flycheck-google-cpplint
+(eval-after-load 'flycheck
+  '(progn
+     (require 'flycheck-google-cpplint)
+     ;; Add Google C++ Style checker.
+     ;; In default, syntax checked by Clang and Cppcheck.
+     (flycheck-add-next-checker 'c/c++-cppcheck
+                                '(warning . c/c++-googlelint))))
 
 ;;;;; google-c-style package
 (require 'google-c-style)
