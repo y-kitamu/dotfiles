@@ -11,6 +11,11 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 export PATH="$PYENV_ROOT/versions/anaconda3-4.1.0/bin/:$PATH"
+export PATH="$PYENV_ROOT/versions/anaconda3-5.0.1/bin/:$PATH"
+
+# use python VISI programs
+export VISIROOT="$HOME"/Dropbox/program
+export PYTHONPATH="$VISIROOT/Empirical_Model:$VISIROOT/VISI_Modules:$VISIROOT/LT_Lat:$VISIROOT/Lon_Lat:$VISIROOT/Geophysical_Index:$VISIROOT/Sami2:$VISIROOT/cythonlib"      
 
 # setting for installing package in local environment
 # set PATH so it includes user's private directory if it exists
