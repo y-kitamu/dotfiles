@@ -29,6 +29,8 @@ if [ -d "$HOME/local" ] ; then
     fi  
 fi
 
+# for gsettings error
+export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules
 
 
 ### aliases ###
