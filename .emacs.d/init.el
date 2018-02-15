@@ -443,3 +443,4 @@
 (push '("*Google Translate*") popwin:special-display-config)
 
 
+(put 'downcase-region 'disabled nil)
