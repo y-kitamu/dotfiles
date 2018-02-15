@@ -1,0 +1,7 @@
+partial modifier_keys
+xkb_symbolx "my_conf" {
+    replace key <XFER> { [Escape] };
+    replace key <NFER> { [Escape] };
+    replace key <CAPS> { [Control_L] };
+};
+
