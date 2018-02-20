@@ -1,0 +1,4 @@
+partial modifier_keys
+xkb_symbolx "muhenkan2ctrl" {
+    replace key <XFER> { [Escape] };
+};
