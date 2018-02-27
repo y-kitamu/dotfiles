@@ -1,4 +1,0 @@
-partial modifier_keys
-xkb_symbolx "henkan2ctrl" {
-    replace key <NFER> { [Escape] };
-};
