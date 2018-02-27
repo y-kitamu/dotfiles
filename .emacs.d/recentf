@@ -4,6 +4,28 @@
       '(
         "/home/kitamura/Dropbox/cpp/opencv/chapter5/practice2.cpp"
         "/home/kitamura/Dropbox/cpp/opencv/chapter5/practice4.cpp"
+        "/home/kitamura/dotfiles/.xkb/symbols/myswap"
+        "/home/kitamura/dotfiles/.xkb/keymap/myxkb"
+        "/usr/share/X11/xkb/symbols/henkan2ctrl"
+        "/usr/share/X11/xkb/symbols/ctrl"
+        "/usr/share/X11/xkb/symbols/fer"
+        "/usr/share/X11/xkb/symbols/muhenkan2ctrl"
+        "/home/kitamura/program/Lon_Lat/lon_lat/lon_lat_peak_line_plot.py"
+        "/home/kitamura/program/VISI_Modules/VISI_modules/VISI_module.py"
+        "/home/step/kitamura/program/Empirical_Model/model/model_lt_lat_plot.py"
+        "/home/step/kitamura/program/Empirical_Model/model/make_model_lt_lat_plot.py"
+        "/home/step/kitamura/program/Empirical_Model/model/lt_lat_model_plot.py"
+        "/home/step/kitamura/program/Empirical_Model/model/makedata.py"
+        "/home/step/kitamura/program/Empirical_Model/model/make_model_data.py"
+        "/home/kitamura/program/Lon_Lat/lon_lat/lon_lat_plot.py"
+        "/home/step/kitamura/program/Sami2/sami2/pysami2.py"
+        "/home/step/kitamura/program/Lon_Lat/lon_lat/lon_lat_plot.py"
+        "/home/step/kitamura/program/LT_Lat/lt_lat/lt_lat_plot.py"
+        "/home/step/kitamura/program/hikitsugi/VISI_module.py"
+        "/home/step/kitamura/program/Sami2/sami2/jsami2to3.py"
+        "/home/step/kitamura/program/hikitsugi/VISI_path_plot_all.py"
+        "/home/step/kitamura/program/hikitsugi/visi_vs_model.py"
+        "/home/kitamura/dotfiles/.emacs.d/init.el"
         ))
 
 (setq recentf-filter-changer-current 'nil)
