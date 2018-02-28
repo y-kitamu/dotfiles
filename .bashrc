@@ -122,4 +122,6 @@ fi
 #git pull origin master
 #cd $HOME
 
+# enable .xkb keymap
+xkbcomp -I$HOME/.xkb ~/.xkb/keymap/myxkb $DISPLAY
 
