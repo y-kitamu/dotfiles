@@ -25,8 +25,8 @@ setenv PYTHONPATH "$VISIROOT"/Empirical_Model:"$VISIROOT"/VISI_Modules:"$VISIROO
 
 # To use packages installed on local directory.
 setenv PATH "$HOME"/local/usr/bin:"$HOME"/local/bin:"$PATH"
-#setenv CPATH "$HOME"/local/usr/include:"$HOME"/local/include:"$HOME"/.pyenv/versions/anaconda3-4.1.0/include/python3.5m
-#setenv LD_LIBRARY_PATH "$HOME"/local/usr/lib64:"$HOME"/local/lib:/usr/lib64
+setenv CPATH "$HOME"/local/usr/include:"$HOME"/local/include:"$HOME"/.pyenv/versions/anaconda3-4.1.0/include/python3.5m
+setenv LD_LIBRARY_PATH "$HOME"/local/usr/lib64:"$HOME"/local/lib:/usr/lib64:"$HOME"/local/lib64:"$PYENV_ROOT"/versions/anaconda3-4.1.0/lib/
 
 
 ### aliases ###
