@@ -161,8 +161,8 @@
               (- (region-end) (region-beginning)))
     ""))
 
-(add-to-list 'default-mode-line-format
-             '(:eval (count-lines-and-chars)))
+;(add-to-list 'default-mode-line-format
+;             '(:eval (count-lines-and-chars)))
 
 ;; TAB width. default is 8
 (setq-default tab-width 4)
@@ -250,8 +250,8 @@
 ;; paren's style: emphasis expression even if in parentheses
 (setq show-paren-style 'expression)
 ;; change face
-(set-face-background 'show-paren-match-face nil)
-(set-face-underline-p 'show-paren-match-face "yellow")
+;(set-face-background 'show-paren-match-face nil)
+;(set-face-underline-p 'show-paren-match-face "yellow")
 
 
 
