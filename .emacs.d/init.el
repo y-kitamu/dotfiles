@@ -68,7 +68,8 @@
 
 
 ;;;;; major mode setting ;;;;;
-;; .h file is opened with C++ major mode
+;; .cu .h file is opened with C++ major mode
+(add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 
@@ -168,6 +169,11 @@
 (setq-default tab-width 4)
 ;; not use tab character when indent
 (setq-default indent-tabs-mode nil)
+
+(defun my-c-c++-mode-init()
+  (setq c-basic-offset 4)
+  )
+(add-hook 'c++-mode-hook 'my-c-c++-mode-init)
 
 ;; Indent of C、C++、JAVA、PHP, etc.
 ;;(add-hook 'c-mode-common-hook
@@ -357,7 +363,7 @@
  '(google-translate-default-target-language "en")
  '(package-selected-packages
    (quote
-    (cmake-mode slack google-translate flymake-google-cpplint helm magit flycheck auto-complete))))
+    (kotlin-mode cmake-mode slack google-translate flymake-google-cpplint helm magit flycheck auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
