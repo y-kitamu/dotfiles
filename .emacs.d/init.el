@@ -68,9 +68,13 @@
 
 
 ;;;;; major mode setting ;;;;;
-;; .cu .h file is opened with C++ major mode
+;; .cu and .h file is opened with C++ major mode
 (add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
+(add-hook 'c++-mode-hook
+          '(lambda()
+             (c-set-style "cc-mode")))
 
 
 ;;;;; window appearance setting ;;;;;
@@ -363,7 +367,7 @@
  '(google-translate-default-target-language "en")
  '(package-selected-packages
    (quote
-    (kotlin-mode cmake-mode slack google-translate flymake-google-cpplint helm magit flycheck auto-complete))))
+    (cmake-ide flycheck-irony irony-eldoc company-irony irony cmake-mode slack google-translate flymake-google-cpplint helm magit flycheck auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -411,13 +415,13 @@
 
 
 ;;;;;  setting of auto-complete
-(ac-config-default)
-;; select candidate with C-n/C-p
-(setq ac-use-menu-map t)
-(define-key ac-menu-map "\C-n" 'ac-next)
-(define-key ac-menu-map "\C-p" 'ac-previous)
-;; setting of auto-complete dictionary(cache) file save directory
-(setq ac-comphist-file "~/.emacs.d/cache/auto-complete/ac-comphist.dat")
+;(ac-config-default)
+;;; select candidate with C-n/C-p
+;(setq ac-use-menu-map t)
+;(define-key ac-menu-map "\C-n" 'ac-next)
+;(define-key ac-menu-map "\C-p" 'ac-previous)
+;;; setting of auto-complete dictionary(cache) file save directory
+;(setq ac-comphist-file "~/.emacs.d/cache/auto-complete/ac-comphist.dat")
 
 
 ;;;;;  magit keybind configuration
@@ -446,21 +450,102 @@
 (define-key global-map (kbd "M-y")     'helm-show-kill-ring)
 
 
-;;;;; popwin configuration (to use google-translate)
-(require 'popwin)
-(setq display-buffer-function 'popwin:display-buffer)
-(setq popwin:popup-window-position 'bottom)
-
-;;;;; google translate
-(require 'google-translate)
-(global-set-key "\C-ct" 'google-translate-at-point)
-(global-set-key "\C-cT" 'google-translate-query-translate)
+;;;;;;; popwin configuration (to use google-translate)
+;;(require 'popwin)
+;;(setq display-buffer-function 'popwin:display-buffer)
+;;(setq popwin:popup-window-position 'bottom)
+;; 
+;;;;;;; google translate
+;;(require 'google-translate)
+;;(global-set-key "\C-ct" 'google-translate-at-point)
+;;(global-set-key "\C-cT" 'google-translate-query-translate)
 
 ;; set default source language as Japanese, and target language as English.
 
 
 ;; display pop-up translate buffer.
-(push '("*Google Translate*") popwin:special-display-config)
+;;(push '("*Google Translate*") popwin:special-display-config)
 
 
 (put 'downcase-region 'disabled nil)
+
+
+;;;; C++ environment configuration : https://qiita.com/MitsutakaTakeda/items/2f526a85ad39424a8363
+(use-package flycheck
+  :config
+  (progn
+    (add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
+    )
+  )
+
+(use-package cmake-ide
+  :bind
+  (("<f9>" . cmake-ide-compile))
+  :config
+  (progn
+    (setq 
+     ; rdm & rcコマンドへのパス。コマンドはRTagsのインストール・ディレクトリ下。
+     cmake-ide-rdm-executable "/home/kitamura/Downloads/build_rtag/bin/rdm"
+     cmake-ide-rc-executable  "/home/kitamura/Downloads/build_rtag/bin/rc"
+     )
+    )
+  )
+
+(use-package rtags
+  :config
+  (progn
+    (rtags-enable-standard-keybindings c-mode-base-map)
+    ; 関数cmake-ide-setupを呼ぶのはrtagsをrequireしてから。
+    (cmake-ide-setup)
+    )
+  )
+
+;(defun my-irony-mode-hook ()
+;  (define-key irony-mode-map
+;    [remap completion-at-point]
+;    'irony-completion-at-point-async)
+;  (define-key irony-mode-map
+;    [remap complete-symbol]
+;    'irony-completion-at-point-async)
+;  )
+; 
+;(use-package irony
+;  :config
+;  (progn
+;    ; ironyのビルド&インストール時にCMAKE_INSTALL_PREFIXで指定したディレクトリへのパス。
+;    (setq irony-server-install-prefix "/home/kitamura/.emacs.d/irony")
+;    (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+;    (add-hook 'irony-mode-hook 'my-irony-mode-hook)
+;    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+;    (add-hook 'irony-mode-hook 'irony-eldoc)
+;    (add-to-list 'company-backends 'company-irony)
+;    )
+;  )
+
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+
+;;;;
+;(setq irony-lang-compile-option-alist
+;      (quote ((c++-mode . "c++ -std=c++11 -lstdc++")
+;              (c-mode . "c")
+;              (objc-mode . "objective-c"))))
+;;; アドバイスによって関数を再定義。
+;;; split-string によって文字列をスペース区切りでリストに変換
+;;; (24.4以降 新アドバイス使用)
+;(defun ad-irony--lang-compile-option ()
+;  (defvar irony-lang-compile-option-alist)
+;  (let ((it (cdr-safe (assq major-mode irony-lang-compile-option-alist))))
+;    (when it (append '("-x") (split-string it "\s")))))
+;(advice-add 'irony--lang-compile-option :override #'ad-irony--lang-compile-option)
+;;; (24.3以前 旧アドバイス使用)
+;(defadvice irony--lang-compile-option (around ad-irony--lang-compile-option activate)
+;  (defvar irony-lang-compile-option-alist)
+;  (let ((it (cdr-safe (assq major-mode irony-lang-compile-option-alist))))
+;    (when it (append '("-x") (split-string it "\s")))))
+
+
+(add-hook 'c-mode-common-hook 'flycheck-mode)
+(add-hook 'c++-mode-hook      'irony-mode)
+(add-hook 'after-init-hook 'global-company-mode)
+
