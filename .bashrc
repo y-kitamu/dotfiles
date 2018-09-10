@@ -125,6 +125,7 @@ fi
 # enable .xkb keymap
 xkbcomp -I$HOME/.xkb ~/.xkb/keymap/myxkb $DISPLAY
 
+
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
     export WORKON_HOME=$HOME/.pyenv
     source /usr/local/bin/virtualenvwrapper.sh
@@ -158,3 +159,8 @@ export LD_LIBRARY_PATH=/home/kitamura/work/config/engine/${LD_LIBRARY_PATH:+:${L
 
 # added by Anaconda3 installer
 export PATH="/home/kitamura/anaconda3/bin:$PATH"
+
+# use droidcam
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so
+
+

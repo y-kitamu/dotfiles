@@ -1,0 +1,18 @@
+defutf8 on
+utf8 on
+defencoding utf8
+encoding utf-8 utf-8
+excape ^z^z
+startup_message off
+hardstatus alwayslastline "%w"
+
+autodetach on
+
+escape ^z^z
+bind ^x
+bind x
+
+cjkwidth on
+term xterm-256color
+
+vbell off
