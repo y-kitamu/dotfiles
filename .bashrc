@@ -122,17 +122,16 @@ fi
 #git pull origin master
 #cd $HOME
 
-# enable .xkb keymap
-xkbcomp -I$HOME/.xkb ~/.xkb/keymap/myxkb $DISPLAY
-
 # use droidcam
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so
 
 # docker
 docker_test=`docker ps | grep engine-environment`
 if [ ! -n "${docker_test}" ]; then
-    cd ~/engine_environment
-    ./run_docker.sh engine 33333
-    cd ~
+    if [ -e ~/engine_environment ]; then
+        cd ~/engine_environment
+        ./run_docker.sh engine 33333
+        cd ~
+    fi
 fi
-alias engine="ssh localhost -p 33333"
+
