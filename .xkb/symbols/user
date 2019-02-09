@@ -1,0 +1,8 @@
+// 02/10/2018
+// user define key map
+partial hidden modifier_keys
+xkb_symbols "keymap" {
+	    key <HENK> { [ Escape ] };
+	    key <MUHE> { [ Alt_L ] };
+};
+

@@ -62,15 +62,31 @@
 ;; avoid "Symbolic link to SVN-controlled source file; follow link? (yes or no)"
 (setq vc-follow-symlinks t)
 
+;; システムのクリップボードとemacsのクリップボードを統合
+(setq select-enable-clipboard t) 
+
+;; ビープ音を消す
+(setq ring-bell-function 'ignore)
+
+
 ;; Don't show log buffer
 (setq init-loader-show-log-after-init nil)
 
+;; shellのPATHを読み込めるようにする
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
 
+(exec-path-from-shell-copy-env "PYTHONPATH")
 
 ;;;;; major mode setting ;;;;;
 ;; .cu and .h file is opened with C++ major mode
 (add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
+;; Docker file mode
+(require 'dockerfile-mode)
+(require 'docker-compose-mode)
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
 (add-hook 'c++-mode-hook
           '(lambda()
@@ -115,17 +131,17 @@
   "Set the selected window's width."
   (adjust-window-trailing-edge (selected-window) (- n (window-width)) t))
 
-(defun set-80-columns ()
+(defun set-120-columns ()
   "Set the selected window to 80 columns."
   (interactive)
-  (set-frame-width (selected-frame) 80))
+  (set-frame-width (selected-frame) 120))
 
 (defun set-2-windows ()
   (interactive)
-  (set-frame-width (selected-frame) 162)
+  (set-frame-width (selected-frame) 242)
   (split-window-horizontally))
 
-(global-set-key "\C-x~" 'set-80-columns)
+(global-set-key "\C-x~" 'set-120-columns)
 (global-set-key "\C-x3" 'set-2-windows)
 
 
@@ -166,7 +182,7 @@
               (- (region-end) (region-beginning)))
     ""))
 
-(add-to-list 'default-mode-line-format
+(add-to-list 'mode-line-format
              '(:eval (count-lines-and-chars)))
 
 ;; TAB width. default is 8
@@ -255,8 +271,9 @@
 ;; paren's style: emphasis expression even if in parentheses
 (setq show-paren-style 'expression)
 ;; change face
-(set-face-background 'show-paren-match-face nil)
-(set-face-underline-p 'show-paren-match-face "yellow")
+(set-face-attribute 'show-paren-match nil
+                    :background 'unspecified
+                    :underline "yellow")
 
 
 
@@ -362,7 +379,7 @@
  '(google-translate-default-target-language "en")
  '(package-selected-packages
    (quote
-    (cmake-ide flycheck-irony irony-eldoc company-irony irony cmake-mode slack google-translate flymake-google-cpplint helm magit flycheck auto-complete))))
+    (dockerfile-mode docker-compose-mode yaml-mode exec-path-from-shell jedi cmake-ide flycheck-irony irony-eldoc company-irony irony cmake-mode slack google-translate flymake-google-cpplint helm magit flycheck auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -521,26 +538,30 @@
   '(add-to-list 'company-backends 'company-irony))
 
 ;;;;
-;(setq irony-lang-compile-option-alist
-;      (quote ((c++-mode . "c++ -std=c++11 -lstdc++")
-;              (c-mode . "c")
-;              (objc-mode . "objective-c"))))
+(setq irony-lang-compile-option-alist
+      (quote ((c++-mode . "c++ -std=c++11 -lstdc++")
+              (c-mode . "c")
+              (objc-mode . "objective-c"))))
 ;;; アドバイスによって関数を再定義。
 ;;; split-string によって文字列をスペース区切りでリストに変換
 ;;; (24.4以降 新アドバイス使用)
-;(defun ad-irony--lang-compile-option ()
-;  (defvar irony-lang-compile-option-alist)
-;  (let ((it (cdr-safe (assq major-mode irony-lang-compile-option-alist))))
-;    (when it (append '("-x") (split-string it "\s")))))
-;(advice-add 'irony--lang-compile-option :override #'ad-irony--lang-compile-option)
-;;; (24.3以前 旧アドバイス使用)
-;(defadvice irony--lang-compile-option (around ad-irony--lang-compile-option activate)
-;  (defvar irony-lang-compile-option-alist)
-;  (let ((it (cdr-safe (assq major-mode irony-lang-compile-option-alist))))
-;    (when it (append '("-x") (split-string it "\s")))))
+(defun ad-irony--lang-compile-option ()
+  (defvar irony-lang-compile-option-alist)
+  (let ((it (cdr-safe (assq major-mode irony-lang-compile-option-alist))))
+    (when it (append '("-x") (split-string it "\s")))))
+(advice-add 'irony--lang-compile-option :override #'ad-irony--lang-compile-option)
+;; (24.3以前 旧アドバイス使用)
+(defadvice irony--lang-compile-option (around ad-irony--lang-compile-option activate)
+  (defvar irony-lang-compile-option-alist)
+  (let ((it (cdr-safe (assq major-mode irony-lang-compile-option-alist))))
+    (when it (append '("-x") (split-string it "\s")))))
 
 
 (add-hook 'c-mode-common-hook 'flycheck-mode)
 (add-hook 'c++-mode-hook      'irony-mode)
 (add-hook 'after-init-hook 'global-company-mode)
+
+;;; jedi (python omni completion)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
 

@@ -1,3 +1,7 @@
 # emacs cache file
 .emacs.d/cache/
 .emacs.d/recentf
+
+.cache/
+.bash_history
+backups
