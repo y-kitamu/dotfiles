@@ -251,7 +251,8 @@
 (setq cua-enable-cua-keys nil)
 
 
-;;; auto mode alist setting
+;;; mode setting
+;; web mode setting
 (when (require 'web-mode nil t)
   ; web-mode で起動する拡張子
   (add-to-list 'auto-mode-alist '("\\.html\\" . web-mode))
@@ -271,11 +272,21 @@
     (setq web-mode-script-padding 1))    ; <script>内の Indent
   (add-hook 'web-mode-hook 'web-mode-hook))
 
+;; docker mode setting
 (require 'dockerfile-mode nil t)
 (require 'docker-compose-mode nil t)
 (add-to-list 'auto-mode-alist '("Dockerfile\\" . dockerfile-mode))
 
+;; c++ (cuda) mode setting
 (add-to-list 'auto-mode-alist '("\\.cu\\" . c++-mode))
+
+;; markdown mode setting
+;; TODO : markdown-preview-mode not working
+;; (add-to-list 'markdown-preview-javascript
+;;              "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML") ; add MathJax
+;; (add-to-list 'markdown-preview-javascript
+;;              '("http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" . async))
+
 
 
 ;;; flycheck setting (Syntax check)
@@ -293,4 +304,5 @@
 
 ;;; quickrun (run scripts in Emacs)
 (define-key global-map (kbd "C-c q") 'quickrun)
+
 

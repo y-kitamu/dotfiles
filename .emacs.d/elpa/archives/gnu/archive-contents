@@ -396,7 +396,7 @@
 	 ((:keywords "convenience" "languages")
 	  (:url . "https://github.com/joaotavora/eglot"))])
  (el-search .
-	    [(1 9 5)
+	    [(1 9 6)
 	     ((emacs
 	       (25))
 	      (stream
@@ -455,7 +455,7 @@
 	       ((:keywords "calendar")
 		(:url . "http://elpa.gnu.org/packages/excorporate.html"))])
  (exwm .
-       [(0 21)
+       [(0 22)
 	((xelb
 	  (0 16)))
 	"Emacs X Window Manager" tar
@@ -483,7 +483,7 @@
 	   ((:url . "http://elpa.gnu.org/packages/flylisp.html")
 	    (:keywords))])
  (flymake .
-	  [(1 0 3)
+	  [(1 0 5)
 	   ((emacs
 	     (26 1)))
 	   "A universal on-the-fly syntax checker" single
