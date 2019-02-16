@@ -91,7 +91,7 @@
 ;; TODO : setting clang format 
 (add-hook 'c-mode-common-hook
           (lambda ()
-            (c-set-style "whitesmith")))
+            (c-set-style "stroustrup")))
 
 
 ;;; Highlight settings
@@ -252,18 +252,19 @@
 
 
 ;;; mode setting
+;; add-to-list auto-mode-alist を書くとファイルを開いたときのモードが全部 Fundamental になっていしまう
 ;; web mode setting
 (when (require 'web-mode nil t)
   ; web-mode で起動する拡張子
-  (add-to-list 'auto-mode-alist '("\\.html\\" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.css\\" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.js\\" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx\\" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.ctp\\" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsp\\" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.erb\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.html\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.css\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.js\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.jsx\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.ctp\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.jsp\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.as[cp]x\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.erb\\" . web-mode))
   (defun web-mode-hook ()
     (setq web-mode-mark-indent-offset 2) ; HTML の Indent
     (setq web-mode-css-indent-offset 2)  ; CSS の Indent
@@ -275,10 +276,10 @@
 ;; docker mode setting
 (require 'dockerfile-mode nil t)
 (require 'docker-compose-mode nil t)
-(add-to-list 'auto-mode-alist '("Dockerfile\\" . dockerfile-mode))
+;; (add-to-list 'auto-mode-alist '("Dockerfile\\" . dockerfile-mode))
 
 ;; c++ (cuda) mode setting
-(add-to-list 'auto-mode-alist '("\\.cu\\" . c++-mode))
+;; (add-to-list 'auto-mode-alist '("\\.cu\\" . c++-mode))
 
 ;; markdown mode setting
 ;; TODO : markdown-preview-mode not working
@@ -292,11 +293,16 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (with-eval-after-load 'flycheck (flycheck-pos-tip-mode)) ; flycheck-pos-tip-mode
 
+
 ;;; autopep8
 (require 'python)
 (require 'py-autopep8)
 (add-hook 'before-save-hook 'py-autopep8-before-saveg)
 
+
 ;;; quickrun (run scripts in Emacs)
 (define-key global-map (kbd "C-c q") 'quickrun)
 
+
+;;; magit
+(define-key global-map (kbd "C-x g") 'magit-status)
