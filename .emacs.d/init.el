@@ -224,7 +224,7 @@
 
 (require 'moccur-edit nil t)
 (defadvice moccur-edit-change-file
-    (after save-after-moccur-edit-buffer active)
+    (after save-after-moccur-edit-buffer activate)
   (save-buffer))
 
 ;; wgrep setting
@@ -288,7 +288,6 @@
 ;;              '("http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" . async))
 
 
-
 ;;; flycheck setting (Syntax check)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (with-eval-after-load 'flycheck (flycheck-pos-tip-mode)) ; flycheck-pos-tip-mode
@@ -296,13 +295,8 @@
 ;;; autopep8
 (require 'python)
 (require 'py-autopep8)
-(defun python-after-save-hook ()
-  (when (eq major-mode 'pyhton-mode)
-    (add-hook 'before-save-hook 'py-autopep8-before-save)))
-(add-hook 'after-save-hook python-after-save-hook)
-
+(add-hook 'before-save-hook 'py-autopep8-before-saveg)
 
 ;;; quickrun (run scripts in Emacs)
 (define-key global-map (kbd "C-c q") 'quickrun)
-
 
