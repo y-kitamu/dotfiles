@@ -306,3 +306,9 @@
 
 ;;; magit
 (define-key global-map (kbd "C-x g") 'magit-status)
+
+
+;;; multi-term
+(require 'multi-term)
+(add-to-list 'term-unbind-key-list "C-t")
+;; 色の設定
