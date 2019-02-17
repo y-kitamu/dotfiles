@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <19/02/16 18:35:25 /home/kitamura/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <19/02/18 00:01:19 /home/kitamura/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
@@ -41,4 +41,25 @@
   ("readlink" "\\readlink")
   ("git" "\\git")
   ("env-u-option" t)
-  ("uid-integer" 1000)))
+  ("uid-integer" 1000))
+ ((tramp-file-name "ssh" nil nil "aws" nil nil nil)
+  ("uname" "Linux 4.14.88-88.76.amzn2.x86_64")
+  ("locale" "LC_ALL=en_US.utf8")
+  ("test" "test")
+  ("remote-path"
+   ("/usr/bin" "/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
+  ("remote-shell" "/bin/sh")
+  ("stat" "env QUOTING_STYLE=locale \\stat")
+  ("file-exists" "test -e")
+  ("id" "/usr/bin/id")
+  ("gid-string" "ec2-user")
+  ("case-insensitive" nil)
+  ("gid-integer" 1000)
+  ("perl-file-spec" t)
+  ("perl-cwd-realpath" t)
+  ("perl" "\\perl")
+  ("readlink" "\\readlink")
+  ("git" "\\git")
+  ("env-u-option" t)
+  ("uid-integer" 1000)
+  ("~" "/home/ec2-user")))
