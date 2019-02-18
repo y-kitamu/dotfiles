@@ -1,49 +1,11 @@
-;;;;;;;;;;  Emacs Setting File  ;;;;;;;;;;
-;;; Emacs version 25.2.1 or higher is required.
+;;;;;;;;; Emacs Setting File ;;;;;;;;;
 
-;;
-(require 'cl)
-
-
-;;;;; ELPA settings ;;;;;
-;; add reference list  of ELPA package
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("MELPA Stable" . "https://stable.melpa.org/packages/"))
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
-
-
-;;;;; use-package library configuration
-;; if use-package dosen't find, nothing is done.
-(unless (require 'use-package nil t)
-  (defmacro use-package (&rest args)))
-
-;;;;; Launch setting ;;;;;
-;; answer the emacs's question by y/n
-;;(fset 'yes-or-no-p 'y-or-n-p)
-;; color theme configuration
-(load-theme 'manoj-dark t)
-
-;; window size
-(setq initial-frame-alist
-      (append (list
-               '(width . 120)
-               '(height . 59))))
-
-;; hide start-up message
-(setq inhibit-startup-screen t)
-
-;; if using emacs23 or before 
+;;; load-path の設定
+;; if using emacs23 or before
 (when (< emacs-major-version 23)
   (defvar user-emacs-directory "~/.emacs.d/"))
 
-;; define function of adding load-path
+;; subdirectory も自動で追加する関数
 (defun add-to-load-path (&rest paths)
   (let (path)
     (dolist (path paths paths)
@@ -54,498 +16,291 @@
             (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; add arguments' directory & subdirectory to the load-path
-(add-to-load-path "elisp" "elpa")
+(add-to-load-path "elisp" "elpa" "conf")
 
-;; if you want to load elisp file init-name.el, do below, or use init-loader.el
-;;(load "init-name")
+;;; ELPA
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa stable" . "https://melpa.org/packages/"))
+(package-initialize)
 
-;; avoid "Symbolic link to SVN-controlled source file; follow link? (yes or no)"
-(setq vc-follow-symlinks t)
-
-;; Don't show log buffer
-(setq init-loader-show-log-after-init nil)
-
-
-
-;;;;; major mode setting ;;;;;
-;; .cu and .h file is opened with C++ major mode
-(add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-
-(add-hook 'c++-mode-hook
-          '(lambda()
-             (c-set-style "cc-mode")))
+;;; ELPAなどで自動で追加される設定をcustom.elに書き込む
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(unless (file-exists-p custom-file)
+  (write-region "" nil custom-file))
+(load custom-file)
 
 
-;;;;; window appearance setting ;;;;;
+;;; global key map settings
+(define-key global-map (kbd "C-m") 'newline-and-indent)      ; 改行して indent する
+(define-key global-map (kbd "C-c l") 'toggle-truncate-lines) ; 行を折り返すかを切り換える
+(define-key global-map (kbd "C-t") 'other-window)            ; window の切替
 
-;; hide tool-bar and scroll-bar when emacs is on GUI (i.e. not on terminal)
-(when window-system
-  (tool-bar-mode 0)
-  (scroll-bar-mode 0))
-;; hide menu-bar
-(menu-bar-mode 0)
+;;; insert parenthesis/brackets by pair
+(electric-pair-mode 1)
 
+;;; Frame settings (見た目の設定)
+;; maximize window
+(set-frame-parameter nil 'fullscreen 'maximized)
 
-;;;;; key-bind seting ;;;;;
-
-;; insert newline and indent
-(global-set-key (kbd "C-m") 'newline-and-indent)
-;; 
-(define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
-;; change window
-(define-key global-map (kbd "C-t") 'other-window)
-
-
-;;;;; set $PATH (for Mac) ;;;;;
-(add-to-list 'exec-path "/opt/local/bin")
-(add-to-list 'exec-path "/usr/local/bin")
-(add-to-list 'exec-path "~/bin")
-
-
-;;;;;; set character code ;;;;;
-(set-language-environment "Japanese")
-(prefer-coding-system 'utf-8)
-
-
-;;;;;; Frame Appearance Setting ;;;;;
-
-;; set window to 80 columns
-(defun set-window-width (n)
-  "Set the selected window's width."
-  (adjust-window-trailing-edge (selected-window) (- n (window-width)) t))
-
-(defun set-120-columns ()
-  "Set the selected window to 80 columns."
-  (interactive)
-  (set-frame-width (selected-frame) 120))
-
-(defun set-2-windows ()
-  (interactive)
-  (set-frame-width (selected-frame) 242)
-  (split-window-horizontally))
-
-(global-set-key "\C-x~" 'set-120-columns)
-(global-set-key "\C-x3" 'set-2-windows)
-
-
-;; window
+;; set background alpha
+(if window-system
+    (progn (set-frame-parameter nil 'alpha 80)))
 (defun set-alpha (alpha-num)
   "set frame parameter 'alpha"
-  (interactive "nAlpha: ")
-  (set-frame-parameter nil 'alpha (cons alpha-num '(90))))
+  (interactive "nAlpha : ")
+  (set-frame-parameter nil'alpha (cons alpha-num '(90))))
 
+;; hide bars
+(tool-bar-mode 0)   ; tool bar を非表示
+(scroll-bar-mode 0) ; scroll bar を非表示
+(menu-bar-mode 0)   ; menu bar を非表示
 
-;; display column number
-;;(column-number-mode t)
+;; standard mode line setting
+(column-number-mode t)             ; column 番号も表示
+(size-indication-mode t)           ; file size を表示
+(setq display-time-day-and-date t) ; 曜日,月,日を表示
+(setq display-time-24hr-format t)  ; 24時間表示
+(display-time-mode t)
 
-;; display file size 
-(size-indication-mode t)
-
-;; display file path on title-bar
-(setq frame-title-format "%f")
-
-;; display line number on the left of the window
-;; (global-linum-mode t)
-
-;; display clock
-;;(setq display-time-day-and-date t) ; week, month, day
-;;(setq display-time-24hr-format t) ; 24h 
-;;(display-time-mode t)
-
-;; display battery charge
-;;(display-battery-mode t)
-
-;; display line count and word count of the region on mode-line
-;; (only when region is designated)
-;; http://d.hatena.ne.jp/sonota88/20110224/1298557375
+;; extensional mode line setting
+;; region選択時に行数と文字数を表示する
 (defun count-lines-and-chars ()
   (if mark-active
-      (format "%d lines,%d chars "
+      (format "(%d lines,%d chars) "
               (count-lines (region-beginning) (region-end))
               (- (region-end) (region-beginning)))
     ""))
-
-(add-to-list 'default-mode-line-format
+(add-to-list 'mode-line-format
              '(:eval (count-lines-and-chars)))
 
-;; TAB width. default is 8
-(setq-default tab-width 4)
-;; not use tab character when indent
-(setq-default indent-tabs-mode nil)
+;; title bar setting
+(setq frame-title-format "%@%f") ; title bar に表示する文字列
 
-(defun my-c-c++-mode-init()
-  (setq c-basic-offset 4)
-  )
-(add-hook 'c++-mode-hook 'my-c-c++-mode-init)
-
-;; Indent of C、C++、JAVA、PHP, etc.
-;;(add-hook 'c-mode-common-hook
-;;          '(lambda ()
-;;             (c-set-style "bsd")))
-
-;; set region's background color
-;(set-face-background 'region "darkgreen")
-
-;; Setting display theme
-;; http://download.savannah.gnu.org/releases/color-theme/color-theme-6.6.0.tar.gz
-(when (require 'color-theme nil t)
-  ;; setting for reading theme
-  (color-theme-initialize)
-  ;; change color-theme to 'hober'
-  (color-theme-hober))
-
-;; Font setting ( for Mac and Windows)
-(when (eq window-system 'ns) ; for Mac
-  ;; ascii font to Menlo font
-  (set-face-attribute 'default nil
-                      :family "Menlo"
-                      :height 120)
-  ;; set Japanese font as Hiragino Mincyo Pro
-  (set-fontset-font
-   nil 'japanese-jisx0208
-   ;; in the case of  English name
-   (font-spec :family "Hiragino Mincho Pro"))
-   ;;(font-spec :family "ヒラギノ明朝 Pro"))
-  ;; Hiragana and Katakana font as MotoyaCedar
-  ;; U+3000-303F	CJK's punctuations
-  ;; U+3040-309F	Hiragana
-  ;; U+30A0-30FF	Katakana
-  (set-fontset-font
-   nil '(#x3040 . #x30ff)
-   (font-spec :family "NfMotoyaCedar"))
-  ;; arrange font width
-  (setq face-font-rescale-alist
-        '((".*Menlo.*" . 1.0)
-          (".*Hiragino_Mincho_Pro.*" . 1.2)
-          (".*nfmotoyacedar-bold.*" . 1.2)
-          (".*nfmotoyacedar-medium.*" . 1.2)
-          ("-cdac$" . 1.3))))
-
-(when (eq system-type 'windows-nt) ; for Windows
-  ;; ascii font to Consolas
-  (set-face-attribute 'default nil
-                      :family "Consolas"
-                      :height 120)
-  ;; Japanese font
-  (set-fontset-font
-   nil
-   'japanese-jisx0208
-   (font-spec :family "メイリオ"))
-  ;; arrange font width
-  (setq face-font-rescale-alist
-        '((".*Consolas.*" . 1.0)
-          (".*メイリオ.*" . 1.15)
-          ("-cdac$" . 1.3))))
+;;; Theme
+(load-theme 'zenburn t)
 
 
+;;; Indent settings
+(setq-default tab-width 4)          ; default の tab の表示幅
+(setq-default indent-tabs-mode nil) ; indent に tab文字を使用しない
+;; defaultのIndent Style を設定. M-x describe-variable RET c-style-alist RET で詳細表示
+;; TODO : setting clang format 
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (c-set-style "stroustrup")))
 
-;;;;; Syntax highlight setting ;;;;;
-;;; highlight current line 
+
+;;; Highlight settings
+;; 現在行の Highlight
 (defface my-hl-line-face
-  ;; if background is dark, highlight color is NavyBlue
-  '((((class color) (background dark))
+  '((((class color) (background dark))  ; 背景がdarkの場合、背景色を紺にする
      (:background "NavyBlue" t))
-    ;; if background is light, highlight color is NavyBlue
-    (((class color) (background light))
-     (:background "LightGoldenrodYellow" t))
+    (((class color) (background light)) ; 背景がligthの場合、背景色を青にする
+     (:backgorund "LightSkyBlue" t))
     (t (:bold t)))
   "hl-line's my face")
 (setq hl-line-face 'my-hl-line-face)
 (global-hl-line-mode t)
 
-;; paren-mode：display corresponde parentheses with emphasis
-(setq show-paren-delay 0) ; time that elapses before display. default is 0.125
-(show-paren-mode t) ; activate
-;; paren's style: emphasis expression even if in parentheses
-(setq show-paren-style 'expression)
-;; change face
-(set-face-background 'show-paren-match-face nil)
-(set-face-underline-p 'show-paren-match-face "yellow")
+;; ;; 対応する括弧を強調表示
+(setq show-paren-delay 0)                    ; 表示するまでの秒数
+(show-paren-mode t)                          ; 有効化
+(setq show-paren-style 'expression)          ; expression は括弧内も強調表示
 
 
-
-;;;;; Back-up & auto save ;;;;;
-;; not making back-up file
-;; (setq make-backup-files nil) ; default value is 't'
-;; not making auto-save file 
-;; (setq auto-save-default nil) ; default value is 't'
-
-;; change directory of back-up file to system temp directory
-;; (setq backup-directory-alist
-;;       `((".*" . ,temporary-file-directory)))
-;; change directory of auto-save file to system temp directory
-;; (setq auto-save-file-name-transforms
-;;       `((".*" ,temporary-file-directory t)))
-
-;; not make the list of auto-save file
-(setq auto-save-list-file-prefix nil)
-
-;; collect back-up file and auto-save file to ~/.emacs.d/backups/
+;;; Backup and Auto save setting
+;; if you want to recover "init.el" from auto save file, run below command.
+;; M-x recover-file RET ~/.emacs.d/init.el RET
 (add-to-list 'backup-directory-alist
-             (cons "." "~/backups/"))
+             (cons "." "~/.emacs.d/backups/"))              ; backup の保存 directory を設定
 (setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name "~/backups/") t)))
-
-;; interval of making auto-save file (seconds)
-(setq auto-save-timeout 15)
-;; interval of making auto-save file (number of types)
-(setq auto-save-interval 60)
+      `((".*",(expand-file-name "~/.emacs.d/backups/") t))) ; autosave の保存 directory を設定
+(setq auto-save-timeout 15)                                 ; auto save file を作成するまでの秒間隔
+(setq auto-save-interval 60)                                ; auto save file を作成するまでの type 間隔
 
 
-;;;;; Hook ;;;;;
-;; if file start with #!, add +x when saving file
+;;; 変更されたfileの自動更新
+(global-auto-revert-mode t)
+
+
+;;; Hook
+;; after save hook
 (add-hook 'after-save-hook
-          'executable-make-buffer-file-executable-if-script-p)
+          'executable-make-buffer-file-executable-if-script-p) ; fileが!#で初まる場合、+x を付けて保存
 
-;; define function foe emacs-lisp-mode-hook
-(defun elisp-mode-hooks ()
-  "lisp-mode-hooks"
-  (when (require 'eldoc nil t)
-    (setq eldoc-idle-delay 0.2)
-    (setq eldoc-echo-area-use-multiline-p t)
-    (turn-on-eldoc-mode)))
-
-;; set emacs-lisp-mode's hook
+;; emacs lisp mode hook
+;; Elisp 関数や変数の情報を echo area に表示
+(defun elisp-mode-hooks () "lisp-mode-hooks"
+       (when (require 'eldoc nil t)
+         (setq eldoc-idle-delay 0.2)
+         (setq eldoc-echo-area-use-multiline-p t)
+         (turn-on-eldoc-mode)))
 (add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
 
 
-;;;;; Install Elisp & Setting ;;;;;
+;;;;;;;;; ELPA Package Settings ;;;;;;;;;
 
-;; setting of auto-install
-(when (require 'auto-install nil t)
-  ;; set install directory
-  (setq auto-install-directory "~/.emacs.d/elisp/")
-  ;; get elisp's name which is registered at EmacsWiki
-  (auto-install-update-emacswiki-package-name t)
-  ;; be available to use function of install-elisp
-  (auto-install-compatibility-setup))
+;;; Helm
+(require 'helm-config)                                   ; activate helm
 
-;; install redo+.el by using auto-install
-;; source downloaded from https://www.emacswiki.org/emacs/download/redo+.el
-(when (require 'redo+ nil t)
-  ;; set C-. as redo
-  (global-set-key (kbd "C-.") 'redo)
-  )
+;; helm-c-occur (検索機能) setting
+;; TODO : Not working 
+(when (require 'helm-c-moccur nil t)
+  (setq
+   helm-idle-delay 0.1
+   helm-c-moccur-helm-idle-delay 0.1
+   helm-c-occur-higligt-info-line-flag t
+   helm-c-moccur-enable-auto-look-flag t
+   helm-c-moccur-enable-initial-pattern t)
+  (define-key global-map (kbd "C-M-o") 'helm-c-moccur-occur-by-moccur))
 
-;; cua-mode setting
-(cua-mode t) ; activate cua-mode
-(setq cua-enable-cua-keys nil) ; deactivate CUA key-bind
-
-;;;;; setting of memo & todo list - howm 
-;; howm memo save directory
-;;(setq howm-directory (concat user-emacs-directory "howm"))
-;; set language of howm-menu Japanese
-;;(setq howm-menu-lang 'ja)
-;; make howm memo 1 file per day
-;(setq howm-file-name-format "%Y/%m/%Y-%m-%d.howm")
-;; read howm-mode
-;(when (require 'howm-mode nil t)
-;  ;; start up howm menu by C-c,,
-;  (define-key global-map (kbd "C-c m") 'howm-menu))
-;;; close howm memo at the same time of saving
-;(defun howm-save-buffer-and-kill ()
-;  "close howm memo at the same time of saving."
-;  (interactive)
-;  (when (and (buffer-file-name)
-;             (string-match "\\.howm" (buffer-file-name)))
-;    (save-buffer)
-;    (kill-buffer nil)))
-;;; close buffer simultaneously by C-c C-c when memo is saved
-;(define-key howm-mode-map (kbd "C-c C-c") 'howm-save-buffer-and-kill)
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(flymake-google-cpplint-command
-   "~/.emacs.d/elpa/flymake-google-cpplint-20140205.525/cpplint.py")
- '(flymake-googlecpp-lint-linelength "80")
- '(google-translate-default-source-language "ja")
- '(google-translate-default-target-language "en")
- '(package-selected-packages
-   (quote
-    (yaml-mode cmake-ide flycheck-irony irony-eldoc company-irony irony cmake-mode slack google-translate flymake-google-cpplint helm magit flycheck auto-complete))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-;;;;; setting of autopep8
-;; autopep8 automatically correct the python code according to pep8 coding rule.
-;; To use autopep8, running command "pip install autopep8" is needed.
-;; Elisp file was downloaded at
-;;       https://github.com/fujimisakari/py-autopep8.el.git
-(require 'python)
-(require 'py-autopep8)
-(define-key python-mode-map (kbd "C-c F") 'py-autopep8)
-(define-key python-mode-map (kbd "C-c f") 'py-autopep8-region)
-(add-hook 'before-save-hook 'py-autopep8-before-save)
-
-
-;;;;; Insert parenthesis/brackets by pair 
-(electric-pair-mode 1)
-
-
-;;;;; Enable flycheck and set keybind
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
-(global-set-key (kbd "C-c C-f") 'flycheck-next-error)
-(global-set-key (kbd "C-c C-p") 'flycheck-previous-error)
-
-
-;;;;; flycheck-google-cpplint
-(eval-after-load 'flycheck
-  '(progn
-     (require 'flycheck-google-cpplint)
-     ;; Add Google C++ Style checker.
-     ;; In default, syntax checked by Clang and Cppcheck.
-     (flycheck-add-next-checker 'c/c++-cppcheck
-                                '(warning . c/c++-googlelint))))
-
-;;;;; google-c-style package
-(require 'google-c-style)
-(add-hook 'c-mode-common-hook 'google-set-c-style)
-(add-hook 'c-mode-common-hook 'google-make-newline-indent)
-
-
-;;;;;  setting of auto-complete
-;(ac-config-default)
-;;; select candidate with C-n/C-p
-;(setq ac-use-menu-map t)
-;(define-key ac-menu-map "\C-n" 'ac-next)
-;(define-key ac-menu-map "\C-p" 'ac-previous)
-;;; setting of auto-complete dictionary(cache) file save directory
-;(setq ac-comphist-file "~/.emacs.d/cache/auto-complete/ac-comphist.dat")
-
-
-;;;;;  magit keybind configuration
-(global-set-key (kbd "C-x g") 'magit-status)
-
-
-;;;;; cpplint
-;; hook config
-(require 'flymake-google-cpplint)
-(add-hook 'c-mode-hook 'flymake-google-cpplint-load)
-(add-hook 'c++-mode-hook 'flymake-google-cpplint-load)
-
-;; cpplint config
-
-
-;; path to cpplint.py
-
-
-
-;;;;; helm
-(require 'helm-config)
-(helm-mode 1)
+;; helm keybind settings
+(helm-descbinds-mode)                                    ; C-h b (keybind display list) をhelmで表示
+(define-key global-map (kbd "M-y") 'helm-show-kill-ring) ; helm-kill-ring への keybind の割当
 (define-key global-map (kbd "C-x b") 'helm-for-files)
 (define-key global-map (kbd "C-x C-f") 'helm-find-files)
-(define-key global-map (kbd "M-x")     'helm-M-x)
-(define-key global-map (kbd "M-y")     'helm-show-kill-ring)
+(define-key global-map (kbd "M-x") 'helm-M-x)
+
+;; helm-gtags
+(custom-set-variables
+ '(helm-gtagssuggested-keymapping t)
+ '(helm-gtags-auto-update t))
+
+;; helm-man
+(require 'helm-elisp)
+(require 'helm-man)
+(setq helm-for-document-sources
+      '(helm-source-info-elisp
+        helm-source-info-cl
+        helm-source-info-pages
+        helm-source-man-pages))
+(defun helm-for-document ()
+  "Preconfigured `helm' for helm-for-document."
+  (interactive)
+  (let ((default (thing-at-point 'symbol)))
+    (helm :sources
+          (nconc
+           (mapcar (lambda (func)
+                           (funcall func default))
+                   helm-apropos-function-list)
+           helm-for-document-sources)
+          :buffer "*helm for document*")))
 
 
-;;;;;;; popwin configuration (to use google-translate)
-;;(require 'popwin)
-;;(setq display-buffer-function 'popwin:display-buffer)
-;;(setq popwin:popup-window-position 'bottom)
-;; 
-;;;;;;; google translate
-;;(require 'google-translate)
-;;(global-set-key "\C-ct" 'google-translate-at-point)
-;;(global-set-key "\C-cT" 'google-translate-query-translate)
+;;; auto-complete
+;; (when (require 'auto-complete-config nil t)
+;;   ;(define-key ac-mode-map (kbd "TAB") 'auto-complete)
+;;   (ac-config-default)
+;;   (setq ac-use-menu-map t)
+;;   (setq ac-ignore-case nil))
 
-;; set default source language as Japanese, and target language as English.
+;;; company-mode (auto-complete より良い？)
+(require 'company)
+(global-company-mode)                                                   ; activate company for all buffer
+(setq company-transformers '(company-sort-by-backend-importance))
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 3)
+(setq company-selection-warp-around t)
+(global-set-key (kbd "C-M-i") 'company-complete)
+(define-key company-active-map (kbd "C-n") 'company-select-next)        ; 次の候補を選択
+(define-key company-active-map (kbd "C-p") 'company-select-previous)    ; 前の候補を選択
+(define-key company-active-map (kbd "C-s") 'company-filter-candidates)  ; C-sで絞り込む
+(define-key company-active-map (kbd "C-i") 'company-complete-selection) ; TABで候補を設定
+(define-key company-active-map [tab] 'company-complete-selection)       ; TABで候補を設定
+(define-key company-active-map (kbd "C-f") 'company-complete-selection) ; C-fで候補を設定
+(define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)        ; 各種メジャーモードでも C-M-iで
 
+;;; extension of Search and Replace
+;; moccur setting
+(when (require 'color-moccur nil t)
+  (define-key global-map (kbd "M-o") 'occur-by-moccur) ; keybind setting
+  (setq moccur-split-word t)                           ; space で AND 検索
+  (add-to-list 'dmoccur-exclusion-mask "\\.DS_Store")  ; directory検索するときに除外するfile
+  (add-to-list 'dmoccur-exclusion-mask "^#.+#$"))
 
-;; display pop-up translate buffer.
-;;(push '("*Google Translate*") popwin:special-display-config)
+(require 'moccur-edit nil t)
+(defadvice moccur-edit-change-file
+    (after save-after-moccur-edit-buffer activate)
+  (save-buffer))
 
-
-(put 'downcase-region 'disabled nil)
-
-
-;;;; C++ environment configuration : https://qiita.com/MitsutakaTakeda/items/2f526a85ad39424a8363
-(use-package flycheck
-  :config
-  (progn
-    (add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
-    )
-  )
-
-(use-package cmake-ide
-  :bind
-  (("<f9>" . cmake-ide-compile))
-  :config
-  (progn
-    (setq 
-     ; rdm & rcコマンドへのパス。コマンドはRTagsのインストール・ディレクトリ下。
-     cmake-ide-rdm-executable "/home/kitamura/Downloads/build_rtag/bin/rdm"
-     cmake-ide-rc-executable  "/home/kitamura/Downloads/build_rtag/bin/rc"
-     )
-    )
-  )
-
-(use-package rtags
-  :config
-  (progn
-    (rtags-enable-standard-keybindings c-mode-base-map)
-    ; 関数cmake-ide-setupを呼ぶのはrtagsをrequireしてから。
-    (cmake-ide-setup)
-    )
-  )
-
-;(defun my-irony-mode-hook ()
-;  (define-key irony-mode-map
-;    [remap completion-at-point]
-;    'irony-completion-at-point-async)
-;  (define-key irony-mode-map
-;    [remap complete-symbol]
-;    'irony-completion-at-point-async)
-;  )
-; 
-;(use-package irony
-;  :config
-;  (progn
-;    ; ironyのビルド&インストール時にCMAKE_INSTALL_PREFIXで指定したディレクトリへのパス。
-;    (setq irony-server-install-prefix "/home/kitamura/.emacs.d/irony")
-;    (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
-;    (add-hook 'irony-mode-hook 'my-irony-mode-hook)
-;    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-;    (add-hook 'irony-mode-hook 'irony-eldoc)
-;    (add-to-list 'company-backends 'company-irony)
-;    )
-;  )
-
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
-
-;;;;
-;(setq irony-lang-compile-option-alist
-;      (quote ((c++-mode . "c++ -std=c++11 -lstdc++")
-;              (c-mode . "c")
-;              (objc-mode . "objective-c"))))
-;;; アドバイスによって関数を再定義。
-;;; split-string によって文字列をスペース区切りでリストに変換
-;;; (24.4以降 新アドバイス使用)
-;(defun ad-irony--lang-compile-option ()
-;  (defvar irony-lang-compile-option-alist)
-;  (let ((it (cdr-safe (assq major-mode irony-lang-compile-option-alist))))
-;    (when it (append '("-x") (split-string it "\s")))))
-;(advice-add 'irony--lang-compile-option :override #'ad-irony--lang-compile-option)
-;;; (24.3以前 旧アドバイス使用)
-;(defadvice irony--lang-compile-option (around ad-irony--lang-compile-option activate)
-;  (defvar irony-lang-compile-option-alist)
-;  (let ((it (cdr-safe (assq major-mode irony-lang-compile-option-alist))))
-;    (when it (append '("-x") (split-string it "\s")))))
+;; wgrep setting
+(require 'wgrep nil t)
 
 
-(add-hook 'c-mode-common-hook 'flycheck-mode)
-(add-hook 'c++-mode-hook      'irony-mode)
-(add-hook 'after-init-hook 'global-company-mode)
+;;; history setting
+;; undo tree setting.  C-x u visualize undo tree
+(when (require 'undo-tree nil t) 
+  (global-undo-tree-mode))
 
+
+;;; window management
+;; Elscreen
+(when (require 'elscreen nil t)
+  (elscreen-start)
+  (if window-system
+      (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
+    (define-key elscreen-map (kbd "C-z") 'suspend-emacs)))
+
+
+;;; 矩形編集
+(cua-mode t)
+(setq cua-enable-cua-keys nil)
+
+
+;;; mode setting
+;; add-to-list auto-mode-alist を書くとファイルを開いたときのモードが全部 Fundamental になっていしまう
+;; web mode setting
+(when (require 'web-mode nil t)
+  ; web-mode で起動する拡張子
+  ;; (add-to-list 'auto-mode-alist '("\\.html\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.css\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.js\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.jsx\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.ctp\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.jsp\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.as[cp]x\\" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.erb\\" . web-mode))
+  (defun web-mode-hook ()
+    (setq web-mode-mark-indent-offset 2) ; HTML の Indent
+    (setq web-mode-css-indent-offset 2)  ; CSS の Indent
+    (setq web-mode-code-indent-offset 2) ; JS, PHP, Ruby などの Indent
+    (setq web-mode-style-padding 1)      ; <style>内の Indent
+    (setq web-mode-script-padding 1))    ; <script>内の Indent
+  (add-hook 'web-mode-hook 'web-mode-hook))
+
+;; docker mode setting
+(require 'dockerfile-mode nil t)
+(require 'docker-compose-mode nil t)
+;; (add-to-list 'auto-mode-alist '("Dockerfile\\" . dockerfile-mode))
+
+;; c++ (cuda) mode setting
+;; (add-to-list 'auto-mode-alist '("\\.cu\\" . c++-mode))
+
+;; markdown mode setting
+;; TODO : markdown-preview-mode not working
+;; (add-to-list 'markdown-preview-javascript
+;;              "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML") ; add MathJax
+;; (add-to-list 'markdown-preview-javascript
+;;              '("http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" . async))
+
+
+;;; flycheck setting (Syntax check)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(with-eval-after-load 'flycheck (flycheck-pos-tip-mode)) ; flycheck-pos-tip-mode
+
+
+;;; autopep8
+(require 'python)
+(require 'py-autopep8)
+(add-hook 'before-save-hook 'py-autopep8-before-saveg)
+
+
+;;; quickrun (run scripts in Emacs)
+(define-key global-map (kbd "C-c q") 'quickrun)
+
+
+;;; magit
+(define-key global-map (kbd "C-x g") 'magit-status)
