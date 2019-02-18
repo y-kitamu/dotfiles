@@ -33,7 +33,7 @@
 ;; window size
 (setq initial-frame-alist
       (append (list
-               '(width . 80)
+               '(width . 120)
                '(height . 59))))
 
 ;; hide start-up message
@@ -115,17 +115,17 @@
   "Set the selected window's width."
   (adjust-window-trailing-edge (selected-window) (- n (window-width)) t))
 
-(defun set-80-columns ()
+(defun set-120-columns ()
   "Set the selected window to 80 columns."
   (interactive)
-  (set-frame-width (selected-frame) 80))
+  (set-frame-width (selected-frame) 120))
 
 (defun set-2-windows ()
   (interactive)
-  (set-frame-width (selected-frame) 162)
+  (set-frame-width (selected-frame) 242)
   (split-window-horizontally))
 
-(global-set-key "\C-x~" 'set-80-columns)
+(global-set-key "\C-x~" 'set-120-columns)
 (global-set-key "\C-x3" 'set-2-windows)
 
 
@@ -367,7 +367,7 @@
  '(google-translate-default-target-language "en")
  '(package-selected-packages
    (quote
-    (cmake-ide flycheck-irony irony-eldoc company-irony irony cmake-mode slack google-translate flymake-google-cpplint helm magit flycheck auto-complete))))
+    (yaml-mode cmake-ide flycheck-irony irony-eldoc company-irony irony cmake-mode slack google-translate flymake-google-cpplint helm magit flycheck auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
