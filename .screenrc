@@ -4,7 +4,15 @@ defencoding utf8
 encoding utf-8 utf-8
 excape ^z^z
 startup_message off
-hardstatus alwayslastline "%w"
+
+# max scroll number of lines
+defscrollback 10000
+termcapinfo xterm* ti@:te@
+
+altscreen on
+
+hardstatus alwayslastline "%?%h%:#%n %t @%H)%? %{= dd}%-035= %{= wB}%l %Y-%m-%d %02c:%s"
+caption always "%{=r dd}%-Lw%40L>%?%F%{+b kG}%:[%{=r dd}%? %n%f %t %?%F%{-}%:]%?%+Lw"
 
 autodetach on
 
@@ -12,6 +20,7 @@ escape ^z^z
 bind ^x
 bind x
 
+defbce on
 cjkwidth on
 term xterm-256color
 

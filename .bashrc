@@ -122,6 +122,7 @@ fi
 #git pull origin master
 #cd $HOME
 
+
 # enable .xkb keymap
 xkbcomp -I$HOME/.xkb ~/.xkb/keymap/myxkb $DISPLAY
 
@@ -164,3 +165,18 @@ export PATH="/home/kitamura/anaconda3/bin:$PATH"
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so
 
 
+# # docker
+# # TODO : into docker compose 
+# docker_test=`docker ps | grep engine-environment`
+# if [ ! -n "${docker_test}" ]; then
+#     if [ -e ~/engine_environment ]; then
+#         cd ~/engine_environment
+#         ./run_docker.sh engine 33333
+#         cd ~
+#     fi
+# fi
+
+# start screen
+# if [ `screen -ls | grep "No Sockets found" | wc -l` -eq 1 ]; then
+#     screen
+# fi

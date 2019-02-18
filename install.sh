@@ -1,12 +1,14 @@
-#!/bin/bash
+~#!/bin/bash
 
 # This file is for installing dotfiles in local machine.
 # For installation, run below command;
 # >> source install.sh
 
+
+re='\.git.*'
 for f in .??*
 do
-    [[ "$f" == ".git" ]] && continue
+    [[ $f =~ $re ]] && continue
     hf="$HOME"/"$f"
     if [ -e "$hf" ]; then
         rm -rf "$hf"
