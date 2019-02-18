@@ -241,7 +241,9 @@
   (elscreen-start)
   (if window-system
       (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
-    (define-key elscreen-map (kbd "C-z") 'suspend-emacs)))
+    (define-key elscreen-map (kbd "C-z") 'suspend-emacs))
+  (define-key elscreen-map (kbd "SPC") 'elscreen-next)
+  (define-key elscreen-map (kbd "C-SPC") 'elscreen-next))
 
 
 ;;; 矩形編集
@@ -304,3 +306,8 @@
 
 ;;; magit
 (define-key global-map (kbd "C-x g") 'magit-status)
+
+
+;;; multi-term
+(require 'multi-term)
+(add-to-list 'term-unbind-key-list "C-t")
