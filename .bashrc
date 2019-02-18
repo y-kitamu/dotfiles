@@ -122,23 +122,61 @@ fi
 #git pull origin master
 #cd $HOME
 
+
+# enable .xkb keymap
+xkbcomp -I$HOME/.xkb ~/.xkb/keymap/myxkb $DISPLAY
+
+
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+    export WORKON_HOME=$HOME/.pyenv
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+# opencv on office local
+export LD_LIBRARY_PATH=/usr/local/lib
+
+
+# docker
+DockerTest=`docker container list -f "Name=engine" | grep engine | grep Up`
+export USER_FULL_NAME=kitamura
+export USER_EMAIL_ADDRESS=yusuke.kitamura@sizebook.co.jp
+export COPYRIGHT=""
+if [ -z "$DockerTest" ]; then
+   cd /home/kitamura/engine_environment
+   ./run_docker.sh engine 33333
+   cd ~/
+fi
+alias engine="ssh localhost -p 33333"
+
+# cuda
+export PATH=/usr/local/cuda-9.2/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+#android studio path
+export PATH=/usr/local/android-studio/bin:${PATH}
+
+export LD_INCLUDE_PATH=/home/kitamura/work/engine/src/:/home/kitamura/work/engine/ext/
+export LD_LIBRARY_PATH=/home/kitamura/work/config/engine/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+# added by Anaconda3 installer
+export PATH="/home/kitamura/anaconda3/bin:$PATH"
+
 # use droidcam
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so
 
-# docker
-# TODO : into docker compose 
-docker_test=`docker ps | grep engine-environment`
-if [ ! -n "${docker_test}" ]; then
-    if [ -e ~/engine_environment ]; then
-        cd ~/engine_environment
-        ./run_docker.sh engine 33333
-        cd ~
-    fi
-fi
+
+# # docker
+# # TODO : into docker compose 
+# docker_test=`docker ps | grep engine-environment`
+# if [ ! -n "${docker_test}" ]; then
+#     if [ -e ~/engine_environment ]; then
+#         cd ~/engine_environment
+#         ./run_docker.sh engine 33333
+#         cd ~
+#     fi
+# fi
 
 # start screen
 # if [ `screen -ls | grep "No Sockets found" | wc -l` -eq 1 ]; then
 #     screen
 # fi
-
-   

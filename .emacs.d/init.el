@@ -37,10 +37,8 @@
 (define-key global-map (kbd "C-c l") 'toggle-truncate-lines) ; 行を折り返すかを切り換える
 (define-key global-map (kbd "C-t") 'other-window)            ; window の切替
 
-
 ;;; insert parenthesis/brackets by pair
 (electric-pair-mode 1)
-
 
 ;;; Frame settings (見た目の設定)
 ;; maximize window
@@ -243,7 +241,9 @@
   (elscreen-start)
   (if window-system
       (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
-    (define-key elscreen-map (kbd "C-z") 'suspend-emacs)))
+    (define-key elscreen-map (kbd "C-z") 'suspend-emacs))
+  (define-key elscreen-map (kbd "SPC") 'elscreen-next)
+  (define-key elscreen-map (kbd "C-SPC") 'elscreen-next))
 
 
 ;;; 矩形編集
