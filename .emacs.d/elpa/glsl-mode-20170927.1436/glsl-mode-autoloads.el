@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "glsl-mode" "glsl-mode.el" (0 0 0 0))
-;;; Generated autoloads from glsl-mode.el
+;;;### (autoloads nil "glsl-mode" "../../../../.emacs.d/elpa/glsl-mode-20170927.1436/glsl-mode.el"
+;;;;;;  "89ae40df9dbf1ab9cc9da2de153a2fdd")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/glsl-mode-20170927.1436/glsl-mode.el
 
 (add-to-list 'auto-mode-alist '("\\.vert\\'" . glsl-mode))
 
@@ -21,8 +22,20 @@
 Major mode for editing OpenGLSL shader files.
 
 \(fn)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "glsl-mode" "../../../../.emacs.d/elpa/glsl-mode-20170927.1436/glsl-mode.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/glsl-mode-20170927.1436/glsl-mode.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "glsl-mode" '("gl-version" "glsl-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/glsl-mode-20170927.1436/glsl-mode-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/glsl-mode-20170927.1436/glsl-mode.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 
