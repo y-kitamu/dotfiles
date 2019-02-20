@@ -81,6 +81,8 @@
 ;;; Theme
 (load-theme 'zenburn t)
 
+;; buffer が作られるときに frame を 縦に分割しない
+(setq-default split-height-threshold 200)
 
 ;;; Indent settings
 (setq-default tab-width 4)          ; default の tab の表示幅
@@ -212,6 +214,9 @@
 (define-key company-active-map (kbd "C-f") 'company-complete-selection) ; C-fで候補を設定
 (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)        ; 各種メジャーモードでも C-M-iで
 
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+
 ;;; extension of Search and Replace
 ;; moccur setting
 (when (require 'color-moccur nil t)
@@ -312,3 +317,4 @@
 (require 'multi-term)
 (add-to-list 'term-unbind-key-list "C-t")
 ;; 色の設定
+
