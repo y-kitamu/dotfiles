@@ -7,7 +7,7 @@
  '(helm-gtagssuggested-keymapping t)
  '(package-selected-packages
    (quote
-    (company-irony irony glsl-mode zenburn-theme web-mode undo-tree quickrun py-autopep8 multi-term moccur-edit markdown-preview-mode magit kotlin-mode helm-gtags helm-descbinds helm-c-moccur gtags flycheck-pos-tip elscreen dockerfile-mode docker-compose-mode company auto-complete))))
+    (buffer-move company-irony irony glsl-mode zenburn-theme web-mode undo-tree quickrun py-autopep8 multi-term moccur-edit markdown-preview-mode magit kotlin-mode helm-gtags helm-descbinds helm-c-moccur gtags flycheck-pos-tip elscreen dockerfile-mode docker-compose-mode company auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
