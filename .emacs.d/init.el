@@ -34,7 +34,7 @@
 
 ;;; global key map settings
 (define-key global-map (kbd "C-m") 'newline-and-indent)      ; 改行して indent する
-(define-key global-map (kbd "C-c l") 'toggle-truncate-lines) ; 行を折り返すかを切り換える
+;;(define-key global-map (kbd "C-c l") 'toggle-truncate-lines) ; 行を折り返すかを切り換える
 (define-key global-map (kbd "C-t") 'other-window)            ; window の切替
 
 ;;; insert parenthesis/brackets by pair
@@ -317,4 +317,9 @@
 (require 'multi-term)
 (add-to-list 'term-unbind-key-list "C-t")
 ;; 色の設定
+
+
+;;; buffer-move setting 
+(define-key global-map (kbd "C-c C-l") 'buf-move-left)
+(define-key global-map (kbd "C-c C-r") 'buf-move-right)
 
