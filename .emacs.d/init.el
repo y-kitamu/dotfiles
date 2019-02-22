@@ -88,11 +88,10 @@
 (setq-default tab-width 4)          ; default の tab の表示幅
 (setq-default indent-tabs-mode nil) ; indent に tab文字を使用しない
 ;; defaultのIndent Style を設定. M-x describe-variable RET c-style-alist RET で詳細表示
-;; TODO : setting clang format 
+;; カスタマイズは custom.el 内で定義
 (add-hook 'c-mode-common-hook
           (lambda ()
-            (c-set-style "stroustrup")))
-
+            (c-set-style `"stroustrup")))
 
 ;;; Highlight settings
 ;; 現在行の Highlight
@@ -319,7 +318,8 @@
 ;; 色の設定
 
 
-;;; buffer-move setting 
+;;; buffer-move setting
+(require 'buffer-move nil t)
 (define-key global-map (kbd "C-c C-l") 'buf-move-left)
 (define-key global-map (kbd "C-c C-r") 'buf-move-right)
 
