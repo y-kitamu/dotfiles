@@ -310,6 +310,7 @@
 
 ;;; magit
 (define-key global-map (kbd "C-x g") 'magit-status)
+(global-auto-revert-mode t) ; ファイルに変更があった場合に即座に反映する
 
 
 ;;; multi-term
