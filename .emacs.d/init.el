@@ -88,10 +88,25 @@
 (setq-default tab-width 4)          ; default の tab の表示幅
 (setq-default indent-tabs-mode nil) ; indent に tab文字を使用しない
 ;; defaultのIndent Style を設定. M-x describe-variable RET c-style-alist RET で詳細表示
-;; カスタマイズは custom.el 内で定義
 (add-hook 'c-mode-common-hook
           (lambda ()
             (c-set-style `"stroustrup")))
+
+(c-add-style "briancpp" '((c-offsets-alist
+                           (access-label . /)
+                           (defun-open . 0)
+                           (defun-close . 0)
+                           (statement-block-intro . +)
+                           (substatement-open . 0)
+                           (substatement-label . 0)
+                           (label . 0)
+                           (statement-cont . +)
+                           (inline-open . 0)
+                           (inline-close . 0)
+                           (inlambda . 0)
+                           (innamespace . 0))))
+(add-hook 'c++-mode-hook (lambda () 
+               (c-set-style "briancpp")))
 
 ;;; Highlight settings
 ;; 現在行の Highlight
