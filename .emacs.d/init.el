@@ -168,6 +168,12 @@
 (custom-set-variables
  '(helm-gtagssuggested-keymapping t)
  '(helm-gtags-auto-update t))
+(defun helm-gtags-hook ()
+  (local-set-key (kbd "M-t") 'helm-gtags-find-tag)    ; 入力したタグの定義元へジャンプ
+  (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)   ; 入力タグを参照する場所へジャンプ
+  (local-set-key (kbd "M-s") 'helm-gtags-find-symbol) ; 入力したシンボルを参照する場所へジャンプ
+  (local-set-key (kbd "M-p") 'helm-gtags-pop-stack))  ; ジャンプ前の場所へ戻る
+(add-hook 'c++-mode-hook 'helm-gtags-hook)
 
 ;; helm-man
 (require 'helm-elisp)
