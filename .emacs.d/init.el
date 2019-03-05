@@ -32,6 +32,9 @@
 (load custom-file)
 
 
+;;; 再起動時に前回開いていたファイルを開く
+(desktop-save-mode 1)
+
 ;;; global key map settings
 (define-key global-map (kbd "C-m") 'newline-and-indent)      ; 改行して indent する
 ;;(define-key global-map (kbd "C-c l") 'toggle-truncate-lines) ; 行を折り返すかを切り換える

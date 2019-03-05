@@ -5,6 +5,7 @@
 .emacs.d/backups
 .emacs.d/elpa/archives
 .emacs.d/tramp
+.emacs.d/.emacs.desktop*
 
 .cache/
 .bash_history
