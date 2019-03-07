@@ -7,6 +7,7 @@
 .emacs.d/tramp
 .emacs.d/.emacs.desktop*
 .emacs.d/junk
+.emacs.d/request
 
 .cache/
 .bash_history
