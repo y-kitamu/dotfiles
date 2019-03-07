@@ -355,3 +355,6 @@
 (setq open-junk-file-format "~/.emacs.d/junk/%Y_%m_%d.org")
 (define-key global-map (kbd "C-x j") 'open-junk-file)
 
+
+;;; ein setting (emacs で jupyter notebook を使えるようにしたもの)
+;;; 参考 : https://pod.hatenablog.com/entry/2017/08/06/220817
