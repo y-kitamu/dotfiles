@@ -348,3 +348,10 @@
 (define-key global-map (kbd "C-c C-l") 'buf-move-left)
 (define-key global-map (kbd "C-c C-r") 'buf-move-right)
 
+
+;;; open-junk-file setting
+;;; org メモを使うための設定
+(require 'open-junk-file nil t)
+(setq open-junk-file-format "~/.emacs.d/junk/%Y_%m_%d.org")
+(define-key global-map (kbd "C-x j") 'open-junk-file)
+
