@@ -124,7 +124,7 @@ fi
 
 
 # enable .xkb keymap
-xkbcomp -I$HOME/.xkb ~/.xkb/keymap/myxkb $DISPLAY
+# xkbcomp -I$HOME/.xkb ~/.xkb/keymap/myxkb $DISPLAY
 
 
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
