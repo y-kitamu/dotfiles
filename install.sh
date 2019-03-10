@@ -16,12 +16,3 @@ do
 
     ln -snfv ~/dotfiles/"$f" ~/
 done
-
-
-## emacs settings ##
-# create backup directory
-if [ ! -d ~/backups ]; then
-    mkdir ~/backups
-fi
-
-    

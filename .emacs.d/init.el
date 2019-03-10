@@ -340,8 +340,10 @@
 ;;; multi-term
 (require 'multi-term)
 (add-to-list 'term-unbind-key-list "C-t")
-;; 色の設定
-
+(add-hook 'term-mode-hook
+          (lambda ()
+            (define-key term-raw-map "\C-y" 'term-paste)           ; char-mode でペースト
+            (define-key term-raw-map "\C-c\C-j" 'term-line-mode))) ; line-mode へ切り替え
 
 ;;; buffer-move setting
 (require 'buffer-move nil t)

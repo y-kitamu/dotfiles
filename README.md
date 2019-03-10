@@ -14,8 +14,6 @@ sudo apt install gnome-tweaks
     - デスクトップにアイコンを表示しない
     - emacs の keybinding 有効化
     
-- xkb の設定 (keyboard layout)
-
 
 - sshd のインストール
 ```
@@ -26,8 +24,7 @@ systemctl start sshd
 - 各種アプリの設定移行 : ssh でコピペ
   - vivaldi : ~/.config/vivaldi 
   - thunderbird : ~/.thunderbird
-  - dconf-editor : ~/.config/dconf
-
+  - dconf-editor : ~/.config/dconf  ??? 必要 ???
 - emacs install
 emacs 26.1
 ```
@@ -49,3 +46,24 @@ sudo apt-get install dconf-editor
 - ubuntu ショートカット設定
   - workspace
   - 縦方向拡大
+
+- redshift 
+  ubuntu software center からインストール。 ~/.config/redshift.conf に設定
+
+- screen
+```
+sudo apt-get install screen
+```
+
+- Docker, Docker-compose
+  公式参考に
+
+- Dropbox
+
+- xkb の設定 (keyboard layout)
+    - 入力メソッド Mozc 以外の削除
+    - gconf-editorで /org/gnome/settings-daemon/plugins/keyboard/active をfalse 
+    - gnome-session-properties で自動起動に load_xkbmap.sh を登録
+    https://qiita.com/uchan_nos/items/a2485b51f5f3fb0db8f8
+  
+  
