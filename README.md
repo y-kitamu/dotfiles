@@ -33,3 +33,19 @@ emacs 26.1
 ```
 sudo apt install libgtk-3-dev libtiff5-dev libgif-dev libpng-dev libxpm-dev libncurses5-dev
 sudo apt install libgnutls28-dev
+wget http://ftp.jaist.ac.jp/pub/GNU/emacs/emacs-26.1.tar.gz
+tar -zxvf emacs-26.1.tar.gz
+cd emacs-26.1/
+./configure
+make
+sudo make install
+```
+
+- dconf-editor
+```
+sudo apt-get install dconf-editor
+```
+
+- ubuntu ショートカット設定
+  - workspace
+  - 縦方向拡大
