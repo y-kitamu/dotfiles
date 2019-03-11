@@ -8,6 +8,7 @@
 .emacs.d/.emacs.desktop*
 .emacs.d/junk
 .emacs.d/request
+.emacs.d/ac-comphist.dat
 
 .cache/
 .bash_history
