@@ -280,21 +280,20 @@
 
 
 ;;; mode setting
-;; add-to-list auto-mode-alist を書くとファイルを開いたときのモードが全部 Fundamental になっていしまう
 ;; web mode setting
 (when (require 'web-mode nil t)
   ; web-mode で起動する拡張子
-  ;; (add-to-list 'auto-mode-alist '("\\.html\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.css\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.js\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.jsx\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.ctp\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.jsp\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.as[cp]x\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.erb\\" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
   (defun web-mode-hook ()
-    (setq web-mode-mark-indent-offset 2) ; HTML の Indent
+    (setq web-mode-markup-indent-offset 2) ; HTML の Indent
     (setq web-mode-css-indent-offset 2)  ; CSS の Indent
     (setq web-mode-code-indent-offset 2) ; JS, PHP, Ruby などの Indent
     (setq web-mode-style-padding 1)      ; <style>内の Indent
@@ -304,7 +303,6 @@
 ;; docker mode setting
 (require 'dockerfile-mode nil t)
 (require 'docker-compose-mode nil t)
-;; (add-to-list 'auto-mode-alist '("Dockerfile\\" . dockerfile-mode))
 
 ;; c++ (cuda) mode setting
 ;; (add-to-list 'auto-mode-alist '("\\.cu\\" . c++-mode))
