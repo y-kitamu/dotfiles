@@ -1,8 +1,9 @@
+#!/bin/sh
 
 # enable .xkb keymap
-if [ -s $HOME/dotfiles/.xkb/keymap/myxkb ]
+if [ -s $HOME/.xkb/keymap/myxkb ]
 then
     sleep 1
-    xkbcomp -I$HOME/dotfiles/.xkb ~/dotfiles/.xkb/keymap/myxkb $DISPLAY
+    xkbcomp -I$HOME/.xkb $HOME/.xkb/keymap/myxkb $DISPLAY 2>/dev/null
 fi
 

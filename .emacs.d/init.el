@@ -32,6 +32,9 @@
 (load custom-file)
 
 
+;;; 再起動時に前回開いていたファイルを開く
+(desktop-save-mode 1)
+
 ;;; global key map settings
 (define-key global-map (kbd "C-m") 'newline-and-indent)      ; 改行して indent する
 ;;(define-key global-map (kbd "C-c l") 'toggle-truncate-lines) ; 行を折り返すかを切り換える
@@ -89,11 +92,25 @@
 (setq-default tab-width 4)          ; default の tab の表示幅
 (setq-default indent-tabs-mode nil) ; indent に tab文字を使用しない
 ;; defaultのIndent Style を設定. M-x describe-variable RET c-style-alist RET で詳細表示
-;; TODO : setting clang format 
 (add-hook 'c-mode-common-hook
           (lambda ()
-            (c-set-style "stroustrup")))
+            (c-set-style `"stroustrup")))
 
+(c-add-style "briancpp" '((c-offsets-alist
+                           (access-label . /)
+                           (defun-open . 0)
+                           (defun-close . 0)
+                           (statement-block-intro . +)
+                           (substatement-open . 0)
+                           (substatement-label . 0)
+                           (label . 0)
+                           (statement-cont . +)
+                           (inline-open . 0)
+                           (inline-close . 0)
+                           (inlambda . 0)
+                           (innamespace . 0))))
+(add-hook 'c++-mode-hook (lambda () 
+               (c-set-style "briancpp")))
 
 ;;; Highlight settings
 ;; 現在行の Highlight
@@ -175,6 +192,12 @@
 (custom-set-variables
  '(helm-gtagssuggested-keymapping t)
  '(helm-gtags-auto-update t))
+(defun helm-gtags-hook ()
+  (local-set-key (kbd "M-t") 'helm-gtags-find-tag)    ; 入力したタグの定義元へジャンプ
+  (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)   ; 入力タグを参照する場所へジャンプ
+  (local-set-key (kbd "M-s") 'helm-gtags-find-symbol) ; 入力したシンボルを参照する場所へジャンプ
+  (local-set-key (kbd "M-p") 'helm-gtags-pop-stack))  ; ジャンプ前の場所へ戻る
+(add-hook 'c++-mode-hook 'helm-gtags-hook)
 
 ;; helm-man
 (require 'helm-elisp)
@@ -263,21 +286,20 @@
 
 
 ;;; mode setting
-;; add-to-list auto-mode-alist を書くとファイルを開いたときのモードが全部 Fundamental になっていしまう
 ;; web mode setting
 (when (require 'web-mode nil t)
   ; web-mode で起動する拡張子
-  ;; (add-to-list 'auto-mode-alist '("\\.html\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.css\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.js\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.jsx\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.ctp\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.jsp\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.as[cp]x\\" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.erb\\" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
   (defun web-mode-hook ()
-    (setq web-mode-mark-indent-offset 2) ; HTML の Indent
+    (setq web-mode-markup-indent-offset 2) ; HTML の Indent
     (setq web-mode-css-indent-offset 2)  ; CSS の Indent
     (setq web-mode-code-indent-offset 2) ; JS, PHP, Ruby などの Indent
     (setq web-mode-style-padding 1)      ; <style>内の Indent
@@ -287,7 +309,6 @@
 ;; docker mode setting
 (require 'dockerfile-mode nil t)
 (require 'docker-compose-mode nil t)
-;; (add-to-list 'auto-mode-alist '("Dockerfile\\" . dockerfile-mode))
 
 ;; c++ (cuda) mode setting
 ;; (add-to-list 'auto-mode-alist '("\\.cu\\" . c++-mode))
@@ -317,15 +338,31 @@
 
 ;;; magit
 (define-key global-map (kbd "C-x g") 'magit-status)
+(global-auto-revert-mode t) ; ファイルに変更があった場合に即座に反映する
 
 
 ;;; multi-term
 (require 'multi-term)
 (add-to-list 'term-unbind-key-list "C-t")
-;; 色の設定
+(add-hook 'term-mode-hook
+          (lambda ()
+            (define-key term-raw-map "\C-y" 'term-paste)           ; char-mode でペースト
+            (define-key term-raw-map "\C-c\C-j" 'term-line-mode))) ; line-mode へ切り替え
 
-
-;;; buffer-move setting 
+;;; buffer-move setting
+(require 'buffer-move nil t)
 (define-key global-map (kbd "C-c C-l") 'buf-move-left)
 (define-key global-map (kbd "C-c C-r") 'buf-move-right)
 
+
+;;; open-junk-file setting
+;;; org メモを使うための設定
+(require 'open-junk-file nil t)
+(setq open-junk-file-format "~/.emacs.d/junk/%Y_%m_%d.org")
+(define-key global-map (kbd "C-x j") 'open-junk-file)
+
+
+;;; ein setting (emacs で jupyter notebook を使えるようにしたもの)
+;;; 参考 : https://pod.hatenablog.com/entry/2017/08/06/220817
+(require 'ein)
+(setq ein:worksheet-enable-undo "full")
