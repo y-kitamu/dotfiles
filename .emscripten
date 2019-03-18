@@ -1,0 +1,11 @@
+import os
+LLVM_ROOT='/opt/emsdk/clang/e1.38.13_64bit'
+EMSCRIPTEN_NATIVE_OPTIMIZER='/opt/emsdk/clang/e1.38.13_64bit/optimizer'
+BINARYEN_ROOT='/opt/emsdk/clang/e1.38.13_64bit/binaryen'
+NODE_JS='/opt/emsdk/node/8.9.1_64bit/bin/node'
+EMSCRIPTEN_ROOT='/opt/emsdk/emscripten/1.38.13'
+SPIDERMONKEY_ENGINE = ''
+V8_ENGINE = ''
+TEMP_DIR = '/tmp'
+COMPILER_ENGINE = NODE_JS
+JS_ENGINES = [NODE_JS]

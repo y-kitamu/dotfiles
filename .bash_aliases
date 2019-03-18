@@ -1,21 +1,16 @@
 # ~/.bash_aliases: list of environment variables & aliases. read in ~/.bashrc.
 
-
 ### environment variables ###
-
 # use emacs as default editor
 export EDITOR="emacs"
 
 # anaconda setting
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-export PATH="$PYENV_ROOT/versions/anaconda3-4.1.0/bin/:$PATH"
-export PATH="$PYENV_ROOT/versions/anaconda3-5.0.1/bin/:$PATH"
-
-# use python VISI programs
-export VISIROOT="$HOME"/Dropbox/program
-export PYTHONPATH="$VISIROOT/Empirical_Model:$VISIROOT/VISI_Modules:$VISIROOT/LT_Lat:$VISIROOT/Lon_Lat:$VISIROOT/Geophysical_Index:$VISIROOT/Sami2:$VISIROOT/cythonlib"      
+if [ -d $HOME/.pyenv ]; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    export PATH="$PYENV_ROOT/versions/anaconda3-5.3.0/bin/:$PATH"
+fi
 
 # setting for installing package in local environment
 # set PATH so it includes user's private directory if it exists
@@ -34,35 +29,13 @@ export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules
 
 
 ### aliases ###
-
-
 # python & anaconda aliases
 alias activate='source /home/kitamura/.pyenv/versions/anaconda3-4.1.0/bin/activate'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias jupyter='cd ~/Dropbox/program;jupyter notebook'
+#alias jupyter='cd ~/Dropbox/program;jupyter notebook'
 
 
 # sever alias
-alias desktop='ssh -2X kitamura@192.168.11.2'
-alias step0ku='ssh -2X kitamura@130.54.59.210'
-alias step1ku='ssh -2X kitamura@130.54.59.211'
-alias step5ku="ssh -2X kitamura@step5ku"
-alias amazon="ssh -i ~/.ssh/id_rsa ec2-user@54.199.246.210"
-alias aws="ssh -i ~/.ssh/FirstKey.pem ec2-user@aws"
-
-alias rsdata='rsync -av kitamura@step0ku:/home/kitamura/data/ /home/kitamura/data/'
-alias rstep0='rsync -av kitamura@step0ku:/home/kitamura/plot/ /home/kitamura/plot/'
-alias rstep5='rsync -arvz kitamura@step5ku:/home/kitamura/kmz/ /home/kitamura/kmz'
-alias rspro='rsync -arvz kitamura@step0ku:/home/kitamura/VISI/ /home/kitamura/Dropbox/program/'
-alias sendpro='rsync -arvz /home/kitamura/Dropbox/program/ kitamura@step0ku:/home/kitamura/VISI/'
-alias portfwd="ssh a0122868@forward.kuins.kyoto-u.ac.jp -L 8080:proxy.kuins.net:8080"
-w
-#alias step0ku="xhost +; ssh -2X kitamura@step0ku"
-#alias step1ku="xhost +; ssh -2X kitamura@step1ku"
-#alias rs="rsync -arvz kitamura@step0ku:/home/kitamura/plot/ /home/kitamura/plot/"
-# copy files from ssh
-#rsync -aruv kitamura@step0ku:/home/kitamura/kmz /home/kitamura/
-
 
 # du & df setting
 alias du='du -h'
@@ -72,8 +45,6 @@ alias dh='dh -h'
 # enable pm-suspend without sudo
 alias sus='sudo pm-suspend'
 
-
-# AWS server alias config
 alias mysql='mysql -u root -p'
 
 if [ -e /var/www/html/ ]; then
@@ -81,3 +52,8 @@ if [ -e /var/www/html/ ]; then
 fi
 
 
+# build engine
+alias ncmake='rm -f CMakeCache.txt && cmake -G Ninja -DBUILD_AUTO_GENERATED_FILES=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../engine/'
+
+# android studio PATH
+export PATH="${HOME}/android-studio/bin:${PATH}"
