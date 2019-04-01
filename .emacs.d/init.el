@@ -354,9 +354,15 @@
 (require 'open-junk-file nil t)
 (setq open-junk-file-format "~/.emacs.d/junk/%Y_%m_%d.org")
 (define-key global-map (kbd "C-x j") 'open-junk-file)
-
+;;; org mode setting
+(setq org-confirm-babel-evaluate nil) ; 評価時に確認メッセージをださない
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))                     ; python コードブロックを評価できるようにする
 
 ;;; ein setting (emacs で jupyter notebook を使えるようにしたもの)
 ;;; 参考 : https://pod.hatenablog.com/entry/2017/08/06/220817
 (require 'ein)
-(setq ein:worksheet-enable-undo "full")
+(setq ein:worksheet-enable-undo t)
+
+
