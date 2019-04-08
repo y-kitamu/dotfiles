@@ -333,6 +333,9 @@
 ;;; magit
 (define-key global-map (kbd "C-x g") 'magit-status)
 (global-auto-revert-mode t) ; ファイルに変更があった場合に即座に反映する
+;; windows の場合、git の .exe file の場所を指定
+(when (equal system-type 'windows-nt)
+  (setq magit-git-executable "c:/Users/y-kitamura/AppData/Local/Programs/Git/bin/git.exe"))
 
 
 ;;; multi-term
