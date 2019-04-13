@@ -2,17 +2,6 @@
 	graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
 [user]
 	email = ymyk6602@gmail.com
-	name = Kitamu
+	name = Kitamura
 [color]
     ui = auto
-
-[alias]
-    co = checkout
-    ci = commit -v
-    st = status --short --branch
-    br = branch
-    hist = log --pretty=format:\\\"%h %ad | %s%d [%an]\\\" --graph --date=short
-    lg1 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ad)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit  --decorate # --date=relative                                                                                              
-    lg2 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)— %an%C(reset)' --abbrev-commit --stat
-    lg3 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit  --decorate # --date=relative                                                                                              
-    lg = !"git lg1"

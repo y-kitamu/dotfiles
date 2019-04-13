@@ -40,6 +40,10 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
+case "$TERM" in
+    eterm-color) color_prompt=yes;;
+esac
+
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
@@ -135,19 +139,6 @@ fi
 # opencv on office local
 export LD_LIBRARY_PATH=/usr/local/lib
 
-
-# docker
-DockerTest=`docker container list -f "Name=engine" | grep engine | grep Up`
-export USER_FULL_NAME=kitamura
-export USER_EMAIL_ADDRESS=yusuke.kitamura@sizebook.co.jp
-export COPYRIGHT=""
-if [ -z "$DockerTest" ]; then
-   cd /home/kitamura/engine_environment
-   ./run_docker.sh engine 33333
-   cd ~/
-fi
-alias engine="ssh localhost -p 33333"
-
 # cuda
 export PATH=/usr/local/cuda-9.2/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
@@ -159,24 +150,10 @@ export LD_INCLUDE_PATH=/home/kitamura/work/engine/src/:/home/kitamura/work/engin
 export LD_LIBRARY_PATH=/home/kitamura/work/config/engine/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 # added by Anaconda3 installer
-export PATH="/home/kitamura/anaconda3/bin:$PATH"
+# export PATH="/home/kitamura/anaconda3/bin:$PATH"
 
 # use droidcam
-export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so
+if [ -f /usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so ]; then
+    export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so
+fi
 
-
-# # docker
-# # TODO : into docker compose 
-# docker_test=`docker ps | grep engine-environment`
-# if [ ! -n "${docker_test}" ]; then
-#     if [ -e ~/engine_environment ]; then
-#         cd ~/engine_environment
-#         ./run_docker.sh engine 33333
-#         cd ~
-#     fi
-# fi
-
-# start screen
-# if [ `screen -ls | grep "No Sockets found" | wc -l` -eq 1 ]; then
-#     screen
-# fi
