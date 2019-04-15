@@ -221,13 +221,14 @@
 ;;   (setq ac-use-menu-map t)
 ;;   (setq ac-ignore-case nil))
 
+;;;; 補完機能 company + irony
 ;;; company-mode (auto-complete より良い？)
 (require 'company)
 (global-company-mode)                                                   ; activate company for all buffer
 (setq company-transformers '(company-sort-by-backend-importance))
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 3)
-(setq company-selection-warp-around t)
+(setq company-selection-wrap-around t)
 (global-set-key (kbd "C-M-i") 'company-complete)
 (define-key company-active-map (kbd "C-n") 'company-select-next)        ; 次の候補を選択
 (define-key company-active-map (kbd "C-p") 'company-select-previous)    ; 前の候補を選択
@@ -237,8 +238,19 @@
 (define-key company-active-map (kbd "C-f") 'company-complete-selection) ; C-fで候補を設定
 (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)        ; 各種メジャーモードでも C-M-iで
 
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
+(require 'irony)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+(eval-after-load 'irony
+  '(progn
+     (custom-set-variables '(irony-additional-clang-options '("-std=c++1z")))
+     (add-to-list 'company-backends 'company-irony)
+     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+     (add-hook 'c-mode-common-hook 'irony-mode)))
+
 
 ;;; extension of Search and Replace
 ;; moccur setting
@@ -323,7 +335,7 @@
 ;;; autopep8
 (require 'python)
 (require 'py-autopep8)
-(add-hook 'before-save-hook 'py-autopep8-before-saveg)
+;; (add-hook 'before-save-hook 'py-autopep8-)
 
 
 ;;; quickrun (run scripts in Emacs)
