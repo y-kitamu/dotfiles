@@ -7,5 +7,6 @@
 (("/home/kitamura/work/opencv/" . "/home/kitamura/work/build/opencv/compile_commands.json")
  ("/home/kitamura/work/opencv/" . "/home/kitamura/work/build/opencv/")
  ("/home/kitamura/work/opencv/" . "/home/kitamura/build/opencv/")
+(("/home/kitamura/work/ImageProcessing/" . "/home/kitamura/work/build/ImageProcessing/compile_commands.json")
  ("/home/kitamura/Program/engine/" . "/tmp/cmake27731BLK/compile_commands.json"))
 
