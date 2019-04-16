@@ -214,13 +214,6 @@
           :buffer "*helm for document*")))
 
 
-;;; auto-complete
-;; (when (require 'auto-complete-config nil t)
-;;   ;(define-key ac-mode-map (kbd "TAB") 'auto-complete)
-;;   (ac-config-default)
-;;   (setq ac-use-menu-map t)
-;;   (setq ac-ignore-case nil))
-
 ;;; company-mode (auto-complete より良い？)
 (require 'company)
 (global-company-mode)                                                   ; activate company for all buffer
@@ -237,8 +230,30 @@
 (define-key company-active-map (kbd "C-f") 'company-complete-selection) ; C-fで候補を設定
 (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)        ; 各種メジャーモードでも C-M-iで
 
+
+;; irony
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
+
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+
+;;; flycheck setting (Syntax check)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(with-eval-after-load 'flycheck (flycheck-pos-tip-mode)) ; flycheck-pos-tip-mode
+(eval-after-load "flycheck"
+  '(progn
+     (when (locate-library "flycheck-irony")
+       (flycheck-irony-setup))))
+
+;;; autopep8
+(require 'python)
+(require 'py-autopep8)
+(add-hook 'before-save-hook 'py-autopep8-before-saveg)
+
 
 ;;; extension of Search and Replace
 ;; moccur setting
@@ -313,17 +328,6 @@
 ;;              "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML") ; add MathJax
 ;; (add-to-list 'markdown-preview-javascript
 ;;              '("http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" . async))
-
-
-;;; flycheck setting (Syntax check)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(with-eval-after-load 'flycheck (flycheck-pos-tip-mode)) ; flycheck-pos-tip-mode
-
-
-;;; autopep8
-(require 'python)
-(require 'py-autopep8)
-(add-hook 'before-save-hook 'py-autopep8-before-saveg)
 
 
 ;;; quickrun (run scripts in Emacs)
