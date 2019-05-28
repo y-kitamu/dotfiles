@@ -5,12 +5,12 @@
 export EDITOR="emacs"
 
 # anaconda setting
-if [ -d $HOME/.pyenv ]; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
-    export PATH="$PYENV_ROOT/versions/anaconda3-5.3.0/bin/:$PATH"
-fi
+# if [ -d $HOME/.pyenv ]; then
+#     export PYENV_ROOT="$HOME/.pyenv"
+#     export PATH="$PYENV_ROOT/bin:$PATH"
+#     eval "$(pyenv init -)"
+#     export PATH="$PYENV_ROOT/versions/anaconda3-5.3.0/bin/:$PATH"
+# fi
 
 # setting for installing package in local environment
 # set PATH so it includes user's private directory if it exists
@@ -30,8 +30,8 @@ export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules
 
 ### aliases ###
 # python & anaconda aliases
-alias activate='source /home/kitamura/.pyenv/versions/anaconda3-4.1.0/bin/activate'
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+# alias activate='source /home/kitamura/.pyenv/versions/anaconda3-4.1.0/bin/activate'
+# alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 #alias jupyter='cd ~/Dropbox/program;jupyter notebook'
 
 
@@ -56,4 +56,7 @@ fi
 alias ncmake='rm -f CMakeCache.txt && cmake -G Ninja -DBUILD_AUTO_GENERATED_FILES=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../engine/'
 
 # android studio PATH
-export PATH="${HOME}/android-studio/bin:${PATH}"
+# export PATH="${HOME}/android-studio/bin:${PATH}"
+
+# kindle for PC on ubuntu with wine
+alias kindle='wine ~/Downloads/kindle-for-pc-1-17-44183.exe'
