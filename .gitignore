@@ -10,6 +10,7 @@
 .emacs.d/request
 .emacs.d/ac-comphist.dat
 .emacs.d/irony/bin/
+.emacs.d/session.*
 
 .cache/
 .bash_history
