@@ -15,4 +15,5 @@
 .cache/
 .bash_history
 
+# backup file
 *~
