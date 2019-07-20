@@ -40,10 +40,6 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
-case "$TERM" in
-    eterm-color) color_prompt=yes;;
-esac
-
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
@@ -121,15 +117,23 @@ if ! shopt -oq posix; then
 fi
 
 
+
+############# CUSTOM SETTING ##############
+
+
+### environment variables ###
+# use emacs as default editor
+export EDITOR="emacs"
+
+# for emacs multi-term to be colorful
+case "$TERM" in
+    eterm-color) color_prompt=yes;;
+esac
+
 # git pull remote ~/dotfiles
 #cd $HOME/dotfiles
 #git pull origin master
 #cd $HOME
-
-
-# enable .xkb keymap
-# xkbcomp -I$HOME/.xkb ~/.xkb/keymap/myxkb $DISPLAY
-
 
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
     export WORKON_HOME=$HOME/.pyenv
@@ -137,24 +141,31 @@ if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
     source /usr/local/bin/virtualenvwrapper.sh
 fi
 
-# opencv on office local
-export LD_LIBRARY_PATH=/usr/local/lib
-
 # cuda
-export PATH=/usr/local/cuda-9.2/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+if [ -e /usr/local/cuda-9.2 ]; then
+    export PATH=/usr/local/cuda-9.2/bin${PATH:+:${PATH}}
+    export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+fi
 
 #android studio path
-export PATH=/usr/local/android-studio/bin:${PATH}
+if [ -e //usr/local/android-studio/bin ]; then
+    export PATH=/usr/local/android-studio/bin:${PATH}
+fi
 
-export LD_INCLUDE_PATH=/home/kitamura/work/engine/src/:/home/kitamura/work/engine/ext/
-export LD_LIBRARY_PATH=/home/kitamura/work/config/engine/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
-# added by Anaconda3 installer
-# export PATH="/home/kitamura/anaconda3/bin:$PATH"
+# export LD_INCLUDE_PATH=/home/kitamura/work/engine/src/:/home/kitamura/work/engine/ext/
+# export LD_LIBRARY_PATH=/home/kitamura/work/config/engine/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 # use droidcam
 if [ -f /usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so ]; then
     export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so
 fi
+
+# add local bin path
+if [ -e ${HOME}/local/bin ]; then
+    export PATH=${HOME}/local/bin${PATH:+:${PATH}}
+fi
+
+# for gsettings error
+export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules
 

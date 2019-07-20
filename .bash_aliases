@@ -1,8 +1,4 @@
-# ~/.bash_aliases: list of environment variables & aliases. read in ~/.bashrc.
-
-### environment variables ###
-# use emacs as default editor
-export EDITOR="emacs"
+# ~/.bash_aliases: list of custome aliases. this file is read in ~/.bashrc.
 
 # anaconda setting
 # if [ -d $HOME/.pyenv ]; then
@@ -23,9 +19,6 @@ export EDITOR="emacs"
 #        export CPATH="$HOME/local/include"
 #     fi  
 # fi
-
-# for gsettings error
-export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules
 
 
 ### aliases ###
@@ -51,9 +44,6 @@ alias mysql='mysql -u root -p'
 #    alias ch='cd /var/www/html/'	
 # fi
 
-
 # # build engine
 # alias ncmake='rm -f CMakeCache.txt && cmake -G Ninja -DBUILD_AUTO_GENERATED_FILES=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../engine/'
 
-# android studio PATH
-export PATH="${HOME}/android-studio/bin:${PATH}"
