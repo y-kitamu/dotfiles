@@ -7,3 +7,7 @@ export PATH=/usr/local/bin${PATH:+:${PATH}}
 if [ -e "/Library/Frameworks/Python.framework/Versions/3.7/bin" ]; then
     export PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
 fi
+
+alias imake='rm -rf CMakeCache.txt && cmake .. case 
+-DCMAKE_TOOLCHAIN_FILE=../ios-cmake/ios.toolchain.cmake -DPLATFORM=OS64'
+alias ibuild='cmake --build . --config Release --target install'
