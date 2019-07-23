@@ -1,7 +1,7 @@
 [alias]
 	graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
 [user]
-	email = ymyk6602@gmail.com
+	email = yusuke.sizebook.kitamura@gmail.com
 	name = Kitamura
 [color]
     ui = auto

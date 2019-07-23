@@ -90,6 +90,7 @@
 ;;; Indent settings
 (setq-default tab-width 4)          ; default の tab の表示幅
 (setq-default indent-tabs-mode nil) ; indent に tab文字を使用しない
+(setq-default python-indent-offset 4)
 ;; defaultのIndent Style を設定. M-x describe-variable RET c-style-alist RET で詳細表示
 (add-hook 'c-mode-common-hook
           (lambda ()
@@ -316,6 +317,7 @@
   (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
