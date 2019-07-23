@@ -391,3 +391,5 @@
 (setq ein:worksheet-enable-undo t)
 
 
+;;; glsl-mode の "Major mode is unknown to Irony, see `irony-supported-major-modes'" に対処
+(push 'glsl-mode irony-supported-major-modes)

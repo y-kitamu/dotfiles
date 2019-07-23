@@ -66,5 +66,10 @@ sudo apt-get install screen
     - gconf-editorで /org/gnome/settings-daemon/plugins/keyboard/active をfalse 
     - gnome-session-properties で自動起動に load_xkbmap.sh を登録
 
+- Ubuntu の Dock をデフォルトで非表示にする
+```
+gsettings set org.gnome.shell.extensions.dash-to-dock autohide false && gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false && gsettings set org.gnome.shell.extensions.dash-to-dock intellihide false
+```
+
   
   

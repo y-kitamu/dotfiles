@@ -1,8 +1,4 @@
-# ~/.bash_aliases: list of environment variables & aliases. read in ~/.bashrc.
-
-### environment variables ###
-# use emacs as default editor
-export EDITOR="emacs"
+# ~/.bash_aliases: list of custome aliases. this file is read in ~/.bashrc.
 
 # anaconda setting
 # if [ -d $HOME/.pyenv ]; then
@@ -14,18 +10,15 @@ export EDITOR="emacs"
 
 # setting for installing package in local environment
 # set PATH so it includes user's private directory if it exists
-if [ -d "$HOME/local" ] ; then
-    export PATH="$HOME/local:$PATH"
-    if [ -d "$HOME/local/bin" ] ; then
-       export PATH="$HOME/bin:$PATH"
-    fi
-    if [ -d "$HOME/local/include" ] ; then
-       export CPATH="$HOME/local/include"
-    fi  
-fi
-
-# for gsettings error
-export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules
+# if [ -d "$HOME/local" ] ; then
+#     export PATH="$HOME/local:$PATH"
+#     if [ -d "$HOME/local/bin" ] ; then
+#        export PATH="$HOME/bin:$PATH"
+#     fi
+#     if [ -d "$HOME/local/include" ] ; then
+#        export CPATH="$HOME/local/include"
+#     fi  
+# fi
 
 
 ### aliases ###
@@ -47,16 +40,10 @@ alias sus='sudo pm-suspend'
 
 alias mysql='mysql -u root -p'
 
-if [ -e /var/www/html/ ]; then
-   alias ch='cd /var/www/html/'	
-fi
+# if [ -e /var/www/html/ ]; then
+#    alias ch='cd /var/www/html/'	
+# fi
 
+# # build engine
+# alias ncmake='rm -f CMakeCache.txt && cmake -G Ninja -DBUILD_AUTO_GENERATED_FILES=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../engine/'
 
-# build engine
-alias ncmake='rm -f CMakeCache.txt && cmake -G Ninja -DBUILD_AUTO_GENERATED_FILES=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../engine/'
-
-# android studio PATH
-# export PATH="${HOME}/android-studio/bin:${PATH}"
-
-# kindle for PC on ubuntu with wine
-alias kindle='wine ~/Downloads/kindle-for-pc-1-17-44183.exe'
