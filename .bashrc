@@ -40,6 +40,11 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
+# for emacs multi-term to be colorful
+case "$TERM" in
+    eterm-color) color_prompt=yes;;
+esac
+
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
@@ -125,11 +130,6 @@ fi
 # use emacs as default editor
 export EDITOR="emacs"
 
-# for emacs multi-term to be colorful
-case "$TERM" in
-    eterm-color) color_prompt=yes;;
-esac
-
 # git pull remote ~/dotfiles
 #cd $HOME/dotfiles
 #git pull origin master
@@ -137,8 +137,23 @@ esac
 
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
     export WORKON_HOME=$HOME/.pyenv
-    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+    if [ -f /usr/bin/python3 ]; then
+        export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+    fi
     source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+# OS customize setting
+if [ "$(uname)" == 'Darwin' ]; then
+    # for Mac
+    if [ -e ./bashrc_mac ]; then
+        . ./bashrc_mac
+    fi
+elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux']; then
+    # for Linux
+    if [ -e ./bash_linux]; then
+        . ./bashrc_linux
+    fi
 fi
 
 # cuda

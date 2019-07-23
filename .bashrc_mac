@@ -1,0 +1,9 @@
+# settings for Mac OS
+
+export PATH=/usr/local/bin${PATH:+:${PATH}}
+
+# Setting PATH for Python 3.7
+# The original version is saved in .profile.pysave
+if [ -e "/Library/Frameworks/Python.framework/Versions/3.7/bin" ]; then
+    export PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
+fi
