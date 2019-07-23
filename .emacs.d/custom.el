@@ -15,12 +15,13 @@
  '(fci-rule-color "#383838")
  '(helm-gtags-auto-update t)
  '(helm-gtagssuggested-keymapping t)
+ '(irony-additional-clang-options (quote ("-std=c++1z")))
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (grandshell-theme csv-mode ein open-junk-file php-mode cmake-mode buffer-move company-irony irony glsl-mode zenburn-theme web-mode undo-tree quickrun py-autopep8 multi-term moccur-edit markdown-preview-mode magit kotlin-mode helm-gtags helm-descbinds helm-c-moccur gtags flycheck-pos-tip elscreen dockerfile-mode docker-compose-mode company auto-complete)))
+    (px grandshell-theme csv-mode ein open-junk-file php-mode cmake-mode buffer-move company-irony irony glsl-mode zenburn-theme web-mode undo-tree quickrun py-autopep8 multi-term moccur-edit markdown-preview-mode magit kotlin-mode helm-gtags helm-descbinds helm-c-moccur gtags flycheck-pos-tip elscreen dockerfile-mode docker-compose-mode company auto-complete)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map

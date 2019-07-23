@@ -1,0 +1,1 @@
+export PATH=/home/kitamura/ext/aws_deployer/bin${PATH+:${PATH}}
