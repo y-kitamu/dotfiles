@@ -155,9 +155,9 @@ if [ "$(uname)" == 'Darwin' ]; then
         echo "read settings for Mac"
         . ~/dotfiles/.bashrc_mac
     fi
-elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux']; then
+elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
     # for Linux
-    if [ -e ~/dotfiles/.bashrc_linux]; then
+    if [ -e ~/dotfiles/.bashrc_linux ]; then
         . ~/dotfiles/.bashrc_linux
     fi
 fi
@@ -172,7 +172,6 @@ fi
 if [ -e //usr/local/android-studio/bin ]; then
     export PATH=/usr/local/android-studio/bin:${PATH}
 fi
-
 
 # export LD_INCLUDE_PATH=/home/kitamura/work/engine/src/:/home/kitamura/work/engine/ext/
 # export LD_LIBRARY_PATH=/home/kitamura/work/config/engine/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
