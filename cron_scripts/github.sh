@@ -2,7 +2,7 @@
 
 set -eu
 
-./git_account_name.sh 
+. ./git_account_name.sh 
 
 # git hub から fetch, push
 
