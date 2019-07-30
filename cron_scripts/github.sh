@@ -15,19 +15,13 @@ git merge origin/master
 git add .
 git commit -m "cron commit `date '+%Y%m%d'`"
 
-set timeout 5
-spawn git push -u origin master
-expect {
-    "Username for 'https://github.com':" {
-        send "${USERNAME}\n"
-        exp_continue
-    }
-    "Password for 'https://${}@github.com':" {
-        send "${PASSWORD}\n"
-    }
-}
-expect {
-    "\\\$" {
-        exit 0
-    }
-}
+expect -c "
+       set timeout 5
+       spawn git push -u origin master
+       expect \"Username for 'https://github.com':\"
+       send \"${USERNAME}\n\"
+       expect \"Password for 'https://${}@github.com':\"
+       send \"${PASSWORD}\n\"
+       expect \"\\\$\" 
+       exit 0
+"
