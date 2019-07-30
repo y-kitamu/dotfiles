@@ -17,6 +17,7 @@ git commit -m "cron commit `date '+%Y%m%d'`"
 
 set timeout 5
 spawn git push -u origin master
+echo "test"
 expect {
     "Username for 'https://github.com':" {
         send "${USERNAME}\n"
