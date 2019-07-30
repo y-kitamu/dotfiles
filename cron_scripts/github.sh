@@ -20,7 +20,7 @@ expect -c "
        spawn git push -u origin master
        expect \"Username for 'https://github.com':\"
        send \"${USERNAME}\n\"
-       expect \"Password for 'https://${}@github.com':\"
+       expect \"Password for 'https://${USERNAME}@github.com':\"
        send \"${PASSWORD}\n\"
        expect \"\\\$\" 
        exit 0
