@@ -1,12 +1,16 @@
 #!/bin/bash
 
-#set -eu
+set -eu
 
-. ./git_account_name.sh 
+cd /home/kitamura/dotfiles
+. ./cron_scripts/git_account_name.sh 
 
 # git hub から fetch, push
 
-cd /home/kitamura/dotfiles/
+if [ $# == 1 ]; then
+    cd ${1}
+fi
+
 git checkout master
 git fetch
 git merge origin/master
