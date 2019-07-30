@@ -2,8 +2,8 @@
 
 set -eu
 
-set USERNAME "y-kitamu"
-set PASSWORD "ymyk6422"
+USERNAME="y-kitamu"
+PASSWORD="ymyk6422"
 
 # git hub から fetch, push
 
