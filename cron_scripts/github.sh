@@ -1,11 +1,12 @@
 #!/bin/bash
+# git hub から fetch, push する
+# 引数に対象ディレクトリを指定することができる
+# source ~/dotfiles/cron_scripts/github.sh /path/to/repository
 
 set -eu
 
 cd /home/kitamura/dotfiles
 . ./cron_scripts/git_account_name.sh 
-
-# git hub から fetch, push
 
 if [ $# == 1 ]; then
     cd ${1}
