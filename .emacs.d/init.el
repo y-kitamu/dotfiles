@@ -239,6 +239,7 @@
 (define-key company-active-map (kbd "C-f") 'company-complete-selection) ; C-fで候補を設定
 (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)        ; 各種メジャーモードでも C-M-iで
 
+;;; c++ の補完設定 (cmake で -DCMAKE_EXPORT_COMPILE_COMMANDS=1 としてやって compile_commands.json を作成する?)
 (require 'irony)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'c++-mode-hook 'irony-mode)
@@ -249,6 +250,7 @@
   '(progn
      (custom-set-variables '(irony-additional-clang-options '("-std=c++1z")))
      (add-to-list 'company-backends 'company-irony)
+     (add-to-list 'company-backends 'company-gtags)
      (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
      (add-hook 'c-mode-common-hook 'irony-mode)))
 
@@ -379,6 +381,7 @@
 (require 'open-junk-file nil t)
 (setq open-junk-file-format "~/.emacs.d/junk/%Y_%m_%d.org")
 (define-key global-map (kbd "C-x j") 'open-junk-file)
+(define-key global-map (kbd "C-x C-j") (lambda() (interactive) (find-file "~/.emacs.d/junk/todo.org")))
 ;;; org mode setting
 (setq org-confirm-babel-evaluate nil) ; 評価時に確認メッセージをださない
 (org-babel-do-load-languages
