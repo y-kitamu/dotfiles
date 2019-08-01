@@ -150,9 +150,9 @@ fi
 # OS customize setting
 if [ "$(uname)" == 'Darwin' ]; then
     # for Mac
-    echo "OS is Mac OS"
+    # echo "OS is Mac OS"
     if [ -e ~/dotfiles/.bashrc_mac ]; then
-        echo "read settings for Mac"
+        # echo "read settings for Mac"
         . ~/dotfiles/.bashrc_mac
     fi
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux']; then

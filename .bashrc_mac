@@ -1,5 +1,8 @@
 # settings for Mac OS
 
+## for cocoapods
+export LANG=en_US.UTF-8
+
 export PATH=/usr/local/bin${PATH:+:${PATH}}
 
 # Setting PATH for Python 3.7
