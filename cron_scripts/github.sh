@@ -5,6 +5,9 @@
 
 set -eu
 
+git config --local user.name "kitamura"
+git config --local user.email "ymyk6602@gmail.com" 
+
 cd /home/kitamura/dotfiles
 . ./cron_scripts/git_account_name.sh 
 
