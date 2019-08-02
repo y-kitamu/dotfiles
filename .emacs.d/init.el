@@ -379,6 +379,9 @@
 ;;; open-junk-file setting
 ;;; org メモを使うための設定
 (require 'open-junk-file nil t)
+(setq org-archive-location (concat "~/.emacs.d/junk/"
+                                   (format-time-string "%Y_%m_%d" (current-time))
+                                   ".org::"))
 (setq open-junk-file-format "~/.emacs.d/junk/%Y_%m_%d.org")
 (define-key global-map (kbd "C-x j") 'open-junk-file)
 (define-key global-map (kbd "C-x C-j") (lambda() (interactive) (find-file "~/.emacs.d/junk/todo.org")))
