@@ -1,4 +1,4 @@
-;;;;;;;;; Emacs Setting File ;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Emacs Setting File ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; load-path の設定
 ;; if using emacs23 or before
@@ -160,7 +160,11 @@
 (add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
 
 
-;;;;;;;;; ELPA Package Settings ;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  ELPA Package Settings  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; インストールしたパッケージの設定とか keybind とか ;;;;
+
+
 
 ;;; Helm
 (require 'helm-config)                                   ; activate helm
@@ -407,3 +411,10 @@
   (interactive "r")
   (shell-command-on-region beg end "jq ." nil t))
 
+;;; align config
+;;; not working
+;; (require 'align)
+;; (add-to-list 'align-rules-list
+;;              '(camma-assignment
+;;                (regexp . ",\\( *\\)")
+;;                (repeat . t)))              ; 複数回適用を有効に
