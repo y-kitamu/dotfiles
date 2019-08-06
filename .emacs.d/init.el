@@ -396,6 +396,14 @@
 (require 'ein)
 (setq ein:worksheet-enable-undo t)
 
-
 ;;; glsl-mode の "Major mode is unknown to Irony, see `irony-supported-major-modes'" に対処
 (push 'glsl-mode irony-supported-major-modes)
+
+
+;;;; json をフォーマットする
+;;;; sudo apt install jq
+(defun jq-format (beg end)
+  "Set region from BEG to END where to be formatted."
+  (interactive "r")
+  (shell-command-on-region beg end "jq ." nil t))
+
