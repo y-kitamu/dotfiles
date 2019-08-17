@@ -150,7 +150,6 @@ fi
 # OS customize setting
 if [ "$(uname)" == 'Darwin' ]; then
     # for Mac
-    # echo "OS is Mac OS"
     if [ -e ~/dotfiles/.bashrc_mac ]; then
         # echo "read settings for Mac"
         . ~/dotfiles/.bashrc_mac
