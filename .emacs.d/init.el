@@ -160,6 +160,43 @@
 (add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
 
 
+;;; ファイル作成時に生成するテンプレートの設定 (autoinsert)
+;; autoinsert
+;; http://ymotongpoo.hatenablog.com/entry/2012/12/02/190248
+(require 'autoinsert)
+(setq user-full-name "Yusuke Kitamura")
+(setq user-mail-address "ymyk6602@gmail.com")
+
+;; テンプレートのディレクトリ
+(setq auto-insert-directory "~/.emacs.d/insert")
+
+;; 各ファイルによってテンプレートを切り替える
+(setq auto-insert-alist
+      (nconc '(
+               ("\\.cpp$" . ["template.cpp" my-template])
+               ("\\.hpp$" . ["template.hpp" my-template])
+               ) auto-insert-alist))
+(require 'cl)
+
+(defvar template-replacements-alists
+  '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
+    ("%file-without-ext%" . (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
+    ("%date%" . (lambda () (format-time-string "%Y-%m-%d %H:%M:%S")))
+    ("%mail%" . (lambda () (identity user-mail-address)))
+    ("%name%" . (lambda () (identity user-full-name)))
+    ("%include-guard%"    . (lambda () (format "%s_HPP__" (upcase (file-name-sans-extension (file-name-nondirectory buffer-file-name))))))
+))
+
+(defun my-template ()
+  (time-stamp)
+  (mapc #'(lambda(c)
+            (progn
+              (goto-char (point-min))
+              (replace-string (car c) (funcall (cdr c)) nil)))
+        template-replacements-alists)
+  (goto-char (point-max))
+  (message "done."))
+(add-hook 'find-file-not-found-hooks 'auto-insert)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  ELPA Package Settings  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; インストールしたパッケージの設定とか keybind とか ;;;;
