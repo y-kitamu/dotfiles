@@ -2,5 +2,5 @@
  * %file%
  *
  * Create Date : %date%
- * Copyright (c) 2019 %author% <%email%>
+ * Copyright (c) 2019 %name% <%mail%>
  */
