@@ -167,7 +167,7 @@ if [ -e /usr/local/cuda-9.2 ]; then
     export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 fi
 
-#android studio path
+# android studio path
 if [ -e //usr/local/android-studio/bin ]; then
     export PATH=/usr/local/android-studio/bin:${PATH}
 fi
@@ -175,7 +175,7 @@ fi
 # export LD_INCLUDE_PATH=/home/kitamura/work/engine/src/:/home/kitamura/work/engine/ext/
 # export LD_LIBRARY_PATH=/home/kitamura/work/config/engine/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
-# use droidcam
+# to use droidcam
 if [ -f /usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so ]; then
     export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so
 fi
@@ -198,3 +198,13 @@ if [ -f '/home/kitamura/google-cloud-sdk/path.bash.inc' ]; then . '/home/kitamur
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/kitamura/google-cloud-sdk/completion.bash.inc' ]; then . '/home/kitamura/google-cloud-sdk/completion.bash.inc'; fi
+
+# bash history integration
+function share_history {  
+    history -a  # .bash_historyに前回コマンドを1行追記
+    history -c  # 端末ローカルの履歴を一旦消去
+    history -r  # .bash_historyから履歴を読み込み直す
+}
+PROMPT_COMMAND='share_history'  # 上記関数をプロンプト毎に自動実施
+shopt -u histappend   # .bash_history追記モードは不要なのでOFFに
+export HISTSIZE=99999  # 履歴のMAX保存数を指定
