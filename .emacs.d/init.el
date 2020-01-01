@@ -39,6 +39,9 @@
 (define-key global-map (kbd "C-m") 'newline-and-indent)      ; 改行して indent する
 ;;(define-key global-map (kbd "C-c l") 'toggle-truncate-lines) ; 行を折り返すかを切り換える
 (define-key global-map (kbd "C-t") 'other-window)            ; window の切替
+(global-set-key (kbd "C-o") (lambda ()
+                              (interactive)
+                              (other-window -1)))
 
 ;;; insert parenthesis/brackets by pair
 (electric-pair-mode 1)
@@ -234,6 +237,7 @@
   (local-set-key (kbd "M-s") 'helm-gtags-find-symbol) ; 入力したシンボルを参照する場所へジャンプ
   (local-set-key (kbd "M-p") 'helm-gtags-pop-stack))  ; ジャンプ前の場所へ戻る
 (add-hook 'c++-mode-hook 'helm-gtags-hook)
+(add-hook 'python-mode-hook 'helm-gtags-hook)
 
 ;; helm-man
 (require 'helm-elisp)
@@ -405,6 +409,7 @@
 ;; .bashrc に $TERM が eterm-color の場合にも color-prompt にするように設定を追記する
 (require 'multi-term)
 (add-to-list 'term-unbind-key-list "C-t")
+(add-to-list 'term-unbind-key-list "C-o")
 (add-hook 'term-mode-hook
           (lambda ()
             (define-key term-raw-map "\C-y" 'term-paste)           ; char-mode でペースト

@@ -188,3 +188,13 @@ fi
 # for gsettings error
 export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules
 
+# Halide setting
+# if [ -e /usr/bin/llvm-config-8 ]; then
+#     export LLVM_CONFIG=/usr/bin/llvm-config-8
+# fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/kitamura/google-cloud-sdk/path.bash.inc' ]; then . '/home/kitamura/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/kitamura/google-cloud-sdk/completion.bash.inc' ]; then . '/home/kitamura/google-cloud-sdk/completion.bash.inc'; fi
