@@ -1,4 +1,4 @@
-~#!/bin/bash
+#!/bin/bash
 
 # This file is for installing dotfiles in local machine.
 # For installation, run below command;
