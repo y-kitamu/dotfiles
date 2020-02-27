@@ -47,5 +47,5 @@ alias mysql='mysql -u root -p'
 # # build engine
 # alias ncmake='rm -f CMakeCache.txt && cmake -G Ninja -DBUILD_AUTO_GENERATED_FILES=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../engine/'
 
-alias ncmake='rm -rf CMakeCache && cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../../${PWD##*/}'
-alias ncmake-debug='rm -rf CMakeCache && cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../../${PWD##*/}'
+alias ncmake='rm -rf CMakeCache && cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../'
+alias ncmake-debug='rm -rf CMakeCache && cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../'

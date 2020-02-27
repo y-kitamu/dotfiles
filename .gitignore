@@ -9,7 +9,7 @@
 .emacs.d/junk
 .emacs.d/request
 .emacs.d/ac-comphist.dat
-.emacs.d/irony/bin/
+.emacs.d/irony/
 .emacs.d/session.*
 .emacs.d/transient/
 
