@@ -270,7 +270,7 @@
 ;;;; 補完機能 company + irony
 ;;; company-mode (auto-complete より良い？)
 (require 'company)
-(global-company-mode)                                                   ; activate company for all buffer
+(add-hook 'after-init-hook 'global-company-mode)                 ; activate company for all buffer
 (setq company-transformers '(company-sort-by-backend-importance))
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 3)
@@ -284,7 +284,9 @@
 (define-key company-active-map (kbd "C-f") 'company-complete-selection) ; C-fで候補を設定
 (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)        ; 各種メジャーモードでも C-M-iで
 
-;;; c++ の補完設定 (cmake で -DCMAKE_EXPORT_COMPILE_COMMANDS=1 としてやって compile_commands.json を作成する?)
+;;; c++ の補完設定 (irony)
+;;; (cmake で -DCMAKE_EXPORT_COMPILE_COMMANDS=1 としてやって compile_commands.json を作成する?)
+;;; 初回のみ M-x irony-install-server RET でサーバーをインストールする
 (require 'irony)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'c++-mode-hook 'irony-mode)
@@ -298,6 +300,14 @@
      (add-to-list 'company-backends 'company-gtags)
      (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
      (add-hook 'c-mode-common-hook 'irony-mode)))
+
+;;; python の補完設定 (company-jedi)
+;;; 初回のみ M-x jedi:install-server RET でサーバーをインストールする
+(require 'jedi-core)
+(setq jedi:complete-on-dot t) ; . を入力したときにも（メソッドを）補完
+(setq jedi:use-shortcuts t)  ; activate keybind (M-. : go to definition,  M-, : back from definition)
+(add-hook 'python-mode-hook 'jedi:setup)
+(add-to-list 'company-backends 'company-jedi) ; backendに追加
 
 ;;; flycheck setting (Syntax check)
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -363,6 +373,7 @@
   (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.gs\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -378,6 +389,9 @@
     (setq web-mode-style-padding 1)      ; <style>内の Indent
     (setq web-mode-script-padding 1))    ; <script>内の Indent
   (add-hook 'web-mode-hook 'web-mode-hook))
+(setq web-mode-content-types-alist
+      '(("javascript" . "\\.gs\\'")  ; google app scripts file
+        ))
 
 ;; docker mode setting
 (require 'dockerfile-mode nil t)
