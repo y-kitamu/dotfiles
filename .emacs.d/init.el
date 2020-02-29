@@ -178,6 +178,7 @@
       (nconc '(
                ("\\.cpp$" . ["template.cpp" my-template])
                ("\\.hpp$" . ["template.hpp" my-template])
+               ("\\.py$" . ["template.py" my-template])
                ) auto-insert-alist))
 (require 'cl)
 
