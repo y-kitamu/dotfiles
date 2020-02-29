@@ -287,6 +287,7 @@
 ;;; c++ の補完設定 (irony)
 ;;; (cmake で -DCMAKE_EXPORT_COMPILE_COMMANDS=1 としてやって compile_commands.json を作成する?)
 ;;; 初回のみ M-x irony-install-server RET でサーバーをインストールする
+;;; apt で clang 系のライブラリ（全部?） 入れる必要あり
 (require 'irony)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'c++-mode-hook 'irony-mode)

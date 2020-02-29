@@ -134,17 +134,16 @@ fi
 # use emacs as default editor
 export EDITOR="emacs"
 
-# git pull remote ~/dotfiles
-#cd $HOME/dotfiles
-#git pull origin master
-#cd $HOME
-
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
     export WORKON_HOME=$HOME/.pyenv
     if [ -f /usr/bin/python3 ]; then
         export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
     fi
     source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+if [ -e ~/work/ ]; then
+    export PYTHONPATH=${HOME}/work/${PYTHONPATH:+:${PYHTHONPATH}}
 fi
 
 # OS customize setting
@@ -162,9 +161,9 @@ elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
 fi
 
 # cuda
-if [ -e /usr/local/cuda-9.2 ]; then
-    export PATH=/usr/local/cuda-9.2/bin${PATH:+:${PATH}}
-    export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+if [ -e /usr/local/cuda-10.0/ ]; then
+    export PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}
+    export LD_LIBRARY_PATH=/usr/local/cuda-10.0/targets/x86_64-linux/lib/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 fi
 
 # android studio path

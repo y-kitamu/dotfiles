@@ -37,6 +37,9 @@ cd emacs-26.1/
 make
 sudo make install
 ```
+M-x irony-install-server (c++ の補完設定)
+M-x jedi:-install-server (python の補完設定)
+
 
 - dconf-editor
 ```
