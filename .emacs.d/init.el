@@ -325,9 +325,9 @@
 (add-hook 'before-save-hook 'py-autopep8-before-save)
 
 ;;; flycheck setting (Syntax check)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(with-eval-after-load 'flycheck (flycheck-pos-tip-mode)) ; flycheck-pos-tip-mode
-
+;; (add-hook 'after-init-hook #'global-flycheck-mode)
+;; (with-eval-after-load 'flycheck (flycheck-pos-tip-mode)) ; flycheck-pos-tip-mode
+;; 
 
 ;;; extension of Search and Replace
 ;; moccur setting
@@ -477,3 +477,18 @@
 ;;              '(camma-assignment
 ;;                (regexp . ",\\( *\\)")
 ;;                (repeat . t)))              ; 複数回適用を有効に
+
+;;; yasnippet
+(require 'yasnippet)
+(setq yas-snippet-dirs
+      '("~/.emacs.d/yasnippets"
+        ))
+
+;; 既存スニペットを挿入する
+(define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
+;; 新規スニペットを作成するバッファを用意する
+(define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
+;; 既存スニペットを閲覧・編集する
+(define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
+
+(yas-global-mode 1)
