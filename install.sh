@@ -6,13 +6,14 @@
 
 
 re='\.git.*'
-for f in .??*
+for f in $(dirname "${BASH_SOURCE[0]}")/.??*
 do
     [[ $f =~ $re ]] && continue
-    hf="$HOME"/"$f"
+    basename=$(basename "$f")
+    hf=$HOME/$basename
     if [ -e "$hf" ]; then
         rm -rf "$hf"
     fi
 
-    ln -snfv ~/dotfiles/"$f" ~/
+    ln -snfv ~/dotfiles/$basename ~/
 done

@@ -110,8 +110,14 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# sizebook local aliases
 if [ -f ~/.bash_sb_aliases ]; then
     . ~/.bash_sb_aliases
+fi
+
+# Function definitions
+if [ -f ~/.bash_functions ]; then
+    . ~/.bash_functions
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -128,7 +134,6 @@ fi
 
 
 ############# CUSTOM SETTING ##############
-
 
 ### environment variables ###
 # use emacs as default editor
@@ -171,9 +176,6 @@ if [ -e //usr/local/android-studio/bin ]; then
     export PATH=/usr/local/android-studio/bin:${PATH}
 fi
 
-# export LD_INCLUDE_PATH=/home/kitamura/work/engine/src/:/home/kitamura/work/engine/ext/
-# export LD_LIBRARY_PATH=/home/kitamura/work/config/engine/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-
 # to use droidcam
 if [ -f /usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so ]; then
     export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so
@@ -186,11 +188,6 @@ fi
 
 # for gsettings error
 export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules
-
-# Halide setting
-# if [ -e /usr/bin/llvm-config-8 ]; then
-#     export LLVM_CONFIG=/usr/bin/llvm-config-8
-# fi
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/kitamura/google-cloud-sdk/path.bash.inc' ]; then . '/home/kitamura/google-cloud-sdk/path.bash.inc'; fi
