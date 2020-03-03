@@ -1,0 +1,16 @@
+/cache/
+/recentf
+/auto-save-list
+/backups
+/elpa/archives
+/tramp
+/.emacs.desktop*
+/junk
+/request
+/ac-comphist.dat
+/irony/
+/.python-environments/
+/session.*
+/transient/
+/elpy/
+session.*

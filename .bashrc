@@ -182,8 +182,9 @@ if [ -f /usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so ]; then
 fi
 
 # add local bin path
-if [ -e ${HOME}/local/bin ]; then
-    export PATH=${HOME}/local/bin${PATH:+:${PATH}}
+if [ -e ${HOME}/.local/bin ]; then
+    export PATH=${HOME}/.local/bin${PATH:+:${PATH}}
+    export PYTHONPATH=${HOME}/.local/bin${PYTHONPATH:+${PYTHONPATH}}
 fi
 
 # for gsettings error

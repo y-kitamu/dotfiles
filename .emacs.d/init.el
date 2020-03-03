@@ -31,6 +31,8 @@
   (write-region "" nil custom-file))
 (load custom-file)
 
+;;; emacs internal shell path
+(add-to-list 'exec-path "~/.local/bin")
 
 ;;; 再起動時に前回開いていたファイルを開く
 (desktop-save-mode 1)
@@ -319,15 +321,16 @@
      (when (locate-library "flycheck-irony")
        (flycheck-irony-setup))))
 
-;;; autopep8
-(require 'python)
-(require 'py-autopep8)
-(add-hook 'before-save-hook 'py-autopep8-before-save)
-
 ;;; flycheck setting (Syntax check)
 ;; (add-hook 'after-init-hook #'global-flycheck-mode)
 ;; (with-eval-after-load 'flycheck (flycheck-pos-tip-mode)) ; flycheck-pos-tip-mode
-;; 
+;;
+(setq elpy-rpc-python-command "python3")
+
+;;; autopep8
+(require 'python)
+(require 'py-autopep8)
+(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
 
 ;;; extension of Search and Replace
 ;; moccur setting
