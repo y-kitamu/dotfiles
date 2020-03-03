@@ -16,7 +16,7 @@
             (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; add arguments' directory & subdirectory to the load-path
-(add-to-load-path "elisp" "elpa" "conf")
+(add-to-load-path "elpa")
 
 ;;; ELPA
 (require 'package)
