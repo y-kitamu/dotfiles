@@ -479,12 +479,40 @@
   (shell-command-on-region beg end "jq ." nil t))
 
 ;;; align config
-;;; not working
+;; M-x align で自動で整形する設定 (align-regexp ではない!)
+(defmacro lazyload (func lib docstring &rest body)
+  "遅延ロード．funcにオートロードさせたい関数を並べる．
+例：\(lazyload \(func1 func2\) \"hogehoge\"\)"
+  (declare (indent 3))
+  `(when (locate-library ,lib)
+     ,@(mapcar (lambda (f) `(autoload ',f ,lib ,docstring t)) func)
+     (eval-after-load ,lib
+       `(funcall #',(lambda () ,@body)))))
+(defmacro append-to-list (to list)
+  " list に append する際に要素を複数指定"
+  (declare (indent 1))
+  `(setq ,to (append ,list ,to)))
+
+(lazyload (align align-regexp align-newline-and-indent) "align" nil
+  (append-to-list align-rules-list
+    (list '(yatex-tabular
+            (regexp . "\\(\\s-*\\)&")
+            (modes . '(yatex-mode))
+            (repeat . t))
+          '(yatex-tabular2
+            (regexp . "\\(\\s-+\\)\\\\\\\\")
+            (modes . '(yatex-mode))))))
 ;; (require 'align)
 ;; (add-to-list 'align-rules-list
-;;              '(camma-assignment
-;;                (regexp . ",\\( *\\)")
-;;                (repeat . t)))              ; 複数回適用を有効に
+;;              '(yatex-table1
+;;                (regexp . "\\(\\s-*\\)&") 
+;;                (repeat . t) ; 複数回適用を有効に
+;;                (modes  . '(yatex-mode))))
+;; (add-to-list 'align-rules-list
+;;              '(yatex-tabular2
+;;               (regexp . "\\(\\s-+\\)\\\\\\\\")
+;;               (modes . '(yatex-mode))))
+             
 
 ;;; yasnippet
 (require 'yasnippet)
