@@ -506,10 +506,10 @@
 (use-package yatex
   :mode ("\\.tex\\'" . yatex-mode)
   :init
-  :bind(("TAB" . 'ignore)
+  :bind(:map YaTeX-mode-map
+        ("TAB" . 'ignore)
         ("RET" . 'newline))
   :config
-  ;; (setq YaTeX-electric-indent-mode t) ; 改行時の自動インデントの設定
   (let (
         (prefix "docker run --rm -v $PWD:/workdir paperist/alpine-texlive-ja ")
         (cmds '(
