@@ -501,11 +501,13 @@
 
 (yas-global-mode 1)
 
-;;
-;; YaTeX (melpa)
-;;
-(use-package yatex                                                                                   
+
+;;; YaTeX (melpa)
+(use-package yatex
   :mode ("\\.tex\\'" . yatex-mode)
+  :init
+  :bind(("TAB" . 'ignore)
+        ("RET" . 'newline))
   :config
   ;; (setq YaTeX-electric-indent-mode t) ; 改行時の自動インデントの設定
   (let (
