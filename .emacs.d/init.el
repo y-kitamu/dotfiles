@@ -18,6 +18,11 @@
 ;; add arguments' directory & subdirectory to the load-path
 (add-to-load-path "elpa")
 
+;; use-package settings
+;; This is only needed once, near the top of the file
+(eval-when-compile
+  (require 'use-package))
+
 ;;; ELPA
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
@@ -495,3 +500,47 @@
 (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
 
 (yas-global-mode 1)
+
+;;
+;; YaTeX (melpa)
+;;
+(use-package yatex                                                                                   
+  :mode ("\\.tex\\'" . yatex-mode)
+  :config
+  (setq YaTeX-electric-indent-mode t)
+  (let (
+        (prefix "docker run --rm -v $PWD:/workdir paperist/alpine-texlive-ja ")
+        (cmds '(
+                bibtex-command
+                dvi2-command
+                makeindex-command
+                tex-command
+                YaTeX-dvipdf-command
+                )))
+    (cl-loop for cmd in cmds collect (set cmd (concat prefix (eval cmd))))))
+;; (use-package yatex
+;;   :ensure t
+;;   :init
+;;   (setq YaTeX-inhibit-prefix-letter t)    ;; yatex.elを読み込む前に設定が必要らしい
+;;   :mode
+;;   (("\\.tex\\'" . yatex-mode)
+;;    ("\\.ltx\\'" . yatex-mode)
+;;    ("\\.cls\\'" . yatex-mode)
+;;    ("\\.sty\\'" . yatex-mode)
+;;    ("\\.clo\\'" . yatex-mode)
+;;    ("\\.bbl\\'" . yatex-mode))
+;;   :config
+;;   (setq YaTeX-kanji-code nil)
+;;   (setq YaTeX-latex-message-code 'utf-8)
+;;   (setq YaTeX-use-AMS-LaTeX t)
+;;   (setq YaTeX-dvi2-command-ext-alist
+;;         '(("TeXworks\\|texworks\\|texstudio\\|mupdf\\|SumatraPDF\\|Preview\\|Skim\\|TeXShop\\|evince\\|okular\\|zathura\\|qpdfview\\|Firefox\\|firefox\\|chrome\\|chromium\\|Adobe\\|Acrobat\\|AcroRd32\\|acroread\\|pdfopen\\|xdg-open\\|open\\|start" . ".pdf")))
+;;   ;;(setq tex-command "platex -synctex=1")
+;;   (setq tex-command "pdflatex -synctex=1")
+;;   (setq dvi2-command "xdvi")
+;;   (when (equal system-type 'darwin)     ;; for Mac only
+;;     (setq dvi2-command "/usr/bin/open -a Skim")
+;;     (setq tex-pdfview-command "/usr/bin/open -a Skim"))
+;;   (setq bibtex-command "pbibtex")
+;;   (setq dviprint-command-format "dvipdfmx")
+;;   (add-hook 'yatex-mode-hook '(lambda () (auto-fill-mode -1)))) ;; 自動で改行しない
