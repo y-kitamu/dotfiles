@@ -530,12 +530,23 @@
 (yas-global-mode 1)
 
 
+(defun delete-indent (&optional arg)
+  "delete indent of this line."
+  (interactive "*P")
+  (beginning-of-line)
+  (if arg (forward-line 1))
+  (if (eq (preceding-char) ?\n)
+      (progn
+        (delete-region (point) (1- (point)))
+        (newline)
+        (fixup-whitespace))))
+
 ;;; YaTeX (melpa)
 (use-package yatex
   :mode ("\\.tex\\'" . yatex-mode)
   :init
   :bind(:map YaTeX-mode-map
-        ("TAB" . 'ignore)
+        ("TAB" . 'delete-indent)
         ("RET" . 'newline))
   :config
   (let (
@@ -548,3 +559,4 @@
                 YaTeX-dvipdf-command
                 )))
     (cl-loop for cmd in cmds collect (set cmd (concat prefix (eval cmd))))))
+
