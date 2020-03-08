@@ -150,10 +150,8 @@
 (setq auto-save-timeout 15)                                 ; auto save file を作成するまでの秒間隔
 (setq auto-save-interval 60)                                ; auto save file を作成するまでの type 間隔
 
-
 ;;; 変更されたfileの自動更新
 (global-auto-revert-mode t)
-
 
 ;;; Hook
 ;; after save hook
@@ -168,7 +166,6 @@
          (setq eldoc-echo-area-use-multiline-p t)
          (turn-on-eldoc-mode)))
 (add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
-
 
 ;;; ファイル作成時に生成するテンプレートの設定 (autoinsert)
 ;; autoinsert
@@ -267,30 +264,25 @@
            helm-for-document-sources)
           :buffer "*helm for document*")))
 
-
-;;; auto-complete
-;; (when (require 'auto-complete-config nil t)
-;;   ;(define-key ac-mode-map (kbd "TAB") 'auto-complete)
-;;   (ac-config-default)
-;;   (setq ac-use-menu-map t)
-;;   (setq ac-ignore-case nil))
-
 ;;;; 補完機能 company + irony
 ;;; company-mode (auto-complete より良い？)
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)                 ; activate company for all buffer
 (setq company-transformers '(company-sort-by-backend-importance))
 (setq company-idle-delay 0)
-(setq company-minimum-prefix-length 3)
+(setq company-minimum-prefix-length 2)
 (setq company-selection-wrap-around t)
-(global-set-key (kbd "C-M-i") 'company-complete)
+(global-set-key (kbd "C-M-i") 'company-complete) ; C-M-iで補完
 (define-key company-active-map (kbd "C-n") 'company-select-next)        ; 次の候補を選択
 (define-key company-active-map (kbd "C-p") 'company-select-previous)    ; 前の候補を選択
 (define-key company-active-map (kbd "C-s") 'company-filter-candidates)  ; C-sで絞り込む
 (define-key company-active-map (kbd "C-i") 'company-complete-selection) ; TABで候補を設定
 (define-key company-active-map [tab] 'company-complete-selection)       ; TABで候補を設定
 (define-key company-active-map (kbd "C-f") 'company-complete-selection) ; C-fで候補を設定
-(define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)        ; 各種メジャーモードでも C-M-iで
+
+;;; company-quickhelp (popup help)
+(company-quickhelp-mode)
+(setq company-quickhelp-delay 0.1)
 
 ;;; c++ の補完設定 (irony)
 ;;; (cmake で -DCMAKE_EXPORT_COMPILE_COMMANDS=1 としてやって compile_commands.json を作成する?)
@@ -310,13 +302,30 @@
      (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
      (add-hook 'c-mode-common-hook 'irony-mode)))
 
+(defun c-mode-update-gtags ()
+  (let* ((file (buffer-file-name (current-buffer)))
+     (dir (directory-file-name (file-name-directory file))))
+    (when (executable-find "global")
+      (start-process "gtags-update" nil
+             "global" "-uv"))))
+
+(add-hook 'after-save-hook
+      'c-mode-update-gtags)
+
 ;;; python の補完設定 (company-jedi)
+;;; not working : site-packages へのパスを通す ((setenv "PYTHONPATH" "~/.pyenv/django/lib/python3.7/site-packages") みたいな感じで?)
 ;;; 初回のみ M-x jedi:install-server RET でサーバーをインストールする
+(use-package jedi-core
+  :config
+  (setq jedi:complete-on-dot t) ; . を入力したときにも（メソッドを）補完  
+  (setq jedi:use-shortcuts t)  ; activate keybind (M-. : go to definition,  M-, : back from definition)
+  )
 (require 'jedi-core)
-(setq jedi:complete-on-dot t) ; . を入力したときにも（メソッドを）補完
-(setq jedi:use-shortcuts t)  ; activate keybind (M-. : go to definition,  M-, : back from definition)
+
 (add-hook 'python-mode-hook 'jedi:setup)
-(add-to-list 'company-backends 'company-jedi) ; backendに追加
+(defun add-jedi-to-comany-backend ()
+  (add-to-list 'company-backends 'company-jedi))
+(add-hook 'python-mode-hook 'add-jedi-to-comany-backend) ; backendに追加
 
 ;;; flycheck setting (Syntax check)
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -326,11 +335,11 @@
      (when (locate-library "flycheck-irony")
        (flycheck-irony-setup))))
 
-;;; flycheck setting (Syntax check)
-;; (add-hook 'after-init-hook #'global-flycheck-mode)
-;; (with-eval-after-load 'flycheck (flycheck-pos-tip-mode)) ; flycheck-pos-tip-mode
-;;
-(setq elpy-rpc-python-command "python3")
+;;; virtualenvwrapper.el
+;; M-x venv-workon で virtualenv を選択
+(use-package virtualenvwrapper
+  :config
+  (setq venv-location "~/.pyenv/"))
 
 ;;; autopep8
 (require 'python)
@@ -351,12 +360,12 @@
   (save-buffer))
 
 ;; wgrep setting
-(require 'wgrep nil t)
+(use-package wgrep)
 
 
 ;;; history setting
 ;; undo tree setting.  C-x u visualize undo tree
-(when (require 'undo-tree nil t) 
+(when (require 'undo-tree nil t)
   (global-undo-tree-mode))
 
 
@@ -462,7 +471,7 @@
  'org-babel-load-languages
  '((python . t)))                     ; python コードブロックを評価できるようにする
 
-;;; ein setting (emacs で jupyter notebook を使えるようにしたもの)
+;;; ein.el setting (emacs で jupyter notebook を使えるようにしたもの)
 ;;; 参考 : https://pod.hatenablog.com/entry/2017/08/06/220817
 (require 'ein)
 (setq ein:worksheet-enable-undo t)
@@ -493,6 +502,7 @@
   (declare (indent 1))
   `(setq ,to (append ,list ,to)))
 
+;;; yatex-mode で　table を align
 (lazyload (align align-regexp align-newline-and-indent) "align" nil
   (append-to-list align-rules-list
     (list '(yatex-tabular
@@ -502,32 +512,15 @@
           '(yatex-tabular2
             (regexp . "\\(\\s-+\\)\\\\\\\\")
             (modes . '(yatex-mode))))))
-;; (require 'align)
-;; (add-to-list 'align-rules-list
-;;              '(yatex-table1
-;;                (regexp . "\\(\\s-*\\)&") 
-;;                (repeat . t) ; 複数回適用を有効に
-;;                (modes  . '(yatex-mode))))
-;; (add-to-list 'align-rules-list
-;;              '(yatex-tabular2
-;;               (regexp . "\\(\\s-+\\)\\\\\\\\")
-;;               (modes . '(yatex-mode))))
-             
 
 ;;; yasnippet
-(require 'yasnippet)
-(setq yas-snippet-dirs
-      '("~/.emacs.d/yasnippets"
-        ))
-
-;; 既存スニペットを挿入する
-(define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
-;; 新規スニペットを作成するバッファを用意する
-(define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
-;; 既存スニペットを閲覧・編集する
-(define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
-
-(yas-global-mode 1)
+(use-package yasnippet
+  :config
+  (define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet) ;; 既存スニペットを挿入
+  (define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet) ;; スニペットを作成するバッファを用意
+  (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file) ;; 既存スニペットを閲覧・編集
+  (yas-global-mode 1)
+  )
 
 
 (defun delete-indent (&optional arg)
