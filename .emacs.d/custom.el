@@ -21,7 +21,7 @@
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (yatex use-package elpy yasnippet-snippets yasnippet company-irony company-jedi company-ansible company-cmake px grandshell-theme csv-mode ein open-junk-file php-mode cmake-mode buffer-move glsl-mode zenburn-theme web-mode undo-tree quickrun py-autopep8 multi-term moccur-edit markdown-preview-mode magit kotlin-mode helm-gtags helm-descbinds helm-c-moccur gtags flycheck-pos-tip elscreen dockerfile-mode docker-compose-mode auto-complete)))
+    (wgrep ag company-quickhelp virtualenvwrapper yatex use-package elpy yasnippet-snippets yasnippet company-irony company-jedi company-ansible company-cmake px grandshell-theme csv-mode ein open-junk-file php-mode cmake-mode buffer-move glsl-mode zenburn-theme web-mode undo-tree quickrun py-autopep8 multi-term moccur-edit markdown-preview-mode magit kotlin-mode helm-gtags helm-descbinds helm-c-moccur gtags flycheck-pos-tip elscreen dockerfile-mode docker-compose-mode auto-complete)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
