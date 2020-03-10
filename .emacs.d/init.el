@@ -478,9 +478,6 @@
 (setq org-agenda-files (list org-directory))
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-log-done 'time)
-(add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
-(setq hl-line-face 'underline)
-
 
 ;;; ein.el setting (emacs で jupyter notebook を使えるようにしたもの)
 ;;; 参考 : https://pod.hatenablog.com/entry/2017/08/06/220817
