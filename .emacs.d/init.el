@@ -302,6 +302,8 @@
      (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
      (add-hook 'c-mode-common-hook 'irony-mode)))
 
+;; automatically update gtags
+;; project root で gtags -v とかで GTAGS, GPATH, GRTAGS を作成する
 (defun c-mode-update-gtags ()
   (let* ((file (buffer-file-name (current-buffer)))
      (dir (directory-file-name (file-name-directory file))))
@@ -470,6 +472,15 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)))                     ; python コードブロックを評価できるようにする
+
+(define-key global-map (kbd "C-c a") 'org-agenda)
+(setq org-directory "~/.emacs.d/junk")
+(setq org-agenda-files (list org-directory))
+(setq org-agenda-skip-scheduled-if-done t)
+(setq org-log-done 'time)
+(add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
+(setq hl-line-face 'underline)
+
 
 ;;; ein.el setting (emacs で jupyter notebook を使えるようにしたもの)
 ;;; 参考 : https://pod.hatenablog.com/entry/2017/08/06/220817
