@@ -312,7 +312,13 @@
              "global" "-uv"))))
 
 (add-hook 'after-save-hook
-      'c-mode-update-gtags)
+          'c-mode-update-gtags)
+
+;; gdb
+(setq gdb-many-windows t)
+(add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
+(setq gdb-use-separate-io-buffer t)
+
 
 ;;; python の補完設定 (company-jedi)
 ;;; not working : site-packages へのパスを通す ((setenv "PYTHONPATH" "~/.pyenv/django/lib/python3.7/site-packages") みたいな感じで?)
@@ -362,8 +368,13 @@
   (save-buffer))
 
 ;; wgrep setting
-(use-package wgrep)
+(use-package wgrep
+  :config
+  (setq wgrep-auto-save-buffer t)
+)
 
+(autoload 'wgrep-ag-setup "wgrep-ag")
+(add-hook 'ag-mode-hook 'wgrep-ag-setup)
 
 ;;; history setting
 ;; undo tree setting.  C-x u visualize undo tree
