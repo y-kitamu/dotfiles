@@ -1,10 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Emacs Setting File ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; load-path の設定
-;; if using emacs23 or before
-(when (< emacs-major-version 23)
-  (defvar user-emacs-directory "~/.emacs.d/"))
-
 ;; subdirectory も自動で追加する関数
 (defun add-to-load-path (&rest paths)
   (let (path)
@@ -35,6 +31,10 @@
 (unless (file-exists-p custom-file)
   (write-region "" nil custom-file))
 (load custom-file)
+
+(unless package-archive-contents
+  (package-refresh-contents))
+(package-install-selected-packages)
 
 ;;; emacs internal shell path
 (add-to-list 'exec-path "~/.local/bin")
@@ -67,8 +67,11 @@
 
 ;; hide bars
 (tool-bar-mode 0)   ; tool bar を非表示
-(scroll-bar-mode 0) ; scroll bar を非表示
 (menu-bar-mode 0)   ; menu bar を非表示
+(if window-system
+    (scroll-bar-mode 0) ; scroll bar を非表示
+  )
+
 
 ;; standard mode line setting
 (column-number-mode t)             ; column 番号も表示
@@ -209,8 +212,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  ELPA Package Settings  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; インストールしたパッケージの設定とか keybind とか ;;;;
 
-
-
 ;;; Helm
 (require 'helm-config)                                   ; activate helm
 
@@ -233,16 +234,16 @@
 (define-key global-map (kbd "M-x") 'helm-M-x)
 
 ;; helm-gtags
-(custom-set-variables
- '(helm-gtagssuggested-keymapping t)
- '(helm-gtags-auto-update t))
-(defun helm-gtags-hook ()
-  (local-set-key (kbd "M-t") 'helm-gtags-find-tag)    ; 入力したタグの定義元へジャンプ
-  (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)   ; 入力タグを参照する場所へジャンプ
-  (local-set-key (kbd "M-s") 'helm-gtags-find-symbol) ; 入力したシンボルを参照する場所へジャンプ
-  (local-set-key (kbd "M-p") 'helm-gtags-pop-stack))  ; ジャンプ前の場所へ戻る
-(add-hook 'c++-mode-hook 'helm-gtags-hook)
-(add-hook 'python-mode-hook 'helm-gtags-hook)
+;; (custom-set-variables
+;;  '(helm-gtagssuggested-keymapping t)
+;;  '(helm-gtags-auto-update t))
+;; (defun helm-gtags-hook ()
+;;   (local-set-key (kbd "M-t") 'helm-gtags-find-tag)    ; 入力したタグの定義元へジャンプ
+;;   (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)   ; 入力タグを参照する場所へジャンプ
+;;   (local-set-key (kbd "M-s") 'helm-gtags-find-symbol) ; 入力したシンボルを参照する場所へジャンプ
+;;   (local-set-key (kbd "M-p") 'helm-gtags-pop-stack))  ; ジャンプ前の場所へ戻る
+;; (add-hook 'c++-mode-hook 'helm-gtags-hook)
+;; (add-hook 'python-mode-hook 'helm-gtags-hook)
 
 ;; helm-man
 (require 'helm-elisp)
@@ -264,95 +265,119 @@
            helm-for-document-sources)
           :buffer "*helm for document*")))
 
-;;;; 補完機能 company + irony
-;;; company-mode (auto-complete より良い？)
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)                 ; activate company for all buffer
-(setq company-transformers '(company-sort-by-backend-importance))
-(setq company-idle-delay 0)
-(setq company-minimum-prefix-length 2)
-(setq company-selection-wrap-around t)
-(global-set-key (kbd "C-M-i") 'company-complete) ; C-M-iで補完
-(define-key company-active-map (kbd "C-n") 'company-select-next)        ; 次の候補を選択
-(define-key company-active-map (kbd "C-p") 'company-select-previous)    ; 前の候補を選択
-(define-key company-active-map (kbd "C-s") 'company-filter-candidates)  ; C-sで絞り込む
-(define-key company-active-map (kbd "C-i") 'company-complete-selection) ; TABで候補を設定
-(define-key company-active-map [tab] 'company-complete-selection)       ; TABで候補を設定
-(define-key company-active-map (kbd "C-f") 'company-complete-selection) ; C-fで候補を設定
+;;; yasnippet
+(use-package yasnippet
+  :bind
+  (:map yas-minor-mode-map
+        ("C-x i i" . yas-insert-snippet) ;; 既存スニペットを挿入
+        ("C-x i n" .  'yas-new-snippet) ;; スニペットを作成するバッファを用意
+        ("C-x i v" . 'yas-visit-snippet-file) ;; 既存スニペットを閲覧・編集
+        )
+  (:map yas-keymap
+        ("<tab>" . nil)) ;; because of avoiding conflict with company keymap
+  :init
+  (yas-global-mode t)
+  )
 
-;;; company-quickhelp (popup help)
-(company-quickhelp-mode)
-(setq company-quickhelp-delay 0.1)
+;;;; 補完機能 company + lsp
+;;; lsp-mode
+(use-package lsp-mode
+  :commands lsp
+  :custom
+  ((lsp-enable-indentation nil)
+   (lsp-document-sync-method 'incremental)
+   (lsp-print-io t)
+   )
+  :init
+  (unbind-key "C-l")
+  :bind
+  (("C-l C-l"  . lsp)
+   ("C-l h"    . lsp-describe-session)
+   ("C-l t"    . lsp-goto-type-definition)
+   ("C-l r"    . lsp-rename)
+   ("C-l <f5>" . lsp-restart-workspace)
+   ("C-l l"    . lsp-lens-mode))
+  :hook
+  (prog-mode . lsp)
+  )
 
-;;; c++ の補完設定 (irony)
-;;; (cmake で -DCMAKE_EXPORT_COMPILE_COMMANDS=1 としてやって compile_commands.json を作成する?)
-;;; 初回のみ M-x irony-install-server RET でサーバーをインストールする
-;;; apt で clang 系のライブラリ（全部?） 入れる必要あり
-(require 'irony)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+(use-package lsp-ui
+  :commands lsp-ui-mode
+  )
 
-(eval-after-load 'irony
-  '(progn
-     (custom-set-variables '(irony-additional-clang-options '("-std=c++1z")))
-     (add-to-list 'company-backends 'company-irony)
-     (add-to-list 'company-backends 'company-gtags)
-     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-     (add-hook 'c-mode-common-hook 'irony-mode)))
+(use-package company
+  :custom
+  (company-transformers '(company-sort-by-backend-importance))
+  (company-idle-delay 0)
+  (company-echo-delay 0)
+  (company-minimum-prefix-length 1)
+  (company-selection-wrap-around t)
+  (completion-ignore-case t)
+  :bind
+  (("C-M-i" . company-complete)) ; C-M-iで補完
+  (:map company-active-map
+        ("C-n" . company-select-next) ; 次の候補を選択
+        ("C-p" . company-select-previous) ; 前の候補を選択
+        ("C-s" . company-filter-candidates)  ; C-sで絞り込む
+        ("C-i" . company-complete-selection) 
+        ([tab] . company-complete-selection)) ; TABで候補を設定
+  (:map company-search-map
+        ("C-n" . company-select-next)
+        ("C-p" . company-select-previous))
+  :init
+  (global-company-mode t)
+  )
+ 
+(use-package company-lsp
+  :commands company-lsp
+  :custom
+  (company-lsp-cache-candidates 'auto)
+  (company-lsp-async t)
+  (company-lsp-enable-recompletion t)
+  :after
+  (:all lsp-mode lsp-ui company yasnippet)
+  :init
+  (push 'company-lsp company-backends)
+  )
+
+;; ;; company-quickhelp (popup help)
+;; (company-quickhelp-mode)
+;; (setq company-quickhelp-delay 0.1)
+
+;; ccls
+(use-package ccls
+  :custom
+  (ccls-executable "/usr/local/bin/ccls")
+  (ccls-sem-highlight-method 'font-lock)
+  (ccls-use-default-rainbow-sem-highlight)
+  :hook ((c-mode c++-mode objc-mode) .
+         (lambda () (require 'ccls) (lsp)))
+  )
 
 ;; automatically update gtags
 ;; project root で gtags -v とかで GTAGS, GPATH, GRTAGS を作成する
-(defun c-mode-update-gtags ()
-  (let* ((file (buffer-file-name (current-buffer)))
-     (dir (directory-file-name (file-name-directory file))))
-    (when (executable-find "global")
-      (start-process "gtags-update" nil
-             "global" "-uv"))))
+;; (defun c-mode-update-gtags ()
+;;   (let* ((file (buffer-file-name (current-buffer)))
+;;      (dir (directory-file-name (file-name-directory file))))
+;;     (when (executable-find "global")
+;;       (start-process "gtags-update" nil
+;;              "global" "-uv"))))
 
-(add-hook 'after-save-hook
-          'c-mode-update-gtags)
+;; (add-hook 'after-save-hook
+;;           'c-mode-update-gtags)
 
 ;; gdb
+
 (setq gdb-many-windows t)
 (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
 (setq gdb-use-separate-io-buffer t)
 
 
-;;; python の補完設定 (company-jedi)
-;;; not working : site-packages へのパスを通す ((setenv "PYTHONPATH" "~/.pyenv/django/lib/python3.7/site-packages") みたいな感じで?)
-;;; 初回のみ M-x jedi:install-server RET でサーバーをインストールする
-(use-package jedi-core
-  :config
-  (setq jedi:complete-on-dot t) ; . を入力したときにも（メソッドを）補完  
-  (setq jedi:use-shortcuts t)  ; activate keybind (M-. : go to definition,  M-, : back from definition)
-  )
-(require 'jedi-core)
-
-(add-hook 'python-mode-hook 'jedi:setup)
-(defun add-jedi-to-comany-backend ()
-  (add-to-list 'company-backends 'company-jedi))
-(add-hook 'python-mode-hook 'add-jedi-to-comany-backend) ; backendに追加
-
-;;; flycheck setting (Syntax check)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(with-eval-after-load 'flycheck (flycheck-pos-tip-mode)) ; flycheck-pos-tip-mode
-(eval-after-load "flycheck"
-  '(progn
-     (when (locate-library "flycheck-irony")
-       (flycheck-irony-setup))))
-
 ;;; virtualenvwrapper.el
 ;; M-x venv-workon で virtualenv を選択
-(use-package virtualenvwrapper
-  :config
-  (setq venv-location "~/.pyenv/"))
-
-;;; autopep8
-(require 'python)
-(require 'py-autopep8)
-(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+;; (use-package virtualenvwrapper
+;;   :config
+;;   (setq venv-location "~/.pyenv/"))
 
 ;;; extension of Search and Replace
 ;; moccur setting
@@ -376,21 +401,27 @@
 (autoload 'wgrep-ag-setup "wgrep-ag")
 (add-hook 'ag-mode-hook 'wgrep-ag-setup)
 
-;;; history setting
+
 ;; undo tree setting.  C-x u visualize undo tree
-(when (require 'undo-tree nil t)
-  (global-undo-tree-mode))
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode)
+  )
 
 
-;;; window management
-;; Elscreen
-(when (require 'elscreen nil t)
+;;; Elscreen 
+(use-package elscreen
+  :config
   (elscreen-start)
   (if window-system
       (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
     (define-key elscreen-map (kbd "C-z") 'suspend-emacs))
-  (define-key elscreen-map (kbd "SPC") 'elscreen-next)
-  (define-key elscreen-map (kbd "C-SPC") 'elscreen-next))
+  :bind
+  (:map elscreen-map
+        ("SPC" . 'elscreen-next)
+        ("C-SPC" . 'elscreen-next)
+        )
+  )
 
 
 ;;; 矩形編集
@@ -400,44 +431,36 @@
 
 ;;; mode setting
 ;; web mode setting
-(when (require 'web-mode nil t)
-  ; web-mode で起動する拡張子
-  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.gs\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.xml\\'" . web-mode))
+(use-package web-mode
+  :mode (("\\.html\\'" . web-mode)
+         ("\\.css\\'" . web-mode)
+         ("\\.js\\'" . web-mode)
+         ("\\.gs\\'" . web-mode)
+         ("\\.jsx\\'" . web-mode)      
+         ("\\.php\\'" . web-mode)      
+         ("\\.tpl\\.php\\'" . web-mode)
+         ("\\.ctp\\'" . web-mode)
+         ("\\.jsp\\'" . web-mode)
+         ("\\.as[cp]x\\'" . web-mode)
+         ("\\.erb\\'" . web-mode)
+         ("\\.xml\\'" . web-mode))
+  :config
   (defun web-mode-hook ()
     (setq web-mode-markup-indent-offset 2) ; HTML の Indent
     (setq web-mode-css-indent-offset 2)  ; CSS の Indent
     (setq web-mode-code-indent-offset 2) ; JS, PHP, Ruby などの Indent
     (setq web-mode-style-padding 1)      ; <style>内の Indent
     (setq web-mode-script-padding 1))    ; <script>内の Indent
-  (add-hook 'web-mode-hook 'web-mode-hook))
-(setq web-mode-content-types-alist
-      '(("javascript" . "\\.gs\\'")  ; google app scripts file
-        ))
+  (add-hook 'web-mode-hook 'web-mode-hook)
+  (setq web-mode-content-types-alist
+        '(("javascript" . "\\.gs\\'")  ; google app scripts file
+          ))
+  )
+  
 
 ;; docker mode setting
-(require 'dockerfile-mode nil t)
-(require 'docker-compose-mode nil t)
-
-;; c++ (cuda) mode setting
-;; (add-to-list 'auto-mode-alist '("\\.cu\\" . c++-mode))
-
-;; markdown mode setting
-;; TODO : markdown-preview-mode not working
-;; (add-to-list 'markdown-preview-javascript
-;;              "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML") ; add MathJax
-;; (add-to-list 'markdown-preview-javascript
-;;              '("http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" . async))
+(use-package dockerfile-mode)
+(use-package docker-compose-mode)
 
 
 ;;; quickrun (run scripts in Emacs)
@@ -454,30 +477,25 @@
 
 ;;; multi-term
 ;; .bashrc に $TERM が eterm-color の場合にも color-prompt にするように設定を追記する
-(require 'multi-term)
-(add-to-list 'term-unbind-key-list "C-t")
-(add-to-list 'term-unbind-key-list "C-o")
-(add-hook 'term-mode-hook
-          (lambda ()
-            (define-key term-raw-map "\C-y" 'term-paste)           ; char-mode でペースト
-            (define-key term-raw-map "\C-c\C-j" 'term-line-mode))) ; line-mode へ切り替え
+(use-package multi-term
+  :config
+  (add-to-list 'term-unbind-key-list "C-t")
+  (add-to-list 'term-unbind-key-list "C-o")
+  :hook
+  (term-mode . 
+   (lambda ()
+     (define-key term-raw-map "\C-y" 'term-paste)           ; char-mode でペースト
+     (define-key term-raw-map "\C-c\C-j" 'term-line-mode))) ; line-mode へ切り替え
+  )
 
 
 ;;; buffer-move setting
-(require 'buffer-move nil t)
-(define-key global-map (kbd "C-c C-l") 'buf-move-left)
-(define-key global-map (kbd "C-c C-r") 'buf-move-right)
+(use-package buffer-move
+  :bind (("C-c C-l" . buf-move-left)
+         ("C-c C-r" . buf-move-right))
+  )
 
 
-;;; open-junk-file setting
-;;; org メモを使うための設定
-(require 'open-junk-file nil t)
-(setq org-archive-location (concat "~/.emacs.d/junk/"
-                                   (format-time-string "%Y_%m_%d" (current-time))
-                                   ".org::"))
-(setq open-junk-file-format "~/.emacs.d/junk/%Y_%m_%d.org")
-(define-key global-map (kbd "C-x j") 'open-junk-file)
-(define-key global-map (kbd "C-x C-j") (lambda() (interactive) (find-file "~/.emacs.d/junk/todo.org")))
 ;;; org mode setting
 (setq org-confirm-babel-evaluate nil) ; 評価時に確認メッセージをださない
 (org-babel-do-load-languages
@@ -490,14 +508,25 @@
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-log-done 'time)
 
+;;; open-junk-file setting
+(use-package open-junk-file
+  :config
+  (setq org-archive-location (concat "~/.emacs.d/junk/"
+                                     (format-time-string "%Y_%m_%d" (current-time))
+                                     ".org::")) 
+  (setq open-junk-file-format "~/.emacs.d/junk/%Y_%m_%d.org")
+  :bind
+  ("C-x j" . open-junk-file)
+  ("C-x C-j" . (lambda() (interactive) (find-file "~/.emacs.d/junk/todo.org")))
+  )
+
+
 ;;; ein.el setting (emacs で jupyter notebook を使えるようにしたもの)
 ;;; 参考 : https://pod.hatenablog.com/entry/2017/08/06/220817
-(require 'ein)
-(setq ein:worksheet-enable-undo t)
-
-;;; glsl-mode の "Major mode is unknown to Irony, see `irony-supported-major-modes'" に対処
-(push 'glsl-mode irony-supported-major-modes)
-
+(use-package ein
+  :config
+  (setq ein:worksheet-enable-undo t)
+  )
 
 ;;;; json をフォーマットする
 ;;;; sudo apt install jq
@@ -506,7 +535,38 @@
   (interactive "r")
   (shell-command-on-region beg end "jq ." nil t))
 
-;;; align config
+
+;;; YaTeX (melpa)
+(defun delete-indent (&optional arg)
+  "delete indent of this line."
+  (interactive "*P")
+  (beginning-of-line)
+  (if arg (forward-line 1))
+  (if (eq (preceding-char) ?\n)
+      (progn
+        (delete-region (point) (1- (point)))
+        (newline)
+        (fixup-whitespace))))
+
+(use-package yatex
+  :mode ("\\.tex\\'" . yatex-mode)
+  :init
+  :bind(:map YaTeX-mode-map
+        ("TAB" . 'delete-indent)
+        ("RET" . 'newline))
+  :config
+  (let (
+        (prefix "docker run --rm -v $PWD:/workdir paperist/alpine-texlive-ja ")
+        (cmds '(
+                bibtex-command
+                dvi2-command
+                makeindex-command
+                tex-command
+                YaTeX-dvipdf-command
+                )))
+    (cl-loop for cmd in cmds collect (set cmd (concat prefix (eval cmd)))))
+  )
+
 ;; M-x align で自動で整形する設定 (align-regexp ではない!)
 (defmacro lazyload (func lib docstring &rest body)
   "遅延ロード．funcにオートロードさせたい関数を並べる．
@@ -531,44 +591,3 @@
           '(yatex-tabular2
             (regexp . "\\(\\s-+\\)\\\\\\\\")
             (modes . '(yatex-mode))))))
-
-;;; yasnippet
-(use-package yasnippet
-  :config
-  (define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet) ;; 既存スニペットを挿入
-  (define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet) ;; スニペットを作成するバッファを用意
-  (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file) ;; 既存スニペットを閲覧・編集
-  (yas-global-mode 1)
-  )
-
-
-(defun delete-indent (&optional arg)
-  "delete indent of this line."
-  (interactive "*P")
-  (beginning-of-line)
-  (if arg (forward-line 1))
-  (if (eq (preceding-char) ?\n)
-      (progn
-        (delete-region (point) (1- (point)))
-        (newline)
-        (fixup-whitespace))))
-
-;;; YaTeX (melpa)
-(use-package yatex
-  :mode ("\\.tex\\'" . yatex-mode)
-  :init
-  :bind(:map YaTeX-mode-map
-        ("TAB" . 'delete-indent)
-        ("RET" . 'newline))
-  :config
-  (let (
-        (prefix "docker run --rm -v $PWD:/workdir paperist/alpine-texlive-ja ")
-        (cmds '(
-                bibtex-command
-                dvi2-command
-                makeindex-command
-                tex-command
-                YaTeX-dvipdf-command
-                )))
-    (cl-loop for cmd in cmds collect (set cmd (concat prefix (eval cmd))))))
-
