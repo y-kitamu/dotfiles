@@ -13,4 +13,7 @@
 /session.*
 /transient/
 /elpy/
+/elpa_bk/
 session.*
+kkcrc
+.lsp-session*

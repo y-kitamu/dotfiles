@@ -7,17 +7,17 @@
         ccls         ;; ccls support
         helm-lsp     ;; helm support
         lsp-origami  ;; code folding support
-        helm-lsp     ;; helm interation
         dap-mode     ;; debugger support
         yasnippet    ;; helpers
         flycheck
         ;; major modes not in core
-	dockerfile-mode
+        dockerfile-mode
         docker-compose-mode
 	    go-mode
 	    typescript-mode
         use-package
         zenburn-theme
+        helm-descbinds
         org-junk-file
         ag
         wgrep-ag
@@ -28,6 +28,8 @@
         multi-term
         yatex
         ein
+        gxref
+        buffer-move
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
@@ -179,7 +181,8 @@
   ;; テンプレートのディレクトリ
   (auto-insert-directory "~/.emacs.d/insert")
   ;; 各ファイルによってテンプレートを切り替える
-  (auto-insert-alist (nconc '(("\\.cpp$" . ["template.cpp" my-template])
+  (auto-insert-alist (nconc '(("test_.*\.cpp$" . ["test_template.cpp" my-template])
+                              ("\\.cpp$" . ["template.cpp" my-template])
                               ("\\.hpp$" . ["template.hpp" my-template])
                               ("\\.py$" . ["template.py" my-template]))))
   :config
@@ -278,6 +281,49 @@
    (lambda ()
      (define-key term-raw-map "\C-y" 'term-paste)           ; char-mode でペースト
      (define-key term-raw-map "\C-c\C-j" 'term-line-mode))) ; line-mode へ切り替え
+  )
+
+;; automatically update gtags	
+;; project root で gtags -v とかで GTAGS, GPATH, GRTAGS を作成する	
+(defun c-mode-update-gtags ()	
+  (let* ((file (buffer-file-name (current-buffer)))	
+     (dir (directory-file-name (file-name-directory file))))	
+    (when (executable-find "global")	
+      (start-process "gtags-update" nil	
+             "global" "-uv"))))	
+(add-hook 'after-save-hook	
+          'c-mode-update-gtags)
+(use-package gxref
+  :config
+  (add-to-list 'xref-backend-functions 'gxref-xref-backend)
+  )
+
+;;; org mode setting
+(use-package org
+  :custom
+  (org-confirm-babel-evaluate nil) ; 評価時に確認メッセージをださない
+  (org-directory "~/.emacs.d/junk")
+  (org-agenda-files (list org-directory))
+  (org-agenda-skip-scheduled-if-done t) ; agenda に DONE を表示しない
+  (org-log-done 'time) ; DONE の時間を記録
+  :config
+  ; python コードブロックを評価できるようにする	
+  (org-babel-do-load-languages
+   'org-babel-load-languages	
+   '((python . t)))
+  :bind
+  ("C-c a" . 'org-agenda)
+  )
+;;; open-junk-file setting	
+(use-package open-junk-file	
+  :config	
+  (setq org-archive-location (concat "~/.emacs.d/junk/"	
+                                     (format-time-string "%Y_%m_%d" (current-time))	
+                                     ".org::")) 	
+  (setq open-junk-file-format "~/.emacs.d/junk/%Y_%m_%d.org")	
+  :bind	
+  ("C-x j" . open-junk-file)	
+  ("C-x C-j" . (lambda() (interactive) (find-file "~/.emacs.d/junk/todo.org")))	
   )
 
 ;;; ein.el setting (emacs で jupyter notebook を使えるようにしたもの)
@@ -380,13 +426,16 @@
 ;;; Helm
 (use-package helm-config
   :config
-  (helm-descbinds-mode) ; C-h b (keybind display list) をhelmで表示
   :bind
   (("M-y" . helm-show-kill-ring) ; helm-kill-ring への keybind の割当
    ("C-x b" . helm-for-files)
    ("C-x C-f" . helm-find-files)
    ("M-x" . helm-M-x))
   )
+(use-package helm-descbinds
+  :config
+  (helm-descbinds-mode) ; C-h b (keybind display list) をhelmで表示
+)
 (use-package helm-elisp)
 (use-package helm-man
   :custom
@@ -472,4 +521,8 @@
   (push 'company-lsp company-backends)
   )
 
+(use-package ccls
+  :custom
+  (ccls-initialization-options (list :compilationDatabaseDirectory "build"))
+  )
 ;; lsp configuration end
