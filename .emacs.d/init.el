@@ -9,7 +9,7 @@
         lsp-origami  ;; code folding support
         dap-mode     ;; debugger support
         yasnippet    ;; helpers
-        flycheck
+        ;dap-ui-mode
         ;; major modes not in core
         dockerfile-mode
         docker-compose-mode
@@ -466,8 +466,12 @@
   )
 
 (use-package lsp-ui
-  :config
-  (setq-default lsp-ui-sideline-show-hover t)
+  ;; :config
+  ;; (setq-default lsp-ui-sideline-show-hover t)
+  :custom
+  ;; (lsp-ui-sideline-ignore-duplicate t)
+  ;; (lsp-ui-sideline-delay 1.0)
+  (lsp-ui-doc-show nil)
   )
 
 (use-package lsp-go)
@@ -526,3 +530,42 @@
   (ccls-initialization-options (list :compilationDatabaseDirectory "build"))
   )
 ;; lsp configuration end
+
+;; dap-mode setting
+;; (dap-mode 1)
+;; (dap-ui-mode 1)
+;; ;; enables mouse hover support
+;; (dap-tooltip-mode 1)
+;; ;; use tooltips for mouse hover
+;; ;; if it is not enabled `dap-mode' will use the minibuffer.
+;; (tooltip-mode 1)
+;; (use-package dap-mode
+;;   :config
+;;   (dap-gdb-lldb-setup)
+;;   )
+;; (require 'dap-gdb-lldb)
+;; ;; (use-package dap-python)
+;; ;; (use-package dap-lldb)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(auto-insert-alist
+   '(("test_.*.cpp$" .
+      ["test_template.cpp" my-template])
+     ("\\.cpp$" .
+      ["template.cpp" my-template])
+     ("\\.hpp$" .
+      ["template.hpp" my-template])
+     ("\\.py$" .
+      ["template.py" my-template])))
+ '(auto-insert-directory "~/.emacs.d/insert")
+ '(package-selected-packages
+   '(lsp-mode lsp-ui lsp-treemacs company-lsp ccls helm-lsp lsp-origami dap-mode yasnippet dockerfile-mode docker-compose-mode go-mode typescript-mode use-package zenburn-theme helm-descbinds org-junk-file ag wgrep-ag undo-tree elscreen web-mode magit multi-term yatex ein gxref buffer-move)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
