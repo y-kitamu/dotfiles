@@ -18,7 +18,7 @@
         use-package
         zenburn-theme
         helm-descbinds
-        org-junk-file
+        open-junk-file
         ag
         wgrep-ag
         undo-tree
@@ -33,7 +33,7 @@
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
-			 ("MELPA Stable" . "https://stable.melpa.org/packages/")
+			             ("MELPA Stable" . "https://stable.melpa.org/packages/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
 
 (package-initialize)
