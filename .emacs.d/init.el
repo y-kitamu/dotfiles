@@ -37,6 +37,11 @@
 			             ("MELPA Stable" . "https://stable.melpa.org/packages/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
 
+;;; ELPAなどで自動で追加される設定をcustom.elに書き込む
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(unless (file-exists-p custom-file)
+  (write-region "" nil custom-file))
+
 (package-initialize)
 
 (unless package-archive-contents
@@ -52,6 +57,7 @@
 ;;; emacs internal shell path
 (add-to-list 'exec-path "~/.local/bin")
 
+;;; inits 以下の設定ファイルを読み込む
 (init-loader-load)
 
 ;;; Backup and Auto save setting
@@ -549,26 +555,3 @@
 ;; (require 'dap-gdb-lldb)
 ;; ;; (use-package dap-python)
 ;; ;; (use-package dap-lldb)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(auto-insert-alist
-   '(("test_.*.cpp$" .
-      ["test_template.cpp" my-template])
-     ("\\.cpp$" .
-      ["template.cpp" my-template])
-     ("\\.hpp$" .
-      ["template.hpp" my-template])
-     ("\\.py$" .
-      ["template.py" my-template])))
- '(auto-insert-directory "~/.emacs.d/insert")
- '(package-selected-packages
-   '(lsp-mode lsp-ui lsp-treemacs company-lsp ccls helm-lsp lsp-origami dap-mode yasnippet dockerfile-mode docker-compose-mode go-mode typescript-mode use-package zenburn-theme helm-descbinds org-junk-file ag wgrep-ag undo-tree elscreen web-mode magit multi-term yatex ein gxref buffer-move)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
