@@ -30,6 +30,7 @@
         ein
         gxref
         buffer-move
+	init-loader
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
@@ -50,6 +51,8 @@
 
 ;;; emacs internal shell path
 (add-to-list 'exec-path "~/.local/bin")
+
+(init-loader-load)
 
 ;;; Backup and Auto save setting
 ;; if you want to recover "init.el" from auto save file, run below command.
