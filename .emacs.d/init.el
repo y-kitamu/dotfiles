@@ -30,7 +30,8 @@
         ein
         gxref
         buffer-move
-	init-loader
+	    init-loader
+        flycheck
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
@@ -58,6 +59,7 @@
 (add-to-list 'exec-path "~/.local/bin")
 
 ;;; inits 以下の設定ファイルを読み込む
+(setq init-loader-show-log-after-init 'error-only)
 (init-loader-load)
 
 ;;; Backup and Auto save setting
@@ -465,6 +467,7 @@
            helm-for-document-sources)
           :buffer "*helm for document*")))
   )
+
 
 ;; lsp configuration begin
 (use-package lsp-mode
