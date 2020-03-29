@@ -472,7 +472,10 @@
 ;; lsp configuration begin
 (use-package lsp-mode
   :custom
-  (lsp-log-io t)
+  ;; (lsp-log-io t)
+  (gc-cons-threshold 100000000)
+  (read-process-output-max (* 1024 1024)) ;; 1mb
+  (lsp-idle-delay 0.500)
   :hook
   (prog-mode . lsp-deferred)
   )
@@ -482,7 +485,7 @@
   ;; (setq-default lsp-ui-sideline-show-hover t)
   :custom
   ;; (lsp-ui-sideline-ignore-duplicate t)
-  ;; (lsp-ui-sideline-delay 1.0)
+  (lsp-ui-sideline-delay 1.0)
   (lsp-ui-doc-show nil)
   )
 
@@ -506,7 +509,6 @@
   :custom
   (company-transformers '(company-sort-by-backend-importance))
   (company-idle-delay 0)
-  (company-echo-delay 0)
   (company-minimum-prefix-length 1)
   (company-selection-wrap-around t)
   (completion-ignore-case t)
