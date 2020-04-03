@@ -32,6 +32,7 @@
         buffer-move
 	    init-loader
         flycheck
+	which-key
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
@@ -479,6 +480,9 @@
   :hook
   (prog-mode . lsp-deferred)
   )
+
+(with-eval-after-load 'lsp-mode
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
 (use-package lsp-ui
   ;; :config
