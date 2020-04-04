@@ -33,6 +33,7 @@
 	    init-loader
         flycheck
         auto-virtualenvwrapper
+	    which-key
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
@@ -488,8 +489,13 @@
   (read-process-output-max (* 1024 1024)) ;; 1mb
   (lsp-idle-delay 0.500)
   :hook
-  (prog-mode . lsp-deferred)
+  ((prog-mode . lsp-deferred)
+   (lsp-mode . lsp-enable-which-key-integration))
   )
+
+(use-package which-key
+  :config
+  (which-key-mode))
 
 (use-package lsp-ui
   ;; :config
