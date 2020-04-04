@@ -32,6 +32,7 @@
         buffer-move
 	    init-loader
         flycheck
+        auto-virtualenvwrapper
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
@@ -432,6 +433,16 @@
   (setq web-mode-content-types-alist
         '(("javascript" . "\\.gs\\'")  ; google app scripts file
           ))
+  )
+
+;; auto-virtualenvwrapper
+(use-package auto-virtualenvwrapper
+  :hook
+  ((python-mode . auto-virtualenvwrapper-activate)
+   ;; Activate on changing buffers
+   (window-configuration-change . auto-virtualenvwrapper-activate)
+   ;; Activate on focus in
+   (focus-in-hook . auto-virtualenvwrapper-activate))
   )
 
 ;;; Helm
