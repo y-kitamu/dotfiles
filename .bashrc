@@ -184,7 +184,7 @@ fi
 # add local bin path
 if [ -e ${HOME}/.local/bin ]; then
     export PATH=${HOME}/.local/bin${PATH:+:${PATH}}
-    export PYTHONPATH=${HOME}/.local/bin${PYTHONPATH:+${PYTHONPATH}}
+    export PYTHONPATH=${HOME}/.local/bin${PYTHONPATH:+:${PYTHONPATH}}
 fi
 
 # for gsettings error

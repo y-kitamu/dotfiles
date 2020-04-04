@@ -32,7 +32,6 @@
         buffer-move
 	    init-loader
         flycheck
-        auto-virtualenvwrapper
 	    which-key
         ))
 
@@ -436,15 +435,6 @@
           ))
   )
 
-;; auto-virtualenvwrapper
-(use-package auto-virtualenvwrapper
-  :hook
-  ((python-mode . auto-virtualenvwrapper-activate)
-   ;; Activate on changing buffers
-   (window-configuration-change . auto-virtualenvwrapper-activate)
-   ;; Activate on focus in
-   (focus-in-hook . auto-virtualenvwrapper-activate))
-  )
 
 ;;; Helm
 (use-package helm-config
