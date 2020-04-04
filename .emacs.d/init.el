@@ -33,6 +33,7 @@
 	    init-loader
         flycheck
 	    which-key
+        pyvenv
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
@@ -82,7 +83,7 @@
 (desktop-save-mode 1)
 
 ; window の切替
-(define-key global-map (kbd "C-t") 'other-window)            
+(define-key global-map (kbd "C-t") 'other-window)
 (global-set-key (kbd "C-o") (lambda ()
                               (interactive)
                               (other-window -1)))
@@ -337,6 +338,19 @@
   ("C-x j" . open-junk-file)	
   ("C-x C-j" . (lambda() (interactive) (find-file "~/.emacs.d/junk/todo.org")))	
   )
+
+;;; python の仮想環境の設定
+;;; cd [project_root] && python -m venv [venv name] で仮想環境作成
+;;; dotfiles/requirements.txt をインストール
+;;; M-x pyvenv-activate [project_root]/[venv name] で activate
+;;; project のファイルを開くと、自動で仮想環境の lsp が立ち上がる。
+;;; すでにファイルが開いている場合は、 pyvenv-activate のあと、lsp-workspace-restart とする
+(use-package pyvenv
+  :diminish
+  :config
+  (setq pyvenv-mode-line-indicator
+        '(pyvenv-virtual-env-name ("[venv:" pyvenv-virtual-env-name "] ")))
+  (pyvenv-mode +1))
 
 ;;; ein.el setting (emacs で jupyter notebook を使えるようにしたもの)
 ;;; 参考 : https://pod.hatenablog.com/entry/2017/08/06/220817
