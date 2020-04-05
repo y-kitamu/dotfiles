@@ -436,6 +436,8 @@
          ("\\.as[cp]x\\'" . web-mode)
          ("\\.erb\\'" . web-mode)
          ("\\.xml\\'" . web-mode))
+  :custom
+  (web-mode-enable-current-element-highlight t)
   :config
   (defun web-mode-hook ()
     (setq web-mode-markup-indent-offset 2) ; HTML の Indent
