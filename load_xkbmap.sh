@@ -1,5 +1,7 @@
 #!/bin/sh
 
+ setxkbmap jp
+
 # enable .xkb keymap
 if [ -s $HOME/.xkb/keymap/myxkb ]
 then
