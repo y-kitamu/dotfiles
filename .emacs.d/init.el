@@ -314,6 +314,9 @@
 ;;; org mode setting
 (use-package org
   :custom
+  (org-startup-indented t)
+  (org-indent-indentation-per-level 2)
+  (org-startup-folded 'showall)
   (org-confirm-babel-evaluate nil) ; 評価時に確認メッセージをださない
   (org-directory "~/.emacs.d/junk")
   (org-agenda-files (list org-directory))
