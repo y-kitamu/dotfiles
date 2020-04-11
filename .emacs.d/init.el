@@ -34,6 +34,7 @@
         flycheck
 	    which-key
         pyvenv
+        avy
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
@@ -161,18 +162,6 @@
 (show-paren-mode t)                          ; 有効化
 (setq show-paren-style 'expression)          ; expression は括弧内も強調表示
 
-;;; Highlight settings
-;; 現在行の Highlight
-(defface my-hl-line-face
-  '((((class color) (background dark))  ; 背景がdarkの場合、背景色を紺にする
-     (:background "NavyBlue" t))
-    (((class color) (background light)) ; 背景がligthの場合、背景色を青にする
-     (:backgorund "LightSkyBlue" t))
-    (t (:bold t)))
-  "hl-line's my face")
-(setq hl-line-face 'my-hl-line-face)
-(global-hl-line-mode t)
-
 ;; fileが!#で初まる場合、+x を付けて保存
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p) 
@@ -237,6 +226,30 @@
 
 ;;; Theme
 (load-theme 'zenburn t)
+(zenburn-with-color-variables
+  (custom-theme-set-faces
+    'zenburn
+    `(hl-line-face ((t (:background ,zenburn-bg+2 ))))
+    `(hl-line ((t (:background ,zenburn-bg+2 ))))
+    )
+  )
+(global-hl-line-mode t)
+
+(use-package vline
+  :load-path "./packages"
+  :custom
+  (vline-face "zenburn-bg+2")
+  (vline-visual-face "zenburn-bg+2")
+  :after zenburn-theme
+  )
+
+(use-package col-highlight
+  :load-path "./packages"
+  :config
+  (toggle-highlight-column-when-idle 1)
+  (col-highlight-set-interval 1)
+  :after vline
+  )
 
 ;; wgrep setting
 (use-package wgrep
@@ -455,19 +468,32 @@
   )
 
 
+(use-package avy
+  :config
+  (avy-setup-default)
+  :bind
+  (("C-:" .   avy-goto-char-timer)
+   ("C-." .   avy-goto-word-1)
+   ("M-g f" . avy-goto-line))
+  )
+
+
 ;;; Helm
 (use-package helm-config
-  :config
+  :custom
+  (helm-completion-style 'emacs)
   :bind
   (("M-y" . helm-show-kill-ring) ; helm-kill-ring への keybind の割当
    ("C-x b" . helm-for-files)
    ("C-x C-f" . helm-find-files)
    ("M-x" . helm-M-x))
   )
+
 (use-package helm-descbinds
   :config
   (helm-descbinds-mode) ; C-h b (keybind display list) をhelmで表示
-)
+  )
+
 (use-package helm-elisp)
 (use-package helm-man
   :custom
