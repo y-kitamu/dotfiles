@@ -35,6 +35,7 @@
 	    which-key
         pyvenv
         avy
+        rainbow-mode
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
@@ -237,8 +238,8 @@
 (zenburn-with-color-variables
   (custom-theme-set-faces
     'zenburn
-    `(hl-line-face ((t (:background ,zenburn-bg+2 ))))
-    `(hl-line ((t (:background ,zenburn-bg+2 ))))
+    `(hl-line-face ((t (:background ,zenburn-bg+1 ))))
+    `(hl-line ((t (:background ,zenburn-bg+1 ))))
     )
   )
 (global-hl-line-mode t)
@@ -442,6 +443,8 @@
             (modes . '(yatex-mode))))))
 
 
+(use-package rainbow-mode)
+
 ;; web mode setting
 (use-package web-mode
   :mode (("\\.html\\'" . web-mode)
@@ -469,6 +472,8 @@
   (setq web-mode-content-types-alist
         '(("javascript" . "\\.gs\\'")  ; google app scripts file
           ))
+  :after rainbow-mode
+  :hook (web-mode . rainbow-mode)
   )
 
 
