@@ -220,6 +220,14 @@
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
 
+(use-package flyspell
+  :hook
+  ((prog-mode . flyspell-prog-mode)
+       (yatex-mode . flyspell-mode)
+         (org-mode . flyspell-mode)
+         (text-mode . flyspell-mode))
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;; Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
