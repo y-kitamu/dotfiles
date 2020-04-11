@@ -237,10 +237,6 @@
 
 (use-package vline
   :load-path "./packages"
-  :custom
-  (vline-face "zenburn-bg+2")
-  (vline-visual-face "zenburn-bg+2")
-  :after zenburn-theme
   )
 
 (use-package col-highlight

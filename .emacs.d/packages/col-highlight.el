@@ -239,7 +239,7 @@ other overlays that might exist."
   :group 'column-highlight)
 
 ;;;###autoload
-(defface col-highlight '((t (:background "SlateGray3")))
+(defface col-highlight '((t (:background "#5F5F5F")))
   "*Face for current-column highlighting by `column-highlight-mode'.
 Not used if `col-highlight-vline-face-flag' is nil."
   :group 'column-highlight :group 'faces)
