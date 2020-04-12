@@ -233,16 +233,22 @@
 ;;;;;;;;;;;;;;;;;;;; Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Theme
-(load-theme 'zenburn t)
-(zenburn-with-color-variables
-  (custom-theme-set-faces
-    'zenburn
-    `(hl-line-face ((t (:background ,zenburn-bg+1 ))))
-    `(hl-line ((t (:background ,zenburn-bg+1 ))))
-    )
-  )
 (global-hl-line-mode t)
+
+;;; Theme
+(use-package zenburn-theme
+  :custom
+  (zenburn-add-font-lock-keywords t)
+  :config
+  (load-theme 'zenburn t)
+  (zenburn-with-color-variables
+    (custom-set-faces
+     `(hl-line ((t (:background ,zenburn-bg+1))))
+     `(hl-line-face ((t (:background ,zenburn-bg+1))))
+     '(isearch ((t (:background "green yellow" :foreground "#D0BF8F" :weight bold))))
+     '(lazy-highlight ((t (:background "SeaGreen3" :foreground "#D0BF8F" :weight bold))))
+     ))
+  )
 
 (use-package vline
   :load-path "./packages"
