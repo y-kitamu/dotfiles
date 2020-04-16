@@ -153,7 +153,7 @@
                            (inline-close . 0)
                            (inlambda . 0)
                            (innamespace . 0))))
-(add-hook 'c++-mode-hook (lambda () 
+(add-hook 'c++-mode-hook (lambda ()
                (c-set-style "briancpp")))
 
 ;;; insert parenthesis/brackets by pair
@@ -163,9 +163,13 @@
 (show-paren-mode t)                          ; 有効化
 (setq show-paren-style 'expression)          ; expression は括弧内も強調表示
 
+;; 行末の white space を削除して保存
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; fileが!#で初まる場合、+x を付けて保存
 (add-hook 'after-save-hook
-          'executable-make-buffer-file-executable-if-script-p) 
+          'executable-make-buffer-file-executable-if-script-p)
+
 
 ;; emacs lisp mode で Elisp 関数や変数の情報を echo area に表示
 (defun elisp-mode-hooks () "lisp-mode-hooks"
@@ -265,7 +269,7 @@
 ;; wgrep setting
 (use-package wgrep
   :commands wgrep-ag-setup
-  :config 
+  :config
   (setq wgrep-auto-save-buffer t)
   :hook
   (ag-mode . wgrep-ag-setup)
@@ -283,7 +287,7 @@
          ("C-c C-r" . buf-move-right))
   )
 
-;;; Elscreen 
+;;; Elscreen
 (use-package elscreen
   :config
   (elscreen-start)
@@ -314,21 +318,21 @@
   (add-to-list 'term-unbind-key-list "C-t")
   (add-to-list 'term-unbind-key-list "C-o")
   :hook
-  (term-mode . 
+  (term-mode .
    (lambda ()
      (define-key term-raw-map "\C-y" 'term-paste)           ; char-mode でペースト
      (define-key term-raw-map "\C-c\C-j" 'term-line-mode))) ; line-mode へ切り替え
   )
 
-;; automatically update gtags	
-;; project root で gtags -v とかで GTAGS, GPATH, GRTAGS を作成する	
-(defun c-mode-update-gtags ()	
-  (let* ((file (buffer-file-name (current-buffer)))	
-     (dir (directory-file-name (file-name-directory file))))	
-    (when (executable-find "global")	
-      (start-process "gtags-update" nil	
-             "global" "-uv"))))	
-(add-hook 'after-save-hook	
+;; automatically update gtags
+;; project root で gtags -v とかで GTAGS, GPATH, GRTAGS を作成する
+(defun c-mode-update-gtags ()
+  (let* ((file (buffer-file-name (current-buffer)))
+     (dir (directory-file-name (file-name-directory file))))
+    (when (executable-find "global")
+      (start-process "gtags-update" nil
+             "global" "-uv"))))
+(add-hook 'after-save-hook
           'c-mode-update-gtags)
 (use-package gxref
   :config
@@ -347,23 +351,23 @@
   (org-agenda-skip-scheduled-if-done t) ; agenda に DONE を表示しない
   (org-log-done 'time) ; DONE の時間を記録
   :config
-  ; python コードブロックを評価できるようにする	
+  ; python コードブロックを評価できるようにする
   (org-babel-do-load-languages
-   'org-babel-load-languages	
+   'org-babel-load-languages
    '((python . t)))
   :bind
   ("C-c a" . 'org-agenda)
   )
-;;; open-junk-file setting	
-(use-package open-junk-file	
-  :config	
-  (setq org-archive-location (concat "~/.emacs.d/junk/"	
-                                     (format-time-string "%Y_%m_%d" (current-time))	
-                                     ".org::")) 	
-  (setq open-junk-file-format "~/.emacs.d/junk/%Y_%m_%d.org")	
-  :bind	
-  ("C-x j" . open-junk-file)	
-  ("C-x C-j" . (lambda() (interactive) (find-file "~/.emacs.d/junk/todo.org")))	
+;;; open-junk-file setting
+(use-package open-junk-file
+  :config
+  (setq org-archive-location (concat "~/.emacs.d/junk/"
+                                     (format-time-string "%Y_%m_%d" (current-time))
+                                     ".org::"))
+  (setq open-junk-file-format "~/.emacs.d/junk/%Y_%m_%d.org")
+  :bind
+  ("C-x j" . open-junk-file)
+  ("C-x C-j" . (lambda() (interactive) (find-file "~/.emacs.d/junk/todo.org")))
   )
 
 ;;; python の仮想環境の設定
@@ -457,8 +461,8 @@
          ("\\.css\\'" . web-mode)
          ("\\.js\\'" . web-mode)
          ("\\.gs\\'" . web-mode)
-         ("\\.jsx\\'" . web-mode)      
-         ("\\.php\\'" . web-mode)      
+         ("\\.jsx\\'" . web-mode)
+         ("\\.php\\'" . web-mode)
          ("\\.tpl\\.php\\'" . web-mode)
          ("\\.ctp\\'" . web-mode)
          ("\\.jsp\\'" . web-mode)
@@ -585,7 +589,7 @@
         ("C-n" . company-select-next) ; 次の候補を選択
         ("C-p" . company-select-previous) ; 前の候補を選択
         ("C-s" . company-filter-candidates)  ; C-sで絞り込む
-        ("C-i" . company-complete-selection) 
+        ("C-i" . company-complete-selection)
         ([tab] . company-complete-selection)) ; TABで候補を設定
   (:map company-search-map
         ("C-n" . company-select-next)
@@ -593,7 +597,7 @@
   :init
   (global-company-mode t)
   )
- 
+
 (use-package company-lsp
   :commands company-lsp
   :custom
