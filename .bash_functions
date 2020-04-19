@@ -90,7 +90,7 @@ function workon() {
         echo "project root directory = ${venv}"
         activate ${venv}
     else
-        "Usage : workon <venv name>"
+        echo "Usage : workon <venv name>"
     fi
 }
 
