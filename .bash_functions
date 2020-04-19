@@ -40,6 +40,7 @@ function activate() {
             return 1
         fi
         if [ -e ${directory}/${subpath_to_activate_bin} ]; then
+            echo "project root directory = ${directory}"
             source ${directory}/${subpath_to_activate_bin}
             return 0
         fi
@@ -62,14 +63,15 @@ function mkvirtualenv() {
             return 1
         fi
     elif [ $# -eq 1 ]; then
-        venv_name=$(basename $1)/venv
-        venv_path=$1/venv
+        path=$(readlink -f $1)
+        venv_name=$(basename ${path})/venv
+        venv_path=${path}/venv
         existing_venv=$(find ${work_dir} -name venv -type d | grep ${venv_name})
-        if [ ${existing_venv} ]; then
+        if [ "${existing_venv}" ]; then
             echo "venv of name ${venv_name} already exists."
             venv_path=$existing_venv
         else
-            python3 -m venv $1/venv
+            python3 -m venv ${path}/venv
         fi
         activate ${venv_path}
         if [ -e ~/dotfiles/requirements.txt ]; then
@@ -87,7 +89,6 @@ function workon() {
     if [ $# -eq 1 ]; then
         venv=$(find ${work_dir} -name venv -type d | grep ${1}/venv)
         venv=$(dirname ${venv})
-        echo "project root directory = ${venv}"
         activate ${venv}
     else
         echo "Usage : workon <venv name>"

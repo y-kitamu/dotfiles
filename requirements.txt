@@ -2,3 +2,4 @@ jedi==0.15.2
 parso==0.5.2
 python-language-server
 pytest
+pytest-cov
