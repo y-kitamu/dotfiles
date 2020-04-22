@@ -119,5 +119,8 @@ function mkproject() {
     if [ $? -eq 0 ]; then
         mkvirtualenv $1
         cd $1
+        pip install -e .
+    elif [ $? -eq 1 ]; then
+        rm -rf $1
     fi
 }

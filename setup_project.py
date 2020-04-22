@@ -45,8 +45,13 @@ setup_py = project_root_dir / "setup.py"
 with open(setup_py, "w") as f:
     f.write(template)
 
+# readme.md
+(project_root_dir / "README.md").touch()
+
 # requirements.txt
-(project_root_dir / "requirements.txt").touch()
+requirements_template = templates_dir / "../requirements.txt"
+requirements_txt = project_root_dir / "requirements.txt"
+shutil.copy(requirements_template, requirements_txt)
 
 # setup __init__.py
 init_template = templates_dir / "__init__.py"
