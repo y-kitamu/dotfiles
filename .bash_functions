@@ -107,3 +107,17 @@ function _workon() {
 }
 
 complete -F _workon workon
+
+# make python project
+function mkproject() {
+    if [ $# -ne 1 ]; then
+        echo "Usage : mkproject <project name>"
+        return 1
+    fi
+
+    python3 $HOME/dotfiles/setup_project.py $1
+    if [ $? -eq 0 ]; then
+        mkvirtualenv $1
+        cd $1
+    fi
+}
