@@ -135,6 +135,10 @@ fi
 
 ############# CUSTOM SETTING ##############
 
+if [ -e ~/dotfiles/load_xkbmap.sh ]; then
+    source ~/dotfiles/load_xkbmap.sh
+fi
+
 ### environment variables ###
 # use emacs as default editor
 export EDITOR="emacs"
@@ -197,7 +201,7 @@ if [ -f '/home/kitamura/google-cloud-sdk/path.bash.inc' ]; then . '/home/kitamur
 if [ -f '/home/kitamura/google-cloud-sdk/completion.bash.inc' ]; then . '/home/kitamura/google-cloud-sdk/completion.bash.inc'; fi
 
 # bash history integration
-function share_history {  
+function share_history {
     history -a  # .bash_historyに前回コマンドを1行追記
     history -c  # 端末ローカルの履歴を一旦消去
     history -r  # .bash_historyから履歴を読み込み直す
