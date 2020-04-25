@@ -39,7 +39,7 @@
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
-			             ("MELPA Stable" . "https://stable.melpa.org/packages/")
+			 ("MELPA Stable" . "http://stable.melpa.org/packages/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
 
 ;;; ELPAなどで自動で追加される設定をcustom.elに書き込む
@@ -49,6 +49,7 @@
 
 (package-initialize)
 
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (unless package-archive-contents
   (package-refresh-contents))
 
@@ -63,6 +64,8 @@
 (add-to-list 'exec-path "~/.local/bin")
 
 ;;; inits 以下の設定ファイルを読み込む
+(if (not (file-directory-p "~/.emacs.d/inits/"))
+    (make-directory "~/.emacs.d/inits/"))
 (setq init-loader-show-log-after-init 'error-only)
 (init-loader-load)
 
