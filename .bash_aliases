@@ -17,7 +17,7 @@
 #     fi
 #     if [ -d "$HOME/local/include" ] ; then
 #        export CPATH="$HOME/local/include"
-#     fi  
+#     fi
 # fi
 
 
@@ -41,6 +41,5 @@ alias sus='sudo pm-suspend'
 alias mysql='mysql -u root -p'
 
 # if [ -e /var/www/html/ ]; then
-#    alias ch='cd /var/www/html/'	
+#    alias ch='cd /var/www/html/'
 # fi
-

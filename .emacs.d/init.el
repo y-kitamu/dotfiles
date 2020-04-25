@@ -557,10 +557,11 @@
 (use-package lsp-ui
   ;; :config
   ;; (setq-default lsp-ui-sideline-show-hover t)
+  :init
+  (setq lsp-ui-doc-enable nil)
   :custom
   ;; (lsp-ui-sideline-ignore-duplicate t)
   (lsp-ui-sideline-delay 1.0)
-  (lsp-ui-doc-show nil)
   )
 
 (use-package lsp-go)
