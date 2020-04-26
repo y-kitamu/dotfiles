@@ -17,3 +17,5 @@
 session.*
 kkcrc
 .lsp-session*
+.extension
+.dap-breakpoints

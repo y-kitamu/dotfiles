@@ -9,6 +9,7 @@
         lsp-origami  ;; code folding support
         dap-mode     ;; debugger support
         yasnippet    ;; helpers
+        posframe
         ;dap-ui-mode
         ;; major modes not in core
         dockerfile-mode
@@ -36,6 +37,7 @@
         pyvenv
         avy
         rainbow-mode
+        hydra
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
@@ -68,6 +70,10 @@
     (make-directory "~/.emacs.d/inits/"))
 (setq init-loader-show-log-after-init 'error-only)
 (init-loader-load)
+
+;;; encoding
+(setq buffer-file-coding-system 'utf-8) ; utf-8-unix
+(setq save-buffer-coding-system 'utf-8-unix) ; nil
 
 ;;; Backup and Auto save setting
 ;; if you want to recover "init.el" from auto save file, run below command.
@@ -538,6 +544,9 @@
   )
 
 
+(use-package hydra
+  )
+
 ;; lsp configuration begin
 (use-package lsp-mode
   :custom
@@ -621,17 +630,52 @@
 ;; lsp configuration end
 
 ;; dap-mode setting
-;; (dap-mode 1)
-;; (dap-ui-mode 1)
-;; ;; enables mouse hover support
-;; (dap-tooltip-mode 1)
-;; ;; use tooltips for mouse hover
-;; ;; if it is not enabled `dap-mode' will use the minibuffer.
-;; (tooltip-mode 1)
-;; (use-package dap-mode
-;;   :config
-;;   (dap-gdb-lldb-setup)
-;;   )
-;; (require 'dap-gdb-lldb)
-;; ;; (use-package dap-python)
-;; ;; (use-package dap-lldb)
+(use-package dap-mode
+  :custom
+  (dap-print-io t)
+  :config
+  (dap-mode 1)
+  (dap-ui-mode 1)
+  (tooltip-mode 1)
+  (dap-ui-controls-mode 1)
+  (add-hook 'dap-stopped-hook
+            (lambda (arg) (call-interactively #'dap-hydra)))
+  :after
+  (:all posframe hydra)
+  )
+
+(use-package dap-python)
+(use-package dap-gdb-lldb
+  :config
+  (dap-gdb-lldb-setup)
+  )
+
+
+(defun my/window-visible (b-name)
+  "Return whether B-NAME is visible."
+  (-> (-compose 'buffer-name 'window-buffer)
+      (-map (window-list))
+      (-contains? b-name)))
+
+(defun my/show-debug-windows (session)
+  "Show debug windows."
+  (let ((lsp--cur-workspace (dap--debug-session-workspace session)))
+    (save-excursion
+      ;; display locals
+      (unless (my/window-visible dap-ui--locals-buffer)
+        (dap-ui-locals))
+      ;; display sessions
+      (unless (my/window-visible dap-ui--sessions-buffer)
+        (dap-ui-sessions)))))
+
+(add-hook 'dap-stopped-hook 'my/show-debug-windows)
+
+(defun my/hide-debug-windows (session)
+  "Hide debug windows when all debug sessions are dead."
+  (unless (-filter 'dap--session-running (dap--get-sessions))
+    (and (get-buffer dap-ui--sessions-buffer)
+         (kill-buffer dap-ui--sessions-buffer))
+    (and (get-buffer dap-ui--locals-buffer)
+         (kill-buffer dap-ui--locals-buffer))))
+
+(add-hook 'dap-terminated-hook 'my/hide-debug-windows)
