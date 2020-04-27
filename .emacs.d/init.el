@@ -174,6 +174,14 @@
 
 ;; 行末の white space を削除して保存
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; markdown mode のときは無効
+(defvar delete-trailing-whitespece-before-save t)
+(make-variable-buffer-local 'delete-trailing-whitespece-before-save)
+(advice-add 'delete-trailing-whitespace :before-while
+            (lambda () delete-trailing-whitespece-before-save))
+(add-hook 'markdown-mode-hook
+          '(lambda ()
+             (set (make-local-variable 'delete-trailing-whitespece-before-save) nil)))
 
 ;; fileが!#で初まる場合、+x を付けて保存
 (add-hook 'after-save-hook
@@ -229,6 +237,12 @@
 (setq gdb-many-windows t)
 (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
 (setq gdb-use-separate-io-buffer t)
+
+(use-package gud-lldb
+  :load-path "./packages/gud-lldb"
+  :config
+  (add-hook 'lldb-mode-hook '(lambda () (gud-tooltip-mode t)))
+  )
 
 ;;; 矩形編集 (+ C-v, M-v で一番下、一番上まで移動できるようになる)
 (cua-mode t)
