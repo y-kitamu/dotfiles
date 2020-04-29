@@ -19,3 +19,6 @@ kkcrc
 .lsp-session*
 .extension
 .dap-breakpoints
+/image-dired/
+custom.el
+*.elc

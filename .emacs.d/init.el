@@ -38,6 +38,9 @@
         avy
         rainbow-mode
         hydra
+        lispxmp
+        paredit
+        auto-async-byte-compile
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
@@ -61,6 +64,12 @@
 ;; This is only needed once, near the top of the file
 (eval-when-compile
   (require 'use-package))
+
+;;; これがないと use-package の Error (Symbol’s value as variable is void: personal-keybindings)が発生
+(use-package bind-key
+  :ensure t
+  :config
+  (add-to-list 'same-window-buffer-names "*Personal Keybindings*"))
 
 ;;; emacs internal shell path
 (add-to-list 'exec-path "~/.local/bin")
@@ -187,14 +196,6 @@
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 
-
-;; emacs lisp mode で Elisp 関数や変数の情報を echo area に表示
-(defun elisp-mode-hooks () "lisp-mode-hooks"
-       (when (require 'eldoc nil t)
-         (setq eldoc-idle-delay 0.2)
-         (setq eldoc-echo-area-use-multiline-p t)
-         (turn-on-eldoc-mode)))
-(add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
 
 ;;; ファイル作成時に生成するテンプレートの設定 (autoinsert)
 (use-package autoinsert
@@ -392,6 +393,42 @@
   ("C-x j" . open-junk-file)
   ("C-x C-j" . (lambda() (interactive) (find-file "~/.emacs.d/junk/todo.org")))
   )
+
+;; lisp の評価結果を注釈する
+(use-package lispxmp
+  :bind
+  (:map emacs-lisp-mode-map
+        ("C-c C-d" . 'lispxmp))
+  )
+
+;; カッコの対応を保持して編集する設定
+(use-package paredit
+  :hook
+  ((emacs-lisp-mode . enable-paredit-mode)
+   (lisp-interaction-mode . enable-paredit-mode)
+   (lisp-mode . enable-paredit-mode)
+   (ielm-mode . enable-paredit-mode))
+  )
+
+(use-package eldoc
+  :custom
+  (eldoc-idle-delay 0.2)
+  (eldoc-echo-area-use-multiline-p t)
+  (eldoc-minor-mode-string "")
+  )
+
+(use-package auto-async-byte-compile
+  :custom
+  (auto-async-byte-compile-exclude-files-regexp "~/.emacs.d/junk/")
+  :hook
+  ((emacs-lisp-mode . enable-auto-async-byte-compile-mode)
+   (emacs-lisp-mode . turn-on-eldoc-mode)
+   (lisp-interaction-mode . turn-on-eldoc-mode)
+   (ielm-mode . turn-on-eldoc-mode))
+  :after eldoc
+  )
+
+(find-function-setup-keys)
 
 ;;; python の仮想環境の設定
 ;;; cd [project_root] && python -m venv [venv name] で仮想環境作成
