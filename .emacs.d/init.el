@@ -234,6 +234,13 @@
   (add-hook 'find-file-not-found-hooks 'auto-insert)
   )
 
+
+;;
+(use-package uniquify
+  :custom
+  (uniquify-buffer-name-style 'post-forward-angle-brackets)
+  (uniquity-min-dir-content 2))
+
 ;; gdb
 (setq gdb-many-windows t)
 (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
@@ -277,6 +284,9 @@
      '(lazy-highlight ((t (:background "SeaGreen3" :foreground "#D0BF8F" :weight bold))))
      ))
   )
+
+(set-face-foreground 'font-lock-regexp-grouping-backslash "green3")
+(set-face-foreground 'font-lock-regexp-grouping-construct "green")
 
 (use-package vline
   :load-path "./packages"
@@ -419,7 +429,7 @@
 
 (use-package auto-async-byte-compile
   :custom
-  (auto-async-byte-compile-exclude-files-regexp "~/.emacs.d/junk/")
+  (auto-async-byte-compile-exclude-files-regexp ".emacs.d/junk/*")
   :hook
   ((emacs-lisp-mode . enable-auto-async-byte-compile-mode)
    (emacs-lisp-mode . turn-on-eldoc-mode)
