@@ -41,6 +41,7 @@
         lispxmp
         paredit
         auto-async-byte-compile
+        popwin
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
@@ -267,6 +268,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;; Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package popwin
+  :custom
+  (display-buffer-function 'popwin:display-buffer))
 
 (global-hl-line-mode t)
 
