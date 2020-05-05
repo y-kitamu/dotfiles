@@ -20,7 +20,6 @@ function ncmake-debug() {
     rm -rf CMakeCache.txt
     if [ $# -eq 0 ]; then
         cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../
-        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../
     fi
     cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug DCMAKE_EXPORT_COMPILE_COMMANDS=1 $1
 }
