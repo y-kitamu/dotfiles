@@ -19,6 +19,7 @@
         use-package
         zenburn-theme
         helm-descbinds
+        helm-tramp
         open-junk-file
         ag
         wgrep-ag
@@ -609,6 +610,13 @@
           :buffer "*helm for document*")))
   )
 
+(use-package helm-tramp
+  :custom
+  (tramp-default-method "ssh")
+  :bind
+  (("C-c s" . helm-tramp))
+  )
+
 
 (use-package hydra
   )
@@ -648,8 +656,8 @@
   :bind
   (:map yas-minor-mode-map
         ("C-x i i" . yas-insert-snippet) ;; 既存スニペットを挿入
-        ("C-x i n" .  'yas-new-snippet) ;; スニペットを作成するバッファを用意
-        ("C-x i v" . 'yas-visit-snippet-file) ;; 既存スニペットを閲覧・編集
+        ("C-x i n" . yas-new-snippet) ;; スニペットを作成するバッファを用意
+        ("C-x i v" . yas-visit-snippet-file) ;; 既存スニペットを閲覧・編集
         )
   (:map yas-keymap
         ("<tab>" . nil)) ;; because of avoiding conflict with company keymap
