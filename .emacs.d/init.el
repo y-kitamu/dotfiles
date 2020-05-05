@@ -16,6 +16,7 @@
         docker-compose-mode
 	    go-mode
 	    typescript-mode
+        docker
         use-package
         zenburn-theme
         helm-descbinds
@@ -617,6 +618,10 @@
   (("C-c s" . helm-tramp))
   )
 
+
+(use-package docker
+  :ensure t
+  :bind ("C-c d" . docker))
 
 (use-package hydra
   )
