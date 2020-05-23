@@ -15,6 +15,7 @@
         dockerfile-mode
         docker-compose-mode
 	    go-mode
+        rust-mode
 	    typescript-mode
         docker
         use-package
@@ -58,7 +59,7 @@
 (package-initialize)
 
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-(unless package-archive-contents
+(if package-archive-contents
   (package-refresh-contents))
 
 (package-install-selected-packages)
@@ -531,6 +532,10 @@
 
 
 (use-package rainbow-mode)
+
+(use-package rust-mode)
+(use-package dockerfile-mode)
+(use-package docker-compose-mode)
 
 ;; web mode setting
 (use-package web-mode
