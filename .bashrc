@@ -169,10 +169,9 @@ elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
     fi
 fi
 
-# cuda
-if [ -e /usr/local/cuda-10.0/ ]; then
-    export PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}
-    export LD_LIBRARY_PATH=/usr/local/cuda-10.0/targets/x86_64-linux/lib/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+# rust
+if [ -e $HOME/.cargo/bin ]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 # android studio path

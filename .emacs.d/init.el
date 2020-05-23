@@ -621,6 +621,10 @@
   (tramp-default-method "ssh")
   :bind
   (("C-c s" . helm-tramp))
+  :config
+  (defun helm-tramp-open (path)
+    "Tramp open with PATH."
+    (helm-find-files-1 path))
   )
 
 
