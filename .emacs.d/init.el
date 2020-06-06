@@ -35,7 +35,6 @@
         gxref
         buffer-move
 	    init-loader
-        flycheck
 	    which-key
         pyvenv
         avy
@@ -634,6 +633,13 @@
 (use-package hydra
   )
 
+(use-package flymake-diagnostic-at-point
+  :ensure t
+  :after flymake
+  :config
+  (add-hook 'flymake-mode-hook #'flymake-diagnostic-at-point-mode))
+
+
 ;; lsp configuration begin
 (use-package lsp-mode
   :custom
@@ -641,6 +647,7 @@
   (gc-cons-threshold 100000000)
   (read-process-output-max (* 1024 1024)) ;; 1mb
   (lsp-idle-delay 0.500)
+  (lsp-enable-snippet nil)
   :hook
   ((prog-mode . lsp-deferred)
    (lsp-mode . lsp-enable-which-key-integration))
