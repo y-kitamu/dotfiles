@@ -118,6 +118,9 @@
 ;; buffer が作られるときに frame を 縦に分割しない
 (setq-default split-height-threshold 200)
 
+;; disable beep sound
+(setq visible-bell t)
+
 ;; set background alpha
 (if window-system
     (progn (set-frame-parameter nil 'alpha 80)))
@@ -271,10 +274,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;; Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package popwin
-  :custom
-  (display-buffer-function 'popwin:display-buffer))
 
 (global-hl-line-mode t)
 
