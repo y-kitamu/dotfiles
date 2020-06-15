@@ -10,7 +10,6 @@ from pathlib import Path
 import shutil
 import subprocess
 
-
 for i in range(3):
     val = input(f"Create Project '{sys.argv[1]}' at {Path('./').resolve()}/{sys.argv[1]}? [Y/n] : ")
     if val.lower() == "y":
@@ -62,5 +61,10 @@ shutil.copy(init_template, init_py)
 pytest_template = templates_dir / "pytest.ini"
 pytest_ini = project_root_dir / "tests/pytest.ini"
 shutil.copy(pytest_template, pytest_ini)
+
+# setup .gitattributes
+gitattr_template = templates_dir / ".gitattributes"
+gitattr = project_root_dir / ".gitattributes"
+shutil.copy(giattr_template, gitattr)
 
 sys.exit(0)

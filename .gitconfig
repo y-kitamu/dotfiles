@@ -1,7 +1,14 @@
 [alias]
 	graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
 [user]
-	email = yusuke.sizebook.kitamura@gmail.com
+	email = ymyk6602@gmail.com
 	name = Kitamura
-[color]
-    ui = auto
+[filter "nbstrip_full"]
+clean = "jq --indent 1 \
+        '(.cells[] | select(has(\"outputs\")) | .outputs) = []  \
+        | (.cells[] | select(has(\"execution_count\")) | .execution_count) = null  \
+        | .metadata = {\"language_info\": {\"name\": \"python\", \"pygments_lexer\": \"ipython3\"}} \
+        | .cells[].metadata = {} \
+        '"
+smudge = cat
+required = true
