@@ -625,7 +625,6 @@
     (helm-find-files-1 path))
   )
 
-
 (use-package docker
   :ensure t
   :bind ("C-c d" . docker))
@@ -638,6 +637,12 @@
   :after flymake
   :config
   (add-hook 'flymake-mode-hook #'flymake-diagnostic-at-point-mode))
+
+(use-package yapfify
+  :ensure t
+  :hook
+  (python-mode . yapf-mode)
+  )
 
 
 ;; lsp configuration begin
