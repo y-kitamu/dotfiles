@@ -65,6 +65,6 @@ shutil.copy(pytest_template, pytest_ini)
 # setup .gitattributes
 gitattr_template = templates_dir / ".gitattributes"
 gitattr = project_root_dir / ".gitattributes"
-shutil.copy(giattr_template, gitattr)
+shutil.copy(gitattr_template, gitattr)
 
 sys.exit(0)

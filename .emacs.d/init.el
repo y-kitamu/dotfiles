@@ -12,6 +12,7 @@
         posframe
         ;dap-ui-mode
         ;; major modes not in core
+        csv-mode
         dockerfile-mode
         docker-compose-mode
 	    go-mode
@@ -47,7 +48,7 @@
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
-			 ("MELPA Stable" . "http://stable.melpa.org/packages/")
+			             ("MELPA Stable" . "http://stable.melpa.org/packages/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
 
 ;;; ELPAなどで自動で追加される設定をcustom.elに書き込む
@@ -57,7 +58,6 @@
 
 (package-initialize)
 
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (if package-archive-contents
   (package-refresh-contents))
 
