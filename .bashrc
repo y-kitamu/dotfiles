@@ -208,3 +208,12 @@ function share_history {
 PROMPT_COMMAND='share_history'  # 上記関数をプロンプト毎に自動実施
 shopt -u histappend   # .bash_history追記モードは不要なのでOFFに
 export HISTSIZE=99999  # 履歴のMAX保存数を指定
+
+# cuda
+if [ -e /usr/local/cuda ]; then
+    export PATH="/usr/local/cuda/bin:$PATH"
+    export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+fi
+
+# add time info to history command
+export HISTTIMEFORMAT='%Y-%m-%d %T%z '

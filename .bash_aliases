@@ -50,3 +50,5 @@ alias nbstrip_jq="jq --indent 1 \
     | .metadata = {\"language_info\": {\"name\": \"python\", \"pygments_lexer\": \"ipython3\"}} \
     | .cells[].metadata = {} \
     '"
+
+alias grsync="rsync --exclude=venv --exclude=.git --exclude=weights --exclude=runs --exclude=__pycache__ --exclude=.ipynb_checkpoints"

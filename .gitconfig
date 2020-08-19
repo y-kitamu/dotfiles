@@ -12,3 +12,5 @@ clean = "jq --indent 1 \
         '"
 smudge = cat
 required = true
+[core]
+	autocrlf = input
