@@ -193,14 +193,18 @@
 (add-hook 'c++-mode-hook (lambda ()
                (c-set-style "briancpp")))
 
-(use-package smartparens-config
+(use-package smartparens
+  :ensure t
   :commands smartparens-mode)
 ;;; insert parenthesis/brackets by pair
-(electric-pair-mode 1)
-;; ;; 対応する括弧を強調表示
+;; (electric-pair-mode 1)
+;; ;; ;; 対応する括弧を強調表示
 (setq show-paren-delay 0)                    ; 表示するまでの秒数
 (show-paren-mode t)                          ; 有効化
 (setq show-paren-style 'expression)          ; expression は括弧内も強調表示
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; 行末の white space を削除して保存
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
