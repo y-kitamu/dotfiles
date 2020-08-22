@@ -66,8 +66,7 @@
 
 ;; use-package settings
 ;; This is only needed once, near the top of the file
-(eval-when-compile
-  (require 'use-package))
+(require 'use-package)
 
 ;; これがないと use-package の Error (Symbol’s value as variable is void: personal-keybindings)が発生
 (use-package bind-key
@@ -597,10 +596,23 @@
   :hook (web-mode . rainbow-mode)
   )
 
+;; migemo (日本語のローマ字検索)
+;; sudo apt-get instal -y cmigemo
+(use-package migemo
+  :ensure t
+  :config
+  (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
+  (setq migemo-user-dictionary nil)
+  (setq migemo-coding-system 'utf-8-unix)
+  (load-library "migemo")
+  (migemo-init))
+
 
 (use-package avy
   :config
   (avy-setup-default)
+  :custom
+  (avy-background t)
   :bind
   (("C-:" .   avy-goto-char-timer)
    ("C-." .   avy-goto-word-1)
