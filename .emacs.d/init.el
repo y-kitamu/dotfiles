@@ -74,6 +74,18 @@
   :config
   (add-to-list 'same-window-buffer-names "*Personal Keybindings*"))
 
+;;; Increase a bit garbage collection threshold:
+(setq gc-cons-threshold 3200000)
+
+;;; Make sure we can debug init errors more easily:
+(if init-file-debug
+    (setq use-package-verbose t
+          use-package-expand-minimally nil
+          use-package-compute-statistics t
+          debug-on-error t)
+  (setq use-package-verbose nil
+        use-package-expand-minimally t))
+
 ;;; emacs internal shell path
 (add-to-list 'exec-path "~/.local/bin")
 
@@ -649,7 +661,6 @@
 (use-package lsp-mode
   :custom
   ;; (lsp-log-io t)
-  (gc-cons-threshold 100000000)
   (read-process-output-max (* 1024 1024)) ;; 1mb
   (lsp-idle-delay 0.500)
   (lsp-enable-snippet nil)
