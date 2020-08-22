@@ -195,7 +195,8 @@
 
 (use-package smartparens
   :ensure t
-  :commands smartparens-mode)
+  :commands smartparens-mode
+  :hook (prog-mode . smartparens-mode))
 ;;; insert parenthesis/brackets by pair
 ;; (electric-pair-mode 1)
 ;; ;; ;; 対応する括弧を強調表示
@@ -460,6 +461,7 @@
   (eldoc-idle-delay 0.2)
   (eldoc-echo-area-use-multiline-p t)
   (eldoc-minor-mode-string "")
+  :hook (prog-mode . eldoc-mode)
   )
 
 (use-package auto-async-byte-compile
