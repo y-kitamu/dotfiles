@@ -1,3 +1,4 @@
+;; -*-no-byte-compile: t; -*-
 (setq package-selected-packages
       '(;; lsp packages
         lsp-mode     ;; core
@@ -68,7 +69,7 @@
 (eval-when-compile
   (require 'use-package))
 
-;;; これがないと use-package の Error (Symbol’s value as variable is void: personal-keybindings)が発生
+;; これがないと use-package の Error (Symbol’s value as variable is void: personal-keybindings)が発生
 (use-package bind-key
   :ensure t
   :config
