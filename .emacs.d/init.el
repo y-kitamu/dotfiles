@@ -192,6 +192,8 @@
 (add-hook 'c++-mode-hook (lambda ()
                (c-set-style "briancpp")))
 
+(use-package smartparens-config
+  :commands smartparens-mode)
 ;;; insert parenthesis/brackets by pair
 (electric-pair-mode 1)
 ;; ;; 対応する括弧を強調表示
@@ -338,6 +340,16 @@
   :bind (("C-c C-l" . buf-move-left)
          ("C-c C-r" . buf-move-right))
   )
+
+;;; fast screen
+(use-package fast-scroll
+  :ensure t
+  :demand t
+  :config
+  ;; (add-hook 'fast-scroll-start-hook (lambda () (flycheck-mode -1)))
+  ;; (add-hook 'fast-scroll-end-hook (lambda () (flycheck-mode 1)))
+  (fast-scroll-config)
+  (fast-scroll-mode 1))
 
 ;;; Elscreen
 (use-package elscreen
