@@ -51,4 +51,8 @@ alias nbstrip_jq="jq --indent 1 \
     | .cells[].metadata = {} \
     '"
 
+# grsync -auv <sourcedir> <google drive dir> でgoogledriveへrsync
 alias grsync="rsync --exclude=venv --exclude=.git --exclude=weights --exclude=runs --exclude=__pycache__ --exclude=.ipynb_checkpoints"
+
+# updatedb excluding google drive
+alias updb="sudo updatedb --prunepaths='/tmp /usr/tmp /var/tmp /afs /home/kitamura/GoogleDrive'"
