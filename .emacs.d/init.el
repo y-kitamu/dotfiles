@@ -190,7 +190,12 @@
                            (inlambda . 0)
                            (innamespace . 0))))
 (add-hook 'c++-mode-hook (lambda ()
-               (c-set-style "briancpp")))
+                           (c-set-style "briancpp")))
+
+;; enable Semantic mode (helm-semantic-or-imenu)
+(add-hook 'prog-mode (lambda ()
+                       (semantic-mode 1)
+                       (imenu--rescan-item)))
 
 (use-package smartparens
   :ensure t
