@@ -601,6 +601,8 @@
   :hook (web-mode . rainbow-mode)
   )
 
+(add-to-list 'auto-mode-alist '("\\.bash.*\\'" . sh-mode))
+
 ;; migemo (日本語のローマ字検索)
 ;; sudo apt-get instal -y cmigemo
 (use-package migemo
