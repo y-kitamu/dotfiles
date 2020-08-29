@@ -197,10 +197,10 @@
                        (semantic-mode 1)
                        (imenu--rescan-item)))
 
-(use-package smartparens
-  :ensure t
-  :commands smartparens-mode
-  :hook (prog-mode . smartparens-mode))
+;; (use-package smartparens
+;;   :ensure t
+;;   :commands smartparens-mode
+;;   :hook (prog-mode . smartparens-mode))
 ;;; insert parenthesis/brackets by pair
 ;; (electric-pair-mode 1)
 ;; ;; ;; 対応する括弧を強調表示
@@ -635,6 +635,7 @@
   (("M-y" . helm-show-kill-ring) ; helm-kill-ring への keybind の割当
    ("C-x b" . helm-for-files)
    ("C-x C-f" . helm-find-files)
+   ("C-h a" . helm-apropos)
    ("M-x" . helm-M-x))
   )
 
@@ -770,6 +771,9 @@
   :init
   (push 'company-lsp company-backends)
   )
+
+;; (use-package company-box
+;;   :hook (company-mode . company-box-mode))
 
 (use-package ccls
   :custom
