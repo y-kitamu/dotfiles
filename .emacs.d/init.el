@@ -709,11 +709,11 @@
   :config
   (add-hook 'flymake-mode-hook #'flymake-diagnostic-at-point-mode))
 
-;; (use-package yapfify
-;;   :ensure t
-;;   :hook
-;;   (python-mode . yapf-mode)
-;;   )
+(use-package yapfify
+  :ensure t
+  :hook
+  (python-mode . yapf-mode)
+  )
 
 
 ;; lsp configuration begin

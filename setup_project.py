@@ -67,4 +67,9 @@ gitattr_template = templates_dir / ".gitattributes"
 gitattr = project_root_dir / ".gitattributes"
 shutil.copy(gitattr_template, gitattr)
 
+# .style.yapf
+yapfstyle_template = templates_dir / ".style.yapf"
+yapfstyle = project_root_dir / ".style.yapf"
+shutil.copy(yapfstyle_template, yapfstyle)
+
 sys.exit(0)
