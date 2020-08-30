@@ -202,7 +202,7 @@
 ;;   :commands smartparens-mode
 ;;   :hook (prog-mode . smartparens-mode))
 ;;; insert parenthesis/brackets by pair
-;; (electric-pair-mode 1)
+(electric-pair-mode 1)
 ;; ;; ;; 対応する括弧を強調表示
 (setq show-paren-delay 0)                    ; 表示するまでの秒数
 (show-paren-mode t)                          ; 有効化
@@ -614,6 +614,14 @@
   (load-library "migemo")
   (migemo-init))
 
+(use-package google-translate
+  :ensure t
+  :custom
+  (google-translate-default-source-language "en")
+  (google-translate-default-target-language "ja")
+  :bind
+  (("C-c g" . google-translate-at-point))
+  )
 
 (use-package avy
   :config
