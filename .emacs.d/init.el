@@ -761,8 +761,8 @@
 (use-package company
   :custom
   (company-transformers '(company-sort-by-backend-importance))
-  (company-idle-delay 0)
-  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.05)
+  (company-minimum-prefix-length 3)
   (company-selection-wrap-around t)
   (completion-ignore-case t)
   :bind
