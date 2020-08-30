@@ -492,7 +492,19 @@
   :config
   (setq pyvenv-mode-line-indicator
         '(pyvenv-virtual-env-name ("[venv:" pyvenv-virtual-env-name "] ")))
-  (pyvenv-mode +1))
+  (pyvenv-mode +1)
+  (defun pyvenv-auto-activate ()
+    "Automatically activate python virtual enviroment by searching`venv directory."
+    (let ((dirname (file-name-directory (directory-file-name buffer-file-name))))
+      (while (and (not (file-exists-p (format "%s/venv" dirname))) (not (equal dirname "/")))
+        (setq dirname (file-name-directory (directory-file-name dirname))))
+      (unless (equal dirname "/")
+        (pyvenv-activate (format "%s/venv" dirname))
+        (princ (format "pyvenv :: Activate %s/venv" dirname)))
+      ))
+  :hook
+  (python-mode . pyvenv-auto-activate)
+  )
 
 ;;; ein.el setting (emacs で jupyter notebook を使えるようにしたもの)
 ;;; 参考 : https://pod.hatenablog.com/entry/2017/08/06/220817
