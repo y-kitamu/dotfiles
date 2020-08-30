@@ -1,5 +1,5 @@
-jedi==0.15.2
-parso==0.5.2
+jedi==0.17.0
+parso==0.7.0
 python-language-server
 pytest
 pytest-cov
