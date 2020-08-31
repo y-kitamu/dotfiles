@@ -494,7 +494,7 @@
         '(pyvenv-virtual-env-name ("[venv:" pyvenv-virtual-env-name "] ")))
   (pyvenv-mode +1)
   (defun pyvenv-auto-activate ()
-    "Automatically activate python virtual enviroment by searching`venv directory."
+    "Automatically activate python virtual enviroment by searching venv directory."
     (let ((dirname (file-name-directory (directory-file-name buffer-file-name))))
       (while (and (not (file-exists-p (format "%s/venv" dirname))) (not (equal dirname "/")))
         (setq dirname (file-name-directory (directory-file-name dirname))))
@@ -511,6 +511,9 @@
 (use-package ein
   :config
   (setq ein:worksheet-enable-undo t)
+  (custom-set-faces
+   '(ein:cell-input-area ((t (:background "black" :underline "green yellow" :))))
+   '(ein:cell-output-area ((t (:background "blue")))))
   )
 
 ;;;; json をフォーマットする
