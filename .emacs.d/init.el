@@ -618,6 +618,11 @@
 
 (add-to-list 'auto-mode-alist '("\\.bash.*\\'" . sh-mode))
 
+(use-package mozc
+  ;; sudo apt-get install emacs-mozc-bin
+  :custom
+  (default-input-method "japanese-mozc"))
+
 ;; migemo (日本語のローマ字検索)
 ;; sudo apt-get instal -y cmigemo
 (use-package migemo
