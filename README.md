@@ -25,21 +25,6 @@ systemctl start sshd
   - vivaldi : ~/.config/vivaldi 
   - thunderbird : ~/.thunderbird
   - dconf-editor : ~/.config/dconf  ??? 必要 ???
-- emacs install
-emacs 26.1
-```
-sudo apt install libgtk-3-dev libtiff5-dev libgif-dev libpng-dev libxpm-dev libncurses5-dev
-sudo apt install libgnutls28-dev
-wget http://ftp.jaist.ac.jp/pub/GNU/emacs/emacs-26.1.tar.gz
-tar -zxvf emacs-26.1.tar.gz
-cd emacs-26.1/
-./configure
-make
-sudo make install
-```
-M-x irony-install-server (c++ の補完設定)
-M-x jedi:-install-server (python の補完設定)
-
 
 - dconf-editor
 ```
