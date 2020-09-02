@@ -236,10 +236,10 @@
   ;; テンプレートのディレクトリ
   (auto-insert-directory "~/.emacs.d/insert")
   ;; 各ファイルによってテンプレートを切り替える
-  (auto-insert-alist (nconc '(("test_.*\.cpp$" . ["test_template.cpp" my-template])
-                              ("\\.cpp$" . ["template.cpp" my-template])
-                              ("\\.hpp$" . ["template.hpp" my-template])
-                              ("\\.py$" . ["template.py" my-template]))))
+  (add-to-list 'auto-insert-alist (nconc '(("test_.*\.cpp$" . ["test_template.cpp" my-template])
+                                           ("\\.cpp$" . ["template.cpp" my-template])
+                                           ("\\.hpp$" . ["template.hpp" my-template])
+                                           ("\\.py$" . ["template.py" my-template]))))
   :config
   (defvar template-replacements-alists
     '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
@@ -618,6 +618,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.bash.*\\'" . sh-mode))
 
+(define-key global-map (kbd "<zenkaku-hankaku>") 'toggle-input-method)
 (use-package mozc
   ;; sudo apt-get install emacs-mozc-bin
   :custom
