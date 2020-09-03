@@ -330,6 +330,16 @@
   :after vline
   )
 
+(use-package cursor-chg
+  :load-path "./packages"
+  :custom
+  (curchg-default-cursor-type 'box)
+  (curchg-change-cursor-on-input-method-flag t)
+  (curchg-input-method-cursor-color "green")
+  (curchg-overwrite/read-only-cursor-type 'hollow)
+  :config
+  (change-cursor-mode 1))
+
 ;; wgrep setting
 (use-package wgrep
   :commands wgrep-ag-setup
