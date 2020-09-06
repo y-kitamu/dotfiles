@@ -738,7 +738,7 @@
 ;; lsp configuration begin
 (use-package lsp-mode
   :custom
-  ;; (lsp-log-io t)
+  (lsp-log-io t)
   (read-process-output-max (* 1024 1024)) ;; 1mb
   (lsp-idle-delay 0.500)
   (lsp-enable-snippet nil)
@@ -746,6 +746,36 @@
   ((prog-mode . lsp-deferred)
    (lsp-mode . lsp-enable-which-key-integration))
   )
+
+(use-package lsp-docker
+  :ensure t
+  :config
+  (defmacro my-lsp-docker-init-clients
+      (project-root docker-image-id docker-container-name lsp-docker-client-configs)
+      `(lsp-docker-init-clients
+        :path-mappings '(("/home/kitamura/work/" . "/home/kitamura/work"))
+        :docker-image-id ,docker-image-id
+        :docker-container-name ,docker-container-name
+        :client-configs ,lsp-docker-client-configs))
+  (defun start-local-lsp-docker ()
+    (when (and (boundp 'project-root)
+               (boundp 'docker-image-id)
+               (boundp 'docker-container-name)
+               (boundp 'lsp-docker-client-configs))
+      (let ((project-root (dir-locals-find-file buffer-file-name)))
+        (when project-root
+          (let ((project-root (typecase project-root
+                                (string project-root)
+                                (list (car project-root)))))
+            (my-lsp-docker-init-clients
+             project-root docker-image-id docker-container-name lsp-docker-client-configs)
+            (message (format "Start LSP docker container '%s' from image '%s'"
+                             docker-container-name docker-image-id)))))))
+  (defadvice lsp-deferred (before before-lsp-deferred activate)
+    (message "Before lsp-deferred")
+    (hack-dir-local-variables)
+    (start-local-lsp-docker))
+)
 
 (use-package which-key
   :config
