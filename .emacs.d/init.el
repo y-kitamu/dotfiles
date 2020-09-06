@@ -751,13 +751,19 @@
   :ensure t
   :config
   (defmacro my-lsp-docker-init-clients
-      (project-root docker-image-id docker-container-name lsp-docker-client-configs)
-      `(lsp-docker-init-clients
-        :path-mappings '(("/home/kitamura/work/" . "/home/kitamura/work"))
-        :docker-image-id ,docker-image-id
-        :docker-container-name ,docker-container-name
-        :client-configs ,lsp-docker-client-configs))
+      (declare (indent 2))
+    ;; 'lsp-docker-init-clients 呼び出しマクロ
+    ;; TODO : 'path-mapping 指定の部分のハードコーディング解消
+    (project-root docker-image-id docker-container-name lsp-docker-client-configs)
+    `(lsp-docker-init-clients
+      :path-mappings '(("/home/kitamura/work/" . "/home/kitamura/work"))
+      :docker-image-id ,docker-image-id
+      :docker-container-name ,docker-container-name
+      :client-configs ,lsp-docker-client-configs))
   (defun start-local-lsp-docker ()
+    ;; lsp-deferredにadviceで呼び出されるlsp serverの立ち上げ関数。
+    ;; .dir-locals.el に'docker-image-id', 'docker-container-name', 'lsp-docker-client-configs'
+    ;; を定義しておくと、自動で指定したdokcerが立ち上がる
     (when (and (boundp 'project-root)
                (boundp 'docker-image-id)
                (boundp 'docker-container-name)
