@@ -750,11 +750,20 @@
 (use-package lsp-docker
   :ensure t
   :config
+  (defcustom docker-image-id nil
+    "lsp docker image id"
+    :safe (lambda (x) (stringp x)))
+  (defcustom docker-container-name nil
+    "lsp docker container name"
+    :safe (lambda (x) (stringp x)))
+  (defcustom lsp-docker-client-configs nil
+    "lsp docker image id"
+    :safe (lambda (x) (listp x)))
   (defmacro my-lsp-docker-init-clients
-      (declare (indent 2))
+      (project-root docker-image-id docker-container-name lsp-docker-client-configs)
+    (declare (indent 2))
     ;; 'lsp-docker-init-clients 呼び出しマクロ
     ;; TODO : 'path-mapping 指定の部分のハードコーディング解消
-    (project-root docker-image-id docker-container-name lsp-docker-client-configs)
     `(lsp-docker-init-clients
       :path-mappings '(("/home/kitamura/work/" . "/home/kitamura/work"))
       :docker-image-id ,docker-image-id
@@ -764,10 +773,9 @@
     ;; lsp-deferredにadviceで呼び出されるlsp serverの立ち上げ関数。
     ;; .dir-locals.el に'docker-image-id', 'docker-container-name', 'lsp-docker-client-configs'
     ;; を定義しておくと、自動で指定したdokcerが立ち上がる
-    (when (and (boundp 'project-root)
-               (boundp 'docker-image-id)
-               (boundp 'docker-container-name)
-               (boundp 'lsp-docker-client-configs))
+    (when (and docker-image-id
+               docker-container-name
+               lsp-docker-client-configs)
       (let ((project-root (dir-locals-find-file buffer-file-name)))
         (when project-root
           (let ((project-root (typecase project-root
@@ -775,11 +783,10 @@
                                 (list (car project-root)))))
             (my-lsp-docker-init-clients
              project-root docker-image-id docker-container-name lsp-docker-client-configs)
-            (message (format "Start LSP docker container '%s' from image '%s'"
-                             docker-container-name docker-image-id)))))))
+            (message (format "Start local lsp docker container '%s' from image '%s'. project root = %s"
+                             docker-container-name docker-image-id project-root)))))))
   (defadvice lsp-deferred (before before-lsp-deferred activate)
-    (message "Before lsp-deferred")
-    (hack-dir-local-variables)
+    (hack-dir-local-variables-non-file-buffer)
     (start-local-lsp-docker))
 )
 
