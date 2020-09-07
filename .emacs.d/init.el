@@ -312,8 +312,9 @@
      `(hl-line-face ((t (:background ,zenburn-bg+1))))
      '(isearch ((t (:background "green yellow" :foreground "#D0BF8F" :weight bold))))
      '(lazy-highlight ((t (:background "SeaGreen3" :foreground "#D0BF8F" :weight bold))))
-     ))
-  )
+     )
+    (set-face-attribute 'mode-line nil :background zenburn-bg+3 :foreground zenburn-fg+2)
+    ))
 
 (set-face-foreground 'font-lock-regexp-grouping-backslash "green3")
 (set-face-foreground 'font-lock-regexp-grouping-construct "green")
@@ -391,6 +392,43 @@
   (global-auto-revert-mode t) ; ファイルに変更があった場合に即座に反映する
   (when (equal system-type 'windows-nt) ;; windows の場合、git の .exe file の場所を指定
     (setq magit-git-executable "c:/Users/y-kitamura/AppData/Local/Programs/Git/bin/git.exe"))
+  (defun unpackaged/magit-log--add-date-headers (&rest _ignore)
+    "Add date headers to Magit log buffers."
+    (when (derived-mode-p 'magit-log-mode)
+      (save-excursion
+        (ov-clear 'date-header t)
+        (goto-char (point-min))
+        (cl-loop with last-age
+                 for this-age =
+                 (-some--> (ov-in 'before-string 'any (line-beginning-position) (line-end-position))
+                   car
+                   (overlay-get it 'before-string)
+                   (get-text-property 0 'display it)
+                   cadr
+                   (s-match (rx (group (1+ digit) ; number
+                                       " " (1+ (not blank))) ; unit
+                                (1+ blank) eos) it)
+                   cadr)
+                 do (when (and this-age (not (equal this-age last-age)))
+                      (ov (line-beginning-position) (line-beginning-position)
+                          'after-string (propertize (concat " " this-age "\n")
+                                                    'face 'magit-section-heading)
+                          'date-header t)
+                      (setq last-age this-age))
+                 do (forward-line 1)
+                 until (eobp)))))
+
+  (define-minor-mode unpackaged/magit-log-date-headers-mode
+    "Display date/time headers in `magit-log' buffers."
+    :global t
+    (if unpackaged/magit-log-date-headers-mode
+        (progn
+          ;; Enable mode
+          (add-hook 'magit-post-refresh-hook #'unpackaged/magit-log--add-date-headers)
+          (advice-add #'magit-setup-buffer-internal :after #'unpackaged/magit-log--add-date-headers))
+      ;; Disable mode
+      (remove-hook 'magit-post-refresh-hook #'unpackaged/magit-log--add-date-headers)
+      (advice-remove #'magit-setup-buffer-internal #'unpackaged/magit-log--add-date-headers)))
   :bind
   ("C-x g" . magit-status)
   )
