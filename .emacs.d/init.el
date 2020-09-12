@@ -571,6 +571,13 @@
   (interactive "r")
   (shell-command-on-region beg end "jq ." nil t))
 
+;;; PDF tool
+(use-package pdf-tools
+  :config
+  (pdf-tools-install)
+  )
+
+
 ;;; YaTeX (melpa)
 (use-package yatex
   :mode ("\\.tex\\'" . yatex-mode)
