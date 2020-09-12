@@ -880,21 +880,6 @@
   (global-company-mode t)
   )
 
-(use-package company-lsp
-  :commands company-lsp
-  :custom
-  (company-lsp-cache-candidates 'auto)
-  (company-lsp-async t)
-  (company-lsp-enable-recompletion t)
-  :after
-  (:all lsp-mode lsp-ui company yasnippet)
-  :init
-  (push 'company-lsp company-backends)
-  )
-
-;; (use-package company-box
-;;   :hook (company-mode . company-box-mode))
-
 (use-package ccls
   :custom
   (ccls-initialization-options (list :compilationDatabaseDirectory "build"))
