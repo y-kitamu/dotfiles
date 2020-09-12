@@ -389,7 +389,6 @@
 ;;; magit
 (use-package magit
   :config
-  (global-auto-revert-mode t) ; ファイルに変更があった場合に即座に反映する
   (when (equal system-type 'windows-nt) ;; windows の場合、git の .exe file の場所を指定
     (setq magit-git-executable "c:/Users/y-kitamura/AppData/Local/Programs/Git/bin/git.exe"))
   (defun unpackaged/magit-log--add-date-headers (&rest _ignore)
@@ -548,7 +547,7 @@
         (setq dirname (file-name-directory (directory-file-name dirname))))
       (unless (equal dirname "/")
         (pyvenv-activate (format "%s/venv" dirname))
-        (princ (format "pyvenv :: Activate %s/venv" dirname)))
+        (message (format "pyvenv :: Activate %s/venv" dirname)))
       ))
   :hook
   (python-mode . pyvenv-auto-activate)
