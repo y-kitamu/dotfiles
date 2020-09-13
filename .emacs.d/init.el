@@ -340,7 +340,10 @@
 
 (use-package smart-mode-line
   :config
-  (sml/setup))
+  (sml/setup)
+  (zenburn-with-color-variables
+    (set-face-attribute 'sml/minor-modes nil :foreground zenburn-cyan))
+  :after zenburn-theme)
 
 (use-package cursor-chg
   :load-path "./packages"
@@ -814,6 +817,11 @@
   (read-process-output-max (* 1024 1024)) ;; 1mb
   (lsp-idle-delay 0.500)
   (lsp-enable-snippet nil)
+  :config
+  (defun lsp-mode-line ()
+    (if-let (workspaces (lsp-workspaces))
+        (concat " LSP")
+      nil))
   :hook
   ((prog-mode . lsp-deferred)
    (lsp-mode . lsp-enable-which-key-integration))
