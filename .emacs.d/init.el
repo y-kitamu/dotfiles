@@ -855,10 +855,11 @@
     ;; 'lsp-docker-init-clients 呼び出しマクロ
     ;; TODO : 'path-mapping 指定の部分のハードコーディング解消
     `(lsp-docker-init-clients
-      :path-mappings '(("/home/kitamura/work/" . "/home/kitamura/work"))
+      :path-mappings '(("/home/kitamura/work/" . "/home/kitamura/work/"))
       :docker-image-id ,docker-image-id
       :docker-container-name ,docker-container-name
-      :client-configs ,lsp-docker-client-configs))
+      :client-configs ,lsp-docker-client-configs)
+    )
   (defun start-local-lsp-docker ()
     ;; lsp-deferredにadviceで呼び出されるlsp serverの立ち上げ関数。
     ;; .dir-locals.el に'docker-image-id', 'docker-container-name', 'lsp-docker-client-configs'
@@ -872,7 +873,7 @@
                                 (string project-root)
                                 (list (car project-root)))))
             (my-lsp-docker-init-clients
-             project-root docker-image-id docker-container-name lsp-docker-client-configs)
+                project-root docker-image-id docker-container-name lsp-docker-client-configs)
             (message (format "Start local lsp docker container '%s' from image '%s'. project root = %s"
                              docker-container-name docker-image-id project-root)))))))
   (defadvice lsp-deferred (before before-lsp-deferred activate)
