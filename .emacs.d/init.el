@@ -154,16 +154,6 @@
 (setq display-time-24hr-format t)  ; 24時間表示
 (display-time-mode t)
 
-;; region選択時に行数と文字数を表示する
-(defun count-lines-and-chars ()
-  (if mark-active
-      (format "(%d lines,%d chars) "
-              (count-lines (region-beginning) (region-end))
-              (- (region-end) (region-beginning)))
-    ""))
-(add-to-list 'mode-line-format
-             '(:eval (count-lines-and-chars)))
-
 ;; title bar setting
 (setq frame-title-format "%@%f") ; title bar に表示する文字列
 
@@ -264,7 +254,17 @@
   (add-hook 'find-file-not-found-hooks 'auto-insert)
   )
 
-
+;; region選択時に行数と文字数を表示する
+(defun count-lines-and-chars ()
+  (if mark-active
+      (format "(%d lines,%d chars) "
+              (count-lines (region-beginning) (region-end))
+              (- (region-end) (region-beginning)))
+    ""))
+(add-hook 'activate-mark-hook (lambda ()
+                            (add-to-list 'mode-line-format
+                                         '(:eval (count-lines-and-chars)))
+                            ))
 ;;
 (use-package uniquify
   :custom
@@ -287,12 +287,17 @@
 (setq cua-enable-cua-keys nil)
 
 (use-package flyspell
+  :custom
+  (flyspell-mode-line-string nil)
   :hook
   ((prog-mode . flyspell-prog-mode)
        (yatex-mode . flyspell-mode)
          (org-mode . flyspell-mode)
          (text-mode . flyspell-mode))
   )
+
+(defun my/hidden-minor-mode (mode)
+  (setq minor-mode-alist (cons (list mode "") (assq-delete-all mode minor-mode-alist))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;; Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -352,6 +357,8 @@
 
 ;; undo tree setting.  C-x u visualize undo tree
 (use-package undo-tree
+  :custom
+  (undo-tree-mode-lighter nil)
   :config
   (global-undo-tree-mode)
   )
@@ -367,13 +374,16 @@
   :ensure t
   :demand t
   :config
-  ;; (add-hook 'fast-scroll-start-hook (lambda () (flycheck-mode -1)))
-  ;; (add-hook 'fast-scroll-end-hook (lambda () (flycheck-mode 1)))
+  (add-hook 'fast-scroll-start-hook (lambda () (flycheck-mode -1)))
+  (add-hook 'fast-scroll-end-hook (lambda () (flycheck-mode 1)))
   (fast-scroll-config)
-  (fast-scroll-mode 1))
+  (fast-scroll-mode 1)
+  (my/hidden-minor-mode 'fast-scroll-mode))
 
 ;;; Elscreen
 (use-package elscreen
+  :custom
+  (elscreen-display-screen-number nil)
   :config
   (elscreen-start)
   (if window-system
@@ -500,6 +510,8 @@
 
 ;; カッコの対応を保持して編集する設定
 (use-package paredit
+  :custom
+  (paredit-lighter nil)
   :hook
   ((emacs-lisp-mode . enable-paredit-mode)
    (lisp-interaction-mode . enable-paredit-mode)
@@ -835,6 +847,8 @@
 )
 
 (use-package which-key
+  :custom
+  (which-key-lighter nil)
   :config
   (which-key-mode))
 
@@ -854,6 +868,7 @@
 (use-package yasnippet
   :config
   (yas-global-mode)
+  (my/hidden-minor-mode 'yas-minor-mode)
   :bind
   (:map yas-minor-mode-map
         ("C-x i i" . yas-insert-snippet) ;; 既存スニペットを挿入
@@ -871,6 +886,7 @@
   (company-minimum-prefix-length 3)
   (company-selection-wrap-around t)
   (completion-ignore-case t)
+  (company-lighter nil)
   :bind
   (("C-M-i" . company-complete)) ; C-M-iで補完
   (:map company-active-map
@@ -893,52 +909,52 @@
 ;; lsp configuration end
 
 ;; dap-mode setting
-(use-package dap-mode
-  :custom
-  (dap-print-io t)
-  :config
-  (dap-mode 1)
-  (dap-ui-mode 1)
-  (tooltip-mode 1)
-  (dap-ui-controls-mode 1)
-  (add-hook 'dap-stopped-hook
-            (lambda (arg) (call-interactively #'dap-hydra)))
-  :after
-  (:all posframe hydra)
-  )
+;; (use-package dap-mode
+;;   :custom
+;;   (dap-print-io t)
+;;   :config
+;;   (dap-mode 1)
+;;   (dap-ui-mode 1)
+;;   (tooltip-mode 1)
+;;   (dap-ui-controls-mode 1)
+;;   ;; (add-hook 'dap-stopped-hook
+;;   ;;           (lambda (arg) (call-interactively #'dap-hydra)))
+;;   ;; :after
+;;   ;; (:all posframe hydra)
+;;   )
 
-(use-package dap-python)
-(use-package dap-gdb-lldb
-  :config
-  (dap-gdb-lldb-setup)
-  )
+;; (use-package dap-python)
+;; (use-package dap-gdb-lldb
+;;   :config
+;;   (dap-gdb-lldb-setup)
+;;   )
 
 
-(defun my/window-visible (b-name)
-  "Return whether B-NAME is visible."
-  (-> (-compose 'buffer-name 'window-buffer)
-      (-map (window-list))
-      (-contains? b-name)))
+;; (defun my/window-visible (b-name)
+;;   "Return whether B-NAME is visible."
+;;   (-> (-compose 'buffer-name 'window-buffer)
+;;       (-map (window-list))
+;;       (-contains? b-name)))
 
-(defun my/show-debug-windows (session)
-  "Show debug windows."
-  (let ((lsp--cur-workspace (dap--debug-session-workspace session)))
-    (save-excursion
-      ;; display locals
-      (unless (my/window-visible dap-ui--locals-buffer)
-        (dap-ui-locals))
-      ;; display sessions
-      (unless (my/window-visible dap-ui--sessions-buffer)
-        (dap-ui-sessions)))))
+;; (defun my/show-debug-windows (session)
+;;   "Show debug windows."
+;;   (let ((lsp--cur-workspace (dap--debug-session-workspace session)))
+;;     (save-excursion
+;;       ;; display locals
+;;       (unless (my/window-visible dap-ui--locals-buffer)
+;;         (dap-ui-locals))
+;;       ;; display sessions
+;;       (unless (my/window-visible dap-ui--sessions-buffer)
+;;         (dap-ui-sessions)))))
 
-(add-hook 'dap-stopped-hook 'my/show-debug-windows)
+;; (add-hook 'dap-stopped-hook 'my/show-debug-windows)
 
-(defun my/hide-debug-windows (session)
-  "Hide debug windows when all debug sessions are dead."
-  (unless (-filter 'dap--session-running (dap--get-sessions))
-    (and (get-buffer dap-ui--sessions-buffer)
-         (kill-buffer dap-ui--sessions-buffer))
-    (and (get-buffer dap-ui--locals-buffer)
-         (kill-buffer dap-ui--locals-buffer))))
+;; (defun my/hide-debug-windows (session)
+;;   "Hide debug windows when all debug sessions are dead."
+;;   (unless (-filter 'dap--session-running (dap--get-sessions))
+;;     (and (get-buffer dap-ui--sessions-buffer)
+;;          (kill-buffer dap-ui--sessions-buffer))
+;;     (and (get-buffer dap-ui--locals-buffer)
+;;          (kill-buffer dap-ui--locals-buffer))))
 
-(add-hook 'dap-terminated-hook 'my/hide-debug-windows)
+;; (add-hook 'dap-terminated-hook 'my/hide-debug-windows)
