@@ -807,17 +807,25 @@
 (use-package hydra
   )
 
-(use-package flymake-diagnostic-at-point
-  :ensure t
-  :after flymake
-  :config
-  (add-hook 'flymake-mode-hook #'flymake-diagnostic-at-point-mode))
-
 (use-package yapfify
   :ensure t
   :hook
   (python-mode . yapf-mode)
   )
+
+(use-package flycheck
+  :init
+  (add-to-list 'display-buffer-alist
+               `(,(rx bos "*Flycheck errors*" eos)
+                 (display-buffer-reuse-window
+                  display-buffer-in-side-window)
+                 (side            . bottom)
+                 (reusable-frames . visible)
+                 (window-height   . 0.15)))
+  :bind
+  (("C-c f" . flycheck-list-errors))
+  :hook
+  (after-init . global-flycheck-mode))
 
 
 ;; lsp configuration begin
@@ -827,6 +835,7 @@
   (read-process-output-max (* 1024 1024)) ;; 1mb
   (lsp-idle-delay 0.500)
   (lsp-enable-snippet nil)
+  (lsp-prefer-flymake nil)
   :config
   (defun lsp-mode-line ()
     (if-let (workspaces (lsp-workspaces))
@@ -891,10 +900,15 @@
   ;; :config
   ;; (setq-default lsp-ui-sideline-show-hover t)
   :init
-  (setq lsp-ui-doc-enable nil)
-  :custom
+  (setq lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-header t)
+  (setq lsp-ui-doc-include-signature t)
+  (setq lsp-ui-doc-position 'bottom)
+  (setq lsp-ui-doc-max-height 30)
+  (setq lsp-ui-doc-use-childframe t)
+  ;; :custom
   ;; (lsp-ui-sideline-ignore-duplicate t)
-  (lsp-ui-sideline-delay 1.0)
+  ;; (lsp-ui-sideline-delay 1.0)
   )
 
 (use-package lsp-go)
@@ -941,24 +955,21 @@
   :custom
   (ccls-initialization-options (list :compilationDatabaseDirectory "build"))
   )
+
+
+
 ;; lsp configuration end
 
 ;; dap-mode setting
-;; (use-package dap-mode
-;;   :custom
-;;   (dap-print-io t)
-;;   :config
-;;   (dap-mode 1)
-;;   (dap-ui-mode 1)
-;;   (tooltip-mode 1)
-;;   (dap-ui-controls-mode 1)
-;;   ;; (add-hook 'dap-stopped-hook
-;;   ;;           (lambda (arg) (call-interactively #'dap-hydra)))
-;;   ;; :after
-;;   ;; (:all posframe hydra)
-;;   )
+(use-package dap-mode
+  :config
+  (setq dap-auto-configure-features '(sessions locals controls tooltip))
+  )
 
-;; (use-package dap-python)
+(use-package dap-python
+  )
+
+
 ;; (use-package dap-gdb-lldb
 ;;   :config
 ;;   (dap-gdb-lldb-setup)
