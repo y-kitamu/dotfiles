@@ -149,7 +149,7 @@
 
 ;; standard mode line setting
 (column-number-mode t)             ; column 番号も表示
-(size-indication-mode t)           ; file size を表示
+;; (size-indication-mode t)           ; file size を表示
 (setq display-time-day-and-date t) ; 曜日,月,日を表示
 (setq display-time-24hr-format t)  ; 24時間表示
 (setq display-time-format "%Y/%m/%d %H:%M")
@@ -344,6 +344,16 @@
   (zenburn-with-color-variables
     (set-face-attribute 'sml/minor-modes nil :foreground zenburn-cyan))
   :after zenburn-theme)
+
+(use-package total-lines
+  :ensure t
+  :config
+  (global-total-lines-mode)
+  (defun my-set-line-numbers ()
+    (setq-default mode-line-front-space
+                  (append mode-line-front-space
+                          '((:eval (format " (%d)" (- total-lines 1)))))))
+  (add-hook 'after-init-hook 'my-set-line-numbers))
 
 (use-package cursor-chg
   :load-path "./packages"
