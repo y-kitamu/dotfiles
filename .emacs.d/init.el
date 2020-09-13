@@ -346,6 +346,15 @@
   :config
   (change-cursor-mode 1))
 
+(use-package ag
+  :ensure t
+  :config
+  (setq ag-arguments (append '("--follow" "--all-types") ag-arguments)))
+
+(use-package wgrep-ag
+  :ensure t
+  :after wgrep-ag)
+
 ;; wgrep setting
 (use-package wgrep
   :commands wgrep-ag-setup
@@ -353,6 +362,7 @@
   (setq wgrep-auto-save-buffer t)
   :hook
   (ag-mode . wgrep-ag-setup)
+  :after wgrep-ag
   )
 
 ;; undo tree setting.  C-x u visualize undo tree
