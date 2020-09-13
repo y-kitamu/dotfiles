@@ -152,6 +152,8 @@
 (size-indication-mode t)           ; file size を表示
 (setq display-time-day-and-date t) ; 曜日,月,日を表示
 (setq display-time-24hr-format t)  ; 24時間表示
+(setq display-time-format "%Y/%m/%d %H:%M")
+(setq display-time-default-load-average nil)
 (display-time-mode t)
 
 ;; title bar setting
@@ -335,6 +337,10 @@
   (col-highlight-set-interval 1)
   :after vline
   )
+
+(use-package smart-mode-line
+  :config
+  (sml/setup))
 
 (use-package cursor-chg
   :load-path "./packages"
