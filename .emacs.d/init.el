@@ -814,6 +814,7 @@
   )
 
 (use-package flycheck
+  :ensure t
   :init
   (add-to-list 'display-buffer-alist
                `(,(rx bos "*Flycheck errors*" eos)
@@ -822,6 +823,8 @@
                  (side            . bottom)
                  (reusable-frames . visible)
                  (window-height   . 0.15)))
+  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
+  (setq flycheck-idle-change-delay 2.0)
   :bind
   (("C-c f" . flycheck-list-errors))
   :hook
