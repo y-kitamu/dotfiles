@@ -4,7 +4,6 @@
         lsp-mode     ;; core
         lsp-ui       ;; ui stuff + flycheck support
         lsp-treemacs ;; more ui stuff
-        company-lsp  ;; company support
         ccls         ;; ccls support
         helm-lsp     ;; helm support
         lsp-origami  ;; code folding support
@@ -26,16 +25,11 @@
         helm-tramp
         open-junk-file
         ag
-        wgrep-ag
-        undo-tree
-        elscreen
         web-mode
-        magit
         multi-term
         yatex
         ein
         gxref
-        buffer-move
 	    init-loader
 	    which-key
         pyvenv
@@ -339,6 +333,7 @@
   )
 
 (use-package smart-mode-line
+  :ensure t
   :config
   (sml/setup)
   (zenburn-with-color-variables
@@ -372,10 +367,11 @@
 
 (use-package wgrep-ag
   :ensure t
-  :after wgrep-ag)
+)
 
 ;; wgrep setting
 (use-package wgrep
+  :ensure t
   :commands wgrep-ag-setup
   :config
   (setq wgrep-auto-save-buffer t)
@@ -386,6 +382,7 @@
 
 ;; undo tree setting.  C-x u visualize undo tree
 (use-package undo-tree
+  :ensure t
   :custom
   (undo-tree-mode-lighter nil)
   :config
@@ -394,6 +391,7 @@
 
 ;;; buffer-move setting
 (use-package buffer-move
+  :ensure t
   :bind (("C-c C-l" . buf-move-left)
          ("C-c C-r" . buf-move-right))
   )
@@ -411,6 +409,7 @@
 
 ;;; Elscreen
 (use-package elscreen
+  :ensure t
   :custom
   (elscreen-display-screen-number nil)
   :config
@@ -427,6 +426,7 @@
 
 ;;; magit
 (use-package magit
+  :ensure t
   :config
   (when (equal system-type 'windows-nt) ;; windows の場合、git の .exe file の場所を指定
     (setq magit-git-executable "c:/Users/y-kitamura/AppData/Local/Programs/Git/bin/git.exe"))
@@ -474,6 +474,7 @@
 ;;; multi-term
 ;; .bashrc に $TERM が eterm-color の場合にも color-prompt にするように設定を追記する
 (use-package multi-term
+  :ensure t
   :config
   (add-to-list 'term-unbind-key-list "C-t")
   (add-to-list 'term-unbind-key-list "C-o")
@@ -495,12 +496,14 @@
 (add-hook 'after-save-hook
           'c-mode-update-gtags)
 (use-package gxref
+  :ensure t
   :config
   (add-to-list 'xref-backend-functions 'gxref-xref-backend)
   )
 
 ;;; org mode setting
 (use-package org
+  :ensure t
   :custom
   (org-startup-indented t)
   (org-indent-indentation-per-level 2)
@@ -520,6 +523,7 @@
   )
 ;;; open-junk-file setting
 (use-package open-junk-file
+  :ensure t
   :config
   (setq org-archive-location (concat "~/.emacs.d/junk/"
                                      (format-time-string "%Y_%m_%d" (current-time))
@@ -532,6 +536,7 @@
 
 ;; lisp の評価結果を注釈する
 (use-package lispxmp
+  :ensure t
   :bind
   (:map emacs-lisp-mode-map
         ("C-c C-d" . 'lispxmp))
@@ -539,6 +544,7 @@
 
 ;; カッコの対応を保持して編集する設定
 (use-package paredit
+  :ensure t
   :custom
   (paredit-lighter nil)
   :hook
@@ -549,6 +555,7 @@
   )
 
 (use-package eldoc
+  :ensure t
   :custom
   (eldoc-idle-delay 0.2)
   (eldoc-echo-area-use-multiline-p t)
@@ -557,6 +564,7 @@
   )
 
 (use-package auto-async-byte-compile
+  :ensure t
   :custom
   (auto-async-byte-compile-exclude-files-regexp ".emacs.d/junk/*")
   :hook
@@ -576,6 +584,7 @@
 ;;; project のファイルを開くと、自動で仮想環境の lsp が立ち上がる。
 ;;; すでにファイルが開いている場合は、 pyvenv-activate のあと、lsp-workspace-restart とする
 (use-package pyvenv
+  :ensure t
   :diminish
   :config
   (setq pyvenv-mode-line-indicator
@@ -597,6 +606,7 @@
 ;;; ein.el setting (emacs で jupyter notebook を使えるようにしたもの)
 ;;; 参考 : https://pod.hatenablog.com/entry/2017/08/06/220817
 (use-package ein
+  :ensure t
   :config
   (setq ein:worksheet-enable-undo t)
   (custom-set-faces
@@ -613,6 +623,7 @@
 
 ;;; PDF tool
 (use-package pdf-tools
+  :ensure t
   :config
   (pdf-tools-install)
   )
@@ -620,6 +631,7 @@
 
 ;;; YaTeX (melpa)
 (use-package yatex
+  :ensure t
   :mode ("\\.tex\\'" . yatex-mode)
   :init
   :config
@@ -674,14 +686,15 @@
             (modes . '(yatex-mode))))))
 
 
-(use-package rainbow-mode)
+(use-package rainbow-mode :ensure t)
 
-(use-package rust-mode)
-(use-package dockerfile-mode)
-(use-package docker-compose-mode)
+(use-package rust-mode :ensure t)
+(use-package dockerfile-mode :ensure t)
+(use-package docker-compose-mode :ensure t)
 
 ;; web mode setting
 (use-package web-mode
+  :ensure t
   :mode (("\\.html\\'" . web-mode)
          ("\\.css\\'" . web-mode)
          ("\\.js\\'" . web-mode)
@@ -716,6 +729,7 @@
 (define-key global-map (kbd "<zenkaku-hankaku>") 'toggle-input-method)
 (use-package mozc
   ;; sudo apt-get install emacs-mozc-bin
+  :ensure t
   :custom
   (default-input-method "japanese-mozc"))
 
@@ -740,6 +754,7 @@
   )
 
 (use-package avy
+  :ensure t
   :config
   (avy-setup-default)
   :custom
@@ -790,6 +805,7 @@
   )
 
 (use-package helm-tramp
+  :ensure t
   :custom
   (tramp-default-method "ssh")
   :bind
@@ -804,8 +820,7 @@
   :ensure t
   :bind ("C-c d" . docker))
 
-(use-package hydra
-  )
+(use-package hydra :ensure t)
 
 (use-package yapfify
   :ensure t
@@ -833,6 +848,7 @@
 
 ;; lsp configuration begin
 (use-package lsp-mode
+  :ensure t
   :custom
   (lsp-log-io t)
   (read-process-output-max (* 1024 1024)) ;; 1mb
@@ -848,6 +864,12 @@
   ((prog-mode . lsp-deferred)
    (lsp-mode . lsp-enable-which-key-integration))
   )
+
+(use-package helm-lsp
+  :ensure t
+  :config
+  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
+)
 
 (use-package lsp-docker
   :ensure t
@@ -894,12 +916,14 @@
 )
 
 (use-package which-key
+  :ensure t
   :custom
   (which-key-lighter nil)
   :config
   (which-key-mode))
 
 (use-package lsp-ui
+  :ensure t
   ;; :config
   ;; (setq-default lsp-ui-sideline-show-hover t)
   :init
@@ -916,8 +940,10 @@
 
 (use-package lsp-go)
 (use-package lsp-html)
+(use-package lsp-csharp)
 
 (use-package yasnippet
+  :ensure t
   :config
   (yas-global-mode)
   (my/hidden-minor-mode 'yas-minor-mode)
@@ -932,9 +958,10 @@
   :after lsp-mode)
 
 (use-package company
+  :ensure t
   :custom
   (company-transformers '(company-sort-by-backend-importance))
-  (company-idle-delay 0.05)
+  (company-idle-delay 0.5)
   (company-minimum-prefix-length 3)
   (company-selection-wrap-around t)
   (completion-ignore-case t)
@@ -955,21 +982,18 @@
   )
 
 (use-package ccls
+  :ensure t
   :custom
   (ccls-initialization-options (list :compilationDatabaseDirectory "build"))
   )
-
-
 
 ;; lsp configuration end
 
 ;; dap-mode setting
 (use-package dap-mode
+  :ensure t
   :config
   (setq dap-auto-configure-features '(sessions locals controls tooltip))
-  )
-
-(use-package dap-python
   )
 
 
