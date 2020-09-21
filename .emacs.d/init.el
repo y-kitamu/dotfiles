@@ -692,6 +692,8 @@
 (use-package dockerfile-mode :ensure t)
 (use-package docker-compose-mode :ensure t)
 
+(use-package cmake-mode)
+
 ;; web mode setting
 (use-package web-mode
   :ensure t
@@ -852,7 +854,7 @@
   :custom
   (lsp-log-io t)
   (read-process-output-max (* 1024 1024)) ;; 1mb
-  (lsp-idle-delay 0.500)
+  (lsp-idle-delay 0.050)
   (lsp-enable-snippet nil)
   (lsp-prefer-flymake nil)
   :config
@@ -961,7 +963,7 @@
   :ensure t
   :custom
   (company-transformers '(company-sort-by-backend-importance))
-  (company-idle-delay 0.5)
+  (company-idle-delay 0.05)
   (company-minimum-prefix-length 3)
   (company-selection-wrap-around t)
   (completion-ignore-case t)
