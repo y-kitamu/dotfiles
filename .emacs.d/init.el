@@ -295,6 +295,15 @@
 (defun my/hidden-minor-mode (mode)
   (setq minor-mode-alist (cons (list mode "") (assq-delete-all mode minor-mode-alist))))
 
+
+;;; `message` の出力の先頭に日時を付け足す
+(defadvice message (before before-message activate)
+  (let ((original (ad-get-arg 0))
+        (now (decode-time (current-time))))
+    (ad-set-arg 0 (format "[%04d/%02d/%02d %02d:%02d:%02d] %s"
+                          (nth 5 now) (nth 4 now) (nth 3 now) (nth 2 now) (nth 1 now) (nth 0 now)
+                          original))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;; Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
