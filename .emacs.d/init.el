@@ -592,6 +592,7 @@
 ;;; M-x pyvenv-activate [project_root]/[venv name] で activate
 ;;; project のファイルを開くと、自動で仮想環境の lsp が立ち上がる。
 ;;; すでにファイルが開いている場合は、 pyvenv-activate のあと、lsp-workspace-restart とする
+;;; docker 上のpythonへのactivateは?
 (use-package pyvenv
   :ensure t
   :diminish
@@ -601,10 +602,12 @@
   (pyvenv-mode +1)
   (defun pyvenv-auto-activate ()
     "Automatically activate python virtual enviroment by searching venv directory."
+    (interactive)
     (let ((dirname (file-name-directory (directory-file-name buffer-file-name))))
       (while (and (not (file-exists-p (format "%s/venv" dirname))) (not (equal dirname "/")))
         (setq dirname (file-name-directory (directory-file-name dirname))))
-      (unless (equal dirname "/")
+      (if (equal dirname "/")
+          (message "pyvenv :: Failed to auto activate to venv. No venv directory is found.")
         (pyvenv-activate (format "%s/venv" dirname))
         (message (format "pyvenv :: Activate %s/venv" dirname)))
       ))
@@ -699,7 +702,7 @@
 
 (use-package rust-mode :ensure t)
 (use-package dockerfile-mode :ensure t)
-(use-package docker-compose-mode :ensure t)
+
 
 (use-package cmake-mode)
 
@@ -885,15 +888,15 @@
 (use-package lsp-docker
   :ensure t
   :config
-  (defcustom docker-image-id nil
-    "lsp docker image id"
-    :safe (lambda (x) (stringp x)))
-  (defcustom docker-container-name nil
-    "lsp docker container name"
-    :safe (lambda (x) (stringp x)))
-  (defcustom lsp-docker-client-configs nil
-    "lsp docker image id"
-    :safe (lambda (x) (listp x)))
+  (defcustom dir-local-docker-config-alists nil
+    "list of lsp docker configuration alist. alist must contain keys named DOCKER-IMAGE-ID,
+DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS."
+    :safe (lambda (alists)
+            (-all? (lambda (it)
+                     (and (stringp (assoc-default 'docker-image-id it))
+                          (stringp (assoc-default 'docker-container-name it))
+                          (listp (assoc-default 'lsp-docker-client-configs it))))
+                   aliasts)))
   (defmacro my-lsp-docker-init-clients
       (project-root docker-image-id docker-container-name lsp-docker-client-configs)
     (declare (indent 2))
@@ -905,25 +908,26 @@
       :docker-container-name ,docker-container-name
       :client-configs ,lsp-docker-client-configs)
     )
-  (defun start-local-lsp-docker ()
-    ;; lsp-deferredにadviceで呼び出されるlsp serverの立ち上げ関数。
-    ;; .dir-locals.el に'docker-image-id', 'docker-container-name', 'lsp-docker-client-configs'
-    ;; を定義しておくと、自動で指定したdokcerが立ち上がる
-    (when (and docker-image-id
-               docker-container-name
-               lsp-docker-client-configs)
-      (let ((project-root (dir-locals-find-file buffer-file-name)))
-        (when project-root
-          (let ((project-root (typecase project-root
-                                (string project-root)
-                                (list (car project-root)))))
-            (my-lsp-docker-init-clients
-                project-root docker-image-id docker-container-name lsp-docker-client-configs)
-            (message (format "Start local lsp docker container '%s' from image '%s'. project root = %s"
-                             docker-container-name docker-image-id project-root)))))))
+  (defun start-local-lsp-docker (local-docker-config-alist)
+    " lsp-deferredにadviceで呼び出されるlsp serverの立ち上げ関数。
+    .dir-locals.el のdir-local-docker-config-alists に
+    'docker-image-id', 'docker-container-name', 'lsp-docker-client-configs'を
+    定義しておくと、自動で指定したdokcerが立ち上がる"
+    (-when-let* (((&alist 'docker-image-id docker-image-id
+                          'docker-container-name docker-container-name
+                          'lsp-docker-client-configs lsp-docker-client-configs)
+                  local-docker-config-alist)
+                 (project-root (-some-> (dir-locals-find-file buffer-file-name)
+                                 (lambda (it) (typecase  it
+                                                (string project-root)
+                                                (list (car project-root)))))))
+      (my-lsp-docker-init-clients
+          project-root docker-image-id docker-container-name lsp-docker-client-configs)
+      (message (format "Start local lsp docker container '%s' from image '%s'. project root = %s"
+                       docker-container-name docker-image-id project-root))))
   (defadvice lsp-deferred (before before-lsp-deferred activate)
     (hack-dir-local-variables-non-file-buffer)
-    (start-local-lsp-docker))
+    (mapc 'start-local-lsp-docker dir-local-docker-config-alists))
 )
 
 (use-package which-key
@@ -1007,12 +1011,11 @@
   (setq dap-auto-configure-features '(sessions locals controls tooltip))
   )
 
+(use-package dap-lldb
+  :config
+  (setq dap-lldb-debug-program `(,(expand-file-name "~/.vscode/extensions/ms-vscode.cpptools-1.0.1/bin/cpptools-srv"))))
 
-;; (use-package dap-gdb-lldb
-;;   :config
-;;   (dap-gdb-lldb-setup)
-;;   )
-
+(use-package dap-python)
 
 ;; (defun my/window-visible (b-name)
 ;;   "Return whether B-NAME is visible."
