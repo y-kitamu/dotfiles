@@ -540,7 +540,7 @@
   (setq open-junk-file-format "~/.emacs.d/junk/%Y_%m_%d.org")
   :bind
   ("C-x j" . open-junk-file)
-  ("C-x C-j" . (lambda() (interactive) (find-file "~/.emacs.d/junk/todo.org")))
+  ("C-x C-j" . (lambda() (interactive) (find-file "~/.emacs.d/junk/main.org")))
   )
 
 ;; lisp の評価結果を注釈する
@@ -864,7 +864,7 @@
 (use-package lsp-mode
   :ensure t
   :custom
-  (lsp-log-io t)
+  (lsp-log-io nil)
   (read-process-output-max (* 1024 1024)) ;; 1mb
   (lsp-idle-delay 0.050)
   (lsp-enable-snippet nil)
