@@ -842,6 +842,19 @@
   (python-mode . yapf-mode)
   )
 
+(defadvice yapfify-call-bin (around around-yapfify-call-bin activate)
+  "Support docker command."
+  (let ((command-args (split-string yapfify-executable)))
+    (if (= (length command-args) 1)
+        ad-do-it
+      (with-current-buffer (ad-get-arg 0)
+        (apply 'call-process-region
+               (append (list (point-min) (point-max) (car command-args) nil (ad-get-arg 1) nil)
+                       (cdr command-args)
+                       (list "-l" (concat (number-to-string (ad-get-arg 2)) ""
+                                          (number-to-string (ad-get-arg 3))))))
+))))
+
 (use-package flycheck
   :ensure t
   :init
