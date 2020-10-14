@@ -885,46 +885,50 @@
   (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
 )
 
-(use-package lsp-docker
-  :ensure t
-  :config
-  (defcustom dir-local-docker-config-alists nil
-    "list of lsp docker configuration alist. alist must contain keys named DOCKER-IMAGE-ID,
-DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS."
-    :safe (lambda (alists)
-            (-all? (lambda (it)
-                     (and (stringp (assoc-default 'docker-image-id it))
-                          (stringp (assoc-default 'docker-container-name it))
-                          (listp (assoc-default 'lsp-docker-client-configs it))))
-                   aliasts)))
-  (defmacro my-lsp-docker-init-clients
-      (project-root docker-image-id docker-container-name lsp-docker-client-configs)
-    (declare (indent 2))
-    ;; 'lsp-docker-init-clients 呼び出しマクロ
-    ;; TODO : 'path-mapping 指定の部分のハードコーディング解消
-    `(lsp-docker-init-clients
-      :path-mappings '(("/home/kitamura/work/" . "/home/kitamura/work/"))
-      :docker-image-id ,docker-image-id
-      :docker-container-name ,docker-container-name
-      :client-configs ,lsp-docker-client-configs)
-    )
-  (defun start-local-lsp-docker (local-docker-config-alist)
-    " lsp-deferredにadviceで呼び出されるlsp serverの立ち上げ関数。
+(defcustom dir-local-docker-config-alists nil
+  "List of lsp docker configuration alist.
+Alist must contain keys named
+DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS."
+  :safe (lambda (alists)
+          (-all? (lambda (it)
+                   (and (stringp (assoc-default 'docker-image-id it))
+                        (stringp (assoc-default 'docker-container-name it))
+                        (listp (assoc-default 'lsp-docker-client-configs it))))
+                 aliasts)))
+
+(defmacro my-lsp-docker-init-clients
+    (project-root docker-image-id docker-container-name lsp-docker-client-configs)
+  (declare (indent 2))
+  ;; 'lsp-docker-init-clients 呼び出しマクロ
+  ;; TODO : 'path-mapping 指定の部分のハードコーディング解消
+  `(lsp-docker-init-clients
+    :path-mappings '(("/home/kitamura/work/" . "/home/kitamura/work/"))
+    :docker-image-id ,docker-image-id
+    :docker-container-name ,docker-container-name
+    :client-configs ,lsp-docker-client-configs)
+  )
+
+(defun start-local-lsp-docker (local-docker-config-alist)
+  " lsp-deferredにadviceで呼び出されるlsp serverの立ち上げ関数。
     .dir-locals.el のdir-local-docker-config-alists に
     'docker-image-id', 'docker-container-name', 'lsp-docker-client-configs'を
     定義しておくと、自動で指定したdokcerが立ち上がる"
-    (-when-let* (((&alist 'docker-image-id docker-image-id
-                          'docker-container-name docker-container-name
-                          'lsp-docker-client-configs lsp-docker-client-configs)
-                  local-docker-config-alist)
-                 (project-root (-some-> (dir-locals-find-file buffer-file-name)
-                                 (lambda (it) (typecase  it
-                                                (string project-root)
-                                                (list (car project-root)))))))
-      (my-lsp-docker-init-clients
-          project-root docker-image-id docker-container-name lsp-docker-client-configs)
-      (message (format "Start local lsp docker container '%s' from image '%s'. project root = %s"
-                       docker-container-name docker-image-id project-root))))
+  (-when-let* (((&alist 'docker-image-id docker-image-id
+                        'docker-container-name docker-container-name
+                        'lsp-docker-client-configs lsp-docker-client-configs)
+                local-docker-config-alist)
+               (project-root (-some-> (dir-locals-find-file buffer-file-name)
+                               (lambda (it) (typecase  it
+                                              (string project-root)
+                                              (list (car project-root)))))))
+    (my-lsp-docker-init-clients
+        project-root docker-image-id docker-container-name lsp-docker-client-configs)
+    (message (format "Start local lsp docker container '%s' from image '%s'. project root = %s"
+                     docker-container-name docker-image-id project-root))))
+
+(use-package lsp-docker
+  :ensure t
+  :config
   (defadvice lsp-deferred (before before-lsp-deferred activate)
     (hack-dir-local-variables-non-file-buffer)
     (mapc 'start-local-lsp-docker dir-local-docker-config-alists))
@@ -1016,32 +1020,3 @@ DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS."
   (setq dap-lldb-debug-program `(,(expand-file-name "~/.vscode/extensions/ms-vscode.cpptools-1.0.1/bin/cpptools-srv"))))
 
 (use-package dap-python)
-
-;; (defun my/window-visible (b-name)
-;;   "Return whether B-NAME is visible."
-;;   (-> (-compose 'buffer-name 'window-buffer)
-;;       (-map (window-list))
-;;       (-contains? b-name)))
-
-;; (defun my/show-debug-windows (session)
-;;   "Show debug windows."
-;;   (let ((lsp--cur-workspace (dap--debug-session-workspace session)))
-;;     (save-excursion
-;;       ;; display locals
-;;       (unless (my/window-visible dap-ui--locals-buffer)
-;;         (dap-ui-locals))
-;;       ;; display sessions
-;;       (unless (my/window-visible dap-ui--sessions-buffer)
-;;         (dap-ui-sessions)))))
-
-;; (add-hook 'dap-stopped-hook 'my/show-debug-windows)
-
-;; (defun my/hide-debug-windows (session)
-;;   "Hide debug windows when all debug sessions are dead."
-;;   (unless (-filter 'dap--session-running (dap--get-sessions))
-;;     (and (get-buffer dap-ui--sessions-buffer)
-;;          (kill-buffer dap-ui--sessions-buffer))
-;;     (and (get-buffer dap-ui--locals-buffer)
-;;          (kill-buffer dap-ui--locals-buffer))))
-
-;; (add-hook 'dap-terminated-hook 'my/hide-debug-windows)
