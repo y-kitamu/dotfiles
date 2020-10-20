@@ -592,7 +592,7 @@
 ;;; M-x pyvenv-activate [project_root]/[venv name] で activate
 ;;; project のファイルを開くと、自動で仮想環境の lsp が立ち上がる。
 ;;; すでにファイルが開いている場合は、 pyvenv-activate のあと、lsp-workspace-restart とする
-;;; docker 上のpythonへのactivateは?
+;;; -> lsp-dockerに移行するので基本的に使用しない
 (use-package pyvenv
   :ensure t
   :diminish
@@ -611,8 +611,8 @@
         (pyvenv-activate (format "%s/venv" dirname))
         (message (format "pyvenv :: Activate %s/venv" dirname)))
       ))
-  :hook
-  (python-mode . pyvenv-auto-activate)
+  ;; :hook
+  ;; (python-mode . pyvenv-auto-activate)
   )
 
 ;;; ein.el setting (emacs で jupyter notebook を使えるようにしたもの)
@@ -838,6 +838,8 @@
 
 (use-package yapfify
   :ensure t
+  :config
+  (setcar (cdr (assq 'yapf-mode minor-mode-alist)) nil)
   :hook
   (python-mode . yapf-mode)
   )
@@ -866,7 +868,8 @@
                  (reusable-frames . visible)
                  (window-height   . 0.15)))
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
-  (setq flycheck-idle-change-delay 2.0)
+  (setq flycheck-idle-change-delay 0.040)
+  (setq-default flycheck-flake8-maximum-line-length 105)
   :bind
   (("C-c f" . flycheck-list-errors))
   :hook
@@ -882,6 +885,9 @@
   (lsp-idle-delay 0.050)
   (lsp-enable-snippet nil)
   (lsp-prefer-flymake nil)
+  (lsp-pyls-plugins-autopep8-enabled nil)
+  (lsp-pyls-plugins-pycodestyle-enabled nil)
+  (lsp-pyls-plugins-yapf-enabled t)
   :config
   (defun lsp-mode-line ()
     (if-let (workspaces (lsp-workspaces))
@@ -956,18 +962,18 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS."
 
 (use-package lsp-ui
   :ensure t
-  ;; :config
-  ;; (setq-default lsp-ui-sideline-show-hover t)
   :init
+  ;; lsp-ui-doc
   (setq lsp-ui-doc-enable t)
   (setq lsp-ui-doc-header t)
   (setq lsp-ui-doc-include-signature t)
   (setq lsp-ui-doc-position 'bottom)
   (setq lsp-ui-doc-max-height 30)
   (setq lsp-ui-doc-use-childframe t)
-  ;; :custom
-  ;; (lsp-ui-sideline-ignore-duplicate t)
-  ;; (lsp-ui-sideline-delay 1.0)
+  ;; lsp-ui-sideline
+  (setq lsp-ui-sideline-show-diagnostics t)
+  (setq lsp-ui-sideline-update-mode 'line)
+  (setq lsp-ui-sideline-ignore-duplicate t)
   )
 
 (use-package lsp-go)

@@ -58,3 +58,4 @@ alias grsync="rsync --exclude=venv --exclude=.git --exclude=weights --exclude=ru
 alias updb="sudo updatedb --prunepaths='/tmp /usr/tmp /var/tmp /afs /home/kitamura/GoogleDrive'"
 
 alias cg++="g++ -pipe -O2 -std=c++14 -lm"
+alias cg++-debug="g++ -pipe -g -O0 -std=c++14 -lm"
