@@ -566,7 +566,7 @@
 (use-package eldoc
   :ensure t
   :custom
-  (eldoc-idle-delay 0.2)
+  (eldoc-idle-delay 0.5)
   (eldoc-echo-area-use-multiline-p t)
   (eldoc-minor-mode-string "")
   :hook (prog-mode . eldoc-mode)
@@ -869,7 +869,7 @@
                  (reusable-frames . visible)
                  (window-height   . 0.15)))
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
-  (setq flycheck-idle-change-delay 0.040)
+  (setq flycheck-idle-change-delay 0.50)
   (setq-default flycheck-flake8-maximum-line-length 105)
   :bind
   (("C-c f" . flycheck-list-errors))
@@ -883,7 +883,7 @@
   :custom
   (lsp-log-io nil)
   (read-process-output-max (* 1024 1024)) ;; 1mb
-  (lsp-idle-delay 0.050)
+  (lsp-idle-delay 0.50)
   (lsp-enable-snippet nil)
   (lsp-prefer-flymake nil)
   (lsp-pyls-plugins-autopep8-enabled nil)
@@ -1000,7 +1000,7 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS."
   :ensure t
   :custom
   (company-transformers '(company-sort-by-backend-importance))
-  (company-idle-delay 0.05)
+  (company-idle-delay 0.5)
   (company-minimum-prefix-length 3)
   (company-selection-wrap-around t)
   (completion-ignore-case t)
