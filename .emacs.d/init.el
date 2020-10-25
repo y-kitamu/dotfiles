@@ -858,6 +858,17 @@
 ))))
 (advice-add 'yapfify-call-bin :around 'around-yapfify-call-bin)
 
+(defun around-yapfify-region (original-func &rest args)
+  "Wrap `yapfify-region` to catch error and make sure to kill *yapfify* buffer"
+  (condition-case nil
+      (apply original-func args)
+    (error
+     (message "yapfify failed. delete buffer : *yapfify*")
+     (-if-let (tmp-buffer (get-buffer "*yapfify*"))
+         (kill-buffer tmp-buffer)))
+))
+(advice-add 'yapfify-region :around 'around-yapfify-region)
+
 (use-package flycheck
   :ensure t
   :init
@@ -1000,7 +1011,7 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS."
   :ensure t
   :custom
   (company-transformers '(company-sort-by-backend-importance))
-  (company-idle-delay 0.5)
+  (company-idle-delay 0.05)
   (company-minimum-prefix-length 3)
   (company-selection-wrap-around t)
   (completion-ignore-case t)
