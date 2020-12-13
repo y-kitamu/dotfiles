@@ -1,44 +1,12 @@
 ;; -*-no-byte-compile: t; -*-
 (setq package-selected-packages
-      '(;; lsp packages
-        lsp-mode     ;; core
-        lsp-ui       ;; ui stuff + flycheck support
-        lsp-treemacs ;; more ui stuff
-        ccls         ;; ccls support
-        helm-lsp     ;; helm support
-        lsp-origami  ;; code folding support
-        dap-mode     ;; debugger support
-        yasnippet    ;; helpers
-        posframe
+      '(;; lsp-treemacs ;; more ui stuff
+        ;; lsp-origami  ;; code folding support
         ;dap-ui-mode
         ;; major modes not in core
-        csv-mode
-        dockerfile-mode
-        docker-compose-mode
-	    go-mode
-        rust-mode
-	    typescript-mode
-        docker
         use-package
-        zenburn-theme
-        helm-descbinds
-        helm-tramp
-        open-junk-file
-        ag
-        web-mode
-        multi-term
-        yatex
-        ein
-        gxref
 	    init-loader
-	    which-key
-        pyvenv
-        avy
-        rainbow-mode
-        hydra
-        lispxmp
-        paredit
-        auto-async-byte-compile
+        posframe
         popwin
         ))
 
@@ -261,6 +229,17 @@
                             (add-to-list 'mode-line-format
                                          '(:eval (count-lines-and-chars)))
                             ))
+
+;;; goto matching parenthesis, Vi style. The last statement is a bit conked;
+;;;###autoload
+(defun goto-match-paren (arg)
+  "Go to the matching parenthesis if on parenthesis, otherwise do nothing"
+  (interactive "p")
+  (cond
+   ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+   ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+   (t (digit-argument (or arg 1)))))
+
 ;;
 (use-package uniquify
   :custom
@@ -312,6 +291,7 @@
 
 ;;; Theme
 (use-package zenburn-theme
+  :ensure t
   :custom
   (zenburn-add-font-lock-keywords t)
   :config
@@ -414,7 +394,7 @@
   (add-hook 'fast-scroll-end-hook (lambda () (flycheck-mode 1)))
   (fast-scroll-config)
   (fast-scroll-mode 1)
-  (my/hidden-minor-mode 'fast-scroll-mode))
+  )
 
 ;;; Elscreen
 (use-package elscreen
@@ -529,7 +509,32 @@
    '((python . t)))
   :bind
   ("C-c a" . 'org-agenda)
+  ("C-c e X" . 'org-publish-project)
   )
+
+(defun override-org-html-src-block (src-block _contents info)
+  "Jekyll ブログエクスポート用のコードブロック生成。
+rougeでソースコードをhighlight、#+name: <filename> で指定したファイル名を表示する。
+TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
+  (if (org-export-read-attribute :attr_html src-block :textarea)
+      (org-html--textarea-block src-block)
+    (let* ((lang (org-element-property :language src-block))
+	       (code (org-html-format-code src-block info))
+	       (label (let ((lbl (and (org-element-property :name src-block)
+				                  (org-export-get-reference src-block info))))
+		            (if lbl (format " id=\"%s\"" lbl) "")))
+	       (klipsify  (and  (plist-get info :html-klipsify-src)
+                            (member lang '("javascript" "js"
+					                       "ruby" "scheme" "clojure" "php" "html"))))
+           (name (org-element-property :name src-block))
+           (prefix
+            (format "<figure><figcaption class=\"figcaption\">%s</figcaption>\n{%% highlight %s %%}\n"
+                    name lang))
+           (suffix "{% endhighlight %}\n</figure>"))
+      (concat prefix code suffix))))
+(advice-add 'org-html-src-block :override 'override-org-html-src-block)
+
+
 ;;; open-junk-file setting
 (use-package open-junk-file
   :ensure t
@@ -542,6 +547,28 @@
   ("C-x j" . open-junk-file)
   ("C-x C-j" . (lambda() (interactive) (find-file "~/.emacs.d/junk/main.org")))
   )
+
+
+(setq org-publish-project-alist
+      '(
+        ("org-blog"
+         :base-directory "~/Documents/kitamura.github.io/org/"
+         :base-extension "org"
+         :publishing-directory "~/Documents/kitamura.github.io/docs"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4
+         :html-extension "html"
+         :body-only t
+         )
+        ("org-blog-static"
+         :base-directory "~/Documents/kitamura.github.io/org/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+         :publishing-directory "~/Documents/kitamura.github.io/docs"
+         :recursive t
+         :publishing-function org-publish-attachment)
+        ("blog" :components ("org-blog" "org-blog-static"))
+        ))
 
 ;; lisp の評価結果を注釈する
 (use-package lispxmp
@@ -700,8 +727,13 @@
 
 (use-package rainbow-mode :ensure t)
 
+;;; programing language major modes
 (use-package rust-mode :ensure t)
 (use-package dockerfile-mode :ensure t)
+(use-package csv-mode :ensure t)
+(use-package docker-compose-mode :ensure t)
+(use-package go-mode :ensure t)
+(use-package typescript-mode :ensure t)
 
 
 (use-package cmake-mode)
@@ -793,6 +825,7 @@
   )
 
 (use-package helm-descbinds
+  :ensure t
   :config
   (helm-descbinds-mode) ; C-h b (keybind display list) をhelmで表示
   )
@@ -860,13 +893,10 @@
 
 (defun around-yapfify-region (original-func &rest args)
   "Wrap `yapfify-region` to catch error and make sure to kill *yapfify* buffer"
-  (condition-case nil
-      (apply original-func args)
-    (error
-     (message "yapfify failed. delete buffer : *yapfify*")
      (-if-let (tmp-buffer (get-buffer "*yapfify*"))
-         (kill-buffer tmp-buffer)))
-))
+         (kill-buffer tmp-buffer))
+     (apply original-func args)
+     )
 (advice-add 'yapfify-region :around 'around-yapfify-region)
 
 (use-package flycheck
@@ -886,6 +916,14 @@
   (("C-c f" . flycheck-list-errors))
   :hook
   (after-init . global-flycheck-mode))
+
+
+(use-package which-key
+  :ensure t
+  :custom
+  (which-key-lighter nil)
+  :config
+  (which-key-mode))
 
 
 ;; lsp configuration begin
@@ -918,8 +956,16 @@
 
 (defcustom dir-local-docker-config-alists nil
   "List of lsp docker configuration alist.
-Alist must contain keys named
-DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS."
+Alist contains keys named :
+DOCKER-IMAGE-ID : Docker image name.
+DOCKER-CONTAINER-NAME : Name of docker container to be launched.
+LSP-DOCKER-CLIENT-CONFIGS : Client-config list.
+
+- c++の場合の設定
+プロジェクト固有のINCLUDE_PATHにパスを通すためには
+1. compile_commands.jsonのリンクをプロジェクトルートに作成する
+2. CMakeLists.txt のinclude_directoriesで指定するパスを絶対パスにする
+"
   :safe (lambda (alists)
           (-all? (lambda (it)
                    (and (stringp (assoc-default 'docker-image-id it))
@@ -928,7 +974,8 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS."
                  aliasts)))
 
 (defmacro my-lsp-docker-init-clients
-    (project-root docker-image-id docker-container-name lsp-docker-client-configs)
+    (docker-image-id docker-container-name lsp-docker-client-configs)
+  "lsp docker initialization"
   (declare (indent 2))
   ;; 'lsp-docker-init-clients 呼び出しマクロ
   ;; TODO : 'path-mapping 指定の部分のハードコーディング解消
@@ -940,37 +987,71 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS."
   )
 
 (defun start-local-lsp-docker (local-docker-config-alist)
-  " lsp-deferredにadviceで呼び出されるlsp serverの立ち上げ関数。
-    .dir-locals.el のdir-local-docker-config-alists に
-    'docker-image-id', 'docker-container-name', 'lsp-docker-client-configs'を
-    定義しておくと、自動で指定したdokcerが立ち上がる"
+  "docker環境のlsp server立ち上げ関数。
+.dir-locals.el内の変数dir-local-docker-config-alistsで定義されたlsp用dockerを立ち上がる。
+dir-local-docker-config-alistsの各要素では以下のkeyを定義する
+DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
   (-when-let* (((&alist 'docker-image-id docker-image-id
                         'docker-container-name docker-container-name
                         'lsp-docker-client-configs lsp-docker-client-configs)
-                local-docker-config-alist)
-               (project-root (-some-> (dir-locals-find-file buffer-file-name)
-                               (lambda (it) (typecase  it
-                                              (string project-root)
-                                              (list (car project-root)))))))
+                local-docker-config-alist))
     (my-lsp-docker-init-clients
-        project-root docker-image-id docker-container-name lsp-docker-client-configs)
-    (message (format "Start local lsp docker container '%s' from image '%s'. project root = %s"
-                     docker-container-name docker-image-id project-root))))
+        docker-image-id docker-container-name lsp-docker-client-configs)
+    (message (format "Start local lsp docker container '%s' from image '%s'"
+                     docker-container-name docker-image-id))))
+
+(defun before-lsp (&rest rest)
+  "lspのadvice関数。
+.dir-locals.elの変数を取得して関数start-local-lsp-dockerを呼び出してdockerのlsp serverを立ち上げる。"
+  (hack-dir-local-variables-non-file-buffer)
+  (mapc 'start-local-lsp-docker dir-local-docker-config-alists)
+  )
 
 (use-package lsp-docker
   :ensure t
   :config
-  (defadvice lsp-deferred (before before-lsp-deferred activate)
-    (hack-dir-local-variables-non-file-buffer)
-    (mapc 'start-local-lsp-docker dir-local-docker-config-alists))
+  (advice-add 'lsp :before 'before-lsp)
+  (setq lsp-docker-default-client-packages
+    '(lsp-bash lsp-clients lsp-css lsp-go lsp-dockerfile
+               lsp-html lsp-javascript lsp-json lsp-yaml)
+    )
+  (setq lsp-docker-default-client-configs
+        (list
+         (list :server-id 'bash-ls
+               :docker-server-id 'bashls-docker
+               :server-command "bash-language-server start")
+         (list :server-id 'css-ls
+               :docker-server-id 'cssls-docker
+               :server-command "css-languageserver --stdio")
+         (list :server-id 'dockerfile-ls
+               :docker-server-id 'dockerfilels-docker
+               :server-command "docker-langserver --stdio")
+         (list :server-id 'gopls
+               :docker-server-id 'gopls-docker
+               :server-command "gopls")
+         (list :server-id 'html-ls
+               :docker-server-id 'htmls-docker
+               :server-command "html-languageserver --stdio")
+         (list :server-id 'ts-ls
+               :docker-server-id 'tsls-docker
+               :server-command "typescript-language-server --stdio")
+         (list :server-id 'json-ls
+               :docker-server-id 'jsonls-docker
+               :server-command "json-language-server --stdio")
+         (list :server-id 'yamlls
+               :docker-server-id 'yamlls-docker
+               :server-command "yaml-language-server --stdio")
+         )
+        )
+  (lsp-docker-init-clients
+   :path-mappings '(("/home/kitamura" . "/work/"))
+   :docker-image-id "arumatik/common-language-servers"
+   :docker-container-name "common-lsp-container"
+   :priority 10
+   :client-packages lsp-docker-default-client-packages
+   :client-configs lsp-docker-default-client-configs)
+  (message "Finish register defualt docker lsp clients")
 )
-
-(use-package which-key
-  :ensure t
-  :custom
-  (which-key-lighter nil)
-  :config
-  (which-key-mode))
 
 (use-package lsp-ui
   :ensure t
@@ -996,12 +1077,12 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS."
   :ensure t
   :config
   (yas-global-mode)
-  (my/hidden-minor-mode 'yas-minor-mode)
+  :diminish yas-minor-mode
   :bind
   (:map yas-minor-mode-map
-        ("C-x i i" . yas-insert-snippet) ;; 既存スニペットを挿入
-        ("C-x i n" . yas-new-snippet) ;; スニペットを作成するバッファを用意
-        ("C-x i v" . yas-visit-snippet-file) ;; 既存スニペットを閲覧・編集
+        ("C-c y i" . yas-insert-snippet) ;; 既存スニペットを挿入
+        ("C-c y n" . yas-new-snippet) ;; スニペットを作成するバッファを用意
+        ("C-c y v" . yas-visit-snippet-file) ;; 既存スニペットを閲覧・編集
         )
   (:map yas-keymap
         ("<tab>" . nil)) ;; because of avoiding conflict with company keymap
