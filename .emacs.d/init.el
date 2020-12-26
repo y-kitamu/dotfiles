@@ -1,17 +1,13 @@
 ;; -*-no-byte-compile: t; -*-
 (setq package-selected-packages
-      '(;; lsp-treemacs ;; more ui stuff
-        ;; lsp-origami  ;; code folding support
-        ;dap-ui-mode
-        ;; major modes not in core
-        use-package
-	    init-loader
+      '(use-package
+	init-loader
         posframe
         popwin
         ))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
-			             ("MELPA Stable" . "http://stable.melpa.org/packages/")
+			 ("MELPA Stable" . "http://stable.melpa.org/packages/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
 
 ;;; ELPAなどで自動で追加される設定をcustom.elに書き込む
@@ -20,10 +16,7 @@
   (write-region "" nil custom-file))
 
 (package-initialize)
-
-(if package-archive-contents
-  (package-refresh-contents))
-
+(package-refresh-contents)
 (package-install-selected-packages)
 
 ;; use-package settings
@@ -736,7 +729,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 (use-package typescript-mode :ensure t)
 
 
-(use-package cmake-mode)
+(use-package cmake-mode :ensure t)
 
 ;; web mode setting
 (use-package web-mode
@@ -918,6 +911,13 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (after-init . global-flycheck-mode))
 
 
+(use-package ace-window
+  :ensure t
+  :config
+  (global-set-key (kbd "M-o") 'ace-window)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  )
+
 (use-package which-key
   :ensure t
   :custom
@@ -971,7 +971,7 @@ LSP-DOCKER-CLIENT-CONFIGS : Client-config list.
                    (and (stringp (assoc-default 'docker-image-id it))
                         (stringp (assoc-default 'docker-container-name it))
                         (listp (assoc-default 'lsp-docker-client-configs it))))
-                 aliasts)))
+                 alists)))
 
 (defmacro my-lsp-docker-init-clients
     (docker-image-id docker-container-name lsp-docker-client-configs)
@@ -998,7 +998,8 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
     (my-lsp-docker-init-clients
         docker-image-id docker-container-name lsp-docker-client-configs)
     (message (format "Start local lsp docker container '%s' from image '%s'"
-                     docker-container-name docker-image-id))))
+                     docker-container-name docker-image-id))
+    ))
 
 (defun before-lsp (&rest rest)
   "lspのadvice関数。
@@ -1072,6 +1073,8 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
 (use-package lsp-go)
 (use-package lsp-html)
 (use-package lsp-csharp)
+
+(use-package lsp-pyright :ensure t)
 
 (use-package yasnippet
   :ensure t
