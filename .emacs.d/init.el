@@ -1145,4 +1145,10 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
   :ensure t
   :config
   (add-to-list 'company-backends #'company-tabnine)
+  (defun toggle-tabnine ()
+    "tabnineのenable, disableの切り替え"
+    (interactive)
+    (if company-tabnine--disabled
+        (setq company-tabnine--disabled nil)
+      (setq company-tabnine--disabled t)))
   )
