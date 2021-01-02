@@ -943,6 +943,11 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
     (if-let (workspaces (lsp-workspaces))
         (concat " LSP")
       nil))
+  (custom-set-faces
+   '(lsp-face-highlight-read
+     ((t (:background "#F0DFAF" :foreground "#000000" :weight bold)))) ; zenburn-yellow
+   '(lsp-face-highlight-write
+     ((t (:background "#DFAF8F" :foreground "#000000" :weight bold))))) ; zenburn-orange
   :hook
   ((prog-mode . lsp-deferred)
    (lsp-mode . lsp-enable-which-key-integration))
@@ -1135,3 +1140,9 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
   (setq dap-lldb-debug-program `(,(expand-file-name "~/.vscode/extensions/ms-vscode.cpptools-1.0.1/bin/cpptools-srv"))))
 
 (use-package dap-python)
+
+(use-package company-tabnine
+  :ensure t
+  :config
+  (add-to-list 'company-backends #'company-tabnine)
+  )
