@@ -309,8 +309,7 @@
 (use-package col-highlight
   :load-path "./packages"
   :config
-  (toggle-highlight-column-when-idle 1)
-  (col-highlight-set-interval 1)
+  (toggle-highlight-column-when-idle 0)
   :after vline
   )
 
@@ -1073,6 +1072,7 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
   (setq lsp-ui-sideline-show-diagnostics t)
   (setq lsp-ui-sideline-update-mode 'line)
   (setq lsp-ui-sideline-ignore-duplicate t)
+  (setq lsp-ui-sideline-show-hover nil)
   )
 
 (use-package lsp-go)
