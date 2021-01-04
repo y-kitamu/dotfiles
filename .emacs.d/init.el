@@ -697,12 +697,12 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (shell-command-on-region beg end "jq ." nil t))
 
 ;;; PDF tool
-(use-package pdf-tools
-  :ensure t
-  :config
-  (if (equal system-type 'gnu/linux)
-  (pdf-tools-install)
-      )
+(when (equal system-type 'gnu/linux)
+  (use-package pdf-tools
+    :ensure t
+    :config
+    (pdf-tools-install)
+    )
   )
 
 ;;; YaTeX (melpa)
@@ -779,7 +779,11 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 (use-package cmake-mode :ensure t)
 
 ;;; for windows
-(use-package powershell :ensure t)
+(use-package powershell
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.psl\\'" . powershell-mode))
+  )
 
 ;; web mode setting
 (use-package web-mode

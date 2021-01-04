@@ -18,5 +18,5 @@ cp ~/Downloads/es/es.exe ~/scoop/shims/
 scoop install emacs
 
 # copy .emacs.d to AppData/Roaming
-rm -r ~/AppData/Roaming/.emacs.d
-cp -r ~/dotfiles/.emacs.d ~/AppData/Roaming/
+Remove-Item -Recurse -Force ~/AppData/Roaming/.emacs.d
+New-Item -Path ~/AppData/Roaming -Name .emacs.d -Value ~/dotfiles/.emacs.d -ItemType Junction
