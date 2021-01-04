@@ -264,9 +264,16 @@
          (text-mode . flyspell-mode))
   )
 
-(defun my/hidden-minor-mode (mode)
-  (setq minor-mode-alist (cons (list mode "") (assq-delete-all mode minor-mode-alist))))
+(defmacro my/hide-minor-mode-from-mode-line (mode)
+  "指定したMODEをmode-lineに表示しないようにする。
+MODEはsymbolを指定する。
+ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
+  `(setq minor-mode-alist (cons (list ,mode "") (assq-delete-all ,mode minor-mode-alist))))
 
+(use-package abbrev
+  :config
+  (my/hide-minor-mode-from-mode-line 'abbrev-mode)
+  )
 
 ;;; `message` の出力の先頭に日時を付け足す
 (defadvice message (before before-message activate)
@@ -396,6 +403,7 @@
   (add-hook 'fast-scroll-end-hook (lambda () (flycheck-mode 1)))
   (fast-scroll-config)
   (fast-scroll-mode 1)
+  (my/hide-minor-mode-from-mode-line 'fast-scroll-mode)
   )
 
 ;;; Elscreen
@@ -468,6 +476,7 @@
 (use-package git-gutter
   :ensure t
   :config
+  (setq git-gutter:lighter "")
   (global-git-gutter-mode t)
   )
 
@@ -635,27 +644,27 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 ;;; project のファイルを開くと、自動で仮想環境の lsp が立ち上がる。
 ;;; すでにファイルが開いている場合は、 pyvenv-activate のあと、lsp-workspace-restart とする
 ;;; -> lsp-dockerに移行するので基本的に使用しない
-(use-package pyvenv
-  :ensure t
-  :diminish
-  :config
-  (setq pyvenv-mode-line-indicator
-        '(pyvenv-virtual-env-name ("[venv:" pyvenv-virtual-env-name "] ")))
-  (pyvenv-mode +1)
-  (defun pyvenv-auto-activate ()
-    "Automatically activate python virtual enviroment by searching venv directory."
-    (interactive)
-    (let ((dirname (file-name-directory (directory-file-name buffer-file-name))))
-      (while (and (not (file-exists-p (format "%s/venv" dirname))) (not (equal dirname "/")))
-        (setq dirname (file-name-directory (directory-file-name dirname))))
-      (if (equal dirname "/")
-          (message "pyvenv :: Failed to auto activate to venv. No venv directory is found.")
-        (pyvenv-activate (format "%s/venv" dirname))
-        (message (format "pyvenv :: Activate %s/venv" dirname)))
-      ))
-  ;; :hook
-  ;; (python-mode . pyvenv-auto-activate)
-  )
+;; (use-package pyvenv
+;;   :ensure t
+;;   :diminish
+;;   :config
+;;   (setq pyvenv-mode-line-indicator
+;;         '(pyvenv-virtual-env-name ("[venv:" pyvenv-virtual-env-name "] ")))
+;;   (pyvenv-mode +1)
+;;   (defun pyvenv-auto-activate ()
+;;     "Automatically activate python virtual enviroment by searching venv directory."
+;;     (interactive)
+;;     (let ((dirname (file-name-directory (directory-file-name buffer-file-name))))
+;;       (while (and (not (file-exists-p (format "%s/venv" dirname))) (not (equal dirname "/")))
+;;         (setq dirname (file-name-directory (directory-file-name dirname))))
+;;       (if (equal dirname "/")
+;;           (message "pyvenv :: Failed to auto activate to venv. No venv directory is found.")
+;;         (pyvenv-activate (format "%s/venv" dirname))
+;;         (message (format "pyvenv :: Activate %s/venv" dirname)))
+;;       ))
+;;   ;; :hook
+;;   ;; (python-mode . pyvenv-auto-activate)
+;;   )
 
 ;;; ein.el setting (emacs で jupyter notebook を使えるようにしたもの)
 ;;; 参考 : https://pod.hatenablog.com/entry/2017/08/06/220817
@@ -742,6 +751,8 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 ;;; カラーコードの色をbackgroundに表示する
 (use-package rainbow-mode
   :ensure t
+  :config
+  (my/hide-minor-mode-from-mode-line 'rainbow-mode)
   :hook
   (emacs-lisp-mode . rainbow-mode))
 
@@ -962,15 +973,15 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (lsp-pyls-plugins-pycodestyle-enabled nil)
   (lsp-pyls-plugins-yapf-enabled t)
   :config
-  (defun lsp-mode-line ()
-    (if-let (workspaces (lsp-workspaces))
-        (concat " LSP")
-      nil))
   (custom-set-faces
    '(lsp-face-highlight-read
      ((t (:background "#F0DFAF" :foreground "#000000" :weight bold)))) ; zenburn-yellow
    '(lsp-face-highlight-write
      ((t (:background "#DFAF8F" :foreground "#000000" :weight bold))))) ; zenburn-orange
+  ;; modeline の表示をなくす
+  (setq lsp-modeline-code-actions-enable nil)
+  (setq lsp-modeline-diagnostics-enable nil)
+  (setq lsp-modeline-workspace-status-enable nil)
   :hook
   ((prog-mode . lsp-deferred)
    (lsp-mode . lsp-enable-which-key-integration))
@@ -1109,6 +1120,7 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
   :ensure t
   :config
   (yas-global-mode)
+  (my/hide-minor-mode-from-mode-line 'yas-minor-mode)
   :diminish yas-minor-mode
   :bind
   (:map yas-minor-mode-map
