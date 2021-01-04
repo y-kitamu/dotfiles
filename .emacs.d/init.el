@@ -296,7 +296,7 @@
      '(isearch ((t (:background "green yellow" :foreground "#D0BF8F" :weight bold))))
      '(lazy-highlight ((t (:background "SeaGreen3" :foreground "#D0BF8F" :weight bold))))
      )
-    (set-face-attribute 'mode-line nil :background zenburn-bg+3 :foreground zenburn-fg+2)
+    ;; (set-face-attribute 'mode-line nil :background zenburn-bg+3 :foreground zenburn-fg+2)
     ))
 
 (set-face-foreground 'font-lock-regexp-grouping-backslash "green3")
@@ -313,13 +313,22 @@
   :after vline
   )
 
-(use-package smart-mode-line
+;; (use-package smart-mode-line
+;;   :ensure t
+;;   :config
+;;   (sml/setup)
+;;   (zenburn-with-color-variables
+;;     (set-face-attribute 'sml/minor-modes nil :foreground zenburn-cyan))
+;;   :after zenburn-theme)
+
+;;; mode-lineの見た目をおしゃれにする
+(use-package powerline
   :ensure t
   :config
-  (sml/setup)
-  (zenburn-with-color-variables
-    (set-face-attribute 'sml/minor-modes nil :foreground zenburn-cyan))
-  :after zenburn-theme)
+  (custom-set-faces
+   '(powerline-active1 ((t (:background  "#93E0E3" :foreground "#2B2B2B"))))
+   )
+  (powerline-default-theme))
 
 (use-package total-lines
   :ensure t
@@ -691,7 +700,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
         ("RET" . 'newline))
   )
 
-;; M-x align で自動で整形する設定 (align-regexp ではない!)
+;; M-x align で自動で整形する設定 (align-regexp ではない)
 (defmacro lazyload (func lib docstring &rest body)
   "遅延ロード．funcにオートロードさせたい関数を並べる．
 例：\(lazyload \(func1 func2\) \"hogehoge\"\)"
@@ -705,7 +714,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (declare (indent 1))
   `(setq ,to (append ,list ,to)))
 
-;;; yatex-mode で　table を align
+;;; yatex-mode で　table を alignする
 (lazyload (align align-regexp align-newline-and-indent) "align" nil
   (append-to-list align-rules-list
     (list '(yatex-tabular
@@ -716,8 +725,11 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
             (regexp . "\\(\\s-+\\)\\\\\\\\")
             (modes . '(yatex-mode))))))
 
-
-(use-package rainbow-mode :ensure t)
+;;; カラーコードの色をbackgroundに表示する
+(use-package rainbow-mode
+  :ensure t
+  :hook
+  (emacs-lisp-mode . rainbow-mode))
 
 ;;; programing language major modes
 (use-package rust-mode :ensure t)
@@ -726,8 +738,6 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 (use-package docker-compose-mode :ensure t)
 (use-package go-mode :ensure t)
 (use-package typescript-mode :ensure t)
-
-
 (use-package cmake-mode :ensure t)
 
 ;; web mode setting
