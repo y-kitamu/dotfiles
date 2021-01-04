@@ -471,6 +471,10 @@
   (global-git-gutter-mode t)
   )
 
+;;; chrome の text area を emacs で編集する
+(use-package edit-server
+  :ensure t)
+
 ;;; multi-term
 ;; .bashrc に $TERM が eterm-color の場合にも color-prompt にするように設定を追記する
 (use-package multi-term
