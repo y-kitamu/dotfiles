@@ -418,6 +418,8 @@
 ;;; magit
 (use-package magit
   :ensure t
+  :custom
+  (magit-diff-refine-hunk 'all)
   :config
   (when (equal system-type 'windows-nt) ;; windows の場合、git の .exe file の場所を指定
     (setq magit-git-executable "c:/Users/y-kitamura/AppData/Local/Programs/Git/bin/git.exe"))
@@ -460,6 +462,13 @@
       (advice-remove #'magit-setup-buffer-internal #'unpackaged/magit-log--add-date-headers)))
   :bind
   ("C-x g" . magit-status)
+  )
+
+;; reference : https://emacs-jp.github.io/packages/git-gutter
+(use-package git-gutter
+  :ensure t
+  :config
+  (global-git-gutter-mode t)
   )
 
 ;;; multi-term
