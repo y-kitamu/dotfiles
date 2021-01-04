@@ -327,6 +327,7 @@
   :config
   (custom-set-faces
    '(powerline-active1 ((t (:background  "#93E0E3" :foreground "#2B2B2B"))))
+   '(powerline-active2 ((t (:background  "#303030"))))
    )
   (powerline-default-theme))
 
