@@ -78,6 +78,28 @@
                               (interactive)
                               (other-window -1)))
 
+(use-package tab-bar
+  :custom
+  (tab-bar-new-button-show nil)
+  (tab-bar-close-button-show nil)
+  :config
+  (tab-bar-mode t)
+  ;; screenと似たkeybindに設定
+  (global-unset-key (kbd "C-z"))
+  (define-key global-map (kbd "C-z C-z") 'suspend-frame)
+  (global-set-key (kbd "C-z SPC") 'tab-next)
+  (global-set-key (kbd "C-z C-SPC") 'tab-next)
+  (global-set-key (kbd "C-z p") 'tab-previous)
+  (global-set-key (kbd "C-z c") 'tab-new)
+  (global-set-key (kbd "C-z k") 'tab-close)
+  ;; 見た目をおしゃれに
+  (custom-set-faces
+   '(tab-bar ((t :background "#34495E")))
+   '(tab-bar-tab ((t (:background "#93E0E3" :foreground "#2B2B2B" :box (:style pressed-button)))))
+   '(tab-bar-tab-inactive ((t (:background "#34495E" :inverse-video nil))))
+   )
+  )
+
 ;; maximize window
 (set-frame-parameter nil 'fullscreen 'maximized)
 
@@ -335,6 +357,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (custom-set-faces
    '(powerline-active1 ((t (:background  "#93E0E3" :foreground "#2B2B2B"))))
    '(powerline-active2 ((t (:background  "#303030"))))
+   '(powerline-inactive2 ((t (:background  "#383838"))))
    )
   (powerline-default-theme))
 
@@ -404,23 +427,6 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (fast-scroll-config)
   (fast-scroll-mode 1)
   (my/hide-minor-mode-from-mode-line 'fast-scroll-mode)
-  )
-
-;;; Elscreen
-(use-package elscreen
-  :ensure t
-  :custom
-  (elscreen-display-screen-number nil)
-  :config
-  (elscreen-start)
-  (if window-system
-      (define-key elscreen-map (kbd "C-z") 'iconify-or-deiconify-frame)
-    (define-key elscreen-map (kbd "C-z") 'suspend-emacs))
-  :bind
-  (:map elscreen-map
-        ("SPC" . 'elscreen-next)
-        ("C-SPC" . 'elscreen-next)
-        )
   )
 
 ;;; magit
