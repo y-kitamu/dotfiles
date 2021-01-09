@@ -82,6 +82,7 @@
   :custom
   (tab-bar-new-button-show nil)
   (tab-bar-close-button-show nil)
+  (tab-bar-show 1)
   :config
   (tab-bar-mode t)
   ;; screenと似たkeybindに設定
@@ -1109,11 +1110,16 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
   (setq lsp-ui-doc-position 'bottom)
   (setq lsp-ui-doc-max-height 30)
   (setq lsp-ui-doc-use-childframe t)
+  (defun disable-tab-bar-in-lsp-ui-doc-frame (frame window)
+    "lsp-ui-docで作られるchild frameにtab-barを表示しない"
+    (set-frame-parameter frame 'tab-bar-lines 0))
   ;; lsp-ui-sideline
   (setq lsp-ui-sideline-show-diagnostics t)
   (setq lsp-ui-sideline-update-mode 'line)
   (setq lsp-ui-sideline-ignore-duplicate t)
   (setq lsp-ui-sideline-show-hover nil)
+  :hook
+  (lsp-ui-doc-frame . disable-tab-bar-in-lsp-ui-doc-frame)
   )
 
 (use-package lsp-go)
