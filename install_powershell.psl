@@ -1,0 +1,22 @@
+# Setup emacs enviroment using scoop
+
+# Install scoop
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+scoop bucket add extras
+
+# Install libraries via scoop
+scoop update
+scoop install ag direnv fzf git global go nodejs-lts ripgrep gow fd gpg everything
+# openssh (failed)
+
+# Download es.exe (used by helm-locate)
+wget http://www.voidtools.com/es.zip -o ~/Downloads/es.zip
+Expand-Archive -Path ~/Downloads/es.zip ~/Downloads/es
+cp ~/Downloads/es/es.exe ~/scoop/shims/
+
+# Install emacs
+scoop install emacs
+
+# copy .emacs.d to AppData/Roaming
+Remove-Item -Recurse -Force ~/AppData/Roaming/.emacs.d
+New-Item -Path ~/AppData/Roaming -Name .emacs.d -Value ~/dotfiles/.emacs.d -ItemType Junction

@@ -42,7 +42,13 @@
         use-package-expand-minimally t))
 
 ;;; emacs internal shell path
-(add-to-list 'exec-path "~/.local/bin")
+(when (equal system-type 'gnu/linux)
+  (add-to-list 'exec-path (expand-file-name "~/.local/bin")))
+(when (equal system-type 'windows-nt)
+  ;; windows上でhelm-locate を使うためにはscoop経由でEverythingをインストール、
+  ;; さらに、es.exeをダウンロードして~/../../scoop/shims/以下にes.exeを配置する。
+  ;; es.exe : https://www.voidtools.com
+  (add-to-list 'exec-path (expand-file-name "~/../../scoop/shims/")))
 
 ;;; inits 以下の設定ファイルを読み込む
 (if (not (file-directory-p "~/.emacs.d/inits/"))
@@ -436,8 +442,8 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   :custom
   (magit-diff-refine-hunk 'all)
   :config
-  (when (equal system-type 'windows-nt) ;; windows の場合、git の .exe file の場所を指定
-    (setq magit-git-executable "c:/Users/y-kitamura/AppData/Local/Programs/Git/bin/git.exe"))
+  ;; (when (equal system-type 'windows-nt) ;; windows の場合、git の .exe file の場所を指定
+  ;;   (setq magit-git-executable "c:/Users/y-kitamura/AppData/Local/Programs/Git/bin/git.exe"))
   (defun unpackaged/magit-log--add-date-headers (&rest _ignore)
     "Add date headers to Magit log buffers."
     (when (derived-mode-p 'magit-log-mode)
@@ -692,12 +698,13 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (shell-command-on-region beg end "jq ." nil t))
 
 ;;; PDF tool
-(use-package pdf-tools
-  :ensure t
-  :config
-  (pdf-tools-install)
+(when (equal system-type 'gnu/linux)
+  (use-package pdf-tools
+    :ensure t
+    :config
+    (pdf-tools-install)
+    )
   )
-
 
 ;;; YaTeX (melpa)
 (use-package yatex
@@ -772,6 +779,13 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 (use-package typescript-mode :ensure t)
 (use-package cmake-mode :ensure t)
 
+;;; for windows
+(use-package powershell
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.psl\\'" . powershell-mode))
+  )
+
 ;; web mode setting
 (use-package web-mode
   :ensure t
@@ -813,16 +827,19 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   :custom
   (default-input-method "japanese-mozc"))
 
-;; migemo (日本語のローマ字検索)
+;; migemo (日本語のローマ字検索。とりあえずlinuxだけ)
 ;; sudo apt-get instal -y cmigemo
-(use-package migemo
-  :ensure t
-  :config
-  (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
-  (setq migemo-user-dictionary nil)
-  (setq migemo-coding-system 'utf-8-unix)
-  (load-library "migemo")
-  (migemo-init))
+(when (equal system-type 'gnu/linux)
+  (use-package migemo
+    :ensure t
+    :config
+    (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
+    (setq migemo-user-dictionary nil)
+    (setq migemo-coding-system 'utf-8-unix)
+    (load-library "migemo")
+    (migemo-init)
+    )
+  )
 
 (use-package google-translate
   :ensure t
