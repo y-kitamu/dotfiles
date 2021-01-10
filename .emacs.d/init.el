@@ -1213,7 +1213,10 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
   (defun toggle-tabnine ()
     "tabnineのenable, disableの切り替え"
     (interactive)
-    (if company-tabnine--disabled
-        (setq company-tabnine--disabled nil)
-      (setq company-tabnine--disabled t)))
+    (cond (company-tabnine--disabled
+           (setq company-tabnine--disabled nil)
+           (message "TabNine enabled"))
+          (t
+           (setq company-tabnine--disabled t)
+           (message "TabNine disabled"))))
   )
