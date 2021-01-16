@@ -167,6 +167,10 @@
                            (innamespace . 0))))
 (add-hook 'c++-mode-hook (lambda ()
                            (c-set-style "briancpp")))
+(use-package clang-format+
+  :ensure t
+  :config
+  (add-hook 'c-mode-common-hook #'clang-format+-mode))
 
 ;; enable Semantic mode (helm-semantic-or-imenu)
 (add-hook 'prog-mode (lambda ()
