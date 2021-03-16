@@ -775,7 +775,11 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (emacs-lisp-mode . rainbow-mode))
 
 ;;; programing language major modes
-(use-package rust-mode :ensure t)
+(use-package rust-mode
+  :ensure t
+  :custom
+  rust-format-on-save t
+  )
 (use-package dockerfile-mode :ensure t)
 (use-package csv-mode :ensure t)
 (use-package docker-compose-mode :ensure t)
@@ -1000,6 +1004,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (lsp-pyls-plugins-autopep8-enabled nil)
   (lsp-pyls-plugins-pycodestyle-enabled nil)
   (lsp-pyls-plugins-yapf-enabled t)
+  (lsp-file-watch-threshold 2000)
   :config
   (custom-set-faces
    '(lsp-face-highlight-read
@@ -1010,6 +1015,11 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (setq lsp-modeline-code-actions-enable nil)
   (setq lsp-modeline-diagnostics-enable nil)
   (setq lsp-modeline-workspace-status-enable nil)
+  (dolist (dir '(
+                 "[/\\\\]\\.cache"
+                 "[/\\\\]build"
+                 ))
+    (push dir lsp-file-watch-ignored))
   :hook
   ((prog-mode . lsp-deferred)
    (lsp-mode . lsp-enable-which-key-integration))
