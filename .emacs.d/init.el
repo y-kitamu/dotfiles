@@ -786,6 +786,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 (use-package go-mode :ensure t)
 (use-package typescript-mode :ensure t)
 (use-package cmake-mode :ensure t)
+(use-package protobuf-mode :ensure t)
 
 ;;; for windows
 (use-package powershell
