@@ -622,8 +622,8 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 ;; カッコの対応を保持して編集する設定
 (use-package paredit
   :ensure t
-  :custom
-  (paredit-lighter nil)
+  :init
+  (setq paredit-lighter nil)
   :hook
   ((emacs-lisp-mode . enable-paredit-mode)
    (lisp-interaction-mode . enable-paredit-mode)
@@ -1091,6 +1091,7 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
   :ensure t
   :config
   (advice-add 'lsp :before 'before-lsp)
+  (setq default-docker-container-name "docker-lsp")
   (setq lsp-docker-default-client-packages
     '(lsp-bash lsp-clients lsp-css lsp-go lsp-dockerfile
                lsp-html lsp-javascript lsp-json lsp-yaml)
@@ -1179,13 +1180,15 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
 
 (use-package company
   :ensure t
+  :init
+  (setq company-lighter-base nil)
+  (setq company-lighter nil)
   :custom
   (company-transformers '(company-sort-by-backend-importance))
   (company-idle-delay 0.05)
   (company-minimum-prefix-length 3)
   (company-selection-wrap-around t)
   (completion-ignore-case t)
-  (company-lighter nil)
   :bind
   (("C-M-i" . company-complete)) ; C-M-iで補完
   (:map company-active-map
