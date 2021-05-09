@@ -5,7 +5,7 @@
 /elpa/
 /tramp
 /.emacs.desktop*
-/junk
+/documents
 /request
 /ac-comphist.dat
 /irony/
@@ -24,3 +24,4 @@ kkcrc
 custom.el
 *.elc
 /server/
+forge-database.sqlite

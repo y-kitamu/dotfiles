@@ -14,3 +14,5 @@ smudge = cat
 required = true
 [core]
 	autocrlf = input
+[github]
+	user = kitamura

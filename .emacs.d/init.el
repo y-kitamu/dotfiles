@@ -118,11 +118,11 @@
 
 ;; set background alpha
 (if window-system
-    (progn (set-frame-parameter nil 'alpha 80)))
+    (progn (set-frame-parameter nil 'alpha 90)))
 (defun set-alpha (alpha-num)
   "set frame parameter 'alpha"
   (interactive "nAlpha : ")
-  (set-frame-parameter nil'alpha (cons alpha-num '(90))))
+  (set-frame-parameter nil 'alpha alpha-num))
 
 ;; hide bars
 (tool-bar-mode 0)   ; tool bar を非表示
@@ -497,6 +497,11 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (global-git-gutter-mode t)
   )
 
+(use-package forge
+  :ensure t
+  :after magit
+  )
+
 ;;; chrome の text area を emacs で編集する
 (use-package edit-server
   :ensure t)
@@ -539,7 +544,8 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (org-indent-indentation-per-level 2)
   (org-startup-folded 'showall)
   (org-confirm-babel-evaluate nil) ; 評価時に確認メッセージをださない
-  (org-directory "~/.emacs.d/junk")
+  (org-directory "~/.emacs.d/documents/")
+  (org-archive-location (concat "%s_archive_" (format-time-string "%Y" (current-time))))
   (org-agenda-files (list org-directory))
   (org-agenda-skip-scheduled-if-done t) ; agenda に DONE を表示しない
   (org-log-done 'time) ; DONE の時間を記録
@@ -580,13 +586,9 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 (use-package open-junk-file
   :ensure t
   :config
-  (setq org-archive-location (concat "~/.emacs.d/junk/"
-                                     (format-time-string "%Y_%m_%d" (current-time))
-                                     ".org::"))
-  (setq open-junk-file-format "~/.emacs.d/junk/%Y_%m_%d.org")
+  (setq open-junk-file-format "~/.emacs.d/documents/junk/%Y/%Y_%m_%d.org")
   :bind
   ("C-x j" . open-junk-file)
-  ("C-x C-j" . (lambda() (interactive) (find-file "~/.emacs.d/junk/main.org")))
   )
 
 
@@ -1021,8 +1023,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
                  "[/\\\\]build"
                  ))
     (push dir lsp-file-watch-ignored))
-  (add-hook 'prog-mode 'lsp-deferred)
-  (remove-hook 'emacs-lisp-mode 'lsp-deferred)
+  (add-hook 'prog-mode-hook 'lsp-deferred)
   :hook
   ((lsp-mode . lsp-enable-which-key-integration))
   )
