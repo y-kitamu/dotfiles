@@ -506,6 +506,16 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 (use-package edit-server
   :ensure t)
 
+(defun term-send-ctrl-z ()
+  "Send ctrl-z in term mode."
+  (interactive)
+  (term-send-raw-string ""))
+
+(defun term-send-ctrl-x ()
+  "Send ctrl-z in term mode."
+  (interactive)
+  (term-send-raw-string ""))
+
 ;;; multi-term
 ;; .bashrc に $TERM が eterm-color の場合にも color-prompt にするように設定を追記する
 (use-package multi-term
@@ -513,11 +523,14 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   :config
   (add-to-list 'term-unbind-key-list "C-t")
   (add-to-list 'term-unbind-key-list "C-o")
+  (add-to-list 'term-bind-key-alist '("C-c z" . term-send-ctrl-z))
+  (add-to-list 'term-bind-key-alist '("C-c x" . term-send-ctrl-x))
   :hook
   (term-mode .
    (lambda ()
      (define-key term-raw-map "\C-y" 'term-paste)           ; char-mode でペースト
-     (define-key term-raw-map "\C-c\C-j" 'term-line-mode))) ; line-mode へ切り替え
+     (define-key term-raw-map "\C-c\C-j" 'term-line-mode)    ; line-mode へ切り替え
+     ))
   )
 
 ;; automatically update gtags
@@ -1018,6 +1031,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (setq lsp-modeline-code-actions-enable nil)
   (setq lsp-modeline-diagnostics-enable nil)
   (setq lsp-modeline-workspace-status-enable nil)
+  (setq warning-minimum-log-level :error)
   (dolist (dir '(
                  "[/\\\\]\\.cache"
                  "[/\\\\]build"
