@@ -888,26 +888,10 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 
 
 ;;; Helm
-(use-package helm-config
+(use-package helm
+  :ensure t
   :custom
   (helm-completion-style 'emacs)
-  :bind
-  (("M-y" . helm-show-kill-ring) ; helm-kill-ring への keybind の割当
-   ("C-x b" . helm-for-files)
-   ("C-x C-f" . helm-find-files)
-   ("C-h a" . helm-apropos)
-   ("M-x" . helm-M-x))
-  )
-
-(use-package helm-descbinds
-  :ensure t
-  :config
-  (helm-descbinds-mode) ; C-h b (keybind display list) をhelmで表示
-  )
-
-(use-package helm-elisp)
-(use-package helm-man
-  :custom
   (helm-for-document-sources '(helm-source-info-elisp
                                helm-source-info-cl
                                helm-source-info-pages
@@ -924,6 +908,18 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
                    helm-apropos-function-list)
            helm-for-document-sources)
           :buffer "*helm for document*")))
+  :bind
+  (("M-y" . helm-show-kill-ring) ; helm-kill-ring への keybind の割当
+   ("C-x b" . helm-for-files)
+   ("C-x C-f" . helm-find-files)
+   ("C-h a" . helm-apropos)
+   ("M-x" . helm-M-x))
+  )
+
+(use-package helm-descbinds
+  :ensure t
+  :config
+  (helm-descbinds-mode) ; C-h b (keybind display list) をhelmで表示
   )
 
 (use-package helm-tramp
