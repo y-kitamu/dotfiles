@@ -1033,9 +1033,9 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
                  "[/\\\\]build"
                  ))
     (push dir lsp-file-watch-ignored))
-  (add-hook 'prog-mode-hook 'lsp-deferred)
   :hook
-  ((lsp-mode . lsp-enable-which-key-integration))
+  ((lsp-mode . lsp-enable-which-key-integration)
+   (prog-mode . lsp-deferred))
   )
 
 (use-package helm-lsp
