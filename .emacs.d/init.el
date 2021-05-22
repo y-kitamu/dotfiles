@@ -658,7 +658,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 (use-package auto-async-byte-compile
   :ensure t
   :custom
-  (auto-async-byte-compile-exclude-files-regexp ".emacs.d/junk/*")
+  (auto-async-byte-compile-exclude-files-regexp ".dir-locals.el\\|/junk/\\|init.el")
   :hook
   ((emacs-lisp-mode . enable-auto-async-byte-compile-mode)
    (emacs-lisp-mode . turn-on-eldoc-mode)
@@ -1044,58 +1044,56 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
 )
 
-(defcustom dir-local-docker-config-alists nil
-  "List of lsp docker configuration alist.
-Alist contains keys named :
-DOCKER-IMAGE-ID : Docker image name.
-DOCKER-CONTAINER-NAME : Name of docker container to be launched.
-LSP-DOCKER-CLIENT-CONFIGS : Client-config list.
+(defcustom docker-lsp-server-id nil
+  "lsp-docker server-id"
+  :safe (lambda (value) (symbolp value)))
 
-- c++の場合の設定
-プロジェクト固有のINCLUDE_PATHにパスを通すためには
-1. compile_commands.jsonのリンクをプロジェクトルートに作成する
-2. CMakeLists.txt のinclude_directoriesで指定するパスを絶対パスにする
-"
-  :safe (lambda (alists)
-          (-all? (lambda (it)
-                   (and (stringp (assoc-default 'docker-image-id it))
-                        (stringp (assoc-default 'docker-container-name it))
-                        (listp (assoc-default 'lsp-docker-client-configs it))))
-                 alists)))
+(defcustom docker-lsp-docker-server-id nil
+  "lsp-docker docker-server-id"
+  :safe (lambda (value) (symbolp value)))
 
-(defmacro my-lsp-docker-init-clients
-    (docker-image-id docker-container-name lsp-docker-client-configs)
-  "lsp docker initialization"
-  (declare (indent 2))
-  ;; 'lsp-docker-init-clients 呼び出しマクロ
-  ;; TODO : 'path-mapping 指定の部分のハードコーディング解消
-  `(lsp-docker-init-clients
-    :path-mappings '(("/home/kitamura/work/" . "/home/kitamura/work/"))
-    :docker-image-id ,docker-image-id
-    :docker-container-name ,docker-container-name
-    :client-configs ,lsp-docker-client-configs)
-  )
+(defcustom docker-lsp-server-command nil
+  "lsp-docker server-command"
+  :safe (lambda (value) (stringp value)))
 
-(defun start-local-lsp-docker (local-docker-config-alist)
-  "docker環境のlsp server立ち上げ関数。
-.dir-locals.el内の変数dir-local-docker-config-alistsで定義されたlsp用dockerを立ち上がる。
-dir-local-docker-config-alistsの各要素では以下のkeyを定義する
-DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
-  (-when-let* (((&alist 'docker-image-id docker-image-id
-                        'docker-container-name docker-container-name
-                        'lsp-docker-client-configs lsp-docker-client-configs)
-                local-docker-config-alist))
-    (my-lsp-docker-init-clients
-        docker-image-id docker-container-name lsp-docker-client-configs)
-    (message (format "Start local lsp docker container '%s' from image '%s'"
-                     docker-container-name docker-image-id))
-    ))
+(defcustom docker-lsp-image-id "arumatik/common-language-servers"
+  "lsp-docker docker image id. dockerコマンドに追加のオプションｎを渡したい場合はここに追記する。")
+
+(defcustom docker-lsp-container-name "lsp-docker"
+  "lsp-docker container name")
+
+(defcustom docker-lsp-path-mappings '(("/home/kitamura/work/" . "/home/kitamura/work/"))
+  "lsp-dockerのpath mappingのconscellのリスト")
+
+(defcustom docker-lsp-priority 10
+  "lsp-dockerのpriority"
+  :safe (lambda (value) (integerp value)))
 
 (defun before-lsp (&rest rest)
   "lspのadvice関数。
-.dir-locals.elの変数を取得して関数start-local-lsp-dockerを呼び出してdockerのlsp serverを立ち上げる。"
+.dir-locals.elの変数を取得してdockerのlsp serverを立ち上げる。"
   (hack-dir-local-variables-non-file-buffer)
-  (mapc 'start-local-lsp-docker dir-local-docker-config-alists)
+  (cond ((-any? 'null (list docker-lsp-server-id docker-lsp-docker-server-id docker-lsp-server-command))
+         (message (format "Failed to start lsp-docker container. Some args are nil."))
+         )
+        (t
+         (message (format "lsp docker container settings.
+  docker-container-name = %s, docker-image-id = %s
+  server-id = %s, docker-server-id = %s, server-command = %s"
+                          docker-lsp-container-name docker-lsp-image-id
+                          docker-lsp-server-id docker-lsp-docker-server-id docker-lsp-server-command))
+         (lsp-docker-init-clients
+          :path-mappings docker-lsp-path-mappings
+          :docker-image-id docker-lsp-image-id
+          :docker-container-name docker-lsp-container-name
+          :priority docker-lsp-priority
+          :client-configs (list
+                           (list :server-id docker-lsp-server-id
+                                 :docker-server-id docker-lsp-docker-server-id
+                                 :server-command docker-lsp-server-command)))
+         (message "Successfully start lsp docker")
+         )
+        )
   )
 
 (use-package lsp-docker
@@ -1104,8 +1102,7 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
   (advice-add 'lsp :before 'before-lsp)
   (setq default-docker-container-name "docker-lsp")
   (setq lsp-docker-default-client-packages
-    '(lsp-bash lsp-clients lsp-css lsp-go lsp-dockerfile
-               lsp-html lsp-javascript lsp-json lsp-yaml)
+    '(lsp-bash lsp-css lsp-go lsp-dockerfile lsp-html lsp-javascript lsp-json lsp-yaml)
     )
   (setq lsp-docker-default-client-configs
         (list
@@ -1170,8 +1167,14 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
 (use-package lsp-go)
 (use-package lsp-html)
 (use-package lsp-csharp)
-
+(use-package lsp-rust)
 (use-package lsp-pyright :ensure t)
+
+(use-package ccls
+  :ensure t
+  :custom
+  (ccls-initialization-options (list :compilationDatabaseDirectory "build"))
+  )
 
 (use-package yasnippet
   :ensure t
@@ -1215,12 +1218,6 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
   (global-company-mode t)
   )
 
-(use-package ccls
-  :ensure t
-  :custom
-  (ccls-initialization-options (list :compilationDatabaseDirectory "build"))
-  )
-
 ;; lsp configuration end
 
 ;; dap-mode setting
@@ -1240,6 +1237,7 @@ DOCKER-IMAGE-ID, DOCKER-CONTAINER-NAME and LSP-DOCKER-CLIENT-CONFIGS"
   :ensure t
   :config
   (add-to-list 'company-backends #'company-tabnine)
+  (setq company-tabnine--disabled t)
   (defun toggle-tabnine ()
     "tabnineのenable, disableの切り替え"
     (interactive)
