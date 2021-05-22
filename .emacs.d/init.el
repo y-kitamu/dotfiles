@@ -658,7 +658,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 (use-package auto-async-byte-compile
   :ensure t
   :custom
-  (auto-async-byte-compile-exclude-files-regexp ".dir-locals.el\\|/junk/\\|init.el")
+  (auto-async-byte-compile-exclude-files-regexp ".dir-locals.el\\|/junk/\\|init.el\\|/elpa/")
   :hook
   ((emacs-lisp-mode . enable-auto-async-byte-compile-mode)
    (emacs-lisp-mode . turn-on-eldoc-mode)
@@ -668,35 +668,6 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   )
 
 (find-function-setup-keys)
-
-;;; python の仮想環境の設定
-;;; cd [project_root] && python -m venv [venv name] で仮想環境作成
-;;; dotfiles/requirements.txt をインストール
-;;; M-x pyvenv-activate [project_root]/[venv name] で activate
-;;; project のファイルを開くと、自動で仮想環境の lsp が立ち上がる。
-;;; すでにファイルが開いている場合は、 pyvenv-activate のあと、lsp-workspace-restart とする
-;;; -> lsp-dockerに移行するので基本的に使用しない
-;; (use-package pyvenv
-;;   :ensure t
-;;   :diminish
-;;   :config
-;;   (setq pyvenv-mode-line-indicator
-;;         '(pyvenv-virtual-env-name ("[venv:" pyvenv-virtual-env-name "] ")))
-;;   (pyvenv-mode +1)
-;;   (defun pyvenv-auto-activate ()
-;;     "Automatically activate python virtual enviroment by searching venv directory."
-;;     (interactive)
-;;     (let ((dirname (file-name-directory (directory-file-name buffer-file-name))))
-;;       (while (and (not (file-exists-p (format "%s/venv" dirname))) (not (equal dirname "/")))
-;;         (setq dirname (file-name-directory (directory-file-name dirname))))
-;;       (if (equal dirname "/")
-;;           (message "pyvenv :: Failed to auto activate to venv. No venv directory is found.")
-;;         (pyvenv-activate (format "%s/venv" dirname))
-;;         (message (format "pyvenv :: Activate %s/venv" dirname)))
-;;       ))
-;;   ;; :hook
-;;   ;; (python-mode . pyvenv-auto-activate)
-;;   )
 
 ;;; ein.el setting (emacs で jupyter notebook を使えるようにしたもの)
 ;;; 参考 : https://pod.hatenablog.com/entry/2017/08/06/220817
@@ -1096,10 +1067,69 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
         )
   )
 
+(cl-defun override-lsp-docker-register-client (&key server-id
+                                                    docker-server-id
+                                                    path-mappings
+                                                    docker-image-id
+                                                    docker-container-name
+                                                    priority
+                                                    server-command
+                                                    launch-server-cmd-fn)
+  "Registers docker clients with lsp"
+  (if-let ((client (gethash server-id lsp-clients)))
+      (progn
+        (lsp-register-client
+         (make-lsp-client
+          :language-id (lsp--client-language-id client)
+          :add-on? (lsp--client-add-on? client)
+          :new-connection (plist-put
+                           (lsp-stdio-connection
+                            (lambda ()
+                              (funcall #'lsp-docker-launch-new-container
+                                       docker-lsp-container-name docker-lsp-path-mappings
+                                       docker-lsp-image-id docker-lsp-server-command)))
+                           :test? (lambda (&rest _)
+                                    (-any? (-lambda ((dir)) (f-ancestor-of? dir (buffer-file-name)))
+                                           docker-lsp-path-mappings)))
+          :ignore-regexps (lsp--client-ignore-regexps client)
+          :ignore-messages (lsp--client-ignore-messages client)
+          :notification-handlers (lsp--client-notification-handlers client)
+          :request-handlers (lsp--client-request-handlers client)
+          :response-handlers (lsp--client-response-handlers client)
+          :prefix-function (lsp--client-prefix-function client)
+          :uri-handlers (lsp--client-uri-handlers client)
+          :action-handlers (lsp--client-action-handlers client)
+          :major-modes (lsp--client-major-modes client)
+          :activation-fn (lsp--client-activation-fn client)
+          :priority (or priority (lsp--client-priority client))
+          :server-id docker-server-id
+          :multi-root (lsp--client-multi-root client)
+          :initialization-options (lsp--client-initialization-options client)
+          :semantic-tokens-faces-overrides (lsp--client-semantic-tokens-faces-overrides client)
+          :custom-capabilities (lsp--client-custom-capabilities client)
+          :library-folders-fn (lsp--client-library-folders-fn client)
+          :before-file-open-fn (lsp--client-before-file-open-fn client)
+          :initialized-fn (lsp--client-initialized-fn client)
+          :remote? (lsp--client-remote? client)
+          :completion-in-comments? (lsp--client-completion-in-comments? client)
+          :path->uri-fn (-partial #'lsp-docker--path->uri path-mappings)
+          :uri->path-fn (-partial #'lsp-docker--uri->path path-mappings docker-container-name)
+          :environment-fn (lsp--client-environment-fn client)
+          :after-open-fn (lsp--client-after-open-fn client)
+          :async-request-handlers (lsp--client-async-request-handlers client)
+          :download-server-fn (lsp--client-download-server-fn client)
+          :download-in-progress? (lsp--client-download-in-progress? client)
+          :buffers (lsp--client-buffers client)
+          ))
+        (message "Finish register lsp docker client : server-id = %s" server-id))
+    (user-error "No such client %s" server-id))
+  )
+
 (use-package lsp-docker
   :ensure t
   :config
   (advice-add 'lsp :before 'before-lsp)
+  (advice-add 'lsp-docker-register-client :override 'override-lsp-docker-register-client)
   (setq default-docker-container-name "docker-lsp")
   (setq lsp-docker-default-client-packages
     '(lsp-bash lsp-css lsp-go lsp-dockerfile lsp-html lsp-javascript lsp-json lsp-yaml)
