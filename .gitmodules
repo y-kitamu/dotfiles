@@ -1,3 +1,6 @@
 [submodule ".emacs.d/packages/gud-lldb"]
 	path = .emacs.d/packages/gud-lldb
 	url = https://github.com/jojojames/gud-lldb.git
+[submodule ".emacs.d/packages/lsp-docker+"]
+	path = .emacs.d/packages/lsp-docker+
+	url = git@github.com:y-kitamu/emacs-lsp-docker-plus.git

@@ -766,6 +766,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   :custom
   rust-format-on-save t
   )
+
 (use-package dockerfile-mode :ensure t)
 (use-package csv-mode :ensure t)
 (use-package docker-compose-mode :ensure t)
@@ -1015,162 +1016,11 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
 )
 
-(defcustom docker-lsp-server-id nil
-  "lsp-docker server-id"
-  :safe (lambda (value) (symbolp value)))
-
-(defcustom docker-lsp-docker-server-id nil
-  "lsp-docker docker-server-id"
-  :safe (lambda (value) (symbolp value)))
-
-(defcustom docker-lsp-server-command nil
-  "lsp-docker server-command"
-  :safe (lambda (value) (stringp value)))
-
-(defcustom docker-lsp-image-id "arumatik/common-language-servers"
-  "lsp-docker docker image id. dockerコマンドに追加のオプションｎを渡したい場合はここに追記する。")
-
-(defcustom docker-lsp-container-name "lsp-docker"
-  "lsp-docker container name")
-
-(defcustom docker-lsp-path-mappings '(("/home/kitamura/work/" . "/home/kitamura/work/"))
-  "lsp-dockerのpath mappingのconscellのリスト")
-
-(defcustom docker-lsp-priority 10
-  "lsp-dockerのpriority"
-  :safe (lambda (value) (integerp value)))
-
-(defun before-lsp (&rest rest)
-  "lspのadvice関数。
-.dir-locals.elの変数を取得してdockerのlsp serverを立ち上げる。"
-  (hack-dir-local-variables-non-file-buffer)
-  (cond ((-any? 'null (list docker-lsp-server-id docker-lsp-docker-server-id docker-lsp-server-command))
-         (message (format "Failed to start lsp-docker container. Some args are nil."))
-         )
-        (t
-         (message (format "lsp docker container settings.
-  docker-container-name = %s, docker-image-id = %s
-  server-id = %s, docker-server-id = %s, server-command = %s"
-                          docker-lsp-container-name docker-lsp-image-id
-                          docker-lsp-server-id docker-lsp-docker-server-id docker-lsp-server-command))
-         (lsp-docker-init-clients
-          :path-mappings docker-lsp-path-mappings
-          :docker-image-id docker-lsp-image-id
-          :docker-container-name docker-lsp-container-name
-          :priority docker-lsp-priority
-          :client-configs (list
-                           (list :server-id docker-lsp-server-id
-                                 :docker-server-id docker-lsp-docker-server-id
-                                 :server-command docker-lsp-server-command)))
-         (message "Successfully start lsp docker")
-         )
-        )
-  )
-
-(cl-defun override-lsp-docker-register-client (&key server-id
-                                                    docker-server-id
-                                                    path-mappings
-                                                    docker-image-id
-                                                    docker-container-name
-                                                    priority
-                                                    server-command
-                                                    launch-server-cmd-fn)
-  "Registers docker clients with lsp"
-  (if-let ((client (gethash server-id lsp-clients)))
-      (progn
-        (lsp-register-client
-         (make-lsp-client
-          :language-id (lsp--client-language-id client)
-          :add-on? (lsp--client-add-on? client)
-          :new-connection (plist-put
-                           (lsp-stdio-connection
-                            (lambda ()
-                              (funcall #'lsp-docker-launch-new-container
-                                       docker-lsp-container-name docker-lsp-path-mappings
-                                       docker-lsp-image-id docker-lsp-server-command)))
-                           :test? (lambda (&rest _)
-                                    (-any? (-lambda ((dir)) (f-ancestor-of? dir (buffer-file-name)))
-                                           docker-lsp-path-mappings)))
-          :ignore-regexps (lsp--client-ignore-regexps client)
-          :ignore-messages (lsp--client-ignore-messages client)
-          :notification-handlers (lsp--client-notification-handlers client)
-          :request-handlers (lsp--client-request-handlers client)
-          :response-handlers (lsp--client-response-handlers client)
-          :prefix-function (lsp--client-prefix-function client)
-          :uri-handlers (lsp--client-uri-handlers client)
-          :action-handlers (lsp--client-action-handlers client)
-          :major-modes (lsp--client-major-modes client)
-          :activation-fn (lsp--client-activation-fn client)
-          :priority (or priority (lsp--client-priority client))
-          :server-id docker-server-id
-          :multi-root (lsp--client-multi-root client)
-          :initialization-options (lsp--client-initialization-options client)
-          :semantic-tokens-faces-overrides (lsp--client-semantic-tokens-faces-overrides client)
-          :custom-capabilities (lsp--client-custom-capabilities client)
-          :library-folders-fn (lsp--client-library-folders-fn client)
-          :before-file-open-fn (lsp--client-before-file-open-fn client)
-          :initialized-fn (lsp--client-initialized-fn client)
-          :remote? (lsp--client-remote? client)
-          :completion-in-comments? (lsp--client-completion-in-comments? client)
-          :path->uri-fn (-partial #'lsp-docker--path->uri path-mappings)
-          :uri->path-fn (-partial #'lsp-docker--uri->path path-mappings docker-container-name)
-          :environment-fn (lsp--client-environment-fn client)
-          :after-open-fn (lsp--client-after-open-fn client)
-          :async-request-handlers (lsp--client-async-request-handlers client)
-          :download-server-fn (lsp--client-download-server-fn client)
-          :download-in-progress? (lsp--client-download-in-progress? client)
-          :buffers (lsp--client-buffers client)
-          ))
-        (message "Finish register lsp docker client : server-id = %s" server-id))
-    (user-error "No such client %s" server-id))
-  )
-
-(use-package lsp-docker
-  :ensure t
+(use-package lsp-docker+
+  :load-path "./packages/lsp-docker+"
   :config
-  (advice-add 'lsp :before 'before-lsp)
-  (advice-add 'lsp-docker-register-client :override 'override-lsp-docker-register-client)
-  (setq default-docker-container-name "docker-lsp")
-  (setq lsp-docker-default-client-packages
-    '(lsp-bash lsp-css lsp-go lsp-dockerfile lsp-html lsp-javascript lsp-json lsp-yaml)
-    )
-  (setq lsp-docker-default-client-configs
-        (list
-         (list :server-id 'bash-ls
-               :docker-server-id 'bashls-docker
-               :server-command "bash-language-server start")
-         (list :server-id 'css-ls
-               :docker-server-id 'cssls-docker
-               :server-command "css-languageserver --stdio")
-         (list :server-id 'dockerfile-ls
-               :docker-server-id 'dockerfilels-docker
-               :server-command "docker-langserver --stdio")
-         (list :server-id 'gopls
-               :docker-server-id 'gopls-docker
-               :server-command "gopls")
-         (list :server-id 'html-ls
-               :docker-server-id 'htmls-docker
-               :server-command "html-languageserver --stdio")
-         (list :server-id 'ts-ls
-               :docker-server-id 'tsls-docker
-               :server-command "typescript-language-server --stdio")
-         (list :server-id 'json-ls
-               :docker-server-id 'jsonls-docker
-               :server-command "json-language-server --stdio")
-         (list :server-id 'yamlls
-               :docker-server-id 'yamlls-docker
-               :server-command "yaml-language-server --stdio")
-         )
-        )
-  (lsp-docker-init-clients
-   :path-mappings '(("/home/kitamura" . "/work/"))
-   :docker-image-id "arumatik/common-language-servers"
-   :docker-container-name "common-lsp-container"
-   :priority 10
-   :client-packages lsp-docker-default-client-packages
-   :client-configs lsp-docker-default-client-configs)
-  (message "Finish register defualt docker lsp clients")
-)
+  (enable-lsp-docker+)
+  )
 
 (use-package lsp-ui
   :ensure t
