@@ -975,6 +975,8 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   :config
   (which-key-mode))
 
+(use-package package-lint
+  :ensure t)
 
 ;; lsp configuration begin
 (use-package lsp-mode

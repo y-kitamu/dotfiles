@@ -174,9 +174,14 @@ if [ -e $HOME/.cargo/env ]; then
     source "$HOME/.cargo/env"
 fi
 
+# cask (emacs package management tool)
+if [ -e $HOME/.cask ]; then
+    export PATH=${HOME}/.cask/bin${PATH:+:${PATH}}
+fi
+
 # android studio path
 if [ -e //usr/local/android-studio/bin ]; then
-    export PATH=/usr/local/android-studio/bin:${PATH}
+    export PATH=/usr/local/android-studio/bin${PATH:+:${PATH}}
 fi
 
 # to use droidcam
