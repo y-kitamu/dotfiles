@@ -27,3 +27,5 @@ custom.el
 forge-database.sqlite
 /eshell/
 /.cask/
+projects
+projectile-bookmarks.eld

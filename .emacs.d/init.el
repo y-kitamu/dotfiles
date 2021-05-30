@@ -1,5 +1,4 @@
-;;; 01_keybindings.el --- global keybind settings    -*- lexical-binding: t; -*-
-;;; -*-no-byte-compile: t; -*-
+;;; init.el --- emacs configuration file    -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021  Yusuke Kitamura
 
@@ -132,14 +131,6 @@
 
 ;; disable beep sound
 (setq visible-bell t)
-
-;; set background alpha
-(if window-system
-    (progn (set-frame-parameter nil 'alpha 90)))
-(defun set-alpha (alpha-num)
-  "set frame parameter 'alpha"
-  (interactive "nAlpha : ")
-  (set-frame-parameter nil 'alpha alpha-num))
 
 ;; hide bars
 (tool-bar-mode 0)   ; tool bar を非表示
@@ -439,65 +430,6 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (fast-scroll-mode 1)
   (my/hide-minor-mode-from-mode-line 'fast-scroll-mode))
 
-;;; magit
-(use-package magit
-  :ensure t
-  :custom
-  (magit-diff-refine-hunk 'all)
-  :config
-  ;; (when (equal system-type 'windows-nt) ;; windows の場合、git の .exe file の場所を指定
-  ;;   (setq magit-git-executable "c:/Users/y-kitamura/AppData/Local/Programs/Git/bin/git.exe"))
-  (defun unpackaged/magit-log--add-date-headers (&rest _ignore)
-    "Add date headers to Magit log buffers."
-    (when (derived-mode-p 'magit-log-mode)
-      (save-excursion
-        (ov-clear 'date-header t)
-        (goto-char (point-min))
-        (cl-loop with last-age
-                 for this-age =
-                 (-some--> (ov-in 'before-string 'any (line-beginning-position) (line-end-position))
-                   car
-                   (overlay-get it 'before-string)
-                   (get-text-property 0 'display it)
-                   cadr
-                   (s-match (rx (group (1+ digit) ; number
-                                       " " (1+ (not blank))) ; unit
-                                (1+ blank) eos) it)
-                   cadr)
-                 do (when (and this-age (not (equal this-age last-age)))
-                      (ov (line-beginning-position) (line-beginning-position)
-                          'after-string (propertize (concat " " this-age "\n")
-                                                    'face 'magit-section-heading)
-                          'date-header t)
-                      (setq last-age this-age))
-                 do (forward-line 1)
-                 until (eobp)))))
-
-  (define-minor-mode unpackaged/magit-log-date-headers-mode
-    "Display date/time headers in `magit-log' buffers."
-    :global t
-    (if unpackaged/magit-log-date-headers-mode
-        (progn
-          ;; Enable mode
-          (add-hook 'magit-post-refresh-hook #'unpackaged/magit-log--add-date-headers)
-          (advice-add #'magit-setup-buffer-internal :after #'unpackaged/magit-log--add-date-headers))
-      ;; Disable mode
-      (remove-hook 'magit-post-refresh-hook #'unpackaged/magit-log--add-date-headers)
-      (advice-remove #'magit-setup-buffer-internal #'unpackaged/magit-log--add-date-headers)))
-  :bind
-  ("C-x g" . magit-status))
-
-;; reference : https://emacs-jp.github.io/packages/git-gutter
-(use-package git-gutter
-  :ensure t
-  :config
-  (setq git-gutter:lighter "")
-  (global-git-gutter-mode t))
-
-(use-package forge
-  :ensure t
-  :after magit)
-
 ;;; chrome の text area を emacs で編集する
 (use-package edit-server
   :ensure t)
@@ -542,95 +474,6 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   :config
   (add-to-list 'xref-backend-functions 'gxref-xref-backend))
 
-;;; org mode setting
-(use-package org
-  :ensure t
-  :custom
-  (org-startup-indented t)
-  (org-indent-indentation-per-level 2)
-  (org-startup-folded 'showall)
-  (org-confirm-babel-evaluate nil) ; 評価時に確認メッセージをださない
-  (org-directory "~/.emacs.d/documents/")
-  (org-archive-location (concat "%s_archive_" (format-time-string "%Y" (current-time))))
-  (org-agenda-files (list org-directory))
-  (org-agenda-skip-scheduled-if-done t) ; agenda に DONE を表示しない
-  (org-log-done 'time) ; DONE の時間を記録
-  :config
-  ; python コードブロックを評価できるようにする
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((python . t)))
-  :bind
-  ("C-c a" . 'org-agenda)
-  ("C-c e X" . 'org-publish-project))
-
-(defun override-org-html-src-block (src-block _contents info)
-  "Jekyll ブログエクスポート用のコードブロック生成。
-rougeでソースコードをhighlight、#+name: <filename> で指定したファイル名を表示する。
-TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
-  (if (org-export-read-attribute :attr_html src-block :textarea)
-      (org-html--textarea-block src-block)
-    (let* ((lang (org-element-property :language src-block))
-	       (code (org-html-format-code src-block info))
-	       (label (let ((lbl (and (org-element-property :name src-block)
-				                  (org-export-get-reference src-block info))))
-		            (if lbl (format " id=\"%s\"" lbl) "")))
-	       (klipsify  (and  (plist-get info :html-klipsify-src)
-                            (member lang '("javascript" "js"
-					                       "ruby" "scheme" "clojure" "php" "html"))))
-           (name (org-element-property :name src-block))
-           (prefix
-            (format "<figure><figcaption class=\"figcaption\">%s</figcaption>\n{%% highlight %s %%}\n"
-                    name lang))
-           (suffix "{% endhighlight %}\n</figure>"))
-      (concat prefix code suffix))))
-(advice-add 'org-html-src-block :override 'override-org-html-src-block)
-
-;;; open-junk-file setting
-(use-package open-junk-file
-  :ensure t
-  :config
-  (setq open-junk-file-format "~/.emacs.d/documents/junk/%Y/%Y_%m_%d.org")
-  :bind
-  ("C-x j" . open-junk-file))
-
-(setq org-publish-project-alist
-      '(
-        ("org-blog"
-         :base-directory "~/Documents/kitamura.github.io/org/"
-         :base-extension "org"
-         :publishing-directory "~/Documents/kitamura.github.io/docs"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4
-         :html-extension "html"
-         :body-only t
-         )
-        ("org-blog-static"
-         :base-directory "~/Documents/kitamura.github.io/org/"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
-         :publishing-directory "~/Documents/kitamura.github.io/docs"
-         :recursive t
-         :publishing-function org-publish-attachment)
-        ("blog" :components ("org-blog" "org-blog-static"))))
-
-;; lisp の評価結果を注釈する
-(use-package lispxmp
-  :ensure t
-  :bind
-  (:map emacs-lisp-mode-map
-        ("C-c C-d" . 'lispxmp)))
-
-;; カッコの対応を保持して編集する設定
-(use-package paredit
-  :ensure t
-  :init
-  (setq paredit-lighter nil)
-  :hook
-  ((emacs-lisp-mode . enable-paredit-mode)
-   (lisp-interaction-mode . enable-paredit-mode)
-   (lisp-mode . enable-paredit-mode)
-   (ielm-mode . enable-paredit-mode)))
 
 (use-package eldoc
   :ensure t
@@ -640,16 +483,6 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (eldoc-minor-mode-string "")
   :hook (prog-mode . eldoc-mode))
 
-(use-package auto-async-byte-compile
-  :ensure t
-  :custom
-  (auto-async-byte-compile-exclude-files-regexp ".dir-locals.el\\|/junk/\\|init.el\\|/elpa/")
-  :hook
-  ((emacs-lisp-mode . enable-auto-async-byte-compile-mode)
-   (emacs-lisp-mode . turn-on-eldoc-mode)
-   (lisp-interaction-mode . turn-on-eldoc-mode)
-   (ielm-mode . turn-on-eldoc-mode))
-  :after eldoc)
 
 (find-function-setup-keys)
 
@@ -1088,3 +921,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
            (message "TabNine disabled")))))
 
 ;;; init.el ends here
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:

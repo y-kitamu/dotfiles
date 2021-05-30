@@ -28,14 +28,40 @@
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
-;;; text input
+;;; text input (Japanese)
 (define-key global-map (kbd "<zenkaku-hankaku>") 'toggle-input-method)
 
-;;; window の切替
+;;; toggle window
 (define-key global-map (kbd "C-t") 'other-window)
 (define-key global-map (kbd "C-o") (lambda ()
                                      (interactive)
                                      (other-window -1)))
 
+;;; background alpha
+;;; TODO: move function definitions to proper place.
+(defun set-alpha (alpha-num)
+  "Set frame parameter 'alpha to ALPHA-NUM."
+  (interactive "nAlpha : ")
+  (set-frame-parameter nil 'alpha alpha-num))
+
+(defun alpha-increase ()
+  "Increase background alpha."
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-alpha (min 1.0 (+ alpha 0.1)))))
+
+(defun alpha-decrease ()
+  "Decrease background alpha."
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-alpha (max 0.0 (- alpha 0.1)))))
+
+(set-alpha 0.9)
+(define-key global-map (kbd "C-M-+") #'alpha-increase)
+(define-key global-map (kbd "C-M-=") #'alpha-decrease)
 
 ;;; 01_keybindings.el ends here
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
