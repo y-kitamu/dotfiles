@@ -85,10 +85,13 @@
 
 (use-package projectile
   :ensure t
-  :config
-  (projectile-mode +1)
+  :init
+  (setq projectile-dynamic-mode-line nil)
+  (setq projectile-mode-line-prefix nil)
   (setq projectile-completion-system 'helm)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+  :config
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1))
 
 (use-package helm-projectile
   :ensure t
