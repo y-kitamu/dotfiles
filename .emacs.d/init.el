@@ -1,10 +1,35 @@
-;; -*-no-byte-compile: t; -*-
+;;; 01_keybindings.el --- global keybind settings    -*- lexical-binding: t; -*-
+;;; -*-no-byte-compile: t; -*-
+
+;; Copyright (C) 2021  Yusuke Kitamura
+
+;; Author: Yusuke Kitamura <ymyk6602@gmail.com>
+;; Keywords: settings
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;;
+
+;;; Code:
+;;
 (setq package-selected-packages
       '(use-package
-	init-loader
-        posframe
-        popwin
-        ))
+	     init-loader
+         posframe
+         popwin))
 
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
 			 ("MELPA Stable" . "http://stable.melpa.org/packages/")
@@ -78,12 +103,6 @@
 ;;; 再起動時に前回開いていたファイルを開く
 (desktop-save-mode 1)
 
-; window の切替
-(define-key global-map (kbd "C-t") 'other-window)
-(global-set-key (kbd "C-o") (lambda ()
-                              (interactive)
-                              (other-window -1)))
-
 (use-package tab-bar
   :custom
   (tab-bar-new-button-show nil)
@@ -103,9 +122,7 @@
   (custom-set-faces
    '(tab-bar ((t :background "#34495E")))
    '(tab-bar-tab ((t (:background "#93E0E3" :foreground "#2B2B2B" :box (:style pressed-button)))))
-   '(tab-bar-tab-inactive ((t (:background "#34495E" :inverse-video nil))))
-   )
-  )
+   '(tab-bar-tab-inactive ((t (:background "#34495E" :inverse-video nil))))))
 
 ;; maximize window
 (set-frame-parameter nil 'fullscreen 'maximized)
@@ -128,8 +145,7 @@
 (tool-bar-mode 0)   ; tool bar を非表示
 (menu-bar-mode 0)   ; menu bar を非表示
 (if window-system
-    (scroll-bar-mode 0) ; scroll bar を非表示
-  )
+    (scroll-bar-mode 0)) ; scroll bar を非表示
 
 ;; standard mode line setting
 (column-number-mode t)             ; column 番号も表示
@@ -230,8 +246,7 @@
       ("%name%" . (lambda () (identity user-full-name)))
       ("%include-guard%" .
        (lambda () (format "%s_HPP__" (upcase (file-name-sans-extension
-                                              (file-name-nondirectory buffer-file-name))))))
-      ))
+                                              (file-name-nondirectory buffer-file-name))))))))
   (defun my-template ()
     (time-stamp)
     (mapc #'(lambda(c)
@@ -241,8 +256,7 @@
           template-replacements-alists)
     (goto-char (point-max))
     (message "done."))
-  (add-hook 'find-file-not-found-hooks 'auto-insert)
-  )
+  (add-hook 'find-file-not-found-hooks 'auto-insert))
 
 ;; region選択時に行数と文字数を表示する
 (defun count-lines-and-chars ()
@@ -253,8 +267,7 @@
     ""))
 (add-hook 'activate-mark-hook (lambda ()
                             (add-to-list 'mode-line-format
-                                         '(:eval (count-lines-and-chars)))
-                            ))
+                                         '(:eval (count-lines-and-chars)))))
 
 ;;; goto matching parenthesis, Vi style. The last statement is a bit conked;
 ;;;###autoload
@@ -280,8 +293,7 @@
 (use-package gud-lldb
   :load-path "./packages/gud-lldb"
   :config
-  (add-hook 'lldb-mode-hook '(lambda () (gud-tooltip-mode t)))
-  )
+  (add-hook 'lldb-mode-hook '(lambda () (gud-tooltip-mode t))))
 
 ;;; 矩形編集 (+ C-v, M-v で一番下、一番上まで移動できるようになる)
 (cua-mode t)
@@ -294,8 +306,7 @@
   ((prog-mode . flyspell-prog-mode)
        (yatex-mode . flyspell-mode)
          (org-mode . flyspell-mode)
-         (text-mode . flyspell-mode))
-  )
+         (text-mode . flyspell-mode)))
 
 (defmacro my/hide-minor-mode-from-mode-line (mode)
   "指定したMODEをmode-lineに表示しないようにする。
@@ -305,8 +316,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 
 (use-package abbrev
   :config
-  (my/hide-minor-mode-from-mode-line 'abbrev-mode)
-  )
+  (my/hide-minor-mode-from-mode-line 'abbrev-mode))
 
 ;;; `message` の出力の先頭に日時を付け足す
 (defadvice message (before before-message activate)
@@ -335,23 +345,18 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
      `(hl-line-face ((t (:background ,zenburn-bg+1))))
      '(isearch ((t (:background "green yellow" :foreground "#D0BF8F" :weight bold))))
      '(lazy-highlight ((t (:background "SeaGreen3" :foreground "#D0BF8F" :weight bold))))
-     )
-    ;; (set-face-attribute 'mode-line nil :background zenburn-bg+3 :foreground zenburn-fg+2)
-    ))
+     )))
 
 (set-face-foreground 'font-lock-regexp-grouping-backslash "green3")
 (set-face-foreground 'font-lock-regexp-grouping-construct "green")
 
-(use-package vline
-  :load-path "./packages"
-  )
+(use-package vline :load-path "./packages")
 
 (use-package col-highlight
   :load-path "./packages"
   :config
   (toggle-highlight-column-when-idle 0)
-  :after vline
-  )
+  :after vline)
 
 ;; (use-package smart-mode-line
 ;;   :ensure t
@@ -397,9 +402,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   :config
   (setq ag-arguments (append '("--follow" "--all-types") ag-arguments)))
 
-(use-package wgrep-ag
-  :ensure t
-)
+(use-package wgrep-ag :ensure t)
 
 ;; wgrep setting
 (use-package wgrep
@@ -409,8 +412,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (setq wgrep-auto-save-buffer t)
   :hook
   (ag-mode . wgrep-ag-setup)
-  :after wgrep-ag
-  )
+  :after wgrep-ag)
 
 ;; undo tree setting.  C-x u visualize undo tree
 (use-package undo-tree
@@ -418,15 +420,13 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   :custom
   (undo-tree-mode-lighter nil)
   :config
-  (global-undo-tree-mode)
-  )
+  (global-undo-tree-mode))
 
 ;;; buffer-move setting
 (use-package buffer-move
   :ensure t
   :bind (("C-c C-l" . buf-move-left)
-         ("C-c C-r" . buf-move-right))
-  )
+         ("C-c C-r" . buf-move-right)))
 
 ;;; fast screen
 (use-package fast-scroll
@@ -437,8 +437,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (add-hook 'fast-scroll-end-hook (lambda () (flycheck-mode 1)))
   (fast-scroll-config)
   (fast-scroll-mode 1)
-  (my/hide-minor-mode-from-mode-line 'fast-scroll-mode)
-  )
+  (my/hide-minor-mode-from-mode-line 'fast-scroll-mode))
 
 ;;; magit
 (use-package magit
@@ -486,21 +485,18 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
       (remove-hook 'magit-post-refresh-hook #'unpackaged/magit-log--add-date-headers)
       (advice-remove #'magit-setup-buffer-internal #'unpackaged/magit-log--add-date-headers)))
   :bind
-  ("C-x g" . magit-status)
-  )
+  ("C-x g" . magit-status))
 
 ;; reference : https://emacs-jp.github.io/packages/git-gutter
 (use-package git-gutter
   :ensure t
   :config
   (setq git-gutter:lighter "")
-  (global-git-gutter-mode t)
-  )
+  (global-git-gutter-mode t))
 
 (use-package forge
   :ensure t
-  :after magit
-  )
+  :after magit)
 
 ;;; chrome の text area を emacs で編集する
 (use-package edit-server
@@ -529,9 +525,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (term-mode .
    (lambda ()
      (define-key term-raw-map "\C-y" 'term-paste)           ; char-mode でペースト
-     (define-key term-raw-map "\C-c\C-j" 'term-line-mode)    ; line-mode へ切り替え
-     ))
-  )
+     (define-key term-raw-map "\C-c\C-j" 'term-line-mode))))  ; line-mode へ切り替え
 
 ;; automatically update gtags
 ;; project root で gtags -v とかで GTAGS, GPATH, GRTAGS を作成する
@@ -546,8 +540,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 (use-package gxref
   :ensure t
   :config
-  (add-to-list 'xref-backend-functions 'gxref-xref-backend)
-  )
+  (add-to-list 'xref-backend-functions 'gxref-xref-backend))
 
 ;;; org mode setting
 (use-package org
@@ -569,8 +562,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
    '((python . t)))
   :bind
   ("C-c a" . 'org-agenda)
-  ("C-c e X" . 'org-publish-project)
-  )
+  ("C-c e X" . 'org-publish-project))
 
 (defun override-org-html-src-block (src-block _contents info)
   "Jekyll ブログエクスポート用のコードブロック生成。
@@ -594,16 +586,13 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
       (concat prefix code suffix))))
 (advice-add 'org-html-src-block :override 'override-org-html-src-block)
 
-
 ;;; open-junk-file setting
 (use-package open-junk-file
   :ensure t
   :config
   (setq open-junk-file-format "~/.emacs.d/documents/junk/%Y/%Y_%m_%d.org")
   :bind
-  ("C-x j" . open-junk-file)
-  )
-
+  ("C-x j" . open-junk-file))
 
 (setq org-publish-project-alist
       '(
@@ -623,16 +612,14 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
          :publishing-directory "~/Documents/kitamura.github.io/docs"
          :recursive t
          :publishing-function org-publish-attachment)
-        ("blog" :components ("org-blog" "org-blog-static"))
-        ))
+        ("blog" :components ("org-blog" "org-blog-static"))))
 
 ;; lisp の評価結果を注釈する
 (use-package lispxmp
   :ensure t
   :bind
   (:map emacs-lisp-mode-map
-        ("C-c C-d" . 'lispxmp))
-  )
+        ("C-c C-d" . 'lispxmp)))
 
 ;; カッコの対応を保持して編集する設定
 (use-package paredit
@@ -643,8 +630,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   ((emacs-lisp-mode . enable-paredit-mode)
    (lisp-interaction-mode . enable-paredit-mode)
    (lisp-mode . enable-paredit-mode)
-   (ielm-mode . enable-paredit-mode))
-  )
+   (ielm-mode . enable-paredit-mode)))
 
 (use-package eldoc
   :ensure t
@@ -652,8 +638,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (eldoc-idle-delay 0.5)
   (eldoc-echo-area-use-multiline-p t)
   (eldoc-minor-mode-string "")
-  :hook (prog-mode . eldoc-mode)
-  )
+  :hook (prog-mode . eldoc-mode))
 
 (use-package auto-async-byte-compile
   :ensure t
@@ -664,8 +649,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
    (emacs-lisp-mode . turn-on-eldoc-mode)
    (lisp-interaction-mode . turn-on-eldoc-mode)
    (ielm-mode . turn-on-eldoc-mode))
-  :after eldoc
-  )
+  :after eldoc)
 
 (find-function-setup-keys)
 
@@ -677,8 +661,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (setq ein:worksheet-enable-undo t)
   (custom-set-faces
    '(ein:cell-input-area ((t (:background "black" :underline "green yellow" :))))
-   '(ein:cell-output-area ((t (:background "blue")))))
-  )
+   '(ein:cell-output-area ((t (:background "blue"))))))
 
 ;;;; json をフォーマットする
 ;;;; sudo apt install jq
@@ -692,9 +675,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (use-package pdf-tools
     :ensure t
     :config
-    (pdf-tools-install)
-    )
-  )
+    (pdf-tools-install)))
 
 ;;; YaTeX (melpa)
 (use-package yatex
@@ -712,8 +693,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
           (delete-region (point) (1- (point)))
           (newline)
           (fixup-whitespace))))
-  (let (
-        (prefix "docker run --rm -v $PWD:/workdir paperist/alpine-texlive-ja ")
+  (let ((prefix "docker run --rm -v $PWD:/workdir paperist/alpine-texlive-ja ")
         (cmds '(
                 bibtex-command
                 dvi2-command
@@ -724,8 +704,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
     (cl-loop for cmd in cmds collect (set cmd (concat prefix (eval cmd)))))
   :bind(:map YaTeX-mode-map
         ("TAB" . 'delete-indent)
-        ("RET" . 'newline))
-  )
+        ("RET" . 'newline)))
 
 ;; M-x align で自動で整形する設定 (align-regexp ではない)
 (defmacro lazyload (func lib docstring &rest body)
@@ -764,8 +743,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 (use-package rust-mode
   :ensure t
   :custom
-  rust-format-on-save t
-  )
+  rust-format-on-save t)
 
 (use-package dockerfile-mode :ensure t)
 (use-package csv-mode :ensure t)
@@ -779,8 +757,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 (use-package powershell
   :ensure t
   :config
-  (add-to-list 'auto-mode-alist '("\\.psl\\'" . powershell-mode))
-  )
+  (add-to-list 'auto-mode-alist '("\\.psl\\'" . powershell-mode)))
 
 ;; web mode setting
 (use-package web-mode
@@ -807,16 +784,12 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
     (setq web-mode-style-padding 1)      ; <style>内の Indent
     (setq web-mode-script-padding 1))    ; <script>内の Indent
   (add-hook 'web-mode-hook 'web-mode-hook)
-  (setq web-mode-content-types-alist
-        '(("javascript" . "\\.gs\\'")  ; google app scripts file
-          ))
+  (setq web-mode-content-types-alist '(("javascript" . "\\.gs\\'"))) ; google app scripts file
   :after rainbow-mode
-  :hook (web-mode . rainbow-mode)
-  )
+  :hook (web-mode . rainbow-mode))
 
 (add-to-list 'auto-mode-alist '("\\.bash.*\\'" . sh-mode))
 
-(define-key global-map (kbd "<zenkaku-hankaku>") 'toggle-input-method)
 (use-package mozc
   ;; sudo apt-get install emacs-mozc-bin
   :ensure t
@@ -833,9 +806,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
     (setq migemo-user-dictionary nil)
     (setq migemo-coding-system 'utf-8-unix)
     (load-library "migemo")
-    (migemo-init)
-    )
-  )
+    (migemo-init)))
 
 (use-package google-translate
   :ensure t
@@ -843,8 +814,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (google-translate-default-source-language "en")
   (google-translate-default-target-language "ja")
   :bind
-  (("C-c g" . google-translate-at-point))
-  )
+  (("C-c g" . google-translate-at-point)))
 
 (use-package avy
   :ensure t
@@ -855,9 +825,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   :bind
   (("C-:" .   avy-goto-char-timer)
    ("C-." .   avy-goto-word-1)
-   ("M-g f" . avy-goto-line))
-  )
-
+   ("M-g f" . avy-goto-line)))
 
 ;;; Helm
 (use-package helm
@@ -885,14 +853,13 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
    ("C-x b" . helm-for-files)
    ("C-x C-f" . helm-find-files)
    ("C-h a" . helm-apropos)
-   ("M-x" . helm-M-x))
-  )
+   ("M-x" . helm-M-x)))
 
 (use-package helm-descbinds
   :ensure t
   :config
-  (helm-descbinds-mode) ; C-h b (keybind display list) をhelmで表示
-  )
+  ; C-h b (keybind display list) をhelmで表示
+  (helm-descbinds-mode))
 
 (use-package helm-tramp
   :ensure t
@@ -903,8 +870,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   :config
   (defun helm-tramp-open (path)
     "Tramp open with PATH."
-    (helm-find-files-1 path))
-  )
+    (helm-find-files-1 path)))
 
 (use-package docker
   :ensure t
@@ -917,8 +883,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   :config
   (setcar (cdr (assq 'yapf-mode minor-mode-alist)) nil)
   :hook
-  (python-mode . yapf-mode)
-  )
+  (python-mode . yapf-mode))
 
 (defun around-yapfify-call-bin (original-func input-buffer output-buffer start-line end-line)
   "Support docker command."
@@ -930,16 +895,14 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
                 (append (list (point-min) (point-max) (car command-args) nil output-buffer nil)
                         (cdr command-args)
                         (list "-l" (concat (number-to-string start-line) "-"
-                                           (number-to-string end-line))))))
-))))
+                                           (number-to-string end-line))))))))))
 (advice-add 'yapfify-call-bin :around 'around-yapfify-call-bin)
 
 (defun around-yapfify-region (original-func &rest args)
   "Wrap `yapfify-region` to catch error and make sure to kill *yapfify* buffer"
      (-if-let (tmp-buffer (get-buffer "*yapfify*"))
          (kill-buffer tmp-buffer))
-     (apply original-func args)
-     )
+     (apply original-func args))
 (advice-add 'yapfify-region :around 'around-yapfify-region)
 
 (use-package flycheck
@@ -965,8 +928,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   :ensure t
   :config
   (global-set-key (kbd "M-o") 'ace-window)
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-  )
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 (use-package which-key
   :ensure t
@@ -1009,20 +971,18 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
     (push dir lsp-file-watch-ignored))
   :hook
   ((lsp-mode . lsp-enable-which-key-integration)
-   (prog-mode . lsp-deferred))
-  )
+   (prog-mode . lsp-deferred)))
 
 (use-package helm-lsp
   :ensure t
   :config
-  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
-)
+  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
 
 (use-package lsp-docker+
   :load-path "./packages/lsp-docker+"
+  :ensure t
   :config
-  (enable-lsp-docker+)
-  )
+  (lsp-docker+-enable))
 
 (use-package lsp-ui
   :ensure t
@@ -1043,8 +1003,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
   (setq lsp-ui-sideline-ignore-duplicate t)
   (setq lsp-ui-sideline-show-hover nil)
   :hook
-  (lsp-ui-doc-frame . disable-tab-bar-in-lsp-ui-doc-frame)
-  )
+  (lsp-ui-doc-frame . disable-tab-bar-in-lsp-ui-doc-frame))
 
 (use-package lsp-go)
 (use-package lsp-html)
@@ -1055,8 +1014,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 (use-package ccls
   :ensure t
   :custom
-  (ccls-initialization-options (list :compilationDatabaseDirectory "build"))
-  )
+  (ccls-initialization-options (list :compilationDatabaseDirectory "build")))
 
 (use-package yasnippet
   :ensure t
@@ -1097,8 +1055,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
         ("C-n" . company-select-next)
         ("C-p" . company-select-previous))
   :init
-  (global-company-mode t)
-  )
+  (global-company-mode t))
 
 ;; lsp configuration end
 
@@ -1106,12 +1063,12 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 (use-package dap-mode
   :ensure t
   :config
-  (setq dap-auto-configure-features '(sessions locals controls tooltip))
-  )
+  (setq dap-auto-configure-features '(sessions locals controls tooltip)))
 
 (use-package dap-lldb
   :config
-  (setq dap-lldb-debug-program `(,(expand-file-name "~/.vscode/extensions/ms-vscode.cpptools-1.0.1/bin/cpptools-srv"))))
+  (setq dap-lldb-debug-program
+        `(,(expand-file-name "~/.vscode/extensions/ms-vscode.cpptools-1.0.1/bin/cpptools-srv"))))
 
 (use-package dap-python)
 
@@ -1128,5 +1085,6 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
            (message "TabNine enabled"))
           (t
            (setq company-tabnine--disabled t)
-           (message "TabNine disabled"))))
-  )
+           (message "TabNine disabled")))))
+
+;;; init.el ends here
