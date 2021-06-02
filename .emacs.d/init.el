@@ -572,57 +572,6 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   :hook
   (emacs-lisp-mode . rainbow-mode))
 
-;;; programing language major modes
-(use-package rust-mode
-  :ensure t
-  :custom
-  rust-format-on-save t)
-
-(use-package dockerfile-mode :ensure t)
-(use-package csv-mode :ensure t)
-(use-package docker-compose-mode :ensure t)
-(use-package go-mode :ensure t)
-(use-package typescript-mode :ensure t)
-(use-package cmake-mode :ensure t)
-(use-package protobuf-mode :ensure t)
-
-;;; for windows
-(use-package powershell
-  :ensure t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.psl\\'" . powershell-mode)))
-
-;; web mode setting
-(use-package web-mode
-  :ensure t
-  :mode (("\\.html\\'" . web-mode)
-         ("\\.css\\'" . web-mode)
-         ("\\.js\\'" . web-mode)
-         ("\\.gs\\'" . web-mode)
-         ("\\.jsx\\'" . web-mode)
-         ("\\.php\\'" . web-mode)
-         ("\\.tpl\\.php\\'" . web-mode)
-         ("\\.ctp\\'" . web-mode)
-         ("\\.jsp\\'" . web-mode)
-         ("\\.as[cp]x\\'" . web-mode)
-         ("\\.erb\\'" . web-mode)
-         ("\\.xml\\'" . web-mode))
-  :custom
-  (web-mode-enable-current-element-highlight t)
-  :config
-  (defun web-mode-hook ()
-    (setq web-mode-markup-indent-offset 2) ; HTML の Indent
-    (setq web-mode-css-indent-offset 2)  ; CSS の Indent
-    (setq web-mode-code-indent-offset 2) ; JS, PHP, Ruby などの Indent
-    (setq web-mode-style-padding 1)      ; <style>内の Indent
-    (setq web-mode-script-padding 1))    ; <script>内の Indent
-  (add-hook 'web-mode-hook 'web-mode-hook)
-  (setq web-mode-content-types-alist '(("javascript" . "\\.gs\\'"))) ; google app scripts file
-  :after rainbow-mode
-  :hook (web-mode . rainbow-mode))
-
-(add-to-list 'auto-mode-alist '("\\.bash.*\\'" . sh-mode))
-
 (use-package mozc
   ;; sudo apt-get install emacs-mozc-bin
   :ensure t
@@ -815,7 +764,27 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   :load-path "./packages/lsp-docker+"
   :ensure t
   :config
-  (lsp-docker+-enable))
+  (lsp-docker+-enable)
+  ;; register default lsp server
+  (let ((lsp-docker+-image-id "arumatik/common-language-servers")
+        (client-packages (list lsp-bash lsp-css lsp-dockerfile lsp-go lsp-html lsp-javascript
+                               lsp-cmake))
+        (lsp-docker+-client-configs
+         (list
+          (list :server-id 'bash-ls :docker-server-id 'bashls-docker
+                :server-command "bash-langauge-server start")
+          (list :server-id 'css-ls :docker-server-id 'cssls-docker
+                :server-command "css-languageserver --stdio")
+          (list :server-id 'dockefile-ls :server-id 'dockerfilels-docker
+                :server-command "docker-langserver --stdio")
+          (list :server-id 'gopls :docker-server-id 'gopls-docker :server-command "gopls")
+          (list :server-id 'html-ls :docker-server-id 'htmlls-docker
+                :server-command "html-languageserver --stdio")
+          (list :server-id 'ts-ls :docker-server-id 'tsls-docker
+                :server-command "typescript-language-server --stdio")
+          (list :server-id 'cmakels :docker-server-id 'cmakels-docker
+                :server-command "cmake-language-server"))))
+    (lsp-docker+-init-clients :client-configs lsp-docker+-client-configs)))
 
 (use-package lsp-ui
   :ensure t
