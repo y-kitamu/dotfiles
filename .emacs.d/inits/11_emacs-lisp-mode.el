@@ -40,6 +40,7 @@
   ((emacs-lisp-mode . enable-paredit-mode)
    (lisp-interaction-mode . enable-paredit-mode)
    (lisp-mode . enable-paredit-mode)
+   (lisp-data-mode . enable-paredit-mode)
    (ielm-mode . enable-paredit-mode)))
 
 (use-package auto-async-byte-compile

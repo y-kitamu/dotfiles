@@ -221,7 +221,7 @@
   (setq user-mail-address "ymyk6602@gmail.com")
   :custom
   ;; テンプレートのディレクトリ
-  (auto-insert-directory "~/.emacs.d/insert")
+  (auto-insert-directory "~/.emacs.d/template")
   ;; 各ファイルによってテンプレートを切り替える
   (add-to-list 'auto-insert-alist (nconc '(("test_.*\.cpp$" . ["test_template.cpp" my-template])
                                            ("\\.cpp$" . ["template.cpp" my-template])
