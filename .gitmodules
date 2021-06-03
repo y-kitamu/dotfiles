@@ -4,3 +4,6 @@
 [submodule ".emacs.d/packages/lsp-docker+"]
 	path = .emacs.d/packages/lsp-docker+
 	url = git@github.com:y-kitamu/emacs-lsp-docker-plus.git
+[submodule ".emacs.d/packages/yk"]
+	path = .emacs.d/packages/yk
+	url = git@github.com:y-kitamu/yk_elisp.git
