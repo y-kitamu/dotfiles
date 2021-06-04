@@ -53,6 +53,9 @@
   :config
   (add-to-list 'same-window-buffer-names "*Personal Keybindings*"))
 
+;;; enable my utility functions
+(use-package yk-util :load-path "./packages/yk")
+
 ;;; Increase a bit garbage collection threshold:
 (setq gc-cons-threshold 3200000)
 
@@ -216,6 +219,7 @@
 
 ;;; ファイル作成時に生成するテンプレートの設定 (autoinsert)
 (use-package autoinsert
+  :ensure t
   :init
   (setq user-full-name "Yusuke Kitamura")
   (setq user-mail-address "ymyk6602@gmail.com")
@@ -223,11 +227,13 @@
   ;; テンプレートのディレクトリ
   (auto-insert-directory "~/.emacs.d/template")
   ;; 各ファイルによってテンプレートを切り替える
-  (add-to-list 'auto-insert-alist (nconc '(("test_.*\.cpp$" . ["test_template.cpp" my-template])
-                                           ("\\.cpp$" . ["template.cpp" my-template])
-                                           ("\\.hpp$" . ["template.hpp" my-template])
-                                           ("\\.py$" . ["template.py" my-template]))))
   :config
+  (yk/add-to-list-multiple 'auto-insert-alist
+                           '(("\\.cpp$" . ["template.cpp" my-template])
+                             ("test_.*\\.cpp$" . ["test_template.cpp" my-template])
+                             ("\\.hpp$" . ["template.hpp" my-template])
+                             ("CMakeLists.txt$" . ["template.CMakeLists.txt" my-template])
+                             ("\\.py$" . ["template.py" my-template])))
   (defvar template-replacements-alists
     '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
       ("%file-without-ext%" .
@@ -246,7 +252,7 @@
                 (replace-string (car c) (funcall (cdr c)) nil)))
           template-replacements-alists)
     (goto-char (point-max))
-    (message "done."))
+    (message "Successfully insert template."))
   (add-hook 'find-file-not-found-hooks 'auto-insert))
 
 ;; region選択時に行数と文字数を表示する
@@ -261,7 +267,6 @@
                                          '(:eval (count-lines-and-chars)))))
 
 ;;; goto matching parenthesis, Vi style. The last statement is a bit conked;
-;;;###autoload
 (defun goto-match-paren (arg)
   "Go to the matching parenthesis if on parenthesis, otherwise do nothing"
   (interactive "p")

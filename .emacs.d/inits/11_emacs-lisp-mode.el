@@ -54,6 +54,13 @@
    (ielm-mode . turn-on-eldoc-mode))
   :after eldoc)
 
+(use-package dash
+  :ensure t
+  :custom
+  (global-dash-fontify-mode)
+  (with-eval-after-load 'info-look
+    (dash-register-info-lookup)))
+
 (provide '11_emacs-lisp-mode)
 ;;; 11_emacs-lisp-mode.el ends here
 

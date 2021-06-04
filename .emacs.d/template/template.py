@@ -1,5 +1,4 @@
-"""
-%file%
+"""%file%
 
 Author : %name%
 Create Date : %date%
