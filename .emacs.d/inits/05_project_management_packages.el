@@ -72,6 +72,9 @@
   :bind
   ("C-x g" . magit-status))
 
+(use-package helm-ls-git
+  :ensure t)
+
 ;;; reference : https://emacs-jp.github.io/packages/git-gutter
 (use-package git-gutter
   :ensure t

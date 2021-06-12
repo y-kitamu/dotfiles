@@ -70,7 +70,8 @@
 
 ;;; emacs internal shell path
 (when (equal system-type 'gnu/linux)
-  (add-to-list 'exec-path (expand-file-name "~/.local/bin")))
+  (yk/add-to-list-multiple 'exec-path (list (expand-file-name "~/.local/bin")
+                                            (expand-file-name "~/.cargo/bin"))))
 (when (equal system-type 'windows-nt)
   ;; windows上でhelm-locate を使うためにはscoop経由でEverythingをインストール、
   ;; さらに、es.exeをダウンロードして~/../../scoop/shims/以下にes.exeを配置する。
@@ -758,7 +759,9 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
     (push dir lsp-file-watch-ignored))
   :hook
   ((lsp-mode . lsp-enable-which-key-integration)
-   (prog-mode . lsp-deferred)))
+   (python-mode . lsp-deferred)
+   (c++-mode . lsp-deferred)
+   (rust-mode . lsp-deferred)))
 
 (use-package helm-lsp
   :ensure t
