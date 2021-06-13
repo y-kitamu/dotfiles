@@ -752,11 +752,15 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (setq lsp-modeline-diagnostics-enable nil)
   (setq lsp-modeline-workspace-status-enable nil)
   (setq warning-minimum-log-level :error)
-  (dolist (dir '(
-                 "[/\\\\]\\.cache"
-                 "[/\\\\]build"
-                 ))
-    (push dir lsp-file-watch-ignored))
+  (yk/add-to-list-multiple 'lsp-file-watch-ignored-directories
+                           '("[/\\\\]\\.cache"
+                             "[/\\\\]build"
+                             "[/\\\\]edk2"
+                             "[/\\\\]\\.ccls"))
+  (yk/add-to-list-multiple 'lsp-file-watch-ignored-files
+                           '("[/\\\\][^/\\\\]+\\.o"
+                             "[/\\\\][^/\\\\]+\\.a"
+                             "[/\\\\]\\.[/\\\\]+"))
   :hook
   ((lsp-mode . lsp-enable-which-key-integration)
    (python-mode . lsp-deferred)
@@ -865,7 +869,9 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
         ("C-n" . company-select-next)
         ("C-p" . company-select-previous))
   :init
-  (global-company-mode t))
+  (global-company-mode t)
+  :hook
+  (emacs-lisp-mode . company-mode))
 
 ;; lsp configuration end
 
