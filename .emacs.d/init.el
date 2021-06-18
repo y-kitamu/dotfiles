@@ -603,6 +603,9 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (google-translate-default-target-language "ja")
   :bind
   (("C-c g" . google-translate-at-point)))
+(defun google-translate--search-tkk ()
+  "Search TKK."
+  (list 430675 2721866130))
 
 (use-package avy
   :ensure t
