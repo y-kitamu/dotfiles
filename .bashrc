@@ -222,3 +222,19 @@ fi
 
 # add time info to history command
 export HISTTIMEFORMAT='%Y-%m-%d %T%z '
+
+# xonsh
+function create_xonsh_env {
+    if [ ! -e ${HOME}/.venv ]; then
+        mkdir ${HOME}/.venv
+    fi
+    python3 -m venv ${HOME}/.venv/xonsh
+    source ${HOME}/.venv/xonsh/bin/activate
+    sudo apt install xsel
+    pip install xonsh[full]
+}
+
+if [ -e ${HOME}/.venv/xonsh ]; then
+    source ${HOME}/.venv/xonsh/bin/activate
+    xonsh
+fi
