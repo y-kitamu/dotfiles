@@ -234,7 +234,7 @@ function create_xonsh_env {
     pip install xonsh[full]
 }
 
-if [ -e ${HOME}/.venv/xonsh ]; then
-    source ${HOME}/.venv/xonsh/bin/activate
-    xonsh
-fi
+# if [ -e ${HOME}/.venv/xonsh ]; then
+#     source ${HOME}/.venv/xonsh/bin/activate
+#     xonsh
+# fi
