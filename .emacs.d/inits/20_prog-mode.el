@@ -76,6 +76,18 @@
   :after rainbow-mode
   :hook (web-mode . rainbow-mode))
 
+;; js formatter
+(use-package prettier-js
+  :ensure t
+  :hook (web-mode .))
+
+
+;; glsl mode
+(use-package glsl-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.vs\\'" . glsl-mode))
+  (add-to-list 'auto-mode-alist '("\\.fs\\'" . glsl-mode)))
 
 (provide '20_prog-mode)
 ;;; 20_prog-mode.el ends here
