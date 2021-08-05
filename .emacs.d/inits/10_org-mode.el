@@ -41,9 +41,10 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)))
-  :bind
-  ("C-c a" . 'org-agenda)
-  ("C-c e X" . 'org-publish-project))
+  ;; :bind
+  ;; ("C-c a" . 'org-agenda)
+  ;; ("C-c e X" . 'org-publish-project)
+  )
 
 (defun override-org-html-src-block (src-block _contents info)
   "Jekyll ブログエクスポート用のコードブロック生成。

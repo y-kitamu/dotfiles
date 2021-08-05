@@ -709,6 +709,8 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
   (setq flycheck-idle-change-delay 0.50)
   (setq-default flycheck-flake8-maximum-line-length 105)
+  :config
+  (push 'rustic-clippy flycheck-checkers)
   :bind
   (("C-c f" . flycheck-list-errors))
   :hook
@@ -773,7 +775,11 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 (use-package helm-lsp
   :ensure t
   :config
-  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
+  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
+  :bind
+  (("C-c h a" . helm-lsp-code-actions))
+  (("C-c h s" . helm-lsp-workspace-symbol))
+  (("C-c h d" . helm-lsp-diagnostics)))
 
 (use-package lsp-docker+
   :load-path "./packages/lsp-docker+"
@@ -825,7 +831,9 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 (use-package lsp-go)
 (use-package lsp-html)
 (use-package lsp-csharp)
-(use-package lsp-rust)
+(use-package lsp-rust
+  :config
+  (setq lsp-rust-analyzer-cargo-watch-command "clippy"))
 (use-package lsp-pyright :ensure t)
 
 (use-package ccls

@@ -42,10 +42,10 @@
 (use-package cuda-mode :ensure t)
 
 ;;; programing language major modes
-(use-package rust-mode
+(use-package rustic
   :ensure t
-  :custom
-  rust-format-on-save t)
+  :config
+  (setq rustic-format-on-save t))
 
 ;; web mode setting
 (use-package web-mode
@@ -80,7 +80,6 @@
 (use-package prettier-js
   :ensure t
   :hook (web-mode .))
-
 
 ;; glsl mode
 (use-package glsl-mode
