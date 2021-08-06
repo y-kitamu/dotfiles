@@ -45,7 +45,12 @@
 (use-package rustic
   :ensure t
   :config
-  (setq rustic-format-on-save t))
+  (setq rustic-format-on-save t)
+  (defun after-rustic-format-on-save-p ()
+    (if-let ((rustic-fmt-buf (get-buffer rustic-format-buffer-name)))
+        (if (equal (buffer-size rustic-fmt-buf) 0)
+            (kill-buffer rustic-fmt-buf))))
+  (advice-add 'rustic-format-on-save-p :after 'after-rustic-format-on-save-p))
 
 ;; web mode setting
 (use-package web-mode
