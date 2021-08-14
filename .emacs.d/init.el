@@ -710,7 +710,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (setq flycheck-idle-change-delay 0.50)
   (setq-default flycheck-flake8-maximum-line-length 105)
   :config
-  (push 'rustic-clippy flycheck-checkers)
+  ;; (push 'rustic-clippy flycheck-checkers)
   :bind
   (("C-c f" . flycheck-list-errors))
   :hook
