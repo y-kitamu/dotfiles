@@ -145,11 +145,11 @@
 ;; standard mode line setting
 (column-number-mode t)             ; column 番号も表示
 ;; (size-indication-mode t)           ; file size を表示
-(setq display-time-day-and-date t) ; 曜日,月,日を表示
-(setq display-time-24hr-format t)  ; 24時間表示
-(setq display-time-format "%Y/%m/%d %H:%M")
-(setq display-time-default-load-average nil)
-(display-time-mode t)
+;; (setq display-time-day-and-date t) ; 曜日,月,日を表示
+;; (setq display-time-24hr-format t)  ; 24時間表示
+;; (setq display-time-format "%Y/%m/%d %H:%M")
+;; (setq display-time-default-load-average nil)
+;; (display-time-mode t)
 
 ;; title bar setting
 (setq frame-title-format "%@%f") ; title bar に表示する文字列
