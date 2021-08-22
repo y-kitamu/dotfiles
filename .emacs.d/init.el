@@ -578,11 +578,11 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   :hook
   (emacs-lisp-mode . rainbow-mode))
 
-(use-package mozc
-  ;; sudo apt-get install emacs-mozc-bin
-  :ensure t
-  :custom
-  (default-input-method "japanese-mozc"))
+;; (use-package mozc
+;;   ;; sudo apt-get install emacs-mozc-bin
+;;   :ensure t
+;;   :custom
+;;   (default-input-method "japanese-mozc"))
 
 ;; migemo (日本語のローマ字検索。とりあえずlinuxだけ)
 ;; sudo apt-get instal -y cmigemo
@@ -834,7 +834,10 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 (use-package lsp-rust
   :config
   (setq lsp-rust-analyzer-cargo-watch-command "clippy"))
-(use-package lsp-pyright :ensure t)
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright))))
 
 (use-package ccls
   :ensure t
