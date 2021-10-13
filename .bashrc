@@ -238,3 +238,8 @@ function create_xonsh_env {
 #     source ${HOME}/.venv/xonsh/bin/activate
 #     xonsh
 # fi
+
+# if [ -e /opt/ros/noetic/setup.bash ]; then
+#     source /opt/ros/noetic/setup.bash
+# fi
+# source /opt/ros/galactic/setup.bash

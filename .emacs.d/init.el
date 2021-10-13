@@ -680,7 +680,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   "Support docker command."
   (let ((command-args (split-string yapfify-executable)))
     (if (= (length command-args) 1)
-        (original-func input-buffer output-buffer start-line end-line)
+        (apply original-func (list input-buffer output-buffer start-line end-line))
       (with-current-buffer input-buffer
         (setq res (apply 'call-process-region
                 (append (list (point-min) (point-max) (car command-args) nil output-buffer nil)
@@ -746,6 +746,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (lsp-pyls-plugins-pycodestyle-enabled nil)
   (lsp-pyls-plugins-yapf-enabled t)
   (lsp-file-watch-threshold 2000)
+  (lsp-enable-xref t)
   :config
   (custom-set-faces
    '(lsp-face-highlight-read
@@ -761,6 +762,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
                            '("[/\\\\]\\.cache"
                              "[/\\\\]build"
                              "[/\\\\]edk2"
+                             "[/\\\\]__pycache__"
                              "[/\\\\]\\.ccls"))
   (yk/add-to-list-multiple 'lsp-file-watch-ignored-files
                            '("[/\\\\][^/\\\\]+\\.o"
@@ -836,8 +838,8 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (setq lsp-rust-analyzer-cargo-watch-command "clippy"))
 (use-package lsp-pyright
   :ensure t
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright))))
+  :config
+  (require 'lsp-pyright))
 
 (use-package ccls
   :ensure t
@@ -889,19 +891,6 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 
 ;; lsp configuration end
 
-;; dap-mode setting
-(use-package dap-mode
-  :ensure t
-  :config
-  (setq dap-auto-configure-features '(sessions locals controls tooltip)))
-
-(use-package dap-lldb
-  :config
-  (setq dap-lldb-debug-program
-        `(,(expand-file-name "~/.vscode/extensions/ms-vscode.cpptools-1.0.1/bin/cpptools-srv"))))
-
-(use-package dap-python)
-
 (use-package company-tabnine
   :ensure t
   :config
@@ -916,6 +905,31 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
           (t
            (setq company-tabnine--disabled t)
            (message "TabNine disabled")))))
+
+;; dap-mode setting
+(use-package dap-mode
+  :ensure t
+  :config
+  (setq dap-auto-configure-features '(sessions locals controls tooltip))
+  (require 'dap-gdb-lldb)
+  (dap-gdb-lldb-setup)
+  (dap-register-debug-template
+   "Rust::LLDB Run Configuration"
+   (list :type "lldb"
+         :request "launch"
+         :name "LLDB::Run"
+	     :gdbpath "rust-lldb"
+         :target nil
+         :cwd nil)))
+
+(use-package srefactor
+  :ensure t
+  :config
+  (require 'srefactor-lisp)
+  (global-set-key (kbd "M-RET o") 'srefactor-lisp-one-line)
+  (global-set-key (kbd "M-RET m") 'srefactor-lisp-format-sexp)
+  (global-set-key (kbd "M-RET d") 'srefactor-lisp-format-defun)
+  (global-set-key (kbd "M-RET b") 'srefactor-lisp-format-buffer))
 
 ;;; init.el ends here
 

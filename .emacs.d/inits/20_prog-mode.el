@@ -47,6 +47,12 @@
   :config
   (setq rust-format-on-save t))
 
+(use-package cargo
+  :ensure t
+  :config
+  (add-hook 'rust-mode-hook 'cargo-minor-mode)
+  :after rust-mode)
+
 (use-package flycheck-rust
   :ensure t
   :config
@@ -92,7 +98,8 @@
   :ensure t
   :config
   (add-to-list 'auto-mode-alist '("\\.vs\\'" . glsl-mode))
-  (add-to-list 'auto-mode-alist '("\\.fs\\'" . glsl-mode)))
+  (add-to-list 'auto-mode-alist '("\\.fs\\'" . glsl-mode))
+  (add-to-list 'auto-mode-alist '("\\.gs\\'" . glsl-mode)))
 
 (provide '20_prog-mode)
 ;;; 20_prog-mode.el ends here
