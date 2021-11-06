@@ -4,5 +4,5 @@ partial hidden modifier_keys
 xkb_symbols "keymap" {
 	    key <HENK> { [ Escape ] };
 	    key <MUHE> { [ Alt_L ] };
+        key <HKTG> { [ Super_L ] };
 };
-
