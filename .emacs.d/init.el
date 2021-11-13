@@ -33,6 +33,7 @@
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
 			 ("MELPA Stable" . "http://stable.melpa.org/packages/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
+(setq async-bytecomp-allowed-packages '(all))
 
 ;;; ELPAなどで自動で追加される設定をcustom.elに書き込む
 (setq custom-file (locate-user-emacs-file "custom.el"))
@@ -662,6 +663,8 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (defun helm-tramp-open (path)
     "Tramp open with PATH."
     (helm-find-files-1 path)))
+
+(use-package helm-ag :ensure t)
 
 (use-package docker
   :ensure t
