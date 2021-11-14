@@ -19,3 +19,48 @@
 [submodule ".emacs.d/straight/repos/lsp-ui"]
 	path = .emacs.d/straight/repos/lsp-ui
 	url = https://github.com/emacs-lsp/lsp-ui.git
+[submodule ".emacs.d/straight/repos/bui.el"]
+	path = .emacs.d/straight/repos/bui.el
+	url = https://github.com/alezost/bui.el.git
+[submodule ".emacs.d/straight/repos/cfrs"]
+	path = .emacs.d/straight/repos/cfrs
+	url = https://github.com/Alexander-Miller/cfrs.git
+[submodule ".emacs.d/straight/repos/yasnippet"]
+	path = .emacs.d/straight/repos/yasnippet
+	url = https://github.com/joaotavora/yasnippet.git
+[submodule ".emacs.d/straight/repos/unicode-escape.el"]
+	path = .emacs.d/straight/repos/unicode-escape.el
+	url = https://github.com/kosh04/unicode-escape.el.git
+[submodule ".emacs.d/straight/repos/treemacs"]
+	path = .emacs.d/straight/repos/treemacs
+	url = https://github.com/Alexander-Miller/treemacs.git
+[submodule ".emacs.d/straight/repos/semantic-refactor"]
+	path = .emacs.d/straight/repos/semantic-refactor
+	url = https://github.com/tuhdo/semantic-refactor.git
+[submodule ".emacs.d/straight/repos/posframe"]
+	path = .emacs.d/straight/repos/posframe
+	url = https://github.com/tumashu/posframe.git
+[submodule ".emacs.d/straight/repos/pfuture"]
+	path = .emacs.d/straight/repos/pfuture
+	url = https://github.com/Alexander-Miller/pfuture.git
+[submodule ".emacs.d/straight/repos/names"]
+	path = .emacs.d/straight/repos/names
+	url = https://github.com/Malabarba/names.git
+[submodule ".emacs.d/straight/repos/lsp-treemacs"]
+	path = .emacs.d/straight/repos/lsp-treemacs
+	url = https://github.com/emacs-lsp/lsp-treemacs.git
+[submodule ".emacs.d/straight/repos/lsp-pyright"]
+	path = .emacs.d/straight/repos/lsp-pyright
+	url = https://github.com/emacs-lsp/lsp-pyright.git
+[submodule ".emacs.d/straight/repos/emacs-ccls"]
+	path = .emacs.d/straight/repos/emacs-ccls
+	url = https://github.com/emacs-lsp/emacs-ccls.git
+[submodule ".emacs.d/straight/repos/dap-mode"]
+	path = .emacs.d/straight/repos/dap-mode
+	url = https://github.com/emacs-lsp/dap-mode.git
+[submodule ".emacs.d/straight/repos/company-tabnine"]
+	path = .emacs.d/straight/repos/company-tabnine
+	url = https://github.com/TommyX12/company-tabnine.git
+[submodule ".emacs.d/straight/repos/company-mode"]
+	path = .emacs.d/straight/repos/company-mode
+	url = https://github.com/company-mode/company-mode.git

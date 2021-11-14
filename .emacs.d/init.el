@@ -518,7 +518,7 @@
 
 
 (use-package py-isort
-
+  :demand t
   :hook
   (before-save-hook . py-isort-before-save))
 
@@ -568,11 +568,14 @@
   (lsp-idle-delay 0.50)
   (lsp-enable-snippet nil)
   (lsp-prefer-flymake nil)
+  (lsp-file-watch-threshold 2000)
+  (lsp-enable-xref t)
+  ;; python
   (lsp-pyls-plugins-autopep8-enabled nil)
   (lsp-pyls-plugins-pycodestyle-enabled nil)
   (lsp-pyls-plugins-yapf-enabled t)
-  (lsp-file-watch-threshold 2000)
-  (lsp-enable-xref t)
+  ;; rust
+  (lsp-rust-analyzer-cargo-watch-command "clippy")
   :config
   (custom-set-faces
    '(lsp-face-highlight-read
@@ -611,37 +614,23 @@
 
 (use-package lsp-docker+
   :straight (lsp-docker+ :type git :host github :repo "y-kitamu/emacs-lsp-docker-plus")
-  :config
+  :init
   (lsp-docker+-enable)
   ;; register default lsp server
-  (require 'lsp-bash)
-  (require 'lsp-dockerfile)
-  (require 'lsp-pyright)
-  (require 'lsp-dockerfile)
-  (require 'lsp-css)
-  (require 'lsp-html)
-  (require 'lsp-javascript)
-  (require 'lsp-cmake)
   (let ((lsp-docker+-image-id "arumatik/common-language-servers")
-        (client-packages (list lsp-bash lsp-css lsp-dockerfile lsp-go lsp-html lsp-javascript
-                               lsp-cmake))
         (lsp-docker+-client-configs
          (list
           (list :server-id 'bash-ls :docker-server-id 'bashls-docker
                 :server-command "bash-langauge-server start")
           (list :server-id 'css-ls :docker-server-id 'cssls-docker
                 :server-command "css-languageserver --stdio")
-          (list :server-id 'dockefile-ls :server-id 'dockerfilels-docker
-                :server-command "docker-langserver --stdio")
           (list :server-id 'gopls :docker-server-id 'gopls-docker :server-command "gopls")
           (list :server-id 'html-ls :docker-server-id 'htmlls-docker
                 :server-command "html-languageserver --stdio")
           (list :server-id 'ts-ls :docker-server-id 'tsls-docker
-                :server-command "typescript-language-server --stdio")
-          (list :server-id 'cmakels :docker-server-id 'cmakels-docker
-                :server-command "cmake-language-server"))))
+                :server-command "typescript-language-server --stdio"))))
     (lsp-docker+-init-clients :client-configs lsp-docker+-client-configs))
-  :after lsp)
+  (message (lsp-docker+-format "Finish nitializing lsp-docker+")))
 
 (use-package lsp-ui
   :straight t
@@ -667,16 +656,12 @@
   (("s-l f" . lsp-ui-doc-focus-frame)
    ("s-l u" . lsp-ui-doc-unfocus-frame)))
 
-(use-package lsp-go)
-(use-package lsp-html)
-(use-package lsp-csharp)
-(use-package lsp-rust
-  :config
-  (setq lsp-rust-analyzer-cargo-watch-command "clippy"))
-(use-package lsp-pyright
-  :straight t
-  :config
-  (require 'lsp-pyright))
+;; (use-package lsp-go :straight t)
+;; (use-package lsp-html :straight t)
+;; (use-package lsp-csharp :straight t)
+;; (use-package lsp-rust
+;;   :straight t)
+(use-package lsp-pyright :straight t)
 
 (use-package ccls
   :straight t
@@ -701,6 +686,7 @@
 
 (use-package company
   :straight t
+  :demand t
   :init
   (setq company-lighter-base nil)
   (setq company-lighter nil)
