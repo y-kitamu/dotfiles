@@ -410,10 +410,12 @@
     :straight t
     :config
     (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
-    (setq migemo-user-dictionary nil)
-    (setq migemo-coding-system 'utf-8-unix)
-    (load-library "migemo")
-    (migemo-init)))
+    (if (file-exist-p migemo-dictionary)
+        (progn
+          (setq migemo-user-dictionary nil)
+          (setq migemo-coding-system 'utf-8-unix)
+          (load-library "migemo")
+          (migemo-init)))))
 
 (use-package google-translate
   :straight t
