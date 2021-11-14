@@ -25,7 +25,7 @@ jobs:
         os: [ubuntu-latest, macos-latest]
         emacs-version:
           - 27.1
-          - 28.0
+          - 27.2
           - snapshot
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -37,6 +37,6 @@ jobs:
         uses: purcell/setup-emacs@bea3d9e95785b8412caf802b320cd6de386be7a3
         with:
           # The version of Emacs to install, e.g. "24.3", or "snapshot" for a recent development version.
-          version: ${{ matrix.emacs_version }}
+          version: ${{ matrix.emacs-version }}
       - name: Run smoke test
         run: make emacs-test
