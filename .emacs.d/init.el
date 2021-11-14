@@ -500,8 +500,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   :config
   (setq ein:worksheet-enable-undo t)
   (custom-set-faces
-   '(ein:cell-input-area ((t (:background "black" :underline "green yellow" :))))
-   '(ein:cell-output-area ((t (:background "blue"))))))
+   '(ein:basecell-input-area-face ((t (:background "black" :underline "green yellow" :))))))
 
 ;;;; json をフォーマットする
 ;;;; sudo apt install jq
