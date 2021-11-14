@@ -88,7 +88,8 @@
 (if (not (file-directory-p "~/.emacs.d/inits/"))
     (make-directory "~/.emacs.d/inits/"))
 (setq init-loader-show-log-after-init 'error-only)
-(init-loader-load)
+(let ((inits-dir (format "%s/inits" (file-name-directory load-file-name))))
+  (init-loader-load inits-dir))
 
 ;;; encoding
 (setq buffer-file-coding-system 'utf-8) ; utf-8-unix
