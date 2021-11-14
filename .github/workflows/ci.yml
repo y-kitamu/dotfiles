@@ -27,12 +27,12 @@ jobs:
           - 27.1
           - 28.0
           - snapshot
-          
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - run: npm ci
+      - run: npm run build      
       - name: Set up Emacs
         # You may pin to the exact commit or the version.
         # uses: purcell/setup-emacs@bea3d9e95785b8412caf802b320cd6de386be7a3
