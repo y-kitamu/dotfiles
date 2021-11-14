@@ -26,14 +26,14 @@
 
 ;; lisp の評価結果を注釈する
 (use-package lispxmp
-  :ensure t
+  :straight t
   :bind
   (:map emacs-lisp-mode-map
         ("C-c C-d" . 'lispxmp)))
 
 ;; カッコの対応を保持して編集する設定
 (use-package paredit
-  :ensure t
+  :straight t
   :init
   (setq paredit-lighter nil)
   :hook
@@ -44,7 +44,7 @@
    (ielm-mode . enable-paredit-mode)))
 
 (use-package auto-async-byte-compile
-  :ensure t
+  :straight t
   :custom
   (auto-async-byte-compile-exclude-files-regexp ".dir-locals.el\\|/junk/\\|init.el\\|/elpa/")
   :hook
@@ -55,7 +55,7 @@
   :after eldoc)
 
 (use-package dash
-  :ensure t
+  :straight t
   :custom
   (global-dash-fontify-mode)
   (with-eval-after-load 'info-look

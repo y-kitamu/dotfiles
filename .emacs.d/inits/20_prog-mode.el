@@ -27,41 +27,41 @@
 (add-to-list 'auto-mode-alist '("\\.bash.*\\'" . sh-mode))
 ;;; for windows
 (use-package powershell
-  :ensure t
+  :straight t
   :config
   (add-to-list 'auto-mode-alist '("\\.psl\\'" . powershell-mode)))
 
-(use-package dockerfile-mode :ensure t)
-(use-package docker-compose-mode :ensure t)
-(use-package cmake-mode :ensure t)
-(use-package protobuf-mode :ensure t)
-(use-package csv-mode :ensure t)
-(use-package go-mode :ensure t)
-(use-package typescript-mode :ensure t)
+(use-package dockerfile-mode :straight t)
+(use-package docker-compose-mode :straight t)
+(use-package cmake-mode :straight t)
+(use-package protobuf-mode :straight t)
+(use-package csv-mode :straight t)
+(use-package go-mode :straight t)
+(use-package typescript-mode :straight t)
 
-(use-package cuda-mode :ensure t)
+(use-package cuda-mode :straight t)
 
 ;;; programing language major modes
 (use-package rust-mode
-  :ensure t
+  :straight t
   :config
   (setq rust-format-on-save t))
 
 (use-package cargo
-  :ensure t
+  :straight t
   :config
   (add-hook 'rust-mode-hook 'cargo-minor-mode)
   :after rust-mode)
 
 (use-package flycheck-rust
-  :ensure t
+  :straight t
   :config
   (with-eval-after-load 'rust-mode
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
 ;; web mode setting
 (use-package web-mode
-  :ensure t
+  :straight t
   :mode (("\\.html\\'" . web-mode)
          ("\\.css\\'" . web-mode)
          ("\\.js\\'" . web-mode)
@@ -90,12 +90,12 @@
 
 ;; js formatter
 (use-package prettier-js
-  :ensure t
+  :straight t
   :hook (web-mode .))
 
 ;; glsl mode
 (use-package glsl-mode
-  :ensure t
+  :straight t
   :config
   (add-to-list 'auto-mode-alist '("\\.vs\\'" . glsl-mode))
   (add-to-list 'auto-mode-alist '("\\.fs\\'" . glsl-mode))

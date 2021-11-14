@@ -26,7 +26,7 @@
 
 ;;; magit
 (use-package magit
-  :ensure t
+  :straight t
   :custom
   (magit-diff-refine-hunk 'all)
   :config
@@ -73,21 +73,21 @@
   ("C-x g" . magit-status))
 
 (use-package helm-ls-git
-  :ensure t)
+  :straight t)
 
 ;;; reference : https://emacs-jp.github.io/packages/git-gutter
 (use-package git-gutter
-  :ensure t
+  :straight t
   :config
   (setq git-gutter:lighter "")
   (global-git-gutter-mode t))
 
 ;; (use-package forge
-;;   :ensure t
+;;   :straight t
 ;;   :after magit)
 
 (use-package projectile
-  :ensure t
+  :straight t
   :init
   (setq projectile-dynamic-mode-line nil)
   (setq projectile-mode-line-prefix nil)
@@ -97,7 +97,7 @@
   (projectile-mode +1))
 
 (use-package helm-projectile
-  :ensure t
+  :straight t
   :config
   (define-key projectile-mode-map (kbd "C-c p f") 'helm-projectile)
   :after projectile)

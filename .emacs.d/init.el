@@ -24,38 +24,42 @@
 
 ;;; Code:
 ;;
-(setq package-selected-packages
-      '(use-package
-	     init-loader
-         posframe
-         popwin))
+(setq package-enable-at-startup nil)
 
-(setq package-archives '(("melpa" . "http://melpa.org/packages/")
-			 ("MELPA Stable" . "http://stable.melpa.org/packages/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")))
-(setq async-bytecomp-allowed-packages '(all))
+;;; straight.el setting
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; オプションなしで自動的にuse-packageをstraight.elにフォールバックする
+;; 本来は (use-package hoge :straight t) のように書く必要がある
+(setq straight-use-package-by-default t)
+
+;;; install use-package
+(straight-use-package 'use-package)
 
 ;;; ELPAなどで自動で追加される設定をcustom.elに書き込む
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (unless (file-exists-p custom-file)
   (write-region "" nil custom-file))
 
-(package-initialize)
-(package-refresh-contents)
-(package-install-selected-packages)
-
-;; use-package settings
-;; This is only needed once, near the top of the file
-(require 'use-package)
-
 ;; これがないと use-package の Error (Symbol’s value as variable is void: personal-keybindings)が発生
-(use-package bind-key
-  :ensure t
-  :config
-  (add-to-list 'same-window-buffer-names "*Personal Keybindings*"))
+;; (use-package bind-key
+;;   :config
+;;   (add-to-list 'same-window-buffer-names "*Personal Keybindings*"))
 
 ;;; enable my utility functions
-(use-package yk-util :load-path "./packages/yk")
+(use-package yk-util
+  :straight (yk-util :type git :host github :repo "y-kitamu/yk_elisp"))
 
 ;;; Increase a bit garbage collection threshold:
 (setq gc-cons-threshold 3200000)
@@ -107,54 +111,6 @@
 ;;; 再起動時に前回開いていたファイルを開く
 (desktop-save-mode 1)
 
-(use-package tab-bar
-  :custom
-  (tab-bar-new-button-show nil)
-  (tab-bar-close-button-show nil)
-  (tab-bar-show 1)
-  :config
-  (tab-bar-mode t)
-  ;; screenと似たkeybindに設定
-  (global-unset-key (kbd "C-z"))
-  (define-key global-map (kbd "C-z C-z") 'suspend-frame)
-  (global-set-key (kbd "C-z SPC") 'tab-next)
-  (global-set-key (kbd "C-z C-SPC") 'tab-next)
-  (global-set-key (kbd "C-z p") 'tab-previous)
-  (global-set-key (kbd "C-z c") 'tab-new)
-  (global-set-key (kbd "C-z k") 'tab-close)
-  ;; 見た目をおしゃれに
-  (custom-set-faces
-   '(tab-bar ((t :background "#34495E")))
-   '(tab-bar-tab ((t (:background "#93E0E3" :foreground "#2B2B2B" :box (:style pressed-button)))))
-   '(tab-bar-tab-inactive ((t (:background "#34495E" :inverse-video nil))))))
-
-;; maximize window
-(set-frame-parameter nil 'fullscreen 'maximized)
-
-;; buffer が作られるときに frame を 縦に分割しない
-(setq-default split-height-threshold 200)
-
-;; disable beep sound
-(setq visible-bell t)
-
-;; hide bars
-(tool-bar-mode 0)   ; tool bar を非表示
-(menu-bar-mode 0)   ; menu bar を非表示
-(if window-system
-    (scroll-bar-mode 0)) ; scroll bar を非表示
-
-;; standard mode line setting
-(column-number-mode t)             ; column 番号も表示
-;; (size-indication-mode t)           ; file size を表示
-;; (setq display-time-day-and-date t) ; 曜日,月,日を表示
-;; (setq display-time-24hr-format t)  ; 24時間表示
-;; (setq display-time-format "%Y/%m/%d %H:%M")
-;; (setq display-time-default-load-average nil)
-;; (display-time-mode t)
-
-;; title bar setting
-(setq frame-title-format "%@%f") ; title bar に表示する文字列
-
 ;;; Indent settings
 (setq-default tab-width 4)          ; default の tab の表示幅
 (setq-default indent-tabs-mode nil) ; indent に tab文字を使用しない
@@ -180,7 +136,7 @@
 (add-hook 'c++-mode-hook (lambda ()
                            (c-set-style "briancpp")))
 (use-package clang-format+
-  :ensure t
+  :straight t
   :config
   (add-hook 'c-mode-common-hook #'clang-format+-mode))
 
@@ -190,7 +146,7 @@
                        (imenu--rescan-item)))
 
 ;; (use-package smartparens
-;;   :ensure t
+;;   :straight t
 ;;   :commands smartparens-mode
 ;;   :hook (prog-mode . smartparens-mode))
 ;;; insert parenthesis/brackets by pair
@@ -200,7 +156,7 @@
 (show-paren-mode t)                          ; 有効化
 (setq show-paren-style 'expression)          ; expression は括弧内も強調表示
 (use-package rainbow-delimiters
-  :ensure t
+  :straight t
   :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; 行末の white space を削除して保存
@@ -218,56 +174,6 @@
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 
-
-;;; ファイル作成時に生成するテンプレートの設定 (autoinsert)
-(use-package autoinsert
-  :ensure t
-  :init
-  (setq user-full-name "Yusuke Kitamura")
-  (setq user-mail-address "ymyk6602@gmail.com")
-  :custom
-  ;; テンプレートのディレクトリ
-  (auto-insert-directory "~/.emacs.d/template")
-  ;; 各ファイルによってテンプレートを切り替える
-  :config
-  (yk/add-to-list-multiple 'auto-insert-alist
-                           '(("\\.cpp$" . ["template.cpp" my-template])
-                             ("test_.*\\.cpp$" . ["test_template.cpp" my-template])
-                             ("\\.hpp$" . ["template.hpp" my-template])
-                             ("CMakeLists.txt$" . ["template.CMakeLists.txt" my-template])
-                             ("\\.py$" . ["template.py" my-template])))
-  (defvar template-replacements-alists
-    '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
-      ("%file-without-ext%" .
-       (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
-      ("%date%" . (lambda () (format-time-string "%Y-%m-%d %H:%M:%S")))
-      ("%mail%" . (lambda () (identity user-mail-address)))
-      ("%name%" . (lambda () (identity user-full-name)))
-      ("%include-guard%" .
-       (lambda () (format "%s_HPP__" (upcase (file-name-sans-extension
-                                              (file-name-nondirectory buffer-file-name))))))))
-  (defun my-template ()
-    (time-stamp)
-    (mapc #'(lambda(c)
-              (progn
-                (goto-char (point-min))
-                (replace-string (car c) (funcall (cdr c)) nil)))
-          template-replacements-alists)
-    (goto-char (point-max))
-    (message "Successfully insert template."))
-  (add-hook 'find-file-not-found-hooks 'auto-insert))
-
-;; region選択時に行数と文字数を表示する
-(defun count-lines-and-chars ()
-  (if mark-active
-      (format "(%d lines,%d chars) "
-              (count-lines (region-beginning) (region-end))
-              (- (region-end) (region-beginning)))
-    ""))
-(add-hook 'activate-mark-hook (lambda ()
-                            (add-to-list 'mode-line-format
-                                         '(:eval (count-lines-and-chars)))))
-
 ;;; goto matching parenthesis, Vi style. The last statement is a bit conked;
 (defun goto-match-paren (arg)
   "Go to the matching parenthesis if on parenthesis, otherwise do nothing"
@@ -277,21 +183,18 @@
    ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
    (t (digit-argument (or arg 1)))))
 
-;;
-(use-package uniquify
-  :custom
-  (uniquify-buffer-name-style 'post-forward-angle-brackets)
-  (uniquity-min-dir-content 2))
+;; built-in packages
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+(setq uniquity-min-dir-content 2)
+
+(require 'abbrev)
+(my/hide-minor-mode-from-mode-line 'abbrev-mode)
 
 ;; gdb
 (setq gdb-many-windows t)
 (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
 (setq gdb-use-separate-io-buffer t)
-
-(use-package gud-lldb
-  :load-path "./packages/gud-lldb"
-  :config
-  (add-hook 'lldb-mode-hook '(lambda () (gud-tooltip-mode t))))
 
 ;;; 矩形編集 (+ C-v, M-v で一番下、一番上まで移動できるようになる)
 (cua-mode t)
@@ -306,105 +209,20 @@
          (org-mode . flyspell-mode)
          (text-mode . flyspell-mode)))
 
-(defmacro my/hide-minor-mode-from-mode-line (mode)
-  "指定したMODEをmode-lineに表示しないようにする。
-MODEはsymbolを指定する。
-ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
-  `(setq minor-mode-alist (cons (list ,mode "") (assq-delete-all ,mode minor-mode-alist))))
-
-(use-package abbrev
-  :config
-  (my/hide-minor-mode-from-mode-line 'abbrev-mode))
-
-;;; `message` の出力の先頭に日時を付け足す
-(defadvice message (before before-message activate)
-  (let ((original (ad-get-arg 0))
-        (now (decode-time (current-time))))
-    (ad-set-arg 0 (format "[%04d/%02d/%02d %02d:%02d:%02d] %s"
-                          (nth 5 now) (nth 4 now) (nth 3 now) (nth 2 now) (nth 1 now) (nth 0 now)
-                          original))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;; Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(global-hl-line-mode t)
-
-;;; Theme
-(use-package zenburn-theme
-  :ensure t
-  :custom
-  (zenburn-add-font-lock-keywords t)
-  :config
-  (load-theme 'zenburn t)
-  (zenburn-with-color-variables
-    (custom-set-faces
-     `(hl-line ((t (:background ,zenburn-bg+1))))
-     `(hl-line-face ((t (:background ,zenburn-bg+1))))
-     '(isearch ((t (:background "green yellow" :foreground "#D0BF8F" :weight bold))))
-     '(lazy-highlight ((t (:background "SeaGreen3" :foreground "#D0BF8F" :weight bold))))
-     )))
-
-(set-face-foreground 'font-lock-regexp-grouping-backslash "green3")
-(set-face-foreground 'font-lock-regexp-grouping-construct "green")
-
-(use-package vline :load-path "./packages")
-
-(use-package col-highlight
-  :load-path "./packages"
-  :config
-  (toggle-highlight-column-when-idle 0)
-  :after vline)
-
-;; (use-package smart-mode-line
-;;   :ensure t
-;;   :config
-;;   (sml/setup)
-;;   (zenburn-with-color-variables
-;;     (set-face-attribute 'sml/minor-modes nil :foreground zenburn-cyan))
-;;   :after zenburn-theme)
-
-;;; mode-lineの見た目をおしゃれにする
-(use-package powerline
-  :ensure t
-  :config
-  (custom-set-faces
-   '(powerline-active1 ((t (:background  "#93E0E3" :foreground "#2B2B2B"))))
-   '(powerline-active2 ((t (:background  "#303030"))))
-   '(powerline-inactive2 ((t (:background  "#383838"))))
-   )
-  (powerline-default-theme))
-
-(use-package total-lines
-  :ensure t
-  :config
-  (global-total-lines-mode)
-  (defun my-set-line-numbers ()
-    (setq-default mode-line-front-space
-                  (append mode-line-front-space
-                          '((:eval (format " (%d)" (- total-lines 1)))))))
-  (add-hook 'after-init-hook 'my-set-line-numbers))
-
-(use-package cursor-chg
-  :load-path "./packages"
-  :custom
-  (curchg-default-cursor-type 'box)
-  (curchg-change-cursor-on-input-method-flag t)
-  (curchg-input-method-cursor-color "green")
-  (curchg-overwrite/read-only-cursor-type 'hollow)
-  :config
-  (change-cursor-mode 1))
-
 (use-package ag
-  :ensure t
+  :straight t
   :config
   (setq ag-arguments (append '("--follow" "--all-types") ag-arguments)))
 
-(use-package wgrep-ag :ensure t)
+(use-package wgrep-ag :straight t)
 
 ;; wgrep setting
 (use-package wgrep
-  :ensure t
+  :straight t
   :commands wgrep-ag-setup
   :config
   (setq wgrep-auto-save-buffer t)
@@ -414,7 +232,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 
 ;; undo tree setting.  C-x u visualize undo tree
 (use-package undo-tree
-  :ensure t
+  :straight t
   :custom
   (undo-tree-mode-lighter nil)
   :config
@@ -422,13 +240,13 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 
 ;;; buffer-move setting
 (use-package buffer-move
-  :ensure t
+  :straight t
   :bind (("C-c C-l" . buf-move-left)
          ("C-c C-r" . buf-move-right)))
 
 ;;; fast screen
 (use-package fast-scroll
-  :ensure t
+  :straight t
   :demand t
   :config
   (add-hook 'fast-scroll-start-hook (lambda () (flycheck-mode -1)))
@@ -439,7 +257,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 
 ;;; chrome の text area を emacs で編集する
 (use-package edit-server
-  :ensure t)
+  :straight t)
 
 (defun term-send-ctrl-z ()
   "Send ctrl-z in term mode."
@@ -454,7 +272,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 ;;; multi-term
 ;; .bashrc に $TERM が eterm-color の場合にも color-prompt にするように設定を追記する
 (use-package multi-term
-  :ensure t
+  :straight t
   :config
   (add-to-list 'term-unbind-key-list "C-t")
   (add-to-list 'term-unbind-key-list "C-o")
@@ -477,26 +295,25 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 (add-hook 'after-save-hook
           'c-mode-update-gtags)
 (use-package gxref
-  :ensure t
+  :straight t
   :config
   (add-to-list 'xref-backend-functions 'gxref-xref-backend))
 
 
 (use-package eldoc
-  :ensure t
+  :straight t
   :custom
   (eldoc-idle-delay 0.5)
   (eldoc-echo-area-use-multiline-p t)
   (eldoc-minor-mode-string "")
   :hook (prog-mode . eldoc-mode))
 
-
 (find-function-setup-keys)
 
 ;;; ein.el setting (emacs で jupyter notebook を使えるようにしたもの)
 ;;; 参考 : https://pod.hatenablog.com/entry/2017/08/06/220817
 (use-package ein
-  :ensure t
+  :straight t
   :config
   (setq ein:worksheet-enable-undo t)
   (custom-set-faces
@@ -512,13 +329,13 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 ;;; PDF tool
 (when (equal system-type 'gnu/linux)
   (use-package pdf-tools
-    :ensure t
+    :straight t
     :config
     (pdf-tools-install)))
 
 ;;; YaTeX (melpa)
 (use-package yatex
-  :ensure t
+  :straight t
   :mode ("\\.tex\\'" . yatex-mode)
   :init
   :config
@@ -572,7 +389,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 
 ;;; カラーコードの色をbackgroundに表示する
 (use-package rainbow-mode
-  :ensure t
+  :straight t
   :config
   (my/hide-minor-mode-from-mode-line 'rainbow-mode)
   :hook
@@ -580,7 +397,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 
 ;; (use-package mozc
 ;;   ;; sudo apt-get install emacs-mozc-bin
-;;   :ensure t
+;;   :straight t
 ;;   :custom
 ;;   (default-input-method "japanese-mozc"))
 
@@ -588,7 +405,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 ;; sudo apt-get instal -y cmigemo
 (when (equal system-type 'gnu/linux)
   (use-package migemo
-    :ensure t
+    :straight t
     :config
     (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
     (setq migemo-user-dictionary nil)
@@ -597,7 +414,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
     (migemo-init)))
 
 (use-package google-translate
-  :ensure t
+  :straight t
   :custom
   (google-translate-default-source-language "en")
   (google-translate-default-target-language "ja")
@@ -608,7 +425,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (list 430675 2721866130))
 
 (use-package avy
-  :ensure t
+  :straight t
   :config
   (avy-setup-default)
   :custom
@@ -620,7 +437,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 
 ;;; Helm
 (use-package helm
-  :ensure t
+  :straight t
   :custom
   (helm-completion-style 'emacs)
   (helm-for-document-sources '(helm-source-info-elisp
@@ -647,13 +464,13 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
    ("M-x" . helm-M-x)))
 
 (use-package helm-descbinds
-  :ensure t
+  :straight t
   :config
   ; C-h b (keybind display list) をhelmで表示
   (helm-descbinds-mode))
 
 (use-package helm-tramp
-  :ensure t
+  :straight t
   :custom
   (tramp-default-method "ssh")
   :bind
@@ -663,16 +480,16 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
     "Tramp open with PATH."
     (helm-find-files-1 path)))
 
-(use-package helm-ag :ensure t)
+(use-package helm-ag :straight t)
 
 (use-package docker
-  :ensure t
+  :straight t
   :bind ("C-c d" . docker))
 
-(use-package hydra :ensure t)
+(use-package hydra :straight t)
 
 (use-package yapfify
-  :ensure t
+  :straight t
   :config
   (setcar (cdr (assq 'yapf-mode minor-mode-alist)) nil)
   :hook
@@ -698,8 +515,14 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
      (apply original-func args))
 (advice-add 'yapfify-region :around 'around-yapfify-region)
 
+
+(use-package py-isort
+
+  :hook
+  (before-save-hook . py-isort-before-save))
+
 (use-package flycheck
-  :ensure t
+  :straight t
   :init
   (add-to-list 'display-buffer-alist
                `(,(rx bos "*Flycheck errors*" eos)
@@ -720,24 +543,24 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 
 
 (use-package ace-window
-  :ensure t
+  :straight t
   :config
   (global-set-key (kbd "M-o") 'ace-window)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 (use-package which-key
-  :ensure t
+  :straight t
   :custom
   (which-key-lighter nil)
   :config
   (which-key-mode))
 
 (use-package package-lint
-  :ensure t)
+  :straight t)
 
 ;; lsp configuration begin
 (use-package lsp-mode
-  :ensure t
+  :straight t
   :custom
   (lsp-log-io nil)
   (read-process-output-max (* 1024 1024)) ;; 1mb
@@ -777,7 +600,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
    (rust-mode . lsp-deferred)))
 
 (use-package helm-lsp
-  :ensure t
+  :straight t
   :config
   (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
   :bind
@@ -787,10 +610,18 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 
 (use-package lsp-docker+
   :load-path "./packages/lsp-docker+"
-  :ensure t
+  :straight t
   :config
   (lsp-docker+-enable)
   ;; register default lsp server
+  (require 'lsp-bash)
+  (require 'lsp-dockerfile)
+  (require 'lsp-pyright)
+  (require 'lsp-dockerfile)
+  (require 'lsp-css)
+  (require 'lsp-html)
+  (require 'lsp-javascript)
+  (require 'lsp-cmake)
   (let ((lsp-docker+-image-id "arumatik/common-language-servers")
         (client-packages (list lsp-bash lsp-css lsp-dockerfile lsp-go lsp-html lsp-javascript
                                lsp-cmake))
@@ -809,10 +640,11 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
                 :server-command "typescript-language-server --stdio")
           (list :server-id 'cmakels :docker-server-id 'cmakels-docker
                 :server-command "cmake-language-server"))))
-    (lsp-docker+-init-clients :client-configs lsp-docker+-client-configs)))
+    (lsp-docker+-init-clients :client-configs lsp-docker+-client-configs))
+  :after lsp)
 
 (use-package lsp-ui
-  :ensure t
+  :straight t
   :init
   ;; lsp-ui-doc
   (setq lsp-ui-doc-enable t)
@@ -842,17 +674,17 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   :config
   (setq lsp-rust-analyzer-cargo-watch-command "clippy"))
 (use-package lsp-pyright
-  :ensure t
+  :straight t
   :config
   (require 'lsp-pyright))
 
 (use-package ccls
-  :ensure t
+  :straight t
   :custom
   (ccls-initialization-options (list :compilationDatabaseDirectory "build")))
 
 (use-package yasnippet
-  :ensure t
+  :straight t
   :config
   (yas-global-mode)
   (my/hide-minor-mode-from-mode-line 'yas-minor-mode)
@@ -868,7 +700,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   :after lsp-mode)
 
 (use-package company
-  :ensure t
+  :straight t
   :init
   (setq company-lighter-base nil)
   (setq company-lighter nil)
@@ -897,7 +729,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 ;; lsp configuration end
 
 (use-package company-tabnine
-  :ensure t
+  :straight t
   :config
   (add-to-list 'company-backends #'company-tabnine)
   (setq company-tabnine--disabled t)
@@ -913,7 +745,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 
 ;; dap-mode setting
 (use-package dap-mode
-  :ensure t
+  :straight t
   :config
   (setq dap-auto-configure-features '(sessions locals controls tooltip))
   (require 'dap-gdb-lldb)
@@ -954,13 +786,53 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
                                               (+dap-running-session-mode 1)))))
 
 (use-package srefactor
-  :ensure t
+  :straight t
   :config
   (require 'srefactor-lisp)
   (global-set-key (kbd "M-RET o") 'srefactor-lisp-one-line)
   (global-set-key (kbd "M-RET m") 'srefactor-lisp-format-sexp)
   (global-set-key (kbd "M-RET d") 'srefactor-lisp-format-defun)
   (global-set-key (kbd "M-RET b") 'srefactor-lisp-format-buffer))
+
+;;; ファイル作成時に生成するテンプレートの設定 (autoinsert)
+;;; init.elの一番最後におくこと。
+;;; (straight.elがpackageをinstallするときに、elispのtemplateのinteractiveな設定を要求されるので)
+(use-package autoinsert
+  :straight t
+  :init
+  (setq user-full-name "Yusuke Kitamura")
+  (setq user-mail-address "ymyk6602@gmail.com")
+  :custom
+  ;; テンプレートのディレクトリ
+  (auto-insert-directory "~/.emacs.d/template")
+  ;; 各ファイルによってテンプレートを切り替える
+  :config
+  (yk/add-to-list-multiple 'auto-insert-alist
+                           '(("\\.cpp$" . ["template.cpp" my-template])
+                             ("test_.*\\.cpp$" . ["test_template.cpp" my-template])
+                             ("\\.hpp$" . ["template.hpp" my-template])
+                             ("CMakeLists.txt$" . ["template.CMakeLists.txt" my-template])
+                             ("\\.py$" . ["template.py" my-template])))
+  (defvar template-replacements-alists
+    '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
+      ("%file-without-ext%" .
+       (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
+      ("%date%" . (lambda () (format-time-string "%Y-%m-%d %H:%M:%S")))
+      ("%mail%" . (lambda () (identity user-mail-address)))
+      ("%name%" . (lambda () (identity user-full-name)))
+      ("%include-guard%" .
+       (lambda () (format "%s_HPP__" (upcase (file-name-sans-extension
+                                              (file-name-nondirectory buffer-file-name))))))))
+  (defun my-template ()
+    (time-stamp)
+    (mapc #'(lambda(c)
+              (progn
+                (goto-char (point-min))
+                (replace-string (car c) (funcall (cdr c)) nil)))
+          template-replacements-alists)
+    (goto-char (point-max))
+    (message "Successfully insert template."))
+  (add-hook 'find-file-not-found-hooks 'auto-insert))
 
 ;;; init.el ends here
 

@@ -25,7 +25,7 @@
 ;;; Code:
 
 (use-package org
-  :ensure t
+  :straight t
   :custom
   (org-startup-indented t)
   (org-indent-indentation-per-level 2)
@@ -70,7 +70,7 @@ TODO:  roughのlangとemacs (org)のlangの表記の対応表の作成"
 
 ;;; open-junk-file setting
 (use-package open-junk-file
-  :ensure t
+  :straight t
   :config
   (setq open-junk-file-format "~/.emacs.d/documents/junk/%Y/%Y_%m_%d.org")
   :bind
