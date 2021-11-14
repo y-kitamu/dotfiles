@@ -7,3 +7,9 @@
 [submodule ".emacs.d/packages/yk"]
 	path = .emacs.d/packages/yk
 	url = git@github.com:y-kitamu/yk_elisp.git
+[submodule ".emacs.d/straight/repos/lsp-docker"]
+	path = .emacs.d/straight/repos/lsp-docker
+	url = https://github.com/emacs-lsp/lsp-docker.git
+[submodule ".emacs.d/straight/repos/emacs-lsp-docker-plus"]
+	path = .emacs.d/straight/repos/emacs-lsp-docker-plus
+	url = https://github.com/y-kitamu/emacs-lsp-docker-plus.git

@@ -119,21 +119,10 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
 (set-face-foreground 'font-lock-regexp-grouping-backslash "green3")
 (set-face-foreground 'font-lock-regexp-grouping-construct "green")
 
-(use-package vline :load-path "./packages")
-
 (use-package col-highlight
-  :load-path "./packages"
+  :straight (col-highlight :type git :host github :repo "emacsmirror/col-highlight")
   :config
-  (toggle-highlight-column-when-idle 0)
-  :after vline)
-
-;; (use-package smart-mode-line
-;;   :straight t
-;;   :config
-;;   (sml/setup)
-;;   (zenburn-with-color-variables
-;;     (set-face-attribute 'sml/minor-modes nil :foreground zenburn-cyan))
-;;   :after zenburn-theme)
+  (toggle-highlight-column-when-idle 0))
 
 ;;; mode-lineの見た目をおしゃれにする
 (use-package powerline
@@ -157,7 +146,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (add-hook 'after-init-hook 'my-set-line-numbers))
 
 (use-package cursor-chg
-  :load-path "./packages"
+  :straight (cursor-chg :type git :host github :repo "emacsmirror/cursor-chg")
   :custom
   (curchg-default-cursor-type 'box)
   (curchg-change-cursor-on-input-method-flag t)

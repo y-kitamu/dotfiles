@@ -609,8 +609,7 @@
   (("C-c h d" . helm-lsp-diagnostics)))
 
 (use-package lsp-docker+
-  :load-path "./packages/lsp-docker+"
-  :straight t
+  :straight (lsp-docker+ :type git :host github :repo "y-kitamu/emacs-lsp-docker-plus")
   :config
   (lsp-docker+-enable)
   ;; register default lsp server
