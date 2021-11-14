@@ -410,7 +410,7 @@
     :straight t
     :config
     (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
-    (if (file-exist-p migemo-dictionary)
+    (if (file-exists-p migemo-dictionary)
         (progn
           (setq migemo-user-dictionary nil)
           (setq migemo-coding-system 'utf-8-unix)
