@@ -333,7 +333,7 @@
   (use-package pdf-tools
     :straight t
     :init
-    (pdf-tools-install)))
+    (pdf-tools-install t)))
 
 ;;; YaTeX (melpa)
 (use-package yatex
