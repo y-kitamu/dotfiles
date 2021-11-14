@@ -13,3 +13,9 @@
 [submodule ".emacs.d/straight/repos/emacs-lsp-docker-plus"]
 	path = .emacs.d/straight/repos/emacs-lsp-docker-plus
 	url = https://github.com/y-kitamu/emacs-lsp-docker-plus.git
+[submodule ".emacs.d/straight/repos/init-loader"]
+	path = .emacs.d/straight/repos/init-loader
+	url = https://github.com/emacs-jp/init-loader.git
+[submodule ".emacs.d/straight/repos/lsp-ui"]
+	path = .emacs.d/straight/repos/lsp-ui
+	url = https://github.com/emacs-lsp/lsp-ui.git

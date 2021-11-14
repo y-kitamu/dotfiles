@@ -24,27 +24,25 @@
 
 ;;; Code:
 
-(use-package tab-bar
-  :straight t
-  :custom
-  (tab-bar-new-button-show nil)
-  (tab-bar-close-button-show nil)
-  (tab-bar-show 1)
-  :config
-  (tab-bar-mode t)
-  ;; screenと似たkeybindに設定
-  (global-unset-key (kbd "C-z"))
-  (define-key global-map (kbd "C-z C-z") 'suspend-frame)
-  (global-set-key (kbd "C-z SPC") 'tab-next)
-  (global-set-key (kbd "C-z C-SPC") 'tab-next)
-  (global-set-key (kbd "C-z p") 'tab-previous)
-  (global-set-key (kbd "C-z c") 'tab-new)
-  (global-set-key (kbd "C-z k") 'tab-close)
-  ;; 見た目をおしゃれに
-  (custom-set-faces
-   '(tab-bar ((t :background "#34495E")))
-   '(tab-bar-tab ((t (:background "#93E0E3" :foreground "#2B2B2B" :box (:style pressed-button)))))
-   '(tab-bar-tab-inactive ((t (:background "#34495E" :inverse-video nil))))))
+;;; tab-bar mode setting
+(setq tab-bar-new-button-show nil)
+(setq tab-bar-close-button-show nil)
+(setq tab-bar-show 1)
+:config
+(tab-bar-mode t)
+;; screenと似たkeybindに設定
+(global-unset-key (kbd "C-z"))
+(define-key global-map (kbd "C-z C-z") 'suspend-frame)
+(global-set-key (kbd "C-z SPC") 'tab-next)
+(global-set-key (kbd "C-z C-SPC") 'tab-next)
+(global-set-key (kbd "C-z p") 'tab-previous)
+(global-set-key (kbd "C-z c") 'tab-new)
+(global-set-key (kbd "C-z k") 'tab-close)
+;; 見た目をおしゃれに
+(custom-set-faces
+ '(tab-bar ((t :background "#34495E")))
+ '(tab-bar-tab ((t (:background "#93E0E3" :foreground "#2B2B2B" :box (:style pressed-button)))))
+ '(tab-bar-tab-inactive ((t (:background "#34495E" :inverse-video nil)))))
 
 ;; maximize window
 (set-frame-parameter nil 'fullscreen 'maximized)
@@ -113,8 +111,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
      `(hl-line ((t (:background ,zenburn-bg+1))))
      `(hl-line-face ((t (:background ,zenburn-bg+1))))
      '(isearch ((t (:background "green yellow" :foreground "#D0BF8F" :weight bold))))
-     '(lazy-highlight ((t (:background "SeaGreen3" :foreground "#D0BF8F" :weight bold))))
-     )))
+     '(lazy-highlight ((t (:background "SeaGreen3" :foreground "#D0BF8F" :weight bold)))))))
 
 (set-face-foreground 'font-lock-regexp-grouping-backslash "green3")
 (set-face-foreground 'font-lock-regexp-grouping-construct "green")
@@ -156,3 +153,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   (change-cursor-mode 1))
 
 ;;; 02_appearence.el ends here
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:

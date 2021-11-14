@@ -84,6 +84,7 @@
   (add-to-list 'exec-path (expand-file-name "~/../../scoop/shims/")))
 
 ;;; inits 以下の設定ファイルを読み込む
+(use-package init-loader)
 (if (not (file-directory-p "~/.emacs.d/inits/"))
     (make-directory "~/.emacs.d/inits/"))
 (setq init-loader-show-log-after-init 'error-only)
