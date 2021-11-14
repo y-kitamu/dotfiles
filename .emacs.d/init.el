@@ -332,7 +332,7 @@
 (when (equal system-type 'gnu/linux)
   (use-package pdf-tools
     :straight t
-    :config
+    :init
     (pdf-tools-install)))
 
 ;;; YaTeX (melpa)
