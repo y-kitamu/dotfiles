@@ -3,7 +3,7 @@
 
 "28.0.50"
 
-#s(hash-table size 145 test equal rehash-size 1.5 rehash-threshold 0.8125 data ("org-elpa" ("2021-11-14 22:03:19" nil (:local-repo nil :package "org-elpa" :type git)) "melpa" ("2021-11-14 22:03:20" nil (:type git :host github :repo "melpa/melpa" :build nil :package "melpa" :local-repo "melpa")) "gnu-elpa-mirror" ("2021-11-14 22:03:20" nil (:type git :host github :repo "emacs-straight/gnu-elpa-mirror" :build nil :package "gnu-elpa-mirror" :local-repo "gnu-elpa-mirror")) "el-get" ("2021-11-14 22:03:20" nil (:type git :host github :repo "dimitri/el-get" :build nil :files ("*.el" ("recipes" "recipes/el-get.rcp") "methods" "el-get-pkg.el") :flavor melpa :package "el-get" :local-repo "el-get")) "emacsmirror-mirror" ("2021-11-14 22:03:20" nil (:type git :host github :repo "emacs-straight/emacsmirror-mirror" :build nil :package "emacsmirror-mirror" :local-repo "emacsmirror-mirror")) "straight" ("2021-11-14 22:03:20" ("emacs") (:type git :host github :repo "raxod502/straight.el" :files ("straight*.el") :branch "master" :package "straight" :local-repo "straight.el")) "use-package" ("2021-11-14 22:03:20" ("emacs" "bind-key") (:type git :flavor melpa :files (:defaults (:exclude "bind-key.el" "bind-chord.el" "use-package-chords.el" "use-package-ensure-system-package.el") "use-package-pkg.el") :host github :repo "jwiegley/use-package" :package "use-package" :local-repo "use-package")) "bind-key" ("2021-11-14 22:03:20" nil (:flavor melpa :files ("bind-key.el" "bind-key-pkg.el") :package "bind-key" :local-repo "use-package" :type git :repo "jwiegley/use-package" :host github)) "yk-util" ("2021-11-14 22:03:20" ("emacs" "dash") (:type git :host github :repo "y-kitamu/yk_elisp" :package "yk-util" :local-repo "yk_elisp")) "dash" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :files ("dash.el" "dash.texi" "dash-pkg.el") :host github :repo "magnars/dash.el" :package "dash" :local-repo "dash.el")) "magit" ("2021-11-14 22:03:20" ("emacs" "dash" "git-commit" "magit-section" "transient" "with-editor") (:type git :flavor melpa :files ("lisp/magit" "lisp/magit*.el" "lisp/git-rebase.el" "Documentation/magit.texi" "Documentation/AUTHORS.md" "LICENSE" (:exclude "lisp/magit-libgit.el" "lisp/magit-libgit-pkg.el" "lisp/magit-section.el" "lisp/magit-section-pkg.el") "magit-pkg.el") :host github :repo "magit/magit" :package "magit" :local-repo "magit")) "git-commit" ("2021-11-14 22:03:20" ("emacs" "dash" "transient" "with-editor") (:flavor melpa :files ("lisp/git-commit.el" "lisp/git-commit-pkg.el" "git-commit-pkg.el") :package "git-commit" :local-repo "magit" :type git :repo "magit/magit" :host github)) "transient" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :files ("lisp/*.el" "docs/transient.texi" "transient-pkg.el") :host github :repo "magit/transient" :package "transient" :local-repo "transient")) "with-editor" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :host github :repo "magit/with-editor" :package "with-editor" :local-repo "with-editor")) "magit-section" ("2021-11-14 22:03:20" ("emacs" "dash") (:flavor melpa :files ("lisp/magit-section.el" "lisp/magit-section-pkg.el" "Documentation/magit-section.texi" "magit-section-pkg.el") :package "magit-section" :local-repo "magit" :type git :repo "magit/magit" :host github)) "helm-ls-git" ("2021-11-14 22:03:20" ("helm") (:type git :flavor melpa :host github :repo "emacs-helm/helm-ls-git" :package "helm-ls-git" :local-repo "helm-ls-git")) "helm" ("2021-11-14 22:03:20" ("emacs" "async" "popup" "helm-core") (:type git :flavor melpa :files ("*.el" "emacs-helm.sh" (:exclude "helm.el" "helm-lib.el" "helm-source.el" "helm-multi-match.el" "helm-core-pkg.el") "helm-pkg.el") :host github :repo "emacs-helm/helm" :package "helm" :local-repo "helm")) "async" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :host github :repo "jwiegley/emacs-async" :package "async" :local-repo "emacs-async")) "popup" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :files ("popup.el" "popup-pkg.el") :host github :repo "auto-complete/popup-el" :package "popup" :local-repo "popup-el")) "helm-core" ("2021-11-14 22:03:20" ("emacs" "async") (:flavor melpa :files ("helm-core-pkg.el" "helm.el" "helm-lib.el" "helm-source.el" "helm-multi-match.el" "helm-core-pkg.el") :package "helm-core" :local-repo "helm" :type git :repo "emacs-helm/helm" :host github)) "git-gutter" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :host github :repo "emacsorphanage/git-gutter" :package "git-gutter" :local-repo "git-gutter")) "projectile" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :files ("projectile.el" "projectile-pkg.el") :host github :repo "bbatsov/projectile" :package "projectile" :local-repo "projectile")) "helm-projectile" ("2021-11-14 22:03:20" ("helm" "projectile" "cl-lib") (:type git :flavor melpa :host github :repo "bbatsov/helm-projectile" :package "helm-projectile" :local-repo "helm-projectile")) "org" ("2021-11-14 22:03:20" ("emacs") (:type git :repo "https://git.savannah.gnu.org/git/emacs/org-mode.git" :local-repo "org" :depth full :pre-build (straight-recipes-org-elpa--build) :build (:not autoloads) :files (:defaults "lisp/*.el" ("etc/styles/" "etc/styles/*")) :package "org")) "open-junk-file" ("2021-11-14 22:03:20" nil (:type git :flavor melpa :host github :repo "rubikitch/open-junk-file" :package "open-junk-file" :local-repo "open-junk-file")) "lispxmp" ("2021-11-14 22:03:20" nil (:type git :flavor melpa :host github :repo "rubikitch/lispxmp" :package "lispxmp" :local-repo "lispxmp")) "paredit" ("2021-11-14 22:03:20" nil (:type git :flavor melpa :files ("paredit.el" "paredit-pkg.el") :repo "https://mumble.net/~campbell/git/paredit.git" :package "paredit" :local-repo "paredit")) "auto-async-byte-compile" ("2021-11-14 22:03:20" nil (:type git :flavor melpa :host github :repo "rubikitch/auto-async-byte-compile" :package "auto-async-byte-compile" :local-repo "auto-async-byte-compile")) "powershell" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :host github :repo "jschaf/powershell.el" :package "powershell" :local-repo "powershell.el")) "dockerfile-mode" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :host github :repo "spotify/dockerfile-mode" :package "dockerfile-mode" :local-repo "dockerfile-mode")) "docker-compose-mode" ("2021-11-14 22:03:20" ("emacs" "dash" "yaml-mode") (:type git :flavor melpa :files (:defaults (:exclude "docker-compose-mode-helpers.el") "docker-compose-mode-pkg.el") :host github :repo "meqif/docker-compose-mode" :package "docker-compose-mode" :local-repo "docker-compose-mode")) "yaml-mode" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :host github :repo "yoshiki/yaml-mode" :package "yaml-mode" :local-repo "yaml-mode")) "cmake-mode" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :files ("Auxiliary/*.el" "cmake-mode-pkg.el") :repo "https://gitlab.kitware.com/cmake/cmake.git" :package "cmake-mode" :local-repo "cmake")) "protobuf-mode" ("2021-11-14 22:03:20" nil (:type git :flavor melpa :files ("editors/protobuf-mode.el" "protobuf-mode-pkg.el") :host github :repo "google/protobuf" :package "protobuf-mode" :local-repo "protobuf")) "csv-mode" ("2021-11-14 22:03:20" ("emacs" "cl-lib") (:type git :host github :repo "emacs-straight/csv-mode" :files ("*" (:exclude ".git")) :package "csv-mode" :local-repo "csv-mode")) "go-mode" ("2021-11-14 22:03:20" nil (:type git :flavor melpa :files ("go-mode.el" "go-mode-pkg.el") :host github :repo "dominikh/go-mode.el" :package "go-mode" :local-repo "go-mode.el")) "typescript-mode" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :host github :repo "emacs-typescript/typescript.el" :package "typescript-mode" :local-repo "typescript.el")) "cuda-mode" ("2021-11-14 22:03:20" nil (:type git :flavor melpa :host github :repo "chachi/cuda-mode" :package "cuda-mode" :local-repo "cuda-mode")) "rust-mode" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :host github :repo "rust-lang/rust-mode" :package "rust-mode" :local-repo "rust-mode")) "cargo" ("2021-11-14 22:03:20" ("emacs" "markdown-mode") (:type git :flavor melpa :host github :repo "kwrooijen/cargo.el" :package "cargo" :local-repo "cargo.el")) "markdown-mode" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :host github :repo "jrblevin/markdown-mode" :package "markdown-mode" :local-repo "markdown-mode")) "flycheck-rust" ("2021-11-14 22:03:20" ("emacs" "flycheck" "dash" "seq" "let-alist") (:type git :flavor melpa :host github :repo "flycheck/flycheck-rust" :package "flycheck-rust" :local-repo "flycheck-rust")) "flycheck" ("2021-11-14 22:03:20" ("dash" "pkg-info" "let-alist" "seq" "emacs") (:type git :flavor melpa :host github :repo "flycheck/flycheck" :package "flycheck" :local-repo "flycheck")) "pkg-info" ("2021-11-14 22:03:20" ("epl") (:type git :flavor melpa :host github :repo "emacsorphanage/pkg-info" :package "pkg-info" :local-repo "pkg-info")) "epl" ("2021-11-14 22:03:20" ("cl-lib") (:type git :flavor melpa :host github :repo "cask/epl" :package "epl" :local-repo "epl")) "let-alist" ("2021-11-14 22:03:20" ("emacs") (:type git :host github :repo "emacs-straight/let-alist" :files ("*" (:exclude ".git")) :package "let-alist" :local-repo "let-alist")) "web-mode" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :host github :repo "fxbois/web-mode" :package "web-mode" :local-repo "web-mode")) "prettier-js" ("2021-11-14 22:03:20" nil (:type git :flavor melpa :host github :repo "prettier/prettier-emacs" :package "prettier-js" :local-repo "prettier-emacs")) "glsl-mode" ("2021-11-14 22:03:20" nil (:type git :flavor melpa :host github :repo "jimhourihan/glsl-mode" :package "glsl-mode" :local-repo "glsl-mode")) "clang-format+" ("2021-11-14 22:03:20" ("emacs" "clang-format") (:type git :flavor melpa :host github :repo "SavchenkoValeriy/emacs-clang-format-plus" :package "clang-format+" :local-repo "emacs-clang-format-plus")) "clang-format" ("2021-11-14 22:03:20" ("cl-lib") (:type git :flavor melpa :host github :repo "emacsmirror/clang-format" :package "clang-format" :local-repo "clang-format")) "rainbow-delimiters" ("2021-11-14 22:03:20" nil (:type git :flavor melpa :host github :repo "Fanael/rainbow-delimiters" :package "rainbow-delimiters" :local-repo "rainbow-delimiters")) "zenburn-theme" ("2021-11-14 22:03:20" nil (:type git :flavor melpa :host github :repo "bbatsov/zenburn-emacs" :package "zenburn-theme" :local-repo "zenburn-emacs")) "vline" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :host github :repo "buzztaiki/vline" :package "vline" :local-repo "vline")) "col-highlight" ("2021-11-14 22:03:20" ("vline") (:type git :host github :repo "emacsmirror/col-highlight" :package "col-highlight" :local-repo "col-highlight")) "powerline" ("2021-11-14 22:03:20" ("cl-lib") (:type git :flavor melpa :host github :repo "milkypostman/powerline" :package "powerline" :local-repo "powerline")) "total-lines" ("2021-11-14 22:03:20" ("emacs") (:type git :flavor melpa :host github :repo "hinrik/total-lines" :package "total-lines" :local-repo "total-lines")) "cursor-chg" ("2021-11-14 22:03:20" nil (:type git :host github :repo "emacsmirror/cursor-chg" :package "cursor-chg" :local-repo "cursor-chg")) "ag" ("2021-11-14 22:03:20" ("dash" "s" "cl-lib") (:type git :flavor melpa :host github :repo "Wilfred/ag.el" :package "ag" :local-repo "ag.el")) "s" ("2021-11-14 22:03:20" nil (:type git :flavor melpa :files ("s.el" "s-pkg.el") :host github :repo "magnars/s.el" :package "s" :local-repo "s.el")) "wgrep-ag" ("2021-11-14 22:03:21" ("wgrep") (:type git :flavor melpa :files ("wgrep-ag.el" "wgrep-ag-pkg.el") :host github :repo "mhayashi1120/Emacs-wgrep" :package "wgrep-ag" :local-repo "Emacs-wgrep")) "wgrep" ("2021-11-14 22:03:21" nil (:flavor melpa :files ("wgrep.el" "wgrep-pkg.el") :package "wgrep" :local-repo "Emacs-wgrep" :type git :repo "mhayashi1120/Emacs-wgrep" :host github)) "undo-tree" ("2021-11-14 22:03:21" nil (:type git :host github :repo "emacs-straight/undo-tree" :files ("*" (:exclude ".git")) :package "undo-tree" :local-repo "undo-tree")) "buffer-move" ("2021-11-14 22:03:21" nil (:type git :flavor melpa :host github :repo "lukhas/buffer-move" :package "buffer-move" :local-repo "buffer-move")) "fast-scroll" ("2021-11-14 22:03:21" ("emacs" "cl-lib") (:type git :flavor melpa :host github :repo "ahungry/fast-scroll" :package "fast-scroll" :local-repo "fast-scroll")) "edit-server" ("2021-11-14 22:03:21" nil (:type git :flavor melpa :files ("servers/edit-server.el" "edit-server-pkg.el") :host github :repo "stsquad/emacs_chrome" :package "edit-server" :local-repo "emacs_chrome")) "multi-term" ("2021-11-14 22:03:21" nil (:type git :flavor melpa :host github :repo "manateelazycat/multi-term" :package "multi-term" :local-repo "multi-term")) "gxref" ("2021-11-14 22:03:21" ("emacs") (:type git :flavor melpa :host github :repo "dedi/gxref" :package "gxref" :local-repo "gxref")) "eldoc" ("2021-11-14 22:03:21" ("emacs") (:type git :host github :repo "emacs-straight/eldoc" :files ("*" (:exclude ".git")) :package "eldoc" :local-repo "eldoc")) "ein" ("2021-11-14 22:03:21" ("emacs" "websocket" "anaphora" "request" "deferred" "polymode" "dash" "with-editor") (:type git :flavor melpa :files ("lisp/*" (:exclude "lisp/zeroein.el") "ein-pkg.el") :host github :repo "millejoh/emacs-ipython-notebook" :package "ein" :local-repo "emacs-ipython-notebook")) "websocket" ("2021-11-14 22:03:21" ("cl-lib") (:type git :flavor melpa :host github :repo "ahyatt/emacs-websocket" :package "websocket" :local-repo "emacs-websocket")) "anaphora" ("2021-11-14 22:03:21" nil (:type git :flavor melpa :host github :repo "rolandwalker/anaphora" :package "anaphora" :local-repo "anaphora")) "request" ("2021-11-14 22:03:21" ("emacs") (:type git :flavor melpa :files ("request.el" "request-pkg.el") :host github :repo "tkf/emacs-request" :package "request" :local-repo "emacs-request")) "deferred" ("2021-11-14 22:03:21" ("emacs") (:type git :flavor melpa :files ("deferred.el" "deferred-pkg.el") :host github :repo "kiwanami/emacs-deferred" :package "deferred" :local-repo "emacs-deferred")) "polymode" ("2021-11-14 22:03:21" ("emacs") (:type git :flavor melpa :host github :repo "polymode/polymode" :package "polymode" :local-repo "polymode")) "pdf-tools" ("2021-11-14 22:03:21" ("emacs" "tablist" "let-alist") (:type git :flavor melpa :files ("lisp/*.el" "README" ("build" "Makefile") ("build" "server") (:exclude "lisp/tablist.el" "lisp/tablist-filter.el") "pdf-tools-pkg.el") :host github :repo "vedang/pdf-tools" :package "pdf-tools" :local-repo "pdf-tools")) "tablist" ("2021-11-14 22:03:21" ("emacs") (:type git :flavor melpa :host github :repo "politza/tablist" :package "tablist" :local-repo "tablist")) "yatex" ("2021-11-14 22:03:21" nil (:type git :host github :repo "emacsmirror/yatex" :package "yatex" :local-repo "yatex")) "rainbow-mode" ("2021-11-14 22:03:21" nil (:type git :host github :repo "emacs-straight/rainbow-mode" :files ("*" (:exclude ".git")) :package "rainbow-mode" :local-repo "rainbow-mode")) "migemo" ("2021-11-14 22:03:21" ("cl-lib") (:type git :flavor melpa :host github :repo "emacs-jp/migemo" :package "migemo" :local-repo "migemo")) "google-translate" ("2021-11-14 22:03:21" ("emacs" "popup") (:type git :flavor melpa :host github :repo "atykhonov/google-translate" :package "google-translate" :local-repo "google-translate")) "avy" ("2021-11-14 22:03:21" ("emacs" "cl-lib") (:type git :flavor melpa :host github :repo "abo-abo/avy" :package "avy" :local-repo "avy")) "helm-descbinds" ("2021-11-14 22:03:21" ("helm") (:type git :flavor melpa :host github :repo "emacs-helm/helm-descbinds" :package "helm-descbinds" :local-repo "helm-descbinds")) "helm-tramp" ("2021-11-14 22:03:21" ("emacs" "helm") (:type git :flavor melpa :host github :repo "masasam/emacs-helm-tramp" :package "helm-tramp" :local-repo "emacs-helm-tramp")) "helm-ag" ("2021-11-14 22:03:21" ("emacs" "helm") (:type git :flavor melpa :host github :repo "emacsorphanage/helm-ag" :package "helm-ag" :local-repo "helm-ag")) "docker" ("2021-11-14 22:03:21" ("dash" "docker-tramp" "emacs" "json-mode" "s" "tablist" "transient") (:type git :flavor melpa :host github :repo "Silex/docker.el" :package "docker" :local-repo "docker.el")) "docker-tramp" ("2021-11-14 22:03:21" ("emacs" "cl-lib") (:type git :flavor melpa :host github :repo "emacs-pe/docker-tramp.el" :package "docker-tramp" :local-repo "docker-tramp.el")) "json-mode" ("2021-11-14 22:03:21" ("json-snatcher" "emacs") (:type git :flavor melpa :host github :repo "joshwnj/json-mode" :package "json-mode" :local-repo "json-mode")) "json-snatcher" ("2021-11-14 22:03:21" ("emacs") (:type git :flavor melpa :host github :repo "Sterlingg/json-snatcher" :package "json-snatcher" :local-repo "json-snatcher")) "hydra" ("2021-11-14 22:03:21" ("cl-lib" "lv") (:type git :flavor melpa :files (:defaults (:exclude "lv.el") "hydra-pkg.el") :host github :repo "abo-abo/hydra" :package "hydra" :local-repo "hydra")) "lv" ("2021-11-14 22:03:21" nil (:flavor melpa :files ("lv.el" "lv-pkg.el") :package "lv" :local-repo "hydra" :type git :repo "abo-abo/hydra" :host github)) "yapfify" ("2021-11-14 22:03:21" nil (:type git :flavor melpa :host github :repo "JorisE/yapfify" :package "yapfify" :local-repo "yapfify")) "py-isort" ("2021-11-14 22:03:21" nil (:type git :flavor melpa :host github :repo "paetzke/py-isort.el" :package "py-isort" :local-repo "py-isort.el")) "ace-window" ("2021-11-14 22:03:21" ("avy") (:type git :flavor melpa :host github :repo "abo-abo/ace-window" :package "ace-window" :local-repo "ace-window")) "which-key" ("2021-11-14 22:03:21" ("emacs") (:type git :flavor melpa :host github :repo "justbur/emacs-which-key" :package "which-key" :local-repo "emacs-which-key")) "package-lint" ("2021-11-14 22:03:21" ("cl-lib" "emacs" "let-alist") (:type git :flavor melpa :files (:defaults "data" (:exclude "*flymake.el") "package-lint-pkg.el") :host github :repo "purcell/package-lint" :package "package-lint" :local-repo "package-lint")) "lsp-mode" ("2021-11-14 22:03:21" ("emacs" "dash" "f" "ht" "spinner" "markdown-mode" "lv") (:type git :flavor melpa :files (:defaults "clients/*.el" "lsp-mode-pkg.el") :host github :repo "emacs-lsp/lsp-mode" :package "lsp-mode" :local-repo "lsp-mode")) "f" ("2021-11-14 22:03:21" ("s" "dash") (:type git :flavor melpa :files ("f.el" "f-pkg.el") :host github :repo "rejeep/f.el" :package "f" :local-repo "f.el")) "ht" ("2021-11-14 22:03:21" ("dash") (:type git :flavor melpa :files ("ht.el" "ht-pkg.el") :host github :repo "Wilfred/ht.el" :package "ht" :local-repo "ht.el")) "spinner" ("2021-11-14 22:03:21" ("emacs") (:type git :host github :repo "emacs-straight/spinner" :files ("*" (:exclude ".git")) :package "spinner" :local-repo "spinner")) "helm-lsp" ("2021-11-14 22:03:21" ("emacs" "dash" "lsp-mode" "helm") (:type git :flavor melpa :host github :repo "emacs-lsp/helm-lsp" :package "helm-lsp" :local-repo "helm-lsp")) "init-loader" ("2021-11-14 22:03:20" ("cl-lib") (:type git :flavor melpa :files ("init-loader.el" "init-loader-pkg.el") :host github :repo "emacs-jp/init-loader" :package "init-loader" :local-repo "init-loader")) "lsp-docker+" ("2021-11-14 22:03:21" ("emacs" "dash" "lsp-mode" "lsp-docker") (:type git :host github :repo "y-kitamu/emacs-lsp-docker-plus" :package "lsp-docker+" :local-repo "emacs-lsp-docker-plus")) "lsp-docker" ("2021-11-14 22:03:21" ("emacs" "dash" "lsp-mode") (:type git :flavor melpa :host github :repo "emacs-lsp/lsp-docker" :package "lsp-docker" :local-repo "lsp-docker")) "lsp-ui" ("2021-11-14 22:03:21" ("emacs" "dash" "lsp-mode" "markdown-mode") (:type git :flavor melpa :files (:defaults "lsp-ui-doc.html" "resources" "lsp-ui-pkg.el") :host github :repo "emacs-lsp/lsp-ui" :package "lsp-ui" :local-repo "lsp-ui")) "lsp-pyright" ("2021-11-14 22:03:21" ("emacs" "lsp-mode" "dash" "ht") (:type git :flavor melpa :host github :repo "emacs-lsp/lsp-pyright" :package "lsp-pyright" :local-repo "lsp-pyright")) "ccls" ("2021-11-14 22:03:21" ("emacs" "lsp-mode" "dash") (:type git :flavor melpa :host github :repo "emacs-lsp/emacs-ccls" :package "ccls" :local-repo "emacs-ccls")) "yasnippet" ("2021-11-14 22:03:21" ("cl-lib") (:type git :flavor melpa :files ("yasnippet.el" "snippets" "yasnippet-pkg.el") :host github :repo "joaotavora/yasnippet" :package "yasnippet" :local-repo "yasnippet")) "company" ("2021-11-14 22:03:21" ("emacs") (:type git :flavor melpa :files (:defaults "icons" "company-pkg.el") :host github :repo "company-mode/company-mode" :package "company" :local-repo "company-mode")) "company-tabnine" ("2021-11-14 22:03:21" ("emacs" "company" "cl-lib" "dash" "s" "unicode-escape") (:type git :flavor melpa :host github :repo "TommyX12/company-tabnine" :package "company-tabnine" :local-repo "company-tabnine")) "unicode-escape" ("2021-11-14 22:03:21" ("emacs" "names" "dash") (:type git :flavor melpa :host github :repo "kosh04/unicode-escape.el" :package "unicode-escape" :local-repo "unicode-escape.el")) "names" ("2021-11-14 22:03:21" ("emacs" "cl-lib") (:type git :flavor melpa :host github :repo "Malabarba/names" :package "names" :local-repo "names")) "dap-mode" ("2021-11-14 22:03:21" ("emacs" "dash" "lsp-mode" "bui" "f" "s" "lsp-treemacs" "posframe" "ht") (:type git :flavor melpa :files (:defaults "icons" "dap-mode-pkg.el") :host github :repo "emacs-lsp/dap-mode" :package "dap-mode" :local-repo "dap-mode")) "bui" ("2021-11-14 22:03:21" ("emacs" "dash") (:type git :flavor melpa :host github :repo "alezost/bui.el" :package "bui" :local-repo "bui.el")) "lsp-treemacs" ("2021-11-14 22:03:21" ("emacs" "dash" "f" "ht" "treemacs" "lsp-mode") (:type git :flavor melpa :files (:defaults "icons" "lsp-treemacs-pkg.el") :host github :repo "emacs-lsp/lsp-treemacs" :package "lsp-treemacs" :local-repo "lsp-treemacs")) "treemacs" ("2021-11-14 22:03:21" ("emacs" "cl-lib" "dash" "s" "ace-window" "pfuture" "hydra" "ht" "cfrs") (:type git :flavor melpa :files (:defaults "Changelog.org" "icons" "src/elisp/treemacs*.el" "src/scripts/treemacs*.py" (:exclude "src/extra/*") "treemacs-pkg.el") :host github :repo "Alexander-Miller/treemacs" :package "treemacs" :local-repo "treemacs")) "pfuture" ("2021-11-14 22:03:21" ("emacs") (:type git :flavor melpa :host github :repo "Alexander-Miller/pfuture" :package "pfuture" :local-repo "pfuture")) "cfrs" ("2021-11-14 22:03:21" ("emacs" "dash" "s" "posframe") (:type git :flavor melpa :host github :repo "Alexander-Miller/cfrs" :package "cfrs" :local-repo "cfrs")) "posframe" ("2021-11-14 22:03:21" ("emacs") (:type git :flavor melpa :host github :repo "tumashu/posframe" :package "posframe" :local-repo "posframe")) "srefactor" ("2021-11-14 22:03:21" ("emacs") (:type git :flavor melpa :host github :repo "tuhdo/semantic-refactor" :package "srefactor" :local-repo "semantic-refactor"))))
+#s(hash-table size 145 test equal rehash-size 1.5 rehash-threshold 0.8125 data ("org-elpa" ("2021-12-11 11:45:51" nil (:local-repo nil :package "org-elpa" :type git)) "melpa" ("2021-12-11 11:45:53" nil (:type git :host github :repo "melpa/melpa" :build nil :package "melpa" :local-repo "melpa")) "gnu-elpa-mirror" ("2021-12-11 11:45:53" nil (:type git :host github :repo "emacs-straight/gnu-elpa-mirror" :build nil :package "gnu-elpa-mirror" :local-repo "gnu-elpa-mirror")) "el-get" ("2021-12-11 11:45:53" nil (:type git :host github :repo "dimitri/el-get" :build nil :files ("*.el" ("recipes" "recipes/el-get.rcp") "methods" "el-get-pkg.el") :flavor melpa :package "el-get" :local-repo "el-get")) "emacsmirror-mirror" ("2021-12-11 11:45:53" nil (:type git :host github :repo "emacs-straight/emacsmirror-mirror" :build nil :package "emacsmirror-mirror" :local-repo "emacsmirror-mirror")) "straight" ("2021-12-11 11:45:53" ("emacs") (:type git :host github :repo "raxod502/straight.el" :files ("straight*.el") :branch "master" :package "straight" :local-repo "straight.el")) "use-package" ("2021-12-11 11:45:53" ("emacs" "bind-key") (:type git :flavor melpa :files (:defaults (:exclude "bind-key.el" "bind-chord.el" "use-package-chords.el" "use-package-ensure-system-package.el") "use-package-pkg.el") :host github :repo "jwiegley/use-package" :package "use-package" :local-repo "use-package")) "bind-key" ("2021-12-11 11:45:53" nil (:flavor melpa :files ("bind-key.el" "bind-key-pkg.el") :package "bind-key" :local-repo "use-package" :type git :repo "jwiegley/use-package" :host github)) "yk-util" ("2021-12-11 11:45:53" ("emacs" "dash") (:type git :host github :repo "y-kitamu/yk_elisp" :package "yk-util" :local-repo "yk_elisp")) "dash" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :files ("dash.el" "dash.texi" "dash-pkg.el") :host github :repo "magnars/dash.el" :package "dash" :local-repo "dash.el")) "magit" ("2021-12-11 11:45:53" ("emacs" "dash" "git-commit" "magit-section" "transient" "with-editor") (:type git :flavor melpa :files ("lisp/magit" "lisp/magit*.el" "lisp/git-rebase.el" "Documentation/magit.texi" "Documentation/AUTHORS.md" "LICENSE" (:exclude "lisp/magit-libgit.el" "lisp/magit-libgit-pkg.el" "lisp/magit-section.el" "lisp/magit-section-pkg.el") "magit-pkg.el") :host github :repo "magit/magit" :package "magit" :local-repo "magit")) "git-commit" ("2021-12-11 11:45:53" ("emacs" "dash" "transient" "with-editor") (:flavor melpa :files ("lisp/git-commit.el" "lisp/git-commit-pkg.el" "git-commit-pkg.el") :package "git-commit" :local-repo "magit" :type git :repo "magit/magit" :host github)) "transient" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :files ("lisp/*.el" "docs/transient.texi" "transient-pkg.el") :host github :repo "magit/transient" :package "transient" :local-repo "transient")) "with-editor" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :host github :repo "magit/with-editor" :package "with-editor" :local-repo "with-editor")) "magit-section" ("2021-12-11 11:45:53" ("emacs" "dash") (:flavor melpa :files ("lisp/magit-section.el" "lisp/magit-section-pkg.el" "Documentation/magit-section.texi" "magit-section-pkg.el") :package "magit-section" :local-repo "magit" :type git :repo "magit/magit" :host github)) "helm-ls-git" ("2021-12-11 11:45:53" ("helm") (:type git :flavor melpa :host github :repo "emacs-helm/helm-ls-git" :package "helm-ls-git" :local-repo "helm-ls-git")) "helm" ("2021-12-11 11:45:53" ("emacs" "async" "popup" "helm-core") (:type git :flavor melpa :files ("*.el" "emacs-helm.sh" (:exclude "helm.el" "helm-lib.el" "helm-source.el" "helm-multi-match.el" "helm-core-pkg.el") "helm-pkg.el") :host github :repo "emacs-helm/helm" :package "helm" :local-repo "helm")) "async" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :host github :repo "jwiegley/emacs-async" :package "async" :local-repo "emacs-async")) "popup" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :files ("popup.el" "popup-pkg.el") :host github :repo "auto-complete/popup-el" :package "popup" :local-repo "popup-el")) "helm-core" ("2021-12-11 11:45:53" ("emacs" "async") (:flavor melpa :files ("helm-core-pkg.el" "helm.el" "helm-lib.el" "helm-source.el" "helm-multi-match.el" "helm-core-pkg.el") :package "helm-core" :local-repo "helm" :type git :repo "emacs-helm/helm" :host github)) "git-gutter" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :host github :repo "emacsorphanage/git-gutter" :package "git-gutter" :local-repo "git-gutter")) "projectile" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :files ("projectile.el" "projectile-pkg.el") :host github :repo "bbatsov/projectile" :package "projectile" :local-repo "projectile")) "helm-projectile" ("2021-12-11 11:45:53" ("helm" "projectile" "cl-lib") (:type git :flavor melpa :host github :repo "bbatsov/helm-projectile" :package "helm-projectile" :local-repo "helm-projectile")) "org" ("2021-12-11 11:45:53" ("emacs") (:type git :repo "https://git.savannah.gnu.org/git/emacs/org-mode.git" :local-repo "org" :depth full :pre-build (straight-recipes-org-elpa--build) :build (:not autoloads) :files (:defaults "lisp/*.el" ("etc/styles/" "etc/styles/*")) :package "org")) "open-junk-file" ("2021-12-11 11:45:53" nil (:type git :flavor melpa :host github :repo "rubikitch/open-junk-file" :package "open-junk-file" :local-repo "open-junk-file")) "lispxmp" ("2021-12-11 11:45:53" nil (:type git :flavor melpa :host github :repo "rubikitch/lispxmp" :package "lispxmp" :local-repo "lispxmp")) "paredit" ("2021-12-11 11:45:53" nil (:type git :flavor melpa :files ("paredit.el" "paredit-pkg.el") :repo "https://mumble.net/~campbell/git/paredit.git" :package "paredit" :local-repo "paredit")) "auto-async-byte-compile" ("2021-12-11 11:45:53" nil (:type git :flavor melpa :host github :repo "rubikitch/auto-async-byte-compile" :package "auto-async-byte-compile" :local-repo "auto-async-byte-compile")) "powershell" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :host github :repo "jschaf/powershell.el" :package "powershell" :local-repo "powershell.el")) "dockerfile-mode" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :host github :repo "spotify/dockerfile-mode" :package "dockerfile-mode" :local-repo "dockerfile-mode")) "docker-compose-mode" ("2021-12-11 11:45:53" ("emacs" "dash" "yaml-mode") (:type git :flavor melpa :files (:defaults (:exclude "docker-compose-mode-helpers.el") "docker-compose-mode-pkg.el") :host github :repo "meqif/docker-compose-mode" :package "docker-compose-mode" :local-repo "docker-compose-mode")) "yaml-mode" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :host github :repo "yoshiki/yaml-mode" :package "yaml-mode" :local-repo "yaml-mode")) "cmake-mode" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :files ("Auxiliary/*.el" "cmake-mode-pkg.el") :repo "https://gitlab.kitware.com/cmake/cmake.git" :package "cmake-mode" :local-repo "cmake")) "protobuf-mode" ("2021-12-11 11:45:53" nil (:type git :flavor melpa :files ("editors/protobuf-mode.el" "protobuf-mode-pkg.el") :host github :repo "google/protobuf" :package "protobuf-mode" :local-repo "protobuf")) "csv-mode" ("2021-12-11 11:45:53" ("emacs" "cl-lib") (:type git :host github :repo "emacs-straight/csv-mode" :files ("*" (:exclude ".git")) :package "csv-mode" :local-repo "csv-mode")) "go-mode" ("2021-12-11 11:45:53" nil (:type git :flavor melpa :files ("go-mode.el" "go-mode-pkg.el") :host github :repo "dominikh/go-mode.el" :package "go-mode" :local-repo "go-mode.el")) "typescript-mode" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :host github :repo "emacs-typescript/typescript.el" :package "typescript-mode" :local-repo "typescript.el")) "cuda-mode" ("2021-12-11 11:45:53" nil (:type git :flavor melpa :host github :repo "chachi/cuda-mode" :package "cuda-mode" :local-repo "cuda-mode")) "rust-mode" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :host github :repo "rust-lang/rust-mode" :package "rust-mode" :local-repo "rust-mode")) "cargo" ("2021-12-11 11:45:53" ("emacs" "markdown-mode") (:type git :flavor melpa :host github :repo "kwrooijen/cargo.el" :package "cargo" :local-repo "cargo.el")) "markdown-mode" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :host github :repo "jrblevin/markdown-mode" :package "markdown-mode" :local-repo "markdown-mode")) "flycheck-rust" ("2021-12-11 11:45:53" ("emacs" "flycheck" "dash" "seq" "let-alist") (:type git :flavor melpa :host github :repo "flycheck/flycheck-rust" :package "flycheck-rust" :local-repo "flycheck-rust")) "flycheck" ("2021-12-11 11:45:53" ("dash" "pkg-info" "let-alist" "seq" "emacs") (:type git :flavor melpa :host github :repo "flycheck/flycheck" :package "flycheck" :local-repo "flycheck")) "pkg-info" ("2021-12-11 11:45:53" ("epl") (:type git :flavor melpa :host github :repo "emacsorphanage/pkg-info" :package "pkg-info" :local-repo "pkg-info")) "epl" ("2021-12-11 11:45:53" ("cl-lib") (:type git :flavor melpa :host github :repo "cask/epl" :package "epl" :local-repo "epl")) "let-alist" ("2021-12-11 11:45:53" ("emacs") (:type git :host github :repo "emacs-straight/let-alist" :files ("*" (:exclude ".git")) :package "let-alist" :local-repo "let-alist")) "web-mode" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :host github :repo "fxbois/web-mode" :package "web-mode" :local-repo "web-mode")) "prettier-js" ("2021-12-11 11:45:53" nil (:type git :flavor melpa :host github :repo "prettier/prettier-emacs" :package "prettier-js" :local-repo "prettier-emacs")) "glsl-mode" ("2021-12-11 11:45:53" nil (:type git :flavor melpa :host github :repo "jimhourihan/glsl-mode" :package "glsl-mode" :local-repo "glsl-mode")) "clang-format+" ("2021-12-11 11:45:53" ("emacs" "clang-format") (:type git :flavor melpa :host github :repo "SavchenkoValeriy/emacs-clang-format-plus" :package "clang-format+" :local-repo "emacs-clang-format-plus")) "clang-format" ("2021-12-11 11:45:53" ("cl-lib") (:type git :flavor melpa :host github :repo "emacsmirror/clang-format" :package "clang-format" :local-repo "clang-format")) "rainbow-delimiters" ("2021-12-11 11:45:53" nil (:type git :flavor melpa :host github :repo "Fanael/rainbow-delimiters" :package "rainbow-delimiters" :local-repo "rainbow-delimiters")) "zenburn-theme" ("2021-12-11 11:45:53" nil (:type git :flavor melpa :host github :repo "bbatsov/zenburn-emacs" :package "zenburn-theme" :local-repo "zenburn-emacs")) "vline" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :host github :repo "buzztaiki/vline" :package "vline" :local-repo "vline")) "col-highlight" ("2021-12-11 11:45:53" ("vline") (:type git :host github :repo "emacsmirror/col-highlight" :package "col-highlight" :local-repo "col-highlight")) "powerline" ("2021-12-11 11:45:53" ("cl-lib") (:type git :flavor melpa :host github :repo "milkypostman/powerline" :package "powerline" :local-repo "powerline")) "total-lines" ("2021-12-11 11:45:53" ("emacs") (:type git :flavor melpa :host github :repo "hinrik/total-lines" :package "total-lines" :local-repo "total-lines")) "cursor-chg" ("2021-12-11 11:45:53" nil (:type git :host github :repo "emacsmirror/cursor-chg" :package "cursor-chg" :local-repo "cursor-chg")) "ag" ("2021-12-11 11:45:53" ("dash" "s" "cl-lib") (:type git :flavor melpa :host github :repo "Wilfred/ag.el" :package "ag" :local-repo "ag.el")) "s" ("2021-12-11 11:45:53" nil (:type git :flavor melpa :files ("s.el" "s-pkg.el") :host github :repo "magnars/s.el" :package "s" :local-repo "s.el")) "wgrep-ag" ("2021-12-11 11:45:54" ("wgrep") (:type git :flavor melpa :files ("wgrep-ag.el" "wgrep-ag-pkg.el") :host github :repo "mhayashi1120/Emacs-wgrep" :package "wgrep-ag" :local-repo "Emacs-wgrep")) "wgrep" ("2021-12-11 11:45:54" nil (:flavor melpa :files ("wgrep.el" "wgrep-pkg.el") :package "wgrep" :local-repo "Emacs-wgrep" :type git :repo "mhayashi1120/Emacs-wgrep" :host github)) "undo-tree" ("2021-12-11 11:45:54" nil (:type git :host github :repo "emacs-straight/undo-tree" :files ("*" (:exclude ".git")) :package "undo-tree" :local-repo "undo-tree")) "buffer-move" ("2021-12-11 11:45:54" nil (:type git :flavor melpa :host github :repo "lukhas/buffer-move" :package "buffer-move" :local-repo "buffer-move")) "fast-scroll" ("2021-12-11 11:45:54" ("emacs" "cl-lib") (:type git :flavor melpa :host github :repo "ahungry/fast-scroll" :package "fast-scroll" :local-repo "fast-scroll")) "edit-server" ("2021-12-11 11:45:54" nil (:type git :flavor melpa :files ("servers/edit-server.el" "edit-server-pkg.el") :host github :repo "stsquad/emacs_chrome" :package "edit-server" :local-repo "emacs_chrome")) "multi-term" ("2021-12-11 11:45:54" nil (:type git :flavor melpa :host github :repo "manateelazycat/multi-term" :package "multi-term" :local-repo "multi-term")) "gxref" ("2021-12-11 11:45:54" ("emacs") (:type git :flavor melpa :host github :repo "dedi/gxref" :package "gxref" :local-repo "gxref")) "eldoc" ("2021-12-11 11:45:54" ("emacs") (:type git :host github :repo "emacs-straight/eldoc" :files ("*" (:exclude ".git")) :package "eldoc" :local-repo "eldoc")) "ein" ("2021-12-11 11:45:54" ("emacs" "websocket" "anaphora" "request" "deferred" "polymode" "dash" "with-editor") (:type git :flavor melpa :files ("lisp/*" (:exclude "lisp/zeroein.el") "ein-pkg.el") :host github :repo "millejoh/emacs-ipython-notebook" :package "ein" :local-repo "emacs-ipython-notebook")) "websocket" ("2021-12-11 11:45:54" ("cl-lib") (:type git :flavor melpa :host github :repo "ahyatt/emacs-websocket" :package "websocket" :local-repo "emacs-websocket")) "anaphora" ("2021-12-11 11:45:54" nil (:type git :flavor melpa :host github :repo "rolandwalker/anaphora" :package "anaphora" :local-repo "anaphora")) "request" ("2021-12-11 11:45:54" ("emacs") (:type git :flavor melpa :files ("request.el" "request-pkg.el") :host github :repo "tkf/emacs-request" :package "request" :local-repo "emacs-request")) "deferred" ("2021-12-11 11:45:54" ("emacs") (:type git :flavor melpa :files ("deferred.el" "deferred-pkg.el") :host github :repo "kiwanami/emacs-deferred" :package "deferred" :local-repo "emacs-deferred")) "polymode" ("2021-12-11 11:45:54" ("emacs") (:type git :flavor melpa :host github :repo "polymode/polymode" :package "polymode" :local-repo "polymode")) "pdf-tools" ("2021-12-11 11:45:54" ("emacs" "tablist" "let-alist") (:type git :flavor melpa :files ("lisp/*.el" "README" ("build" "Makefile") ("build" "server") (:exclude "lisp/tablist.el" "lisp/tablist-filter.el") "pdf-tools-pkg.el") :host github :repo "vedang/pdf-tools" :package "pdf-tools" :local-repo "pdf-tools")) "tablist" ("2021-12-11 11:45:54" ("emacs") (:type git :flavor melpa :host github :repo "politza/tablist" :package "tablist" :local-repo "tablist")) "yatex" ("2021-12-11 11:45:54" nil (:type git :host github :repo "emacsmirror/yatex" :package "yatex" :local-repo "yatex")) "rainbow-mode" ("2021-12-11 11:45:54" nil (:type git :host github :repo "emacs-straight/rainbow-mode" :files ("*" (:exclude ".git")) :package "rainbow-mode" :local-repo "rainbow-mode")) "migemo" ("2021-12-11 11:45:54" ("cl-lib") (:type git :flavor melpa :host github :repo "emacs-jp/migemo" :package "migemo" :local-repo "migemo")) "google-translate" ("2021-12-11 11:45:54" ("emacs" "popup") (:type git :flavor melpa :host github :repo "atykhonov/google-translate" :package "google-translate" :local-repo "google-translate")) "avy" ("2021-12-11 11:45:54" ("emacs" "cl-lib") (:type git :flavor melpa :host github :repo "abo-abo/avy" :package "avy" :local-repo "avy")) "helm-descbinds" ("2021-12-11 11:45:54" ("helm") (:type git :flavor melpa :host github :repo "emacs-helm/helm-descbinds" :package "helm-descbinds" :local-repo "helm-descbinds")) "helm-tramp" ("2021-12-11 11:45:54" ("emacs" "helm") (:type git :flavor melpa :host github :repo "masasam/emacs-helm-tramp" :package "helm-tramp" :local-repo "emacs-helm-tramp")) "helm-ag" ("2021-12-11 11:45:54" ("emacs" "helm") (:type git :flavor melpa :host github :repo "emacsorphanage/helm-ag" :package "helm-ag" :local-repo "helm-ag")) "docker" ("2021-12-11 11:45:54" ("dash" "docker-tramp" "emacs" "json-mode" "s" "tablist" "transient") (:type git :flavor melpa :host github :repo "Silex/docker.el" :package "docker" :local-repo "docker.el")) "docker-tramp" ("2021-12-11 11:45:54" ("emacs" "cl-lib") (:type git :flavor melpa :host github :repo "emacs-pe/docker-tramp.el" :package "docker-tramp" :local-repo "docker-tramp.el")) "json-mode" ("2021-12-11 11:45:54" ("json-snatcher" "emacs") (:type git :flavor melpa :host github :repo "joshwnj/json-mode" :package "json-mode" :local-repo "json-mode")) "json-snatcher" ("2021-12-11 11:45:54" ("emacs") (:type git :flavor melpa :host github :repo "Sterlingg/json-snatcher" :package "json-snatcher" :local-repo "json-snatcher")) "hydra" ("2021-12-11 11:45:54" ("cl-lib" "lv") (:type git :flavor melpa :files (:defaults (:exclude "lv.el") "hydra-pkg.el") :host github :repo "abo-abo/hydra" :package "hydra" :local-repo "hydra")) "lv" ("2021-12-11 11:45:54" nil (:flavor melpa :files ("lv.el" "lv-pkg.el") :package "lv" :local-repo "hydra" :type git :repo "abo-abo/hydra" :host github)) "yapfify" ("2021-12-11 11:45:54" nil (:type git :flavor melpa :host github :repo "JorisE/yapfify" :package "yapfify" :local-repo "yapfify")) "py-isort" ("2021-12-11 11:45:54" nil (:type git :flavor melpa :host github :repo "paetzke/py-isort.el" :package "py-isort" :local-repo "py-isort.el")) "ace-window" ("2021-12-11 11:45:54" ("avy") (:type git :flavor melpa :host github :repo "abo-abo/ace-window" :package "ace-window" :local-repo "ace-window")) "which-key" ("2021-12-11 11:45:54" ("emacs") (:type git :flavor melpa :host github :repo "justbur/emacs-which-key" :package "which-key" :local-repo "emacs-which-key")) "package-lint" ("2021-12-11 11:45:54" ("cl-lib" "emacs" "let-alist") (:type git :flavor melpa :files (:defaults "data" (:exclude "*flymake.el") "package-lint-pkg.el") :host github :repo "purcell/package-lint" :package "package-lint" :local-repo "package-lint")) "lsp-mode" ("2021-12-11 11:45:54" ("emacs" "dash" "f" "ht" "spinner" "markdown-mode" "lv") (:type git :flavor melpa :files (:defaults "clients/*.el" "lsp-mode-pkg.el") :host github :repo "emacs-lsp/lsp-mode" :package "lsp-mode" :local-repo "lsp-mode")) "f" ("2021-12-11 11:45:54" ("s" "dash") (:type git :flavor melpa :files ("f.el" "f-pkg.el") :host github :repo "rejeep/f.el" :package "f" :local-repo "f.el")) "ht" ("2021-12-11 11:45:54" ("dash") (:type git :flavor melpa :files ("ht.el" "ht-pkg.el") :host github :repo "Wilfred/ht.el" :package "ht" :local-repo "ht.el")) "spinner" ("2021-12-11 11:45:54" ("emacs") (:type git :host github :repo "emacs-straight/spinner" :files ("*" (:exclude ".git")) :package "spinner" :local-repo "spinner")) "helm-lsp" ("2021-12-11 11:45:54" ("emacs" "dash" "lsp-mode" "helm") (:type git :flavor melpa :host github :repo "emacs-lsp/helm-lsp" :package "helm-lsp" :local-repo "helm-lsp")) "init-loader" ("2021-12-11 11:45:53" ("cl-lib") (:type git :flavor melpa :files ("init-loader.el" "init-loader-pkg.el") :host github :repo "emacs-jp/init-loader" :package "init-loader" :local-repo "init-loader")) "lsp-docker+" ("2021-12-11 11:45:54" ("emacs" "dash" "lsp-mode" "lsp-docker") (:type git :host github :repo "y-kitamu/emacs-lsp-docker-plus" :package "lsp-docker+" :local-repo "emacs-lsp-docker-plus")) "lsp-docker" ("2021-12-11 11:45:54" ("emacs" "dash" "lsp-mode") (:type git :flavor melpa :host github :repo "emacs-lsp/lsp-docker" :package "lsp-docker" :local-repo "lsp-docker")) "lsp-ui" ("2021-12-11 11:45:54" ("emacs" "dash" "lsp-mode" "markdown-mode") (:type git :flavor melpa :files (:defaults "lsp-ui-doc.html" "resources" "lsp-ui-pkg.el") :host github :repo "emacs-lsp/lsp-ui" :package "lsp-ui" :local-repo "lsp-ui")) "lsp-pyright" ("2021-12-11 11:45:54" ("emacs" "lsp-mode" "dash" "ht") (:type git :flavor melpa :host github :repo "emacs-lsp/lsp-pyright" :package "lsp-pyright" :local-repo "lsp-pyright")) "ccls" ("2021-12-11 11:45:54" ("emacs" "lsp-mode" "dash") (:type git :flavor melpa :host github :repo "emacs-lsp/emacs-ccls" :package "ccls" :local-repo "emacs-ccls")) "yasnippet" ("2021-12-11 11:45:54" ("cl-lib") (:type git :flavor melpa :files ("yasnippet.el" "snippets" "yasnippet-pkg.el") :host github :repo "joaotavora/yasnippet" :package "yasnippet" :local-repo "yasnippet")) "company" ("2021-12-11 11:45:54" ("emacs") (:type git :flavor melpa :files (:defaults "icons" "company-pkg.el") :host github :repo "company-mode/company-mode" :package "company" :local-repo "company-mode")) "company-tabnine" ("2021-12-11 11:45:54" ("emacs" "company" "cl-lib" "dash" "s" "unicode-escape") (:type git :flavor melpa :host github :repo "TommyX12/company-tabnine" :package "company-tabnine" :local-repo "company-tabnine")) "unicode-escape" ("2021-12-11 11:45:54" ("emacs" "names" "dash") (:type git :flavor melpa :host github :repo "kosh04/unicode-escape.el" :package "unicode-escape" :local-repo "unicode-escape.el")) "names" ("2021-12-11 11:45:54" ("emacs" "cl-lib") (:type git :flavor melpa :host github :repo "Malabarba/names" :package "names" :local-repo "names")) "dap-mode" ("2021-12-11 11:45:54" ("emacs" "dash" "lsp-mode" "bui" "f" "s" "lsp-treemacs" "posframe" "ht") (:type git :flavor melpa :files (:defaults "icons" "dap-mode-pkg.el") :host github :repo "emacs-lsp/dap-mode" :package "dap-mode" :local-repo "dap-mode")) "bui" ("2021-12-11 11:45:54" ("emacs" "dash") (:type git :flavor melpa :host github :repo "alezost/bui.el" :package "bui" :local-repo "bui.el")) "lsp-treemacs" ("2021-12-11 11:45:54" ("emacs" "dash" "f" "ht" "treemacs" "lsp-mode") (:type git :flavor melpa :files (:defaults "icons" "lsp-treemacs-pkg.el") :host github :repo "emacs-lsp/lsp-treemacs" :package "lsp-treemacs" :local-repo "lsp-treemacs")) "treemacs" ("2021-12-11 11:45:54" ("emacs" "cl-lib" "dash" "s" "ace-window" "pfuture" "hydra" "ht" "cfrs") (:type git :flavor melpa :files (:defaults "Changelog.org" "icons" "src/elisp/treemacs*.el" "src/scripts/treemacs*.py" (:exclude "src/extra/*") "treemacs-pkg.el") :host github :repo "Alexander-Miller/treemacs" :package "treemacs" :local-repo "treemacs")) "pfuture" ("2021-12-11 11:45:54" ("emacs") (:type git :flavor melpa :host github :repo "Alexander-Miller/pfuture" :package "pfuture" :local-repo "pfuture")) "cfrs" ("2021-12-11 11:45:54" ("emacs" "dash" "s" "posframe") (:type git :flavor melpa :host github :repo "Alexander-Miller/cfrs" :package "cfrs" :local-repo "cfrs")) "posframe" ("2021-12-11 11:45:54" ("emacs") (:type git :flavor melpa :host github :repo "tumashu/posframe" :package "posframe" :local-repo "posframe")) "srefactor" ("2021-12-11 11:45:54" ("emacs") (:type git :flavor melpa :host github :repo "tuhdo/semantic-refactor" :package "srefactor" :local-repo "semantic-refactor")) "mozc" ("2021-12-11 11:45:54" nil (:type git :flavor melpa :files ("src/unix/emacs/mozc.el" "mozc-pkg.el") :host github :repo "google/mozc" :package "mozc" :local-repo "mozc"))))
 
 #s(hash-table size 145 test equal rehash-size 1.5 rehash-threshold 0.8125 data ("straight" ((straight-x straight-autoloads straight) (autoload 'straight-remove-unused-repos "straight" "Remove unused repositories from the repos directory.
 A repo is considered \"unused\" if it was not explicitly requested via
@@ -436,42 +436,7 @@ instead.
 
 (fn PACKAGE)" t nil) (register-definition-prefixes "use-package-jump" '("use-package-find-require")) (autoload 'use-package-lint "use-package-lint" "Check for errors in use-package declarations.
 For example, if the module's `:if' condition is met, but even
-with the specified `:load-path' the module cannot be found." t nil) (register-definition-prefixes "use-package-lint" '("use-package-lint-declaration")) (provide 'use-package-autoloads)) "dash" ((dash dash-autoloads) (autoload 'dash-fontify-mode "dash" "Toggle fontification of Dash special variables.
-
-If called interactively, enable Dash-Fontify mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
-
-Dash-Fontify mode is a buffer-local minor mode intended for Emacs
-Lisp buffers.  Enabling it causes the special variables bound in
-anaphoric Dash macros to be fontified.  These anaphoras include
-`it', `it-index', `acc', and `other'.  In older Emacs versions
-which do not dynamically detect macros, Dash-Fontify mode
-additionally fontifies Dash macro calls.
-
-See also `dash-fontify-mode-lighter' and
-`global-dash-fontify-mode'.
-
-(fn &optional ARG)" t nil) (put 'global-dash-fontify-mode 'globalized-minor-mode t) (defvar global-dash-fontify-mode nil "Non-nil if Global Dash-Fontify mode is enabled.
-See the `global-dash-fontify-mode' command
-for a description of this minor mode.
-Setting this variable directly does not take effect;
-either customize it (see the info node `Easy Customization')
-or call the function `global-dash-fontify-mode'.") (custom-autoload 'global-dash-fontify-mode "dash" nil) (autoload 'global-dash-fontify-mode "dash" "Toggle Dash-Fontify mode in all buffers.
-With prefix ARG, enable Global Dash-Fontify mode if ARG is positive;
-otherwise, disable it.  If called from Lisp, enable the mode if
-ARG is omitted or nil.
-
-Dash-Fontify mode is enabled in all buffers where
-`dash--turn-on-fontify-mode' would do it.
-See `dash-fontify-mode' for more information on Dash-Fontify mode.
-
-(fn &optional ARG)" t nil) (autoload 'dash-register-info-lookup "dash" "Register the Dash Info manual with `info-lookup-symbol'.
-This allows Dash symbols to be looked up with \\[info-lookup-symbol]." t nil) (register-definition-prefixes "dash" '("!cdr" "!cons" "--" "->" "-a" "-butlast" "-c" "-d" "-e" "-f" "-gr" "-i" "-juxt" "-keep" "-l" "-m" "-no" "-o" "-p" "-r" "-s" "-t" "-u" "-value-to-list" "-when-let" "-zip" "dash-")) (provide 'dash-autoloads)) "yk-util" ((yk-util-autoloads yk-util) (register-definition-prefixes "yk-util" '("yk/add-to-list-multiple")) (provide 'yk-util-autoloads)) "transient" ((transient-autoloads transient) (autoload 'transient-insert-suffix "transient" "Insert a SUFFIX into PREFIX before LOC.
+with the specified `:load-path' the module cannot be found." t nil) (register-definition-prefixes "use-package-lint" '("use-package-lint-declaration")) (provide 'use-package-autoloads)) "dash" ((dash)) "yk-util" ((yk-util)) "transient" ((transient-autoloads transient) (autoload 'transient-insert-suffix "transient" "Insert a SUFFIX into PREFIX before LOC.
 PREFIX is a prefix command, a symbol.
 SUFFIX is a suffix command or a group specification (of
   the same forms as expected by `transient-define-prefix').
@@ -4420,10 +4385,16 @@ it is disabled.
 
 (fn)" t nil) (register-definition-prefixes "tablist" '("tablist-")) (register-definition-prefixes "tablist-filter" '("tablist-filter-")) (provide 'tablist-autoloads)) "pdf-tools" ((pdf-view pdf-util pdf-dev pdf-tools pdf-outline pdf-links pdf-history pdf-isearch pdf-loader pdf-cache pdf-misc pdf-sync pdf-annot pdf-tools-autoloads pdf-macs pdf-virtual pdf-info pdf-occur) (autoload 'pdf-annot-minor-mode "pdf-annot" "Support for PDF Annotations.
 
-If called interactively, enable Pdf-Annot minor mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Pdf-Annot minor mode' mode.  If the prefix argument is positive,
+enable the mode, and if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `pdf-annot-minor-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -4432,10 +4403,17 @@ it is disabled.
 
 (fn &optional ARG)" t nil) (register-definition-prefixes "pdf-annot" '("pdf-annot-")) (register-definition-prefixes "pdf-cache" '("boundingbox" "define-pdf-cache-function" "page" "pdf-cache-" "textregions")) (register-definition-prefixes "pdf-dev" '("pdf-dev-")) (autoload 'pdf-history-minor-mode "pdf-history" "Keep a history of previously visited pages.
 
-If called interactively, enable Pdf-History minor mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Pdf-History minor mode' mode.  If the prefix argument is
+positive, enable the mode, and if it is zero or negative, disable
+the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `pdf-history-minor-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -4448,10 +4426,17 @@ may be navigated with the following keys.
 
 (fn &optional ARG)" t nil) (register-definition-prefixes "pdf-history" '("pdf-history-")) (register-definition-prefixes "pdf-info" '("pdf-info-")) (autoload 'pdf-isearch-minor-mode "pdf-isearch" "Isearch mode for PDF buffer.
 
-If called interactively, enable Pdf-Isearch minor mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Pdf-Isearch minor mode' mode.  If the prefix argument is
+positive, enable the mode, and if it is zero or negative, disable
+the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `pdf-isearch-minor-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -4486,10 +4471,16 @@ that not every isearch command work as expected.
 
 (fn &optional ARG)" t nil) (register-definition-prefixes "pdf-isearch" '("pdf-isearch-")) (autoload 'pdf-links-minor-mode "pdf-links" "Handle links in PDF documents.\\<pdf-links-minor-mode-map>
 
-If called interactively, enable Pdf-Links minor mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Pdf-Links minor mode' mode.  If the prefix argument is positive,
+enable the mode, and if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `pdf-links-minor-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -4524,42 +4515,67 @@ see.
 
 (fn &optional NO-QUERY-P SKIP-DEPENDENCIES-P NO-ERROR-P FORCE-DEPENDENCIES-P)" nil nil) (register-definition-prefixes "pdf-loader" '("pdf-loader--")) (register-definition-prefixes "pdf-macs" '("pdf-view-")) (autoload 'pdf-misc-minor-mode "pdf-misc" "FIXME:  Not documented.
 
-If called interactively, enable Pdf-Misc minor mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Pdf-Misc minor mode' mode.  If the prefix argument is positive,
+enable the mode, and if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `pdf-misc-minor-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
 
 (fn &optional ARG)" t nil) (autoload 'pdf-misc-size-indication-minor-mode "pdf-misc" "Provide a working size indication in the mode-line.
 
-If called interactively, enable Pdf-Misc-Size-Indication minor
-mode if ARG is positive, and disable it if ARG is zero or
-negative.  If called from Lisp, also enable the mode if ARG is
-omitted or nil, and toggle it if ARG is `toggle'; disable the
-mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Pdf-Misc-Size-Indication minor mode' mode.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `pdf-misc-size-indication-minor-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
 
 (fn &optional ARG)" t nil) (autoload 'pdf-misc-menu-bar-minor-mode "pdf-misc" "Display a PDF Tools menu in the menu-bar.
 
-If called interactively, enable Pdf-Misc-Menu-Bar minor mode if
-ARG is positive, and disable it if ARG is zero or negative.  If
-called from Lisp, also enable the mode if ARG is omitted or nil,
-and toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Pdf-Misc-Menu-Bar minor mode' mode.  If the prefix argument is
+positive, enable the mode, and if it is zero or negative, disable
+the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `pdf-misc-menu-bar-minor-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
 
 (fn &optional ARG)" t nil) (autoload 'pdf-misc-context-menu-minor-mode "pdf-misc" "Provide a right-click context menu in PDF buffers.
 
-If called interactively, enable Pdf-Misc-Context-Menu minor mode
-if ARG is positive, and disable it if ARG is zero or negative.
-If called from Lisp, also enable the mode if ARG is omitted or
-nil, and toggle it if ARG is `toggle'; disable the mode
-otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Pdf-Misc-Context-Menu minor mode' mode.  If the prefix argument
+is positive, enable the mode, and if it is zero or negative,
+disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `pdf-misc-context-menu-minor-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -4584,10 +4600,17 @@ Setting this variable directly does not take effect;
 either customize it (see the info node `Easy Customization')
 or call the function `pdf-occur-global-minor-mode'.") (custom-autoload 'pdf-occur-global-minor-mode "pdf-occur" nil) (autoload 'pdf-occur-global-minor-mode "pdf-occur" "Enable integration of Pdf Occur with other modes.
 
-If called interactively, enable Pdf-Occur-Global minor mode if
-ARG is positive, and disable it if ARG is zero or negative.  If
-called from Lisp, also enable the mode if ARG is omitted or nil,
-and toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Pdf-Occur-Global minor mode' mode.  If the prefix argument is
+positive, enable the mode, and if it is zero or negative, disable
+the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `(default-value 'pdf-occur-global-minor-mode)'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -4598,10 +4621,17 @@ in all current and future ibuffer/dired buffer.
 
 (fn &optional ARG)" t nil) (autoload 'pdf-occur-ibuffer-minor-mode "pdf-occur" "Hack into ibuffer's do-occur binding.
 
-If called interactively, enable Pdf-Occur-Ibuffer minor mode if
-ARG is positive, and disable it if ARG is zero or negative.  If
-called from Lisp, also enable the mode if ARG is omitted or nil,
-and toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Pdf-Occur-Ibuffer minor mode' mode.  If the prefix argument is
+positive, enable the mode, and if it is zero or negative, disable
+the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `pdf-occur-ibuffer-minor-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -4613,10 +4643,17 @@ and otherwise fallback to `ibuffer-do-occur'.
 
 (fn &optional ARG)" t nil) (autoload 'pdf-occur-dired-minor-mode "pdf-occur" "Hack into dired's `dired-do-search' binding.
 
-If called interactively, enable Pdf-Occur-Dired minor mode if ARG
-is positive, and disable it if ARG is zero or negative.  If
-called from Lisp, also enable the mode if ARG is omitted or nil,
-and toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Pdf-Occur-Dired minor mode' mode.  If the prefix argument is
+positive, enable the mode, and if it is zero or negative, disable
+the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `pdf-occur-dired-minor-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -4628,10 +4665,17 @@ and otherwise fallback to `dired-do-search'.
 
 (fn &optional ARG)" t nil) (register-definition-prefixes "pdf-occur" '("pdf-occur-")) (autoload 'pdf-outline-minor-mode "pdf-outline" "Display an outline of a PDF document.
 
-If called interactively, enable Pdf-Outline minor mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Pdf-Outline minor mode' mode.  If the prefix argument is
+positive, enable the mode, and if it is zero or negative, disable
+the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `pdf-outline-minor-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -4654,10 +4698,16 @@ been compiled with `--synctex=1'.  In AUCTeX this can be done by
 setting `TeX-source-correlate-method' to 'synctex (before AUCTeX
 is loaded) and enabling `TeX-source-correlate-mode'.
 
-If called interactively, enable Pdf-Sync minor mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Pdf-Sync minor mode' mode.  If the prefix argument is positive,
+enable the mode, and if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `pdf-sync-minor-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -4719,10 +4769,17 @@ Setting this variable directly does not take effect;
 either customize it (see the info node `Easy Customization')
 or call the function `pdf-virtual-global-minor-mode'.") (custom-autoload 'pdf-virtual-global-minor-mode "pdf-virtual" nil) (autoload 'pdf-virtual-global-minor-mode "pdf-virtual" "Enable recognition and handling of VPDF files.
 
-If called interactively, enable Pdf-Virtual-Global minor mode if
-ARG is positive, and disable it if ARG is zero or negative.  If
-called from Lisp, also enable the mode if ARG is omitted or nil,
-and toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Pdf-Virtual-Global minor mode' mode.  If the prefix argument is
+positive, enable the mode, and if it is zero or negative, disable
+the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `(default-value 'pdf-virtual-global-minor-mode)'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -5431,20 +5488,32 @@ this time, in which case it won't display at all.
 
 (fn ERROR)" nil nil) (register-definition-prefixes "lsp-clangd" '("lsp-c")) (register-definition-prefixes "lsp-clojure" '("lsp-clojure-")) (define-obsolete-variable-alias 'lsp-prefer-capf 'lsp-completion-provider "lsp-mode 7.0.1") (define-obsolete-variable-alias 'lsp-enable-completion-at-point 'lsp-completion-enable "lsp-mode 7.0.1") (autoload 'lsp-completion-at-point "lsp-completion" "Get lsp completions." nil nil) (autoload 'lsp-completion--enable "lsp-completion" "Enable LSP completion support." nil nil) (autoload 'lsp-completion-mode "lsp-completion" "Toggle LSP completion support.
 
-If called interactively, enable Lsp-Completion mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Lsp-Completion mode' mode.  If the prefix argument is positive,
+enable the mode, and if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `lsp-completion-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
 
 (fn &optional ARG)" t nil) (add-hook 'lsp-configure-hook (lambda nil (when (and lsp-auto-configure lsp-completion-enable) (lsp-completion--enable)))) (register-definition-prefixes "lsp-completion" '("lsp-")) (register-definition-prefixes "lsp-crystal" '("lsp-clients-crystal-executable")) (register-definition-prefixes "lsp-csharp" '("lsp-csharp-")) (register-definition-prefixes "lsp-css" '("lsp-css-")) (define-obsolete-variable-alias 'lsp-diagnostic-package 'lsp-diagnostics-provider "lsp-mode 7.0.1") (define-obsolete-variable-alias 'lsp-flycheck-default-level 'lsp-diagnostics-flycheck-default-level "lsp-mode 7.0.1") (autoload 'lsp-diagnostics-lsp-checker-if-needed "lsp-diagnostics" nil nil nil) (autoload 'lsp-diagnostics--enable "lsp-diagnostics" "Enable LSP checker support." nil nil) (autoload 'lsp-diagnostics-mode "lsp-diagnostics" "Toggle LSP diagnostics integration.
 
-If called interactively, enable Lsp-Diagnostics mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Lsp-Diagnostics mode' mode.  If the prefix argument is positive,
+enable the mode, and if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `lsp-diagnostics-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -5456,10 +5525,16 @@ Setting this variable directly does not take effect;
 either customize it (see the info node `Easy Customization')
 or call the function `lsp-dired-mode'.") (custom-autoload 'lsp-dired-mode "lsp-dired" nil) (autoload 'lsp-dired-mode "lsp-dired" "Display `lsp-mode' icons for each file in a dired buffer.
 
-If called interactively, enable Lsp-Dired mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Lsp-Dired mode' mode.  If the prefix argument is positive,
+enable the mode, and if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `(default-value 'lsp-dired-mode)'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -5468,10 +5543,17 @@ it is disabled.
 
 (fn PROJECTS)" nil nil) (register-definition-prefixes "lsp-fsharp" '("lsp-fsharp-")) (register-definition-prefixes "lsp-gdscript" '("lsp-gdscript-")) (register-definition-prefixes "lsp-go" '("lsp-go-")) (register-definition-prefixes "lsp-graphql" '("lsp-")) (register-definition-prefixes "lsp-groovy" '("lsp-groovy-")) (register-definition-prefixes "lsp-hack" '("lsp-clients-hack-command")) (register-definition-prefixes "lsp-haxe" '("lsp-")) (autoload 'lsp-headerline-breadcrumb-mode "lsp-headerline" "Toggle breadcrumb on headerline.
 
-If called interactively, enable Lsp-Headerline-Breadcrumb mode if
-ARG is positive, and disable it if ARG is zero or negative.  If
-called from Lisp, also enable the mode if ARG is omitted or nil,
-and toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Lsp-Headerline-Breadcrumb mode' mode.  If the prefix argument is
+positive, enable the mode, and if it is zero or negative, disable
+the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `lsp-headerline-breadcrumb-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -5493,10 +5575,16 @@ language server doesn't support renaming.
 
 See also `lsp-enable-symbol-highlighting'." t nil) (autoload 'lsp-evil-multiedit-linked-ranges "lsp-iedit" "Start an `evil-multiedit' for `textDocument/linkedEditingRange'" t nil) (autoload 'lsp-evil-state-highlights "lsp-iedit" "Start `iedit-mode'. for `textDocument/documentHighlight'" t nil) (autoload 'lsp-evil-state-linked-ranges "lsp-iedit" "Start `iedit-mode'. for `textDocument/linkedEditingRange'" t nil) (register-definition-prefixes "lsp-iedit" '("lsp-iedit--on-ranges")) (register-definition-prefixes "lsp-javascript" '("lsp-")) (register-definition-prefixes "lsp-json" '("lsp-")) (register-definition-prefixes "lsp-kotlin" '("lsp-")) (autoload 'lsp-lens--enable "lsp-lens" "Enable lens mode." nil nil) (autoload 'lsp-lens-show "lsp-lens" "Display lenses in the buffer." t nil) (autoload 'lsp-lens-hide "lsp-lens" "Delete all lenses." t nil) (autoload 'lsp-lens-mode "lsp-lens" "Toggle code-lens overlays.
 
-If called interactively, enable Lsp-Lens mode if ARG is positive,
-and disable it if ARG is zero or negative.  If called from Lisp,
-also enable the mode if ARG is omitted or nil, and toggle it if
-ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Lsp-Lens mode' mode.  If the prefix argument is positive, enable
+the mode, and if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `lsp-lens-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -5523,31 +5611,51 @@ argument ask the user to select which language server to start.
 `lsp-deferred' will wait until the buffer is visible before invoking `lsp'.
 This avoids overloading the server with many files when starting Emacs." nil nil) (register-definition-prefixes "lsp-mode" '("defcustom-lsp" "lsp-" "make-lsp-client" "when-lsp-workspace" "with-lsp-workspace")) (define-obsolete-variable-alias 'lsp-diagnostics-modeline-scope 'lsp-modeline-diagnostics-scope "lsp-mode 7.0.1") (autoload 'lsp-modeline-code-actions-mode "lsp-modeline" "Toggle code actions on modeline.
 
-If called interactively, enable Lsp-Modeline-Code-Actions mode if
-ARG is positive, and disable it if ARG is zero or negative.  If
-called from Lisp, also enable the mode if ARG is omitted or nil,
-and toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Lsp-Modeline-Code-Actions mode' mode.  If the prefix argument is
+positive, enable the mode, and if it is zero or negative, disable
+the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `lsp-modeline-code-actions-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
 
 (fn &optional ARG)" t nil) (define-obsolete-function-alias 'lsp-diagnostics-modeline-mode 'lsp-modeline-diagnostics-mode "lsp-mode 7.0.1") (autoload 'lsp-modeline-diagnostics-mode "lsp-modeline" "Toggle diagnostics modeline.
 
-If called interactively, enable Lsp-Modeline-Diagnostics mode if
-ARG is positive, and disable it if ARG is zero or negative.  If
-called from Lisp, also enable the mode if ARG is omitted or nil,
-and toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Lsp-Modeline-Diagnostics mode' mode.  If the prefix argument is
+positive, enable the mode, and if it is zero or negative, disable
+the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `lsp-modeline-diagnostics-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
 
 (fn &optional ARG)" t nil) (autoload 'lsp-modeline-workspace-status-mode "lsp-modeline" "Toggle workspace status on modeline.
 
-If called interactively, enable Lsp-Modeline-Workspace-Status
-mode if ARG is positive, and disable it if ARG is zero or
-negative.  If called from Lisp, also enable the mode if ARG is
-omitted or nil, and toggle it if ARG is `toggle'; disable the
-mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Lsp-Modeline-Workspace-Status mode' mode.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `lsp-modeline-workspace-status-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -5557,10 +5665,17 @@ IS-RANGE-PROVIDER is non-nil when server supports range requests." nil nil) (aut
 
 (fn WORKSPACE)" nil nil) (autoload 'lsp-semantic-tokens--warn-about-deprecated-setting "lsp-semantic-tokens" "Warn about deprecated semantic highlighting variable." nil nil) (autoload 'lsp-semantic-tokens--enable "lsp-semantic-tokens" "Enable semantic tokens mode." nil nil) (autoload 'lsp-semantic-tokens-mode "lsp-semantic-tokens" "Toggle semantic-tokens support.
 
-If called interactively, enable Lsp-Semantic-Tokens mode if ARG
-is positive, and disable it if ARG is zero or negative.  If
-called from Lisp, also enable the mode if ARG is omitted or nil,
-and toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Lsp-Semantic-Tokens mode' mode.  If the prefix argument is
+positive, enable the mode, and if it is zero or negative, disable
+the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `lsp-semantic-tokens-mode'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
@@ -6445,10 +6560,74 @@ This could be used to evaluate JavaScript in a browser, to
 evaluate python in the context of the debugee, ...." t nil) (register-definition-prefixes "dap-ui" '("dap-")) (register-definition-prefixes "dap-utils" '("dap-utils-")) (register-definition-prefixes "dap-variables" '("dap-variables-")) (autoload 'dapui-loaded-sources "dapui" nil t nil) (register-definition-prefixes "dapui" '("dapui-")) (provide 'dap-mode-autoloads)) "srefactor" ((srefactor-autoloads srefactor-lisp srefactor-ui srefactor) (autoload 'srefactor-refactor-at-point "srefactor" "Offer contextual menu with actions based on current tag in scope.
 
 Each menu item added returns a token for what type of refactoring
-to perform." t nil) (register-definition-prefixes "srefactor" '("srefactor-")) (register-definition-prefixes "srefactor-lisp" '("comment-" "cur-buf" "first-token" "format-type" "ignore-num" "lexemes" "next-token" "orig-format-type" "recursive-p" "second-token" "srefactor-" "tok")) (register-definition-prefixes "srefactor-ui" '("srefactor-ui-")) (provide 'srefactor-autoloads))))
+to perform." t nil) (register-definition-prefixes "srefactor" '("srefactor-")) (register-definition-prefixes "srefactor-lisp" '("comment-" "cur-buf" "first-token" "format-type" "ignore-num" "lexemes" "next-token" "orig-format-type" "recursive-p" "second-token" "srefactor-" "tok")) (register-definition-prefixes "srefactor-ui" '("srefactor-ui-")) (provide 'srefactor-autoloads)) "mozc" ((mozc mozc-autoloads) (defvar mozc-mode-map (let ((map (make-sparse-keymap))) (prog1 map (mapc (lambda (command) (mapc (lambda (key-sequence) (and (= (length key-sequence) 1) (integerp (aref key-sequence 0)) (define-key map key-sequence command))) (where-is-internal command global-map))) '(execute-extended-command toggle-input-method)) (mapc (lambda (event) (define-key map (vector event) nil)) '(delete-frame iconify-frame make-frame-visible select-window switch-frame)) (define-key map [t] #'mozc-handle-event))) "Keymap for function `mozc-mode'.") (defvar mozc-mode nil "Mode variable of function `mozc-mode'.
+Non-nil means function `mozc-mode' is enabled.") (autoload 'mozc-mode "mozc" "Minor mode to input Japanese text with Mozc.
+Toggle the mode if ARG is not given, or enable/disable the mode
+according to ARG.
 
-#s(hash-table size 65 test eq rehash-size 1.5 rehash-threshold 0.8125 data (org-elpa #s(hash-table size 145 test equal rehash-size 1.5 rehash-threshold 0.8125 data (version 11 "melpa" nil "gnu-elpa-mirror" nil "el-get" nil "emacsmirror-mirror" nil "straight" nil "use-package" nil "bind-key" nil "yk-util" nil "dash" nil "magit" nil "git-commit" nil "transient" nil "with-editor" nil "magit-section" nil "helm-ls-git" nil "helm" nil "async" nil "popup" nil "helm-core" nil "git-gutter" nil "projectile" nil "helm-projectile" nil "cl-lib" nil "org" (org :type git :repo "https://git.savannah.gnu.org/git/emacs/org-mode.git" :local-repo "org" :depth full :pre-build (straight-recipes-org-elpa--build) :build (:not autoloads) :files (:defaults "lisp/*.el" ("etc/styles/" "etc/styles/*"))) "open-junk-file" nil "lispxmp" nil "paredit" nil "auto-async-byte-compile" nil "powershell" nil "dockerfile-mode" nil "docker-compose-mode" nil "yaml-mode" nil "cmake-mode" nil "protobuf-mode" nil "csv-mode" nil "go-mode" nil "typescript-mode" nil "cuda-mode" nil "rust-mode" nil "cargo" nil "markdown-mode" nil "flycheck-rust" nil "flycheck" nil "pkg-info" nil "epl" nil "let-alist" nil "seq" nil "web-mode" nil "prettier-js" nil "glsl-mode" nil "clang-format+" nil "clang-format" nil "rainbow-delimiters" nil "autoinsert" nil "tab-bar" nil "uniquify" nil "zenburn-theme" nil "vline" nil "col-highlight" nil "powerline" nil "total-lines" nil "cursor-chg" nil "gud-lldb" nil "flyspell" nil "abbrev" nil "ag" nil "s" nil "wgrep-ag" nil "wgrep" nil "undo-tree" nil "buffer-move" nil "fast-scroll" nil "edit-server" nil "multi-term" nil "gxref" nil "eldoc" nil "ein" nil "websocket" nil "anaphora" nil "request" nil "deferred" nil "polymode" nil "pdf-tools" nil "tablist" nil "yatex" nil "rainbow-mode" nil "migemo" nil "google-translate" nil "avy" nil "helm-descbinds" nil "helm-tramp" nil "helm-ag" nil "docker" nil "docker-tramp" nil "json-mode" nil "json-snatcher" nil "hydra" nil "lv" nil "yapfify" nil "py-isort" nil "ace-window" nil "which-key" nil "package-lint" nil "lsp-mode" nil "f" nil "ht" nil "spinner" nil "helm-lsp" nil "lsp-docker+" nil "init-loader" nil "lsp-docker" nil "lsp-ui" nil "lsp-go" nil "lsp-pyright" nil "ccls" nil "yasnippet" nil "company" nil "company-tabnine" nil "unicode-escape" nil "names" nil "dap-mode" nil "bui" nil "lsp-treemacs" nil "treemacs" nil "pfuture" nil "cfrs" nil "posframe" nil "srefactor" nil)) melpa #s(hash-table size 145 test equal rehash-size 1.5 rehash-threshold 0.8125 data (version 2 "gnu-elpa-mirror" nil "el-get" (el-get :type git :flavor melpa :files ("*.el" ("recipes" "recipes/el-get.rcp") "methods" "el-get-pkg.el") :host github :repo "dimitri/el-get") "emacsmirror-mirror" nil "straight" nil "use-package" (use-package :type git :flavor melpa :files (:defaults (:exclude "bind-key.el" "bind-chord.el" "use-package-chords.el" "use-package-ensure-system-package.el") "use-package-pkg.el") :host github :repo "jwiegley/use-package") "bind-key" (bind-key :type git :flavor melpa :files ("bind-key.el" "bind-key-pkg.el") :host github :repo "jwiegley/use-package") "yk-util" nil "dash" (dash :type git :flavor melpa :files ("dash.el" "dash.texi" "dash-pkg.el") :host github :repo "magnars/dash.el") "magit" (magit :type git :flavor melpa :files ("lisp/magit" "lisp/magit*.el" "lisp/git-rebase.el" "Documentation/magit.texi" "Documentation/AUTHORS.md" "LICENSE" (:exclude "lisp/magit-libgit.el" "lisp/magit-libgit-pkg.el" "lisp/magit-section.el" "lisp/magit-section-pkg.el") "magit-pkg.el") :host github :repo "magit/magit") "git-commit" (git-commit :type git :flavor melpa :files ("lisp/git-commit.el" "lisp/git-commit-pkg.el" "git-commit-pkg.el") :host github :repo "magit/magit") "transient" (transient :type git :flavor melpa :files ("lisp/*.el" "docs/transient.texi" "transient-pkg.el") :host github :repo "magit/transient") "with-editor" (with-editor :type git :flavor melpa :host github :repo "magit/with-editor") "magit-section" (magit-section :type git :flavor melpa :files ("lisp/magit-section.el" "lisp/magit-section-pkg.el" "Documentation/magit-section.texi" "magit-section-pkg.el") :host github :repo "magit/magit") "helm-ls-git" (helm-ls-git :type git :flavor melpa :host github :repo "emacs-helm/helm-ls-git") "helm" (helm :type git :flavor melpa :files ("*.el" "emacs-helm.sh" (:exclude "helm.el" "helm-lib.el" "helm-source.el" "helm-multi-match.el" "helm-core-pkg.el") "helm-pkg.el") :host github :repo "emacs-helm/helm") "async" (async :type git :flavor melpa :host github :repo "jwiegley/emacs-async") "popup" (popup :type git :flavor melpa :files ("popup.el" "popup-pkg.el") :host github :repo "auto-complete/popup-el") "helm-core" (helm-core :type git :flavor melpa :files ("helm-core-pkg.el" "helm.el" "helm-lib.el" "helm-source.el" "helm-multi-match.el" "helm-core-pkg.el") :host github :repo "emacs-helm/helm") "git-gutter" (git-gutter :type git :flavor melpa :host github :repo "emacsorphanage/git-gutter") "projectile" (projectile :type git :flavor melpa :files ("projectile.el" "projectile-pkg.el") :host github :repo "bbatsov/projectile") "helm-projectile" (helm-projectile :type git :flavor melpa :host github :repo "bbatsov/helm-projectile") "cl-lib" nil "open-junk-file" (open-junk-file :type git :flavor melpa :host github :repo "rubikitch/open-junk-file") "lispxmp" (lispxmp :type git :flavor melpa :host github :repo "rubikitch/lispxmp") "paredit" (paredit :type git :flavor melpa :files ("paredit.el" "paredit-pkg.el") :repo "https://mumble.net/~campbell/git/paredit.git") "auto-async-byte-compile" (auto-async-byte-compile :type git :flavor melpa :host github :repo "rubikitch/auto-async-byte-compile") "powershell" (powershell :type git :flavor melpa :host github :repo "jschaf/powershell.el") "dockerfile-mode" (dockerfile-mode :type git :flavor melpa :host github :repo "spotify/dockerfile-mode") "docker-compose-mode" (docker-compose-mode :type git :flavor melpa :files (:defaults (:exclude "docker-compose-mode-helpers.el") "docker-compose-mode-pkg.el") :host github :repo "meqif/docker-compose-mode") "yaml-mode" (yaml-mode :type git :flavor melpa :host github :repo "yoshiki/yaml-mode") "cmake-mode" (cmake-mode :type git :flavor melpa :files ("Auxiliary/*.el" "cmake-mode-pkg.el") :repo "https://gitlab.kitware.com/cmake/cmake.git") "protobuf-mode" (protobuf-mode :type git :flavor melpa :files ("editors/protobuf-mode.el" "protobuf-mode-pkg.el") :host github :repo "google/protobuf") "csv-mode" nil "go-mode" (go-mode :type git :flavor melpa :files ("go-mode.el" "go-mode-pkg.el") :host github :repo "dominikh/go-mode.el") "typescript-mode" (typescript-mode :type git :flavor melpa :host github :repo "emacs-typescript/typescript.el") "cuda-mode" (cuda-mode :type git :flavor melpa :host github :repo "chachi/cuda-mode") "rust-mode" (rust-mode :type git :flavor melpa :host github :repo "rust-lang/rust-mode") "cargo" (cargo :type git :flavor melpa :host github :repo "kwrooijen/cargo.el") "markdown-mode" (markdown-mode :type git :flavor melpa :host github :repo "jrblevin/markdown-mode") "flycheck-rust" (flycheck-rust :type git :flavor melpa :host github :repo "flycheck/flycheck-rust") "flycheck" (flycheck :type git :flavor melpa :host github :repo "flycheck/flycheck") "pkg-info" (pkg-info :type git :flavor melpa :host github :repo "emacsorphanage/pkg-info") "epl" (epl :type git :flavor melpa :host github :repo "cask/epl") "let-alist" nil "seq" nil "web-mode" (web-mode :type git :flavor melpa :host github :repo "fxbois/web-mode") "prettier-js" (prettier-js :type git :flavor melpa :host github :repo "prettier/prettier-emacs") "glsl-mode" (glsl-mode :type git :flavor melpa :host github :repo "jimhourihan/glsl-mode") "clang-format+" (clang-format+ :type git :flavor melpa :host github :repo "SavchenkoValeriy/emacs-clang-format-plus") "clang-format" (clang-format :type git :flavor melpa :host github :repo "emacsmirror/clang-format") "rainbow-delimiters" (rainbow-delimiters :type git :flavor melpa :host github :repo "Fanael/rainbow-delimiters") "autoinsert" nil "tab-bar" nil "uniquify" nil "zenburn-theme" (zenburn-theme :type git :flavor melpa :host github :repo "bbatsov/zenburn-emacs") "vline" (vline :type git :flavor melpa :host github :repo "buzztaiki/vline") "col-highlight" nil "powerline" (powerline :type git :flavor melpa :host github :repo "milkypostman/powerline") "total-lines" (total-lines :type git :flavor melpa :host github :repo "hinrik/total-lines") "cursor-chg" nil "gud-lldb" nil "flyspell" nil "abbrev" nil "ag" (ag :type git :flavor melpa :host github :repo "Wilfred/ag.el") "s" (s :type git :flavor melpa :files ("s.el" "s-pkg.el") :host github :repo "magnars/s.el") "wgrep-ag" (wgrep-ag :type git :flavor melpa :files ("wgrep-ag.el" "wgrep-ag-pkg.el") :host github :repo "mhayashi1120/Emacs-wgrep") "wgrep" (wgrep :type git :flavor melpa :files ("wgrep.el" "wgrep-pkg.el") :host github :repo "mhayashi1120/Emacs-wgrep") "undo-tree" nil "buffer-move" (buffer-move :type git :flavor melpa :host github :repo "lukhas/buffer-move") "fast-scroll" (fast-scroll :type git :flavor melpa :host github :repo "ahungry/fast-scroll") "edit-server" (edit-server :type git :flavor melpa :files ("servers/edit-server.el" "edit-server-pkg.el") :host github :repo "stsquad/emacs_chrome") "multi-term" (multi-term :type git :flavor melpa :host github :repo "manateelazycat/multi-term") "gxref" (gxref :type git :flavor melpa :host github :repo "dedi/gxref") "eldoc" nil "ein" (ein :type git :flavor melpa :files ("lisp/*" (:exclude "lisp/zeroein.el") "ein-pkg.el") :host github :repo "millejoh/emacs-ipython-notebook") "websocket" (websocket :type git :flavor melpa :host github :repo "ahyatt/emacs-websocket") "anaphora" (anaphora :type git :flavor melpa :host github :repo "rolandwalker/anaphora") "request" (request :type git :flavor melpa :files ("request.el" "request-pkg.el") :host github :repo "tkf/emacs-request") "deferred" (deferred :type git :flavor melpa :files ("deferred.el" "deferred-pkg.el") :host github :repo "kiwanami/emacs-deferred") "polymode" (polymode :type git :flavor melpa :host github :repo "polymode/polymode") "pdf-tools" (pdf-tools :type git :flavor melpa :files ("lisp/*.el" "README" ("build" "Makefile") ("build" "server") (:exclude "lisp/tablist.el" "lisp/tablist-filter.el") "pdf-tools-pkg.el") :host github :repo "vedang/pdf-tools") "tablist" (tablist :type git :flavor melpa :host github :repo "politza/tablist") "yatex" nil "rainbow-mode" nil "migemo" (migemo :type git :flavor melpa :host github :repo "emacs-jp/migemo") "google-translate" (google-translate :type git :flavor melpa :host github :repo "atykhonov/google-translate") "avy" (avy :type git :flavor melpa :host github :repo "abo-abo/avy") "helm-descbinds" (helm-descbinds :type git :flavor melpa :host github :repo "emacs-helm/helm-descbinds") "helm-tramp" (helm-tramp :type git :flavor melpa :host github :repo "masasam/emacs-helm-tramp") "helm-ag" (helm-ag :type git :flavor melpa :host github :repo "emacsorphanage/helm-ag") "docker" (docker :type git :flavor melpa :host github :repo "Silex/docker.el") "docker-tramp" (docker-tramp :type git :flavor melpa :host github :repo "emacs-pe/docker-tramp.el") "json-mode" (json-mode :type git :flavor melpa :host github :repo "joshwnj/json-mode") "json-snatcher" (json-snatcher :type git :flavor melpa :host github :repo "Sterlingg/json-snatcher") "hydra" (hydra :type git :flavor melpa :files (:defaults (:exclude "lv.el") "hydra-pkg.el") :host github :repo "abo-abo/hydra") "lv" (lv :type git :flavor melpa :files ("lv.el" "lv-pkg.el") :host github :repo "abo-abo/hydra") "yapfify" (yapfify :type git :flavor melpa :host github :repo "JorisE/yapfify") "py-isort" (py-isort :type git :flavor melpa :host github :repo "paetzke/py-isort.el") "ace-window" (ace-window :type git :flavor melpa :host github :repo "abo-abo/ace-window") "which-key" (which-key :type git :flavor melpa :host github :repo "justbur/emacs-which-key") "package-lint" (package-lint :type git :flavor melpa :files (:defaults "data" (:exclude "*flymake.el") "package-lint-pkg.el") :host github :repo "purcell/package-lint") "lsp-mode" (lsp-mode :type git :flavor melpa :files (:defaults "clients/*.el" "lsp-mode-pkg.el") :host github :repo "emacs-lsp/lsp-mode") "f" (f :type git :flavor melpa :files ("f.el" "f-pkg.el") :host github :repo "rejeep/f.el") "ht" (ht :type git :flavor melpa :files ("ht.el" "ht-pkg.el") :host github :repo "Wilfred/ht.el") "spinner" nil "helm-lsp" (helm-lsp :type git :flavor melpa :host github :repo "emacs-lsp/helm-lsp") "lsp-docker+" nil "init-loader" (init-loader :type git :flavor melpa :files ("init-loader.el" "init-loader-pkg.el") :host github :repo "emacs-jp/init-loader") "lsp-docker" (lsp-docker :type git :flavor melpa :host github :repo "emacs-lsp/lsp-docker") "lsp-ui" (lsp-ui :type git :flavor melpa :files (:defaults "lsp-ui-doc.html" "resources" "lsp-ui-pkg.el") :host github :repo "emacs-lsp/lsp-ui") "lsp-go" nil "lsp-pyright" (lsp-pyright :type git :flavor melpa :host github :repo "emacs-lsp/lsp-pyright") "ccls" (ccls :type git :flavor melpa :host github :repo "emacs-lsp/emacs-ccls") "yasnippet" (yasnippet :type git :flavor melpa :files ("yasnippet.el" "snippets" "yasnippet-pkg.el") :host github :repo "joaotavora/yasnippet") "company" (company :type git :flavor melpa :files (:defaults "icons" "company-pkg.el") :host github :repo "company-mode/company-mode") "company-tabnine" (company-tabnine :type git :flavor melpa :host github :repo "TommyX12/company-tabnine") "unicode-escape" (unicode-escape :type git :flavor melpa :host github :repo "kosh04/unicode-escape.el") "names" (names :type git :flavor melpa :host github :repo "Malabarba/names") "dap-mode" (dap-mode :type git :flavor melpa :files (:defaults "icons" "dap-mode-pkg.el") :host github :repo "emacs-lsp/dap-mode") "bui" (bui :type git :flavor melpa :host github :repo "alezost/bui.el") "lsp-treemacs" (lsp-treemacs :type git :flavor melpa :files (:defaults "icons" "lsp-treemacs-pkg.el") :host github :repo "emacs-lsp/lsp-treemacs") "treemacs" (treemacs :type git :flavor melpa :files (:defaults "Changelog.org" "icons" "src/elisp/treemacs*.el" "src/scripts/treemacs*.py" (:exclude "src/extra/*") "treemacs-pkg.el") :host github :repo "Alexander-Miller/treemacs") "pfuture" (pfuture :type git :flavor melpa :host github :repo "Alexander-Miller/pfuture") "cfrs" (cfrs :type git :flavor melpa :host github :repo "Alexander-Miller/cfrs") "posframe" (posframe :type git :flavor melpa :host github :repo "tumashu/posframe") "srefactor" (srefactor :type git :flavor melpa :host github :repo "tuhdo/semantic-refactor"))) gnu-elpa-mirror #s(hash-table size 65 test equal rehash-size 1.5 rehash-threshold 0.8125 data (version 3 "emacsmirror-mirror" nil "straight" nil "yk-util" nil "cl-lib" nil "csv-mode" (csv-mode :type git :host github :repo "emacs-straight/csv-mode" :files ("*" (:exclude ".git"))) "let-alist" (let-alist :type git :host github :repo "emacs-straight/let-alist" :files ("*" (:exclude ".git"))) "seq" nil "autoinsert" nil "tab-bar" nil "uniquify" nil "col-highlight" nil "cursor-chg" nil "gud-lldb" nil "flyspell" nil "abbrev" nil "undo-tree" (undo-tree :type git :host github :repo "emacs-straight/undo-tree" :files ("*" (:exclude ".git"))) "eldoc" (eldoc :type git :host github :repo "emacs-straight/eldoc" :files ("*" (:exclude ".git"))) "yatex" nil "rainbow-mode" (rainbow-mode :type git :host github :repo "emacs-straight/rainbow-mode" :files ("*" (:exclude ".git"))) "spinner" (spinner :type git :host github :repo "emacs-straight/spinner" :files ("*" (:exclude ".git"))) "lsp-docker+" nil "lsp-go" nil)) el-get #s(hash-table size 65 test equal rehash-size 1.5 rehash-threshold 0.8125 data (version 1 "emacsmirror-mirror" nil "straight" nil "yk-util" nil "cl-lib" nil "seq" nil "autoinsert" nil "tab-bar" nil "uniquify" nil "col-highlight" nil "cursor-chg" nil "gud-lldb" nil "flyspell" nil "abbrev" nil "yatex" nil "lsp-docker+" nil "lsp-go" nil)) emacsmirror-mirror #s(hash-table size 65 test equal rehash-size 1.5 rehash-threshold 0.8125 data (version 2 "straight" (straight :type git :host github :repo "emacsmirror/straight") "yk-util" nil "cl-lib" nil "seq" nil "autoinsert" nil "tab-bar" nil "uniquify" nil "col-highlight" (col-highlight :type git :host github :repo "emacsmirror/col-highlight") "cursor-chg" (cursor-chg :type git :host github :repo "emacsmirror/cursor-chg") "gud-lldb" nil "flyspell" nil "abbrev" nil "yatex" (yatex :type git :host github :repo "emacsmirror/yatex") "lsp-docker+" nil "lsp-go" nil))))
+Hooks in `mozc-mode-hook' are run when the mode gets enabled.
 
-("org-elpa" "melpa" "gnu-elpa-mirror" "el-get" "emacsmirror-mirror" "straight" "emacs" "use-package" "bind-key" "yk-util" "dash" "init-loader" "cl-lib" "zenburn-theme" "col-highlight" "vline" "powerline" "total-lines" "cursor-chg" "magit" "git-commit" "transient" "with-editor" "magit-section" "helm-ls-git" "helm" "async" "popup" "helm-core" "git-gutter" "projectile" "helm-projectile" "org" "open-junk-file" "lispxmp" "paredit" "auto-async-byte-compile" "powershell" "dockerfile-mode" "docker-compose-mode" "yaml-mode" "cmake-mode" "protobuf-mode" "csv-mode" "go-mode" "typescript-mode" "cuda-mode" "rust-mode" "cargo" "markdown-mode" "flycheck-rust" "flycheck" "pkg-info" "epl" "let-alist" "seq" "web-mode" "prettier-js" "glsl-mode" "clang-format+" "clang-format" "rainbow-delimiters" "flyspell" "ag" "s" "wgrep-ag" "wgrep" "undo-tree" "buffer-move" "fast-scroll" "edit-server" "multi-term" "gxref" "eldoc" "ein" "websocket" "anaphora" "request" "deferred" "polymode" "pdf-tools" "tablist" "yatex" "rainbow-mode" "migemo" "google-translate" "avy" "helm-descbinds" "helm-tramp" "helm-ag" "docker" "docker-tramp" "json-mode" "json-snatcher" "hydra" "lv" "yapfify" "py-isort" "ace-window" "which-key" "package-lint" "lsp-mode" "f" "ht" "spinner" "helm-lsp" "lsp-docker+" "lsp-docker" "lsp-ui" "lsp-pyright" "ccls" "yasnippet" "company" "company-tabnine" "unicode-escape" "names" "dap-mode" "bui" "lsp-treemacs" "treemacs" "pfuture" "cfrs" "posframe" "srefactor" "autoinsert")
+Return non-nil when enabled, otherwise nil.
+
+
+Tips for customizations
+
+By the design policy, Mozc maintains most of user settings on
+the server side.  Clients, including mozc.el, of Mozc do not
+have many user settings on their side.
+
+You can change a variety of user settings through a GUI command
+line tool 'mozc_tool' which must be shipped with the mozc server.
+The command line tool may be installed to /usr/lib/mozc or /usr/lib
+directory.
+You need a command line option '--mode=config_dialog' as the
+following.
+
+  $ /usr/lib/mozc/mozc_tool --mode=config_dialog
+
+Then, it shows a GUI dialog to edit your user settings.
+
+Note these settings are effective for all the clients of Mozc,
+not limited to mozc.el.
+
+Only the customizable item on mozc.el side is the key map for kana
+input.  When you've chosen kana input rather than roman input,
+a kana key map is effective, and you can customize it.
+
+There are two built-in kana key maps, one for 106 JP keyboards and
+one for 101 US keyboards.  You can choose one of them by setting
+`mozc-keymap-kana' variable.
+
+  ;; for 106 JP keyboards
+  (setq mozc-keymap-kana mozc-keymap-kana-106jp)
+
+  ;; for 101 US keyboards
+  (setq mozc-keymap-kana mozc-keymap-kana-101us)
+
+For advanced users, there are APIs for more detailed customization
+or even creating your own key map.
+See `mozc-keymap-get-entry', `mozc-keymap-put-entry',
+`mozc-keymap-remove-entry', and `mozc-keymap-make-keymap' and
+`mozc-keymap-make-keymap-from-flat-list'.
+
+(fn &optional ARG)" t nil) (defun mozc-keymap-make-keymap nil "Create a new empty keymap and return it." (make-hash-table :size 128 :test #'eq)) (defun mozc-keymap-make-keymap-from-flat-list (list) "Create a new keymap and fill it with entries in LIST.
+LIST must be a flat list which contains keys and mapped strings alternately." (mozc-keymap-fill-entries-from-flat-list (mozc-keymap-make-keymap) list)) (defun mozc-keymap-fill-entries-from-flat-list (keymap list) "Fill KEYMAP with entries in LIST and return KEYMAP.
+KEYMAP must be a key table from keycodes to mapped strings.
+LIST must be a flat list which contains keys and mapped strings alternately." (if (not (and (car list) (cadr list))) keymap (mozc-keymap-put-entry keymap (car list) (cadr list)) (mozc-keymap-fill-entries-from-flat-list keymap (cddr list)))) (defun mozc-keymap-get-entry (keymap keycode &optional default) "Return a mapped string if the entry for the keycode exists.
+Otherwise, the default value, which must be a string.
+KEYMAP must be a key table from keycodes to mapped strings.
+KEYCODE must be an integer representing a key code to look up.
+DEFAULT is returned if it's a string and no entry for KEYCODE is found." (let ((value (and (hash-table-p keymap) (gethash keycode keymap default)))) (and (stringp value) value))) (defun mozc-keymap-put-entry (keymap keycode mapped-string) "Add a new key mapping to a keymap.
+KEYMAP must be a key table from keycodes to mapped strings.
+KEYCODE must be an integer representing a key code.
+MAPPED-STRING must be a string representing a preedit string to be inserted." (when (and (hash-table-p keymap) (integerp keycode) (stringp mapped-string)) (puthash keycode mapped-string keymap) (cons keycode mapped-string))) (defun mozc-keymap-remove-entry (keymap keycode) "Remove an entry from a keymap.  If no entry for keycode exists, do nothing.
+KEYMAP must be a key table from keycodes to mapped strings.
+KEYCODE must be an integer representing a key code to remove." (when (hash-table-p keymap) (remhash keycode keymap))) (defvar mozc-keymap-kana-106jp (mozc-keymap-make-keymap-from-flat-list '(49 "\343\201\254" 50 "\343\201\265" 51 "\343\201\202" 52 "\343\201\206" 53 "\343\201\210" 54 "\343\201\212" 55 "\343\202\204" 56 "\343\202\206" 57 "\343\202\210" 48 "\343\202\217" 45 "\343\201\273" 94 "\343\201\270" 124 "\343\203\274" 113 "\343\201\237" 119 "\343\201\246" 101 "\343\201\204" 114 "\343\201\231" 116 "\343\201\213" 121 "\343\202\223" 117 "\343\201\252" 105 "\343\201\253" 111 "\343\202\211" 112 "\343\201\233" 64 "\343\202\233" 91 "\343\202\234" 97 "\343\201\241" 115 "\343\201\250" 100 "\343\201\227" 102 "\343\201\257" 103 "\343\201\215" 104 "\343\201\217" 106 "\343\201\276" 107 "\343\201\256" 108 "\343\202\212" 59 "\343\202\214" 58 "\343\201\221" 93 "\343\202\200" 122 "\343\201\244" 120 "\343\201\225" 99 "\343\201\235" 118 "\343\201\262" 98 "\343\201\223" 110 "\343\201\277" 109 "\343\202\202" 44 "\343\201\255" 46 "\343\202\213" 47 "\343\202\201" 92 "\343\202\215" 35 "\343\201\201" 69 "\343\201\203" 36 "\343\201\205" 37 "\343\201\207" 38 "\343\201\211" 39 "\343\202\203" 40 "\343\202\205" 41 "\343\202\207" 126 "\343\202\222" 90 "\343\201\243" 60 "\343\200\201" 62 "\343\200\202" 63 "\343\203\273" 123 "\343\200\214" 125 "\343\200\215" 80 "\343\200\216" 43 "\343\200\217" 95 "\343\202\215" 70 "\343\202\216" 84 "\343\203\265" 42 "\343\203\266")) "Key mapping from key codes to Kana strings based on 106-JP keyboard.") (defvar mozc-keymap-kana-101us (mozc-keymap-make-keymap-from-flat-list '(49 "\343\201\254" 50 "\343\201\265" 51 "\343\201\202" 52 "\343\201\206" 53 "\343\201\210" 54 "\343\201\212" 55 "\343\202\204" 56 "\343\202\206" 57 "\343\202\210" 48 "\343\202\217" 45 "\343\201\273" 61 "\343\201\270" 96 "\343\202\215" 113 "\343\201\237" 119 "\343\201\246" 101 "\343\201\204" 114 "\343\201\231" 116 "\343\201\213" 121 "\343\202\223" 117 "\343\201\252" 105 "\343\201\253" 111 "\343\202\211" 112 "\343\201\233" 91 "\343\202\233" 93 "\343\202\234" 92 "\343\202\200" 97 "\343\201\241" 115 "\343\201\250" 100 "\343\201\227" 102 "\343\201\257" 103 "\343\201\215" 104 "\343\201\217" 106 "\343\201\276" 107 "\343\201\256" 108 "\343\202\212" 59 "\343\202\214" 39 "\343\201\221" 122 "\343\201\244" 120 "\343\201\225" 99 "\343\201\235" 118 "\343\201\262" 98 "\343\201\223" 110 "\343\201\277" 109 "\343\202\202" 44 "\343\201\255" 46 "\343\202\213" 47 "\343\202\201" 35 "\343\201\201" 69 "\343\201\203" 36 "\343\201\205" 37 "\343\201\207" 94 "\343\201\211" 38 "\343\202\203" 42 "\343\202\205" 40 "\343\202\207" 41 "\343\202\222" 90 "\343\201\243" 60 "\343\200\201" 62 "\343\200\202" 63 "\343\203\273" 123 "\343\200\214" 125 "\343\200\215" 80 "\343\200\216" 58 "\343\200\217" 95 "\343\203\274" 124 "\343\203\274" 70 "\343\202\216" 86 "\343\202\220" 43 "\343\202\221" 84 "\343\203\265" 34 "\343\203\266")) "Key mapping from key codes to Kana strings based on 101-US keyboard.") (defvar mozc-keymap-kana mozc-keymap-kana-106jp "The default key mapping for Kana input method.") (defcustom mozc-leim-title "[Mozc]" "Mode line string shown when function `mozc-mode' is enabled.
+This indicator is not shown when you don't use LEIM." :type '(choice (const :tag "No indicator" nil) (string :tag "Show an indicator")) :group 'mozc) (defun mozc-leim-register-input-method nil "Register function `mozc-mode' as an input method of LEIM.
+Do nothing if LEIM is not available." (if (fboundp #'register-input-method) (register-input-method "japanese-mozc" "Japanese" (lambda (input-method) (let ((new 'deactivate-current-input-method-function) (old 'inactivate-current-input-method-function)) (set (if (boundp new) new old) (lambda nil (mozc-mode nil)))) (mozc-mode t)) mozc-leim-title "Japanese input method with Mozc."))) (add-hook 'emacs-startup-hook #'mozc-leim-register-input-method) (mozc-leim-register-input-method) (register-definition-prefixes "mozc" '("mozc-")) (provide 'mozc-autoloads))))
+
+#s(hash-table size 65 test eq rehash-size 1.5 rehash-threshold 0.8125 data (org-elpa #s(hash-table size 145 test equal rehash-size 1.5 rehash-threshold 0.8125 data (version 11 "melpa" nil "gnu-elpa-mirror" nil "el-get" nil "emacsmirror-mirror" nil "straight" nil "use-package" nil "bind-key" nil "yk-util" nil "dash" nil "init-loader" nil "cl-lib" nil "zenburn-theme" nil "col-highlight" nil "vline" nil "powerline" nil "total-lines" nil "cursor-chg" nil "magit" nil "git-commit" nil "transient" nil "with-editor" nil "magit-section" nil "helm-ls-git" nil "helm" nil "async" nil "popup" nil "helm-core" nil "git-gutter" nil "projectile" nil "helm-projectile" nil "org" (org :type git :repo "https://git.savannah.gnu.org/git/emacs/org-mode.git" :local-repo "org" :depth full :pre-build (straight-recipes-org-elpa--build) :build (:not autoloads) :files (:defaults "lisp/*.el" ("etc/styles/" "etc/styles/*"))) "open-junk-file" nil "lispxmp" nil "paredit" nil "auto-async-byte-compile" nil "powershell" nil "dockerfile-mode" nil "docker-compose-mode" nil "yaml-mode" nil "cmake-mode" nil "protobuf-mode" nil "csv-mode" nil "go-mode" nil "typescript-mode" nil "cuda-mode" nil "rust-mode" nil "cargo" nil "markdown-mode" nil "flycheck-rust" nil "flycheck" nil "pkg-info" nil "epl" nil "let-alist" nil "seq" nil "web-mode" nil "prettier-js" nil "glsl-mode" nil "clang-format+" nil "clang-format" nil "rainbow-delimiters" nil "flyspell" nil "ag" nil "s" nil "wgrep-ag" nil "wgrep" nil "undo-tree" nil "buffer-move" nil "fast-scroll" nil "edit-server" nil "multi-term" nil "gxref" nil "eldoc" nil "ein" nil "websocket" nil "anaphora" nil "request" nil "deferred" nil "polymode" nil "pdf-tools" nil "tablist" nil "yatex" nil "rainbow-mode" nil "migemo" nil "google-translate" nil "avy" nil "helm-descbinds" nil "helm-tramp" nil "helm-ag" nil "docker" nil "docker-tramp" nil "json-mode" nil "json-snatcher" nil "hydra" nil "lv" nil "yapfify" nil "py-isort" nil "ace-window" nil "which-key" nil "package-lint" nil "lsp-mode" nil "f" nil "ht" nil "spinner" nil "helm-lsp" nil "lsp-docker+" nil "lsp-docker" nil "lsp-ui" nil "lsp-pyright" nil "ccls" nil "yasnippet" nil "company" nil "company-tabnine" nil "unicode-escape" nil "names" nil "dap-mode" nil "bui" nil "lsp-treemacs" nil "treemacs" nil "pfuture" nil "cfrs" nil "posframe" nil "srefactor" nil "autoinsert" nil "mozc" nil)) melpa #s(hash-table size 145 test equal rehash-size 1.5 rehash-threshold 0.8125 data (version 2 "gnu-elpa-mirror" nil "el-get" (el-get :type git :flavor melpa :files ("*.el" ("recipes" "recipes/el-get.rcp") "methods" "el-get-pkg.el") :host github :repo "dimitri/el-get") "emacsmirror-mirror" nil "straight" nil "use-package" (use-package :type git :flavor melpa :files (:defaults (:exclude "bind-key.el" "bind-chord.el" "use-package-chords.el" "use-package-ensure-system-package.el") "use-package-pkg.el") :host github :repo "jwiegley/use-package") "bind-key" (bind-key :type git :flavor melpa :files ("bind-key.el" "bind-key-pkg.el") :host github :repo "jwiegley/use-package") "yk-util" nil "dash" (dash :type git :flavor melpa :files ("dash.el" "dash.texi" "dash-pkg.el") :host github :repo "magnars/dash.el") "init-loader" (init-loader :type git :flavor melpa :files ("init-loader.el" "init-loader-pkg.el") :host github :repo "emacs-jp/init-loader") "cl-lib" nil "zenburn-theme" (zenburn-theme :type git :flavor melpa :host github :repo "bbatsov/zenburn-emacs") "col-highlight" nil "vline" (vline :type git :flavor melpa :host github :repo "buzztaiki/vline") "powerline" (powerline :type git :flavor melpa :host github :repo "milkypostman/powerline") "total-lines" (total-lines :type git :flavor melpa :host github :repo "hinrik/total-lines") "cursor-chg" nil "magit" (magit :type git :flavor melpa :files ("lisp/magit" "lisp/magit*.el" "lisp/git-rebase.el" "Documentation/magit.texi" "Documentation/AUTHORS.md" "LICENSE" (:exclude "lisp/magit-libgit.el" "lisp/magit-libgit-pkg.el" "lisp/magit-section.el" "lisp/magit-section-pkg.el") "magit-pkg.el") :host github :repo "magit/magit") "git-commit" (git-commit :type git :flavor melpa :files ("lisp/git-commit.el" "lisp/git-commit-pkg.el" "git-commit-pkg.el") :host github :repo "magit/magit") "transient" (transient :type git :flavor melpa :files ("lisp/*.el" "docs/transient.texi" "transient-pkg.el") :host github :repo "magit/transient") "with-editor" (with-editor :type git :flavor melpa :host github :repo "magit/with-editor") "magit-section" (magit-section :type git :flavor melpa :files ("lisp/magit-section.el" "lisp/magit-section-pkg.el" "Documentation/magit-section.texi" "magit-section-pkg.el") :host github :repo "magit/magit") "helm-ls-git" (helm-ls-git :type git :flavor melpa :host github :repo "emacs-helm/helm-ls-git") "helm" (helm :type git :flavor melpa :files ("*.el" "emacs-helm.sh" (:exclude "helm.el" "helm-lib.el" "helm-source.el" "helm-multi-match.el" "helm-core-pkg.el") "helm-pkg.el") :host github :repo "emacs-helm/helm") "async" (async :type git :flavor melpa :host github :repo "jwiegley/emacs-async") "popup" (popup :type git :flavor melpa :files ("popup.el" "popup-pkg.el") :host github :repo "auto-complete/popup-el") "helm-core" (helm-core :type git :flavor melpa :files ("helm-core-pkg.el" "helm.el" "helm-lib.el" "helm-source.el" "helm-multi-match.el" "helm-core-pkg.el") :host github :repo "emacs-helm/helm") "git-gutter" (git-gutter :type git :flavor melpa :host github :repo "emacsorphanage/git-gutter") "projectile" (projectile :type git :flavor melpa :files ("projectile.el" "projectile-pkg.el") :host github :repo "bbatsov/projectile") "helm-projectile" (helm-projectile :type git :flavor melpa :host github :repo "bbatsov/helm-projectile") "open-junk-file" (open-junk-file :type git :flavor melpa :host github :repo "rubikitch/open-junk-file") "lispxmp" (lispxmp :type git :flavor melpa :host github :repo "rubikitch/lispxmp") "paredit" (paredit :type git :flavor melpa :files ("paredit.el" "paredit-pkg.el") :repo "https://mumble.net/~campbell/git/paredit.git") "auto-async-byte-compile" (auto-async-byte-compile :type git :flavor melpa :host github :repo "rubikitch/auto-async-byte-compile") "powershell" (powershell :type git :flavor melpa :host github :repo "jschaf/powershell.el") "dockerfile-mode" (dockerfile-mode :type git :flavor melpa :host github :repo "spotify/dockerfile-mode") "docker-compose-mode" (docker-compose-mode :type git :flavor melpa :files (:defaults (:exclude "docker-compose-mode-helpers.el") "docker-compose-mode-pkg.el") :host github :repo "meqif/docker-compose-mode") "yaml-mode" (yaml-mode :type git :flavor melpa :host github :repo "yoshiki/yaml-mode") "cmake-mode" (cmake-mode :type git :flavor melpa :files ("Auxiliary/*.el" "cmake-mode-pkg.el") :repo "https://gitlab.kitware.com/cmake/cmake.git") "protobuf-mode" (protobuf-mode :type git :flavor melpa :files ("editors/protobuf-mode.el" "protobuf-mode-pkg.el") :host github :repo "google/protobuf") "csv-mode" nil "go-mode" (go-mode :type git :flavor melpa :files ("go-mode.el" "go-mode-pkg.el") :host github :repo "dominikh/go-mode.el") "typescript-mode" (typescript-mode :type git :flavor melpa :host github :repo "emacs-typescript/typescript.el") "cuda-mode" (cuda-mode :type git :flavor melpa :host github :repo "chachi/cuda-mode") "rust-mode" (rust-mode :type git :flavor melpa :host github :repo "rust-lang/rust-mode") "cargo" (cargo :type git :flavor melpa :host github :repo "kwrooijen/cargo.el") "markdown-mode" (markdown-mode :type git :flavor melpa :host github :repo "jrblevin/markdown-mode") "flycheck-rust" (flycheck-rust :type git :flavor melpa :host github :repo "flycheck/flycheck-rust") "flycheck" (flycheck :type git :flavor melpa :host github :repo "flycheck/flycheck") "pkg-info" (pkg-info :type git :flavor melpa :host github :repo "emacsorphanage/pkg-info") "epl" (epl :type git :flavor melpa :host github :repo "cask/epl") "let-alist" nil "seq" nil "web-mode" (web-mode :type git :flavor melpa :host github :repo "fxbois/web-mode") "prettier-js" (prettier-js :type git :flavor melpa :host github :repo "prettier/prettier-emacs") "glsl-mode" (glsl-mode :type git :flavor melpa :host github :repo "jimhourihan/glsl-mode") "clang-format+" (clang-format+ :type git :flavor melpa :host github :repo "SavchenkoValeriy/emacs-clang-format-plus") "clang-format" (clang-format :type git :flavor melpa :host github :repo "emacsmirror/clang-format") "rainbow-delimiters" (rainbow-delimiters :type git :flavor melpa :host github :repo "Fanael/rainbow-delimiters") "flyspell" nil "ag" (ag :type git :flavor melpa :host github :repo "Wilfred/ag.el") "s" (s :type git :flavor melpa :files ("s.el" "s-pkg.el") :host github :repo "magnars/s.el") "wgrep-ag" (wgrep-ag :type git :flavor melpa :files ("wgrep-ag.el" "wgrep-ag-pkg.el") :host github :repo "mhayashi1120/Emacs-wgrep") "wgrep" (wgrep :type git :flavor melpa :files ("wgrep.el" "wgrep-pkg.el") :host github :repo "mhayashi1120/Emacs-wgrep") "undo-tree" nil "buffer-move" (buffer-move :type git :flavor melpa :host github :repo "lukhas/buffer-move") "fast-scroll" (fast-scroll :type git :flavor melpa :host github :repo "ahungry/fast-scroll") "edit-server" (edit-server :type git :flavor melpa :files ("servers/edit-server.el" "edit-server-pkg.el") :host github :repo "stsquad/emacs_chrome") "multi-term" (multi-term :type git :flavor melpa :host github :repo "manateelazycat/multi-term") "gxref" (gxref :type git :flavor melpa :host github :repo "dedi/gxref") "eldoc" nil "ein" (ein :type git :flavor melpa :files ("lisp/*" (:exclude "lisp/zeroein.el") "ein-pkg.el") :host github :repo "millejoh/emacs-ipython-notebook") "websocket" (websocket :type git :flavor melpa :host github :repo "ahyatt/emacs-websocket") "anaphora" (anaphora :type git :flavor melpa :host github :repo "rolandwalker/anaphora") "request" (request :type git :flavor melpa :files ("request.el" "request-pkg.el") :host github :repo "tkf/emacs-request") "deferred" (deferred :type git :flavor melpa :files ("deferred.el" "deferred-pkg.el") :host github :repo "kiwanami/emacs-deferred") "polymode" (polymode :type git :flavor melpa :host github :repo "polymode/polymode") "pdf-tools" (pdf-tools :type git :flavor melpa :files ("lisp/*.el" "README" ("build" "Makefile") ("build" "server") (:exclude "lisp/tablist.el" "lisp/tablist-filter.el") "pdf-tools-pkg.el") :host github :repo "vedang/pdf-tools") "tablist" (tablist :type git :flavor melpa :host github :repo "politza/tablist") "yatex" nil "rainbow-mode" nil "migemo" (migemo :type git :flavor melpa :host github :repo "emacs-jp/migemo") "google-translate" (google-translate :type git :flavor melpa :host github :repo "atykhonov/google-translate") "avy" (avy :type git :flavor melpa :host github :repo "abo-abo/avy") "helm-descbinds" (helm-descbinds :type git :flavor melpa :host github :repo "emacs-helm/helm-descbinds") "helm-tramp" (helm-tramp :type git :flavor melpa :host github :repo "masasam/emacs-helm-tramp") "helm-ag" (helm-ag :type git :flavor melpa :host github :repo "emacsorphanage/helm-ag") "docker" (docker :type git :flavor melpa :host github :repo "Silex/docker.el") "docker-tramp" (docker-tramp :type git :flavor melpa :host github :repo "emacs-pe/docker-tramp.el") "json-mode" (json-mode :type git :flavor melpa :host github :repo "joshwnj/json-mode") "json-snatcher" (json-snatcher :type git :flavor melpa :host github :repo "Sterlingg/json-snatcher") "hydra" (hydra :type git :flavor melpa :files (:defaults (:exclude "lv.el") "hydra-pkg.el") :host github :repo "abo-abo/hydra") "lv" (lv :type git :flavor melpa :files ("lv.el" "lv-pkg.el") :host github :repo "abo-abo/hydra") "yapfify" (yapfify :type git :flavor melpa :host github :repo "JorisE/yapfify") "py-isort" (py-isort :type git :flavor melpa :host github :repo "paetzke/py-isort.el") "ace-window" (ace-window :type git :flavor melpa :host github :repo "abo-abo/ace-window") "which-key" (which-key :type git :flavor melpa :host github :repo "justbur/emacs-which-key") "package-lint" (package-lint :type git :flavor melpa :files (:defaults "data" (:exclude "*flymake.el") "package-lint-pkg.el") :host github :repo "purcell/package-lint") "lsp-mode" (lsp-mode :type git :flavor melpa :files (:defaults "clients/*.el" "lsp-mode-pkg.el") :host github :repo "emacs-lsp/lsp-mode") "f" (f :type git :flavor melpa :files ("f.el" "f-pkg.el") :host github :repo "rejeep/f.el") "ht" (ht :type git :flavor melpa :files ("ht.el" "ht-pkg.el") :host github :repo "Wilfred/ht.el") "spinner" nil "helm-lsp" (helm-lsp :type git :flavor melpa :host github :repo "emacs-lsp/helm-lsp") "lsp-docker+" nil "lsp-docker" (lsp-docker :type git :flavor melpa :host github :repo "emacs-lsp/lsp-docker") "lsp-ui" (lsp-ui :type git :flavor melpa :files (:defaults "lsp-ui-doc.html" "resources" "lsp-ui-pkg.el") :host github :repo "emacs-lsp/lsp-ui") "lsp-pyright" (lsp-pyright :type git :flavor melpa :host github :repo "emacs-lsp/lsp-pyright") "ccls" (ccls :type git :flavor melpa :host github :repo "emacs-lsp/emacs-ccls") "yasnippet" (yasnippet :type git :flavor melpa :files ("yasnippet.el" "snippets" "yasnippet-pkg.el") :host github :repo "joaotavora/yasnippet") "company" (company :type git :flavor melpa :files (:defaults "icons" "company-pkg.el") :host github :repo "company-mode/company-mode") "company-tabnine" (company-tabnine :type git :flavor melpa :host github :repo "TommyX12/company-tabnine") "unicode-escape" (unicode-escape :type git :flavor melpa :host github :repo "kosh04/unicode-escape.el") "names" (names :type git :flavor melpa :host github :repo "Malabarba/names") "dap-mode" (dap-mode :type git :flavor melpa :files (:defaults "icons" "dap-mode-pkg.el") :host github :repo "emacs-lsp/dap-mode") "bui" (bui :type git :flavor melpa :host github :repo "alezost/bui.el") "lsp-treemacs" (lsp-treemacs :type git :flavor melpa :files (:defaults "icons" "lsp-treemacs-pkg.el") :host github :repo "emacs-lsp/lsp-treemacs") "treemacs" (treemacs :type git :flavor melpa :files (:defaults "Changelog.org" "icons" "src/elisp/treemacs*.el" "src/scripts/treemacs*.py" (:exclude "src/extra/*") "treemacs-pkg.el") :host github :repo "Alexander-Miller/treemacs") "pfuture" (pfuture :type git :flavor melpa :host github :repo "Alexander-Miller/pfuture") "cfrs" (cfrs :type git :flavor melpa :host github :repo "Alexander-Miller/cfrs") "posframe" (posframe :type git :flavor melpa :host github :repo "tumashu/posframe") "srefactor" (srefactor :type git :flavor melpa :host github :repo "tuhdo/semantic-refactor") "autoinsert" nil "mozc" (mozc :type git :flavor melpa :files ("src/unix/emacs/mozc.el" "mozc-pkg.el") :host github :repo "google/mozc"))) gnu-elpa-mirror #s(hash-table size 65 test equal rehash-size 1.5 rehash-threshold 0.8125 data (version 3 "emacsmirror-mirror" nil "straight" nil "yk-util" nil "cl-lib" nil "col-highlight" nil "cursor-chg" nil "csv-mode" (csv-mode :type git :host github :repo "emacs-straight/csv-mode" :files ("*" (:exclude ".git"))) "let-alist" (let-alist :type git :host github :repo "emacs-straight/let-alist" :files ("*" (:exclude ".git"))) "seq" nil "flyspell" nil "undo-tree" (undo-tree :type git :host github :repo "emacs-straight/undo-tree" :files ("*" (:exclude ".git"))) "eldoc" (eldoc :type git :host github :repo "emacs-straight/eldoc" :files ("*" (:exclude ".git"))) "yatex" nil "rainbow-mode" (rainbow-mode :type git :host github :repo "emacs-straight/rainbow-mode" :files ("*" (:exclude ".git"))) "spinner" (spinner :type git :host github :repo "emacs-straight/spinner" :files ("*" (:exclude ".git"))) "lsp-docker+" nil "autoinsert" nil)) el-get #s(hash-table size 65 test equal rehash-size 1.5 rehash-threshold 0.8125 data (version 1 "emacsmirror-mirror" nil "straight" nil "yk-util" nil "cl-lib" nil "col-highlight" nil "cursor-chg" nil "seq" nil "flyspell" nil "yatex" nil "lsp-docker+" nil "autoinsert" nil)) emacsmirror-mirror #s(hash-table size 65 test equal rehash-size 1.5 rehash-threshold 0.8125 data (version 2 "straight" (straight :type git :host github :repo "emacsmirror/straight") "yk-util" nil "cl-lib" nil "col-highlight" (col-highlight :type git :host github :repo "emacsmirror/col-highlight") "cursor-chg" (cursor-chg :type git :host github :repo "emacsmirror/cursor-chg") "seq" nil "flyspell" nil "yatex" (yatex :type git :host github :repo "emacsmirror/yatex") "lsp-docker+" nil "autoinsert" nil))))
+
+("org-elpa" "melpa" "gnu-elpa-mirror" "el-get" "emacsmirror-mirror" "straight" "emacs" "use-package" "bind-key" "yk-util" "dash" "init-loader" "cl-lib" "zenburn-theme" "col-highlight" "vline" "powerline" "total-lines" "cursor-chg" "magit" "git-commit" "transient" "with-editor" "magit-section" "helm-ls-git" "helm" "async" "popup" "helm-core" "git-gutter" "projectile" "helm-projectile" "org" "open-junk-file" "lispxmp" "paredit" "auto-async-byte-compile" "powershell" "dockerfile-mode" "docker-compose-mode" "yaml-mode" "cmake-mode" "protobuf-mode" "csv-mode" "go-mode" "typescript-mode" "cuda-mode" "rust-mode" "cargo" "markdown-mode" "flycheck-rust" "flycheck" "pkg-info" "epl" "let-alist" "seq" "web-mode" "prettier-js" "glsl-mode" "clang-format+" "clang-format" "rainbow-delimiters" "flyspell" "ag" "s" "wgrep-ag" "wgrep" "undo-tree" "buffer-move" "fast-scroll" "edit-server" "multi-term" "gxref" "eldoc" "ein" "websocket" "anaphora" "request" "deferred" "polymode" "pdf-tools" "tablist" "yatex" "rainbow-mode" "mozc" "migemo" "google-translate" "avy" "helm-descbinds" "helm-tramp" "helm-ag" "docker" "docker-tramp" "json-mode" "json-snatcher" "hydra" "lv" "yapfify" "py-isort" "ace-window" "which-key" "package-lint" "lsp-mode" "f" "ht" "spinner" "helm-lsp" "lsp-docker+" "lsp-docker" "lsp-ui" "lsp-pyright" "ccls" "yasnippet" "company" "company-tabnine" "unicode-escape" "names" "dap-mode" "bui" "lsp-treemacs" "treemacs" "pfuture" "cfrs" "posframe" "srefactor" "autoinsert")
 
 t

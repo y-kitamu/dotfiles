@@ -397,11 +397,11 @@
   :hook
   (emacs-lisp-mode . rainbow-mode))
 
-;; (use-package mozc
-;;   ;; sudo apt-get install emacs-mozc-bin
-;;   :straight t
-;;   :custom
-;;   (default-input-method "japanese-mozc"))
+(use-package mozc
+  ;; sudo apt-get install emacs-mozc-bin
+  :straight t
+  :custom
+  (default-input-method "japanese-mozc"))
 
 ;; migemo (日本語のローマ字検索。とりあえずlinuxだけ)
 ;; sudo apt-get instal -y cmigemo
@@ -523,7 +523,7 @@
 (use-package py-isort
   :demand t
   :hook
-  (before-save-hook . py-isort-before-save))
+  (before-save . py-isort-before-save))
 
 (use-package flycheck
   :straight t
@@ -823,6 +823,7 @@
     (message "Successfully insert template."))
   (add-hook 'find-file-not-found-hooks 'auto-insert))
 
+(message "!!!Finish load init.el Successfully!!!")
 ;;; init.el ends here
 
 ;; Local Variables:

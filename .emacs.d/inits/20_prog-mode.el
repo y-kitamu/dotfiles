@@ -91,7 +91,7 @@
 ;; js formatter
 (use-package prettier-js
   :straight t
-  :hook (web-mode .))
+  :hook (web-mode . prettier-js-mode))
 
 ;; glsl mode
 (use-package glsl-mode
