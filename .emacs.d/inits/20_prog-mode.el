@@ -67,6 +67,7 @@
          ("\\.js\\'" . web-mode)
          ("\\.gs\\'" . web-mode)
          ("\\.jsx\\'" . web-mode)
+         ("\\.tsx\\'" . web-mode)
          ("\\.php\\'" . web-mode)
          ("\\.tpl\\.php\\'" . web-mode)
          ("\\.ctp\\'" . web-mode)

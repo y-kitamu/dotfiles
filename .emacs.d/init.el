@@ -612,7 +612,8 @@
   ((lsp-mode . lsp-enable-which-key-integration)
    (python-mode . lsp-deferred)
    (c++-mode . lsp-deferred)
-   (rust-mode . lsp-deferred)))
+   (rust-mode . lsp-deferred)
+   (web-mode . lsp-deferred)))
 
 (use-package helm-lsp
   :straight t
