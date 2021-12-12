@@ -84,9 +84,13 @@
     (setq web-mode-style-padding 1)      ; <style>内の Indent
     (setq web-mode-script-padding 1))    ; <script>内の Indent
   (add-hook 'web-mode-hook 'web-mode-hook)
+  (setq web-mode-content-types-alist
+        '(("jsx" . "\\.js[x]?\\'")))    ; 拡張子 .js でもJSX編集モードにする
   (setq web-mode-content-types-alist '(("javascript" . "\\.gs\\'"))) ; google app scripts file
   :after rainbow-mode
   :hook (web-mode . rainbow-mode))
+
+(use-package typescript-mode :straight t)
 
 ;; js formatter
 (use-package prettier-js

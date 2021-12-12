@@ -585,11 +585,19 @@
      ((t (:background "#F0DFAF" :foreground "#000000" :weight bold)))) ; zenburn-yellow
    '(lsp-face-highlight-write
      ((t (:background "#DFAF8F" :foreground "#000000" :weight bold))))) ; zenburn-orange
+  ;; typescript (js)
+  (let ((client (gethash 'ts-ls lsp-clients)))
+    (setf (lsp--client-initialization-options client)
+          (lambda ()
+            (list :plugins lsp-clients-typescript-plugins
+                  :logVerbosity lsp-clients-typescript-log-verbosity
+                  :preferences lsp-clients-typescript-init-opts))))
   ;; modeline の表示をなくす
   (setq lsp-modeline-code-actions-enable nil)
   (setq lsp-modeline-diagnostics-enable nil)
   (setq lsp-modeline-workspace-status-enable nil)
   (setq warning-minimum-log-level :error)
+  ;; lspの探索から除外するdirectory
   (yk/add-to-list-multiple 'lsp-file-watch-ignored-directories
                            '("[/\\\\]\\.cache"
                              "[/\\\\]build"
