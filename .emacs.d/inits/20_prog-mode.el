@@ -91,8 +91,6 @@
   :after rainbow-mode
   :hook (web-mode . rainbow-mode))
 
-(use-package typescript-mode :straight t)
-
 ;; js formatter
 (use-package prettier-js
   :straight t
