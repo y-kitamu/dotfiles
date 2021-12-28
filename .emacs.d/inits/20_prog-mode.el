@@ -58,6 +58,16 @@
   (with-eval-after-load 'rust-mode
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
+;;; typescript-modeの設定
+;;; typescript-modeでlsp-dockerを使用する場合はhost側でnpm install -g typescriptする必要あり
+(use-package typescript-mode
+  :straight t
+  :mode (("\\.ts\\'" . typescript-mode)
+         ("\\.tsx\\'" . typescript-mode))
+  :config
+  (setq js-indent-level 2)
+  (setq typescript-indent-level 2))
+
 ;; web mode setting
 (use-package web-mode
   :straight t
@@ -83,19 +93,12 @@
     (setq web-mode-style-padding 1)      ; <style>内の Indent
     (setq web-mode-script-padding 1))    ; <script>内の Indent
   (add-hook 'web-mode-hook 'web-mode-hook)
-  (setq web-mode-content-types-alist
-        '(("jsx" . "\\.js[x]?\\'")
-          ("jsx" . "\\.ts[x]?\\'")))    ; 拡張子 .js でもJSX編集モードにする
+  ;; (setq web-mode-content-types-alist
+  ;;       '(("jsx" . "\\.js[x]?\\'")
+  ;;         ("jsx" . "\\.ts[x]?\\'")))    ; 拡張子 .js でもJSX編集モードにする
   (setq web-mode-content-types-alist '(("javascript" . "\\.gs\\'"))) ; google app scripts file
-  :after rainbow-mode
+  :after (rainbow-mode typescript-mode)
   :hook (web-mode . rainbow-mode))
-
-;;; typescript-modeの設定
-;;; typescript-modeでlsp-dockerを使用する場合はhost側でnpm install -g typescriptする必要あり
-(use-package typescript-mode
-  :straight t
-  :mode (("\\.ts\\'" . web-mode)
-         ("\\.tsx\\'" . web-mode)))
 
 ;; js formatter
 (use-package prettier-js
