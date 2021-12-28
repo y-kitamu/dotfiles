@@ -37,7 +37,6 @@
 (use-package protobuf-mode :straight t)
 (use-package csv-mode :straight t)
 (use-package go-mode :straight t)
-(use-package typescript-mode :straight t)
 
 (use-package cuda-mode :straight t)
 
@@ -67,7 +66,6 @@
          ("\\.js\\'" . web-mode)
          ("\\.gs\\'" . web-mode)
          ("\\.jsx\\'" . web-mode)
-         ("\\.tsx\\'" . web-mode)
          ("\\.php\\'" . web-mode)
          ("\\.tpl\\.php\\'" . web-mode)
          ("\\.ctp\\'" . web-mode)
@@ -86,15 +84,24 @@
     (setq web-mode-script-padding 1))    ; <script>内の Indent
   (add-hook 'web-mode-hook 'web-mode-hook)
   (setq web-mode-content-types-alist
-        '(("jsx" . "\\.js[x]?\\'")))    ; 拡張子 .js でもJSX編集モードにする
+        '(("jsx" . "\\.js[x]?\\'")
+          ("jsx" . "\\.ts[x]?\\'")))    ; 拡張子 .js でもJSX編集モードにする
   (setq web-mode-content-types-alist '(("javascript" . "\\.gs\\'"))) ; google app scripts file
   :after rainbow-mode
   :hook (web-mode . rainbow-mode))
 
+;;; typescript-modeの設定
+;;; typescript-modeでlsp-dockerを使用する場合はhost側でnpm install -g typescriptする必要あり
+(use-package typescript-mode
+  :straight t
+  :mode (("\\.ts\\'" . web-mode)
+         ("\\.tsx\\'" . web-mode)))
+
 ;; js formatter
 (use-package prettier-js
   :straight t
-  :hook (web-mode . prettier-js-mode))
+  :hook ((web-mode . prettier-js-mode)
+         (typescript-mode . prettier-js-mode)))
 
 ;; glsl mode
 (use-package glsl-mode

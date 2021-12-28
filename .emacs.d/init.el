@@ -585,13 +585,6 @@
      ((t (:background "#F0DFAF" :foreground "#000000" :weight bold)))) ; zenburn-yellow
    '(lsp-face-highlight-write
      ((t (:background "#DFAF8F" :foreground "#000000" :weight bold))))) ; zenburn-orange
-  ;; typescript (js)
-  (let ((client (gethash 'ts-ls lsp-clients)))
-    (setf (lsp--client-initialization-options client)
-          (lambda ()
-            (list :plugins lsp-clients-typescript-plugins
-                  :logVerbosity lsp-clients-typescript-log-verbosity
-                  :preferences lsp-clients-typescript-init-opts))))
   ;; modeline の表示をなくす
   (setq lsp-modeline-code-actions-enable nil)
   (setq lsp-modeline-diagnostics-enable nil)
@@ -612,8 +605,7 @@
   ((lsp-mode . lsp-enable-which-key-integration)
    (python-mode . lsp-deferred)
    (c++-mode . lsp-deferred)
-   (rust-mode . lsp-deferred)
-   (web-mode . lsp-deferred)))
+   (rust-mode . lsp-deferred)))
 
 (use-package helm-lsp
   :straight t
@@ -642,7 +634,8 @@
           (list :server-id 'ts-ls :docker-server-id 'tsls-docker
                 :server-command "typescript-language-server --stdio"))))
     (lsp-docker+-init-clients :client-configs lsp-docker+-client-configs))
-  (message (lsp-docker+-format "Finish nitializing lsp-docker+")))
+  (message (lsp-docker+-format "Finish nitializing lsp-docker+"))
+  :after lsp-mode)
 
 (use-package lsp-ui
   :straight t
