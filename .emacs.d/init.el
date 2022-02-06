@@ -519,6 +519,8 @@
      (apply original-func args))
 (advice-add 'yapfify-region :around 'around-yapfify-region)
 
+(use-package blackify
+  :straight (blackify :type git :host github :repo "y-kitamu/blackify"))
 
 (use-package py-isort
   :demand t

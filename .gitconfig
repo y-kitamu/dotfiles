@@ -16,3 +16,5 @@ required = true
 	autocrlf = input
 [github]
 	user = kitamura
+[init]
+	defaultBranch = main

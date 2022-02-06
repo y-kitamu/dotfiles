@@ -67,3 +67,15 @@
 [submodule ".emacs.d/straight/repos/mozc"]
 	path = .emacs.d/straight/repos/mozc
 	url = https://github.com/google/mozc.git
+[submodule ".emacs.d/straight/repos/yaml.el"]
+	path = .emacs.d/straight/repos/yaml.el
+	url = https://github.com/zkry/yaml.el.git
+[submodule ".emacs.d/straight/repos/emacs-reformatter"]
+	path = .emacs.d/straight/repos/emacs-reformatter
+	url = https://github.com/purcell/emacs-reformatter.git
+[submodule ".emacs.d/straight/repos/emacs-python-black"]
+	path = .emacs.d/straight/repos/emacs-python-black
+	url = https://github.com/wbolster/emacs-python-black.git
+[submodule ".emacs.d/straight/repos/blackify"]
+	path = .emacs.d/straight/repos/blackify
+	url = https://github.com/y-kitamu/blackify.git
