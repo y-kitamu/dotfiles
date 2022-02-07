@@ -492,35 +492,36 @@
 
 (use-package hydra :straight t)
 
-(use-package yapfify
-  :straight t
-  :config
-  (setcar (cdr (assq 'yapf-mode minor-mode-alist)) nil)
-  :hook
-  (python-mode . yapf-mode))
+;; (use-package yapfify
+;;   :straight t
+;;   :config
+;;   (setcar (cdr (assq 'yapf-mode minor-mode-alist)) nil)
+;;   :hook
+;;   (python-mode . yapf-mode))
 
-(defun around-yapfify-call-bin (original-func input-buffer output-buffer start-line end-line)
-  "Support docker command."
-  (let ((command-args (split-string yapfify-executable)))
-    (if (= (length command-args) 1)
-        (apply original-func (list input-buffer output-buffer start-line end-line))
-      (with-current-buffer input-buffer
-        (setq res (apply 'call-process-region
-                (append (list (point-min) (point-max) (car command-args) nil output-buffer nil)
-                        (cdr command-args)
-                        (list "-l" (concat (number-to-string start-line) "-"
-                                           (number-to-string end-line))))))))))
-(advice-add 'yapfify-call-bin :around 'around-yapfify-call-bin)
+;; (defun around-yapfify-call-bin (original-func input-buffer output-buffer start-line end-line)
+;;   "Support docker command."
+;;   (let ((command-args (split-string yapfify-executable)))
+;;     (if (= (length command-args) 1)
+;;         (apply original-func (list input-buffer output-buffer start-line end-line))
+;;       (with-current-buffer input-buffer
+;;         (setq res (apply 'call-process-region
+;;                 (append (list (point-min) (point-max) (car command-args) nil output-buffer nil)
+;;                         (cdr command-args)
+;;                         (list "-l" (concat (number-to-string start-line) "-"
+;;                                            (number-to-string end-line))))))))))
+;; (advice-add 'yapfify-call-bin :around 'around-yapfify-call-bin)
 
-(defun around-yapfify-region (original-func &rest args)
-  "Wrap `yapfify-region` to catch error and make sure to kill *yapfify* buffer"
-     (-if-let (tmp-buffer (get-buffer "*yapfify*"))
-         (kill-buffer tmp-buffer))
-     (apply original-func args))
-(advice-add 'yapfify-region :around 'around-yapfify-region)
+;; (defun around-yapfify-region (original-func &rest args)
+;;   "Wrap `yapfify-region` to catch error and make sure to kill *yapfify* buffer"
+;;      (-if-let (tmp-buffer (get-buffer "*yapfify*"))
+;;          (kill-buffer tmp-buffer))
+;;      (apply original-func args))
+;; (advice-add 'yapfify-region :around 'around-yapfify-region)
 
 (use-package blackify
-  :straight (blackify :type git :host github :repo "y-kitamu/blackify"))
+  :straight (blackify :type git :host github :repo "y-kitamu/blackify")
+  :hook (python-mode . blackify-mode))
 
 (use-package py-isort
   :demand t
