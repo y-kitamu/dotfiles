@@ -104,7 +104,8 @@
 (use-package prettier-js
   :straight t
   :hook ((web-mode . prettier-js-mode)
-         (typescript-mode . prettier-js-mode)))
+         (typescript-mode . prettier-js-mode)
+         (json-mode . prettier-js-mode)))
 
 ;; glsl mode
 (use-package glsl-mode
