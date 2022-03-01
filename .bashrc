@@ -170,8 +170,10 @@ elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
 fi
 
 # rust
-if [ -e $HOME/.cargo/env ]; then
-    source "$HOME/.cargo/env"
+export RUSTUP_HOME=${HOME}/.rustup
+export CARGO_HOME=${HOME}/.cargo
+if [ -e $CARGO_HOME/env ]; then
+    source "$CARGO_HOME/env"
 fi
 
 # cask (emacs package management tool)
@@ -233,13 +235,3 @@ function create_xonsh_env {
     sudo apt install xsel
     pip install xonsh[full]
 }
-
-# if [ -e ${HOME}/.venv/xonsh ]; then
-#     source ${HOME}/.venv/xonsh/bin/activate
-#     xonsh
-# fi
-
-# if [ -e /opt/ros/noetic/setup.bash ]; then
-#     source /opt/ros/noetic/setup.bash
-# fi
-# source /opt/ros/galactic/setup.bash

@@ -1,6 +1,8 @@
 .cache/
 .bash_history
 .ccls-cache/
-
+known_hosts*
+.ssh/github_actions*
+build-cache.el
 # backup file
 *~

@@ -1,7 +1,0 @@
-jedi==0.17.0
-parso==0.7.0
-python-language-server
-pytest
-pytest-cov
-ptvsd>=4.2
-yapf
