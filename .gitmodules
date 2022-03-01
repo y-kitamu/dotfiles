@@ -1,81 +1,354 @@
-[submodule ".emacs.d/packages/gud-lldb"]
-	path = .emacs.d/packages/gud-lldb
-	url = https://github.com/jojojames/gud-lldb.git
-[submodule ".emacs.d/packages/lsp-docker+"]
-	path = .emacs.d/packages/lsp-docker+
-	url = git@github.com:y-kitamu/emacs-lsp-docker-plus.git
-[submodule ".emacs.d/packages/yk"]
-	path = .emacs.d/packages/yk
-	url = git@github.com:y-kitamu/yk_elisp.git
-[submodule ".emacs.d/straight/repos/lsp-docker"]
-	path = .emacs.d/straight/repos/lsp-docker
-	url = https://github.com/emacs-lsp/lsp-docker.git
-[submodule ".emacs.d/straight/repos/emacs-lsp-docker-plus"]
-	path = .emacs.d/straight/repos/emacs-lsp-docker-plus
-	url = https://github.com/y-kitamu/emacs-lsp-docker-plus.git
-[submodule ".emacs.d/straight/repos/init-loader"]
-	path = .emacs.d/straight/repos/init-loader
-	url = https://github.com/emacs-jp/init-loader.git
-[submodule ".emacs.d/straight/repos/lsp-ui"]
-	path = .emacs.d/straight/repos/lsp-ui
-	url = https://github.com/emacs-lsp/lsp-ui.git
+[submodule ".emacs.d/straight/repos/Emacs-wgrep"]
+	path = .emacs.d/straight/repos/Emacs-wgrep
+	url = https://github.com/mhayashi1120/Emacs-wgrep.git
+[submodule ".emacs.d/straight/repos/ace-window"]
+	path = .emacs.d/straight/repos/ace-window
+	url = https://github.com/abo-abo/ace-window.git
+[submodule ".emacs.d/straight/repos/ag.el"]
+	path = .emacs.d/straight/repos/ag.el
+	url = https://github.com/Wilfred/ag.el.git
+[submodule ".emacs.d/straight/repos/anaphora"]
+	path = .emacs.d/straight/repos/anaphora
+	url = https://github.com/rolandwalker/anaphora.git
+[submodule ".emacs.d/straight/repos/auto-async-byte-compile"]
+	path = .emacs.d/straight/repos/auto-async-byte-compile
+	url = https://github.com/rubikitch/auto-async-byte-compile.git
+[submodule ".emacs.d/straight/repos/avy"]
+	path = .emacs.d/straight/repos/avy
+	url = https://github.com/abo-abo/avy.git
+[submodule ".emacs.d/straight/repos/blackify"]
+	path = .emacs.d/straight/repos/blackify
+	url = https://github.com/y-kitamu/blackify.git
+[submodule ".emacs.d/straight/repos/buffer-move"]
+	path = .emacs.d/straight/repos/buffer-move
+	url = https://github.com/lukhas/buffer-move.git
 [submodule ".emacs.d/straight/repos/bui.el"]
 	path = .emacs.d/straight/repos/bui.el
 	url = https://github.com/alezost/bui.el.git
+[submodule ".emacs.d/straight/repos/cargo.el"]
+	path = .emacs.d/straight/repos/cargo.el
+	url = https://github.com/kwrooijen/cargo.el.git
 [submodule ".emacs.d/straight/repos/cfrs"]
 	path = .emacs.d/straight/repos/cfrs
 	url = https://github.com/Alexander-Miller/cfrs.git
+[submodule ".emacs.d/straight/repos/zenburn-emacs"]
+	path = .emacs.d/straight/repos/zenburn-emacs
+	url = https://github.com/bbatsov/zenburn-emacs.git
+[submodule ".emacs.d/straight/repos/yk_elisp"]
+	path = .emacs.d/straight/repos/yk_elisp
+	url = https://github.com/y-kitamu/yk_elisp.git
+[submodule ".emacs.d/straight/repos/yatex"]
+	path = .emacs.d/straight/repos/yatex
+	url = https://github.com/emacsmirror/yatex.git
 [submodule ".emacs.d/straight/repos/yasnippet"]
 	path = .emacs.d/straight/repos/yasnippet
 	url = https://github.com/joaotavora/yasnippet.git
+[submodule ".emacs.d/straight/repos/yapfify"]
+	path = .emacs.d/straight/repos/yapfify
+	url = https://github.com/JorisE/yapfify.git
+[submodule ".emacs.d/straight/repos/yaml.el"]
+	path = .emacs.d/straight/repos/yaml.el
+	url = https://github.com/zkry/yaml.el.git
+[submodule ".emacs.d/straight/repos/yaml-mode"]
+	path = .emacs.d/straight/repos/yaml-mode
+	url = https://github.com/yoshiki/yaml-mode.git
+[submodule ".emacs.d/straight/repos/with-editor"]
+	path = .emacs.d/straight/repos/with-editor
+	url = https://github.com/magit/with-editor.git
+[submodule ".emacs.d/straight/repos/web-mode"]
+	path = .emacs.d/straight/repos/web-mode
+	url = https://github.com/fxbois/web-mode.git
+[submodule ".emacs.d/straight/repos/vline"]
+	path = .emacs.d/straight/repos/vline
+	url = https://github.com/buzztaiki/vline.git
+[submodule ".emacs.d/straight/repos/use-package"]
+	path = .emacs.d/straight/repos/use-package
+	url = https://github.com/jwiegley/use-package.git
 [submodule ".emacs.d/straight/repos/unicode-escape.el"]
 	path = .emacs.d/straight/repos/unicode-escape.el
 	url = https://github.com/kosh04/unicode-escape.el.git
+[submodule ".emacs.d/straight/repos/undo-tree"]
+	path = .emacs.d/straight/repos/undo-tree
+	url = https://github.com/emacs-straight/undo-tree.git
+[submodule ".emacs.d/straight/repos/typescript.el"]
+	path = .emacs.d/straight/repos/typescript.el
+	url = https://github.com/emacs-typescript/typescript.el.git
 [submodule ".emacs.d/straight/repos/treemacs"]
 	path = .emacs.d/straight/repos/treemacs
 	url = https://github.com/Alexander-Miller/treemacs.git
+[submodule ".emacs.d/straight/repos/transient"]
+	path = .emacs.d/straight/repos/transient
+	url = https://github.com/magit/transient.git
+[submodule ".emacs.d/straight/repos/total-lines"]
+	path = .emacs.d/straight/repos/total-lines
+	url = https://github.com/hinrik/total-lines.git
+[submodule ".emacs.d/straight/repos/tablist"]
+	path = .emacs.d/straight/repos/tablist
+	url = https://github.com/politza/tablist.git
+[submodule ".emacs.d/straight/repos/straight.el"]
+	path = .emacs.d/straight/repos/straight.el
+	url = https://github.com/raxod502/straight.el.git
+[submodule ".emacs.d/straight/repos/spinner"]
+	path = .emacs.d/straight/repos/spinner
+	url = https://github.com/emacs-straight/spinner.git
 [submodule ".emacs.d/straight/repos/semantic-refactor"]
 	path = .emacs.d/straight/repos/semantic-refactor
 	url = https://github.com/tuhdo/semantic-refactor.git
+[submodule ".emacs.d/straight/repos/s.el"]
+	path = .emacs.d/straight/repos/s.el
+	url = https://github.com/magnars/s.el.git
+[submodule ".emacs.d/straight/repos/rust-mode"]
+	path = .emacs.d/straight/repos/rust-mode
+	url = https://github.com/rust-lang/rust-mode.git
+[submodule ".emacs.d/straight/repos/rainbow-mode"]
+	path = .emacs.d/straight/repos/rainbow-mode
+	url = https://github.com/emacs-straight/rainbow-mode.git
+[submodule ".emacs.d/straight/repos/rainbow-delimiters"]
+	path = .emacs.d/straight/repos/rainbow-delimiters
+	url = https://github.com/Fanael/rainbow-delimiters.git
+[submodule ".emacs.d/straight/repos/py-isort.el"]
+	path = .emacs.d/straight/repos/py-isort.el
+	url = https://github.com/paetzke/py-isort.el.git
+[submodule ".emacs.d/straight/repos/protobuf"]
+	path = .emacs.d/straight/repos/protobuf
+	url = https://github.com/google/protobuf.git
+[submodule ".emacs.d/straight/repos/projectile"]
+	path = .emacs.d/straight/repos/projectile
+	url = https://github.com/bbatsov/projectile.git
+[submodule ".emacs.d/straight/repos/prettier-emacs"]
+	path = .emacs.d/straight/repos/prettier-emacs
+	url = https://github.com/prettier/prettier-emacs.git
+[submodule ".emacs.d/straight/repos/powershell.el"]
+	path = .emacs.d/straight/repos/powershell.el
+	url = https://github.com/jschaf/powershell.el.git
+[submodule ".emacs.d/straight/repos/powerline"]
+	path = .emacs.d/straight/repos/powerline
+	url = https://github.com/milkypostman/powerline.git
 [submodule ".emacs.d/straight/repos/posframe"]
 	path = .emacs.d/straight/repos/posframe
 	url = https://github.com/tumashu/posframe.git
+[submodule ".emacs.d/straight/repos/popup-el"]
+	path = .emacs.d/straight/repos/popup-el
+	url = https://github.com/auto-complete/popup-el.git
+[submodule ".emacs.d/straight/repos/polymode"]
+	path = .emacs.d/straight/repos/polymode
+	url = https://github.com/polymode/polymode.git
+[submodule ".emacs.d/straight/repos/pkg-info"]
+	path = .emacs.d/straight/repos/pkg-info
+	url = https://github.com/emacsorphanage/pkg-info.git
 [submodule ".emacs.d/straight/repos/pfuture"]
 	path = .emacs.d/straight/repos/pfuture
 	url = https://github.com/Alexander-Miller/pfuture.git
+[submodule ".emacs.d/straight/repos/pdf-tools"]
+	path = .emacs.d/straight/repos/pdf-tools
+	url = https://github.com/vedang/pdf-tools.git
+[submodule ".emacs.d/straight/repos/paredit"]
+	path = .emacs.d/straight/repos/paredit
+	url = https://mumble.net/~campbell/git/paredit.git
+[submodule ".emacs.d/straight/repos/package-lint"]
+	path = .emacs.d/straight/repos/package-lint
+	url = https://github.com/purcell/package-lint.git
+[submodule ".emacs.d/straight/repos/org"]
+	path = .emacs.d/straight/repos/org
+	url = https://git.savannah.gnu.org/git/emacs/org-mode.git
+[submodule ".emacs.d/straight/repos/open-junk-file"]
+	path = .emacs.d/straight/repos/open-junk-file
+	url = https://github.com/rubikitch/open-junk-file.git
 [submodule ".emacs.d/straight/repos/names"]
 	path = .emacs.d/straight/repos/names
 	url = https://github.com/Malabarba/names.git
+[submodule ".emacs.d/straight/repos/multi-term"]
+	path = .emacs.d/straight/repos/multi-term
+	url = https://github.com/manateelazycat/multi-term.git
+[submodule ".emacs.d/straight/repos/mozc"]
+	path = .emacs.d/straight/repos/mozc
+	url = https://github.com/google/mozc.git
+[submodule ".emacs.d/straight/repos/migemo"]
+	path = .emacs.d/straight/repos/migemo
+	url = https://github.com/emacs-jp/migemo.git
+[submodule ".emacs.d/straight/repos/melpa"]
+	path = .emacs.d/straight/repos/melpa
+	url = https://github.com/melpa/melpa.git
+[submodule ".emacs.d/straight/repos/markdown-mode"]
+	path = .emacs.d/straight/repos/markdown-mode
+	url = https://github.com/jrblevin/markdown-mode.git
+[submodule ".emacs.d/straight/repos/magit"]
+	path = .emacs.d/straight/repos/magit
+	url = https://github.com/magit/magit.git
+[submodule ".emacs.d/straight/repos/lsp-ui"]
+	path = .emacs.d/straight/repos/lsp-ui
+	url = https://github.com/emacs-lsp/lsp-ui.git
 [submodule ".emacs.d/straight/repos/lsp-treemacs"]
 	path = .emacs.d/straight/repos/lsp-treemacs
 	url = https://github.com/emacs-lsp/lsp-treemacs.git
 [submodule ".emacs.d/straight/repos/lsp-pyright"]
 	path = .emacs.d/straight/repos/lsp-pyright
 	url = https://github.com/emacs-lsp/lsp-pyright.git
-[submodule ".emacs.d/straight/repos/emacs-ccls"]
-	path = .emacs.d/straight/repos/emacs-ccls
-	url = https://github.com/emacs-lsp/emacs-ccls.git
-[submodule ".emacs.d/straight/repos/dap-mode"]
-	path = .emacs.d/straight/repos/dap-mode
-	url = https://github.com/emacs-lsp/dap-mode.git
-[submodule ".emacs.d/straight/repos/company-tabnine"]
-	path = .emacs.d/straight/repos/company-tabnine
-	url = https://github.com/TommyX12/company-tabnine.git
-[submodule ".emacs.d/straight/repos/company-mode"]
-	path = .emacs.d/straight/repos/company-mode
-	url = https://github.com/company-mode/company-mode.git
-[submodule ".emacs.d/straight/repos/mozc"]
-	path = .emacs.d/straight/repos/mozc
-	url = https://github.com/google/mozc.git
-[submodule ".emacs.d/straight/repos/yaml.el"]
-	path = .emacs.d/straight/repos/yaml.el
-	url = https://github.com/zkry/yaml.el.git
+[submodule ".emacs.d/straight/repos/lsp-mode"]
+	path = .emacs.d/straight/repos/lsp-mode
+	url = https://github.com/emacs-lsp/lsp-mode.git
+[submodule ".emacs.d/straight/repos/lsp-docker"]
+	path = .emacs.d/straight/repos/lsp-docker
+	url = https://github.com/emacs-lsp/lsp-docker.git
+[submodule ".emacs.d/straight/repos/lispxmp"]
+	path = .emacs.d/straight/repos/lispxmp
+	url = https://github.com/rubikitch/lispxmp.git
+[submodule ".emacs.d/straight/repos/let-alist"]
+	path = .emacs.d/straight/repos/let-alist
+	url = https://github.com/emacs-straight/let-alist.git
+[submodule ".emacs.d/straight/repos/json-snatcher"]
+	path = .emacs.d/straight/repos/json-snatcher
+	url = https://github.com/Sterlingg/json-snatcher.git
+[submodule ".emacs.d/straight/repos/json-mode"]
+	path = .emacs.d/straight/repos/json-mode
+	url = https://github.com/joshwnj/json-mode.git
+[submodule ".emacs.d/straight/repos/init-loader"]
+	path = .emacs.d/straight/repos/init-loader
+	url = https://github.com/emacs-jp/init-loader.git
+[submodule ".emacs.d/straight/repos/hydra"]
+	path = .emacs.d/straight/repos/hydra
+	url = https://github.com/abo-abo/hydra.git
+[submodule ".emacs.d/straight/repos/ht.el"]
+	path = .emacs.d/straight/repos/ht.el
+	url = https://github.com/Wilfred/ht.el.git
+[submodule ".emacs.d/straight/repos/helm"]
+	path = .emacs.d/straight/repos/helm
+	url = https://github.com/emacs-helm/helm.git
+[submodule ".emacs.d/straight/repos/helm-projectile"]
+	path = .emacs.d/straight/repos/helm-projectile
+	url = https://github.com/bbatsov/helm-projectile.git
+[submodule ".emacs.d/straight/repos/helm-lsp"]
+	path = .emacs.d/straight/repos/helm-lsp
+	url = https://github.com/emacs-lsp/helm-lsp.git
+[submodule ".emacs.d/straight/repos/helm-ls-git"]
+	path = .emacs.d/straight/repos/helm-ls-git
+	url = https://github.com/emacs-helm/helm-ls-git.git
+[submodule ".emacs.d/straight/repos/helm-descbinds"]
+	path = .emacs.d/straight/repos/helm-descbinds
+	url = https://github.com/emacs-helm/helm-descbinds.git
+[submodule ".emacs.d/straight/repos/helm-ag"]
+	path = .emacs.d/straight/repos/helm-ag
+	url = https://github.com/emacsorphanage/helm-ag.git
+[submodule ".emacs.d/straight/repos/gxref"]
+	path = .emacs.d/straight/repos/gxref
+	url = https://github.com/dedi/gxref.git
+[submodule ".emacs.d/straight/repos/google-translate"]
+	path = .emacs.d/straight/repos/google-translate
+	url = https://github.com/atykhonov/google-translate.git
+[submodule ".emacs.d/straight/repos/go-mode.el"]
+	path = .emacs.d/straight/repos/go-mode.el
+	url = https://github.com/dominikh/go-mode.el.git
+[submodule ".emacs.d/straight/repos/gnu-elpa-mirror"]
+	path = .emacs.d/straight/repos/gnu-elpa-mirror
+	url = https://github.com/emacs-straight/gnu-elpa-mirror.git
+[submodule ".emacs.d/straight/repos/glsl-mode"]
+	path = .emacs.d/straight/repos/glsl-mode
+	url = https://github.com/jimhourihan/glsl-mode.git
+[submodule ".emacs.d/straight/repos/git-gutter"]
+	path = .emacs.d/straight/repos/git-gutter
+	url = https://github.com/emacsorphanage/git-gutter.git
+[submodule ".emacs.d/straight/repos/flycheck"]
+	path = .emacs.d/straight/repos/flycheck
+	url = https://github.com/flycheck/flycheck.git
+[submodule ".emacs.d/straight/repos/flycheck-rust"]
+	path = .emacs.d/straight/repos/flycheck-rust
+	url = https://github.com/flycheck/flycheck-rust.git
+[submodule ".emacs.d/straight/repos/fast-scroll"]
+	path = .emacs.d/straight/repos/fast-scroll
+	url = https://github.com/ahungry/fast-scroll.git
+[submodule ".emacs.d/straight/repos/f.el"]
+	path = .emacs.d/straight/repos/f.el
+	url = https://github.com/rejeep/f.el.git
+[submodule ".emacs.d/straight/repos/epl"]
+	path = .emacs.d/straight/repos/epl
+	url = https://github.com/cask/epl.git
+[submodule ".emacs.d/straight/repos/emacsmirror-mirror"]
+	path = .emacs.d/straight/repos/emacsmirror-mirror
+	url = https://github.com/emacs-straight/emacsmirror-mirror.git
+[submodule ".emacs.d/straight/repos/emacs_chrome"]
+	path = .emacs.d/straight/repos/emacs_chrome
+	url = https://github.com/stsquad/emacs_chrome.git
+[submodule ".emacs.d/straight/repos/emacs-which-key"]
+	path = .emacs.d/straight/repos/emacs-which-key
+	url = https://github.com/justbur/emacs-which-key.git
+[submodule ".emacs.d/straight/repos/emacs-websocket"]
+	path = .emacs.d/straight/repos/emacs-websocket
+	url = https://github.com/ahyatt/emacs-websocket.git
+[submodule ".emacs.d/straight/repos/emacs-request"]
+	path = .emacs.d/straight/repos/emacs-request
+	url = https://github.com/tkf/emacs-request.git
 [submodule ".emacs.d/straight/repos/emacs-reformatter"]
 	path = .emacs.d/straight/repos/emacs-reformatter
 	url = https://github.com/purcell/emacs-reformatter.git
 [submodule ".emacs.d/straight/repos/emacs-python-black"]
 	path = .emacs.d/straight/repos/emacs-python-black
 	url = https://github.com/wbolster/emacs-python-black.git
-[submodule ".emacs.d/straight/repos/blackify"]
-	path = .emacs.d/straight/repos/blackify
-	url = https://github.com/y-kitamu/blackify.git
+[submodule ".emacs.d/straight/repos/emacs-lsp-docker-plus"]
+	path = .emacs.d/straight/repos/emacs-lsp-docker-plus
+	url = https://github.com/y-kitamu/emacs-lsp-docker-plus.git
+[submodule ".emacs.d/straight/repos/emacs-ipython-notebook"]
+	path = .emacs.d/straight/repos/emacs-ipython-notebook
+	url = https://github.com/millejoh/emacs-ipython-notebook.git
+[submodule ".emacs.d/straight/repos/emacs-helm-tramp"]
+	path = .emacs.d/straight/repos/emacs-helm-tramp
+	url = https://github.com/masasam/emacs-helm-tramp.git
+[submodule ".emacs.d/straight/repos/emacs-deferred"]
+	path = .emacs.d/straight/repos/emacs-deferred
+	url = https://github.com/kiwanami/emacs-deferred.git
+[submodule ".emacs.d/straight/repos/emacs-clang-format-plus"]
+	path = .emacs.d/straight/repos/emacs-clang-format-plus
+	url = https://github.com/SavchenkoValeriy/emacs-clang-format-plus.git
+[submodule ".emacs.d/straight/repos/emacs-ccls"]
+	path = .emacs.d/straight/repos/emacs-ccls
+	url = https://github.com/emacs-lsp/emacs-ccls.git
+[submodule ".emacs.d/straight/repos/emacs-async"]
+	path = .emacs.d/straight/repos/emacs-async
+	url = https://github.com/jwiegley/emacs-async.git
+[submodule ".emacs.d/straight/repos/eldoc"]
+	path = .emacs.d/straight/repos/eldoc
+	url = https://github.com/emacs-straight/eldoc.git
+[submodule ".emacs.d/straight/repos/el-get"]
+	path = .emacs.d/straight/repos/el-get
+	url = https://github.com/dimitri/el-get.git
+[submodule ".emacs.d/straight/repos/dockerfile-mode"]
+	path = .emacs.d/straight/repos/dockerfile-mode
+	url = https://github.com/spotify/dockerfile-mode.git
+[submodule ".emacs.d/straight/repos/docker.el"]
+	path = .emacs.d/straight/repos/docker.el
+	url = https://github.com/Silex/docker.el.git
+[submodule ".emacs.d/straight/repos/docker-tramp.el"]
+	path = .emacs.d/straight/repos/docker-tramp.el
+	url = https://github.com/emacs-pe/docker-tramp.el.git
+[submodule ".emacs.d/straight/repos/docker-compose-mode"]
+	path = .emacs.d/straight/repos/docker-compose-mode
+	url = https://github.com/meqif/docker-compose-mode.git
+[submodule ".emacs.d/straight/repos/dash.el"]
+	path = .emacs.d/straight/repos/dash.el
+	url = https://github.com/magnars/dash.el.git
+[submodule ".emacs.d/straight/repos/dap-mode"]
+	path = .emacs.d/straight/repos/dap-mode
+	url = https://github.com/emacs-lsp/dap-mode.git
+[submodule ".emacs.d/straight/repos/cursor-chg"]
+	path = .emacs.d/straight/repos/cursor-chg
+	url = https://github.com/emacsmirror/cursor-chg.git
+[submodule ".emacs.d/straight/repos/cuda-mode"]
+	path = .emacs.d/straight/repos/cuda-mode
+	url = https://github.com/chachi/cuda-mode.git
+[submodule ".emacs.d/straight/repos/csv-mode"]
+	path = .emacs.d/straight/repos/csv-mode
+	url = https://github.com/emacs-straight/csv-mode.git
+[submodule ".emacs.d/straight/repos/company-tabnine"]
+	path = .emacs.d/straight/repos/company-tabnine
+	url = https://github.com/TommyX12/company-tabnine.git
+[submodule ".emacs.d/straight/repos/company-mode"]
+	path = .emacs.d/straight/repos/company-mode
+	url = https://github.com/company-mode/company-mode.git
+[submodule ".emacs.d/straight/repos/col-highlight"]
+	path = .emacs.d/straight/repos/col-highlight
+	url = https://github.com/emacsmirror/col-highlight.git
+[submodule ".emacs.d/straight/repos/cmake"]
+	path = .emacs.d/straight/repos/cmake
+	url = https://gitlab.kitware.com/cmake/cmake.git
+[submodule ".emacs.d/straight/repos/clang-format"]
+	path = .emacs.d/straight/repos/clang-format
+	url = https://github.com/emacsmirror/clang-format.git
