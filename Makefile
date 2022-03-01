@@ -12,10 +12,10 @@ build-wsl:  build-emacs build-xrdp
 
 # Build emacs-ng
 build-emacs:
-	apt-get update && apt-get upgrade -y
+	sudo apt-get update && sudo apt-get upgrade -y
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-	apt install build-essential automake clang libclang-dev -y
-	apt install texinfo libjpeg-dev libtiff-dev \
+	sudo apt install build-essential automake clang libclang-dev -y
+	sudo apt install texinfo libjpeg-dev libtiff-dev \
 		libgif-dev libxpm-dev libgtk-3-dev gnutls-dev \
 		libncurses5-dev libxml2-dev libxt-dev
 	mkdir $${HOME}/packages || true
@@ -24,15 +24,15 @@ build-emacs:
 		./autogen.sh &&\
 		./configure &&\
 		make -j$(nproc) &&\
-		make install
+		sudo make install
 
 # Install xrdp to be ablet to use gui applications on WSL. reference : https://yoshimemo.com/post-723/
 build-xrdp:
-	apt-get upate && apt-get upgrade -y
-	apt-get install -y xrdp xubuntu-desktop
-	sed -i -e '/^port/s/3389/13390/g' /etc/xrdp/xrdp.ini
-	/etc/init.d/dbus start
-	/etc/init.d/xrdp start
+	sudo apt-get upate && sudo apt-get upgrade -y
+	sudo apt-get install -y xrdp xubuntu-desktop
+	sudo sed -i -e '/^port/s/3389/13390/g' /etc/xrdp/xrdp.ini
+	sudo /etc/init.d/dbus start
+	sudo /etc/init.d/xrdp start
 	echo xfce4-session > ~/.xsession
 	echo "export XDG_SESSION_DESKTOP=xubuntu" > ~/.xsessionrc
 	echo "export XDG_DATA_DIRS=/usr/share/xfce4:/usr/share/xubuntu:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share" >> ~/.xsessionrc
