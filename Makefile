@@ -13,9 +13,10 @@ build-wsl:  build-emacs build-xrdp
 # Build emacs-ng
 build-emacs:
 	sudo apt-get update && sudo apt-get upgrade -y
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh
+	sh ./rustup.sh -y && rm rustup.sh
 	sudo apt install build-essential automake clang libclang-dev -y
-	sudo apt install texinfo libjpeg-dev libtiff-dev \
+	sudo apt install -y texinfo libjpeg-dev libtiff-dev \
 		libgif-dev libxpm-dev libgtk-3-dev gnutls-dev \
 		libncurses5-dev libxml2-dev libxt-dev
 	mkdir $${HOME}/packages || true
