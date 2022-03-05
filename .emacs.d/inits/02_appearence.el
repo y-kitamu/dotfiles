@@ -53,12 +53,6 @@
 ;; disable beep sound
 (setq visible-bell t)
 
-;; hide bars
-(tool-bar-mode 0)   ; tool bar を非表示
-(menu-bar-mode 0)   ; menu bar を非表示
-(if window-system
-    (scroll-bar-mode 0)) ; scroll bar を非表示
-
 ;; standard mode line setting
 (column-number-mode t)             ; column 番号も表示
 ;; (size-indication-mode t)           ; file size を表示
