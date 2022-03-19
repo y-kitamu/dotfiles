@@ -8,7 +8,17 @@ ROOT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 emacs-test:
 	@$(EMACS) --batch --eval '(load "$(ROOT_DIR)/.emacs.d/init.el")'
 
+## WSL settings
 build-wsl:  build-emacs build-xrdp
+
+# Install ubuntu setting tools
+build-linux: build-emacs
+	LANG=C xdg-user-dirs-gtk-update  # change directory name to English
+	sudo apt-get update && sudo apt-get upgrade -y
+	sudo apt install gnome-tweaks dconf-editor ssh -y
+	sudo systemctl start sshd
+	sudo add-apt-repository ppa:git-core/ppa -y  # Install latest git
+	sudo apt-get update; sudo apt-get install git -y
 
 # Build emacs-ng
 build-emacs:
@@ -38,10 +48,3 @@ build-xrdp:
 	echo "export XDG_SESSION_DESKTOP=xubuntu" > ~/.xsessionrc
 	echo "export XDG_DATA_DIRS=/usr/share/xfce4:/usr/share/xubuntu:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share" >> ~/.xsessionrc
 	echo "export XDG_CONFIG_DIRS=/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg" >> ~/.xsessionrc
-
-# Install ubuntu setting tools
-build-linux:
-	LANG=C xdg-user-dirs-gtk-update  # change directory name to English
-	sudo apt-get update && sudo apt-get upgrade -y
-	sudo apt install gnome-tweaks dconf-editor ssh -y
-	sudo systemctl start sshd

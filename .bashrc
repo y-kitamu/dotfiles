@@ -235,3 +235,7 @@ function create_xonsh_env {
     sudo apt install xsel
     pip install xonsh[full]
 }
+
+# deno
+export DENO_INSTALL="/home/kitamura/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
