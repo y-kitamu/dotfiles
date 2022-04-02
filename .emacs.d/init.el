@@ -77,7 +77,8 @@
 ;;; emacs internal shell path
 (when (equal system-type 'gnu/linux)
   (yk/add-to-list-multiple 'exec-path (list (expand-file-name "~/.local/bin")
-                                            (expand-file-name "~/.cargo/bin"))))
+                                            (expand-file-name "~/.cargo/bin")
+                                            (expand-file-name "~/.deno/bin"))))
 (when (equal system-type 'windows-nt)
   ;; windows上でhelm-locate を使うためにはscoop経由でEverythingをインストール、
   ;; さらに、es.exeをダウンロードして~/../../scoop/shims/以下にes.exeを配置する。
@@ -743,43 +744,19 @@
 (use-package dap-mode
   :straight t
   :config
-  (setq dap-auto-configure-features '(sessions locals controls tooltip))
   (require 'dap-gdb-lldb)
+  (require 'dap-cpptools)
   (dap-gdb-lldb-setup)
-  (dap-register-debug-template
-   "Rust::LLDB Run Configuration"
-   (list :type "lldb"
-         :request "launch"
-         :name "LLDB::Run"
-	     :gdbpath "rust-lldb"
-         :target nil
-         :cwd nil))
-
-  (define-minor-mode +dap-running-session-mode
-    "A mode for adding keybindings to running sessions"
-    nil
-    nil
-    (make-sparse-keymap)
-    ;; (evil-normalize-keymaps) ;; if you use evil, this is necessary to update the keymaps
-    ;; The following code adds to the dap-terminated-hook
-    ;; so that this minor mode will be deactivated when the debugger finishes
-    (when +dap-running-session-mode
-      (let ((session-at-creation (dap--cur-active-session-or-die)))
-        (add-hook 'dap-terminated-hook
-                  (lambda (session)
-                    (when (eq session session-at-creation)
-                      (+dap-running-session-mode -1)))))))
-
-  ;; Activate this minor mode when dap is initialized
-  (add-hook 'dap-session-created-hook '+dap-running-session-mode)
-
-  ;; Activate this minor mode when hitting a breakpoint in another file
-  (add-hook 'dap-stopped-hook '+dap-running-session-mode)
-
-  ;; Activate this minor mode when stepping into code in another file
-  (add-hook 'dap-stack-frame-changed-hook (lambda (session)
-                                            (when (dap--session-running session)
-                                              (+dap-running-session-mode 1)))))
+  (setq dap-auto-configure-features '(sessions locals breakpoints expressions repl controls tooltip))
+  (dap-register-debug-template "Rust::GDB Run Configuration"
+                               (list :type "gdb"
+                                     :request "launch"
+                                     :name "GDB::Run"
+                                     :gdbpath "rust-gdb"
+                                     :target nil
+                                     :cwd nil))
+  :hook
+  (lsp-mode . dap-mode))
 
 (use-package srefactor
   :straight t
