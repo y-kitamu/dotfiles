@@ -29,7 +29,7 @@ build-emacs:
 	sudo apt install -y texinfo libjpeg-dev libtiff-dev \
 		libgif-dev libxpm-dev libgtk-3-dev gnutls-dev \
 		libncurses5-dev libxml2-dev libxt-dev
-	mkdir $${HOME}/packages || git clone https://github.com/emacs-ng/emacs-ng.git $${HOME}/packages || true
+	mkdir $${HOME}/packages; git clone https://github.com/emacs-ng/emacs-ng.git $${HOME}/packages || true
 	cd $${HOME}/packages && \
 		./autogen.sh &&\
 		./configure &&\
