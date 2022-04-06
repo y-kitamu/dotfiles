@@ -38,7 +38,7 @@ build-emacs:
 
 # Install xrdp to be ablet to use gui applications on WSL. reference : https://yoshimemo.com/post-723/
 build-xrdp:
-	sudo apt-get upate && sudo apt-get upgrade -y
+	sudo apt-get update && sudo apt-get upgrade -y
 	sudo apt-get install -y xrdp xubuntu-desktop
 	sudo sed -i -e '/^port/s/3389/13390/g' /etc/xrdp/xrdp.ini
 	sudo /etc/init.d/dbus start
