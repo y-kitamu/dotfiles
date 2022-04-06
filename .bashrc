@@ -239,3 +239,9 @@ function create_xonsh_env {
 # deno
 export DENO_INSTALL="/home/kitamura/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+
+
+# poetry config
+if [ -e ${HOME}/.local/bin/poetry ]; then
+    ~/.local/bin/poetry config virtualenvs.in-project true
+fi
