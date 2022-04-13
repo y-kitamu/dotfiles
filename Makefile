@@ -29,8 +29,7 @@ build-emacs:
 	sudo apt install -y texinfo libjpeg-dev libtiff-dev \
 		libgif-dev libxpm-dev libgtk-3-dev gnutls-dev \
 		libncurses5-dev libxml2-dev libxt-dev
-	mkdir $${HOME}/packages || true
-	git clone https://github.com/emacs-ng/emacs-ng.git $${HOME}/packages
+	mkdir $${HOME}/packages; git clone https://github.com/emacs-ng/emacs-ng.git $${HOME}/packages || true
 	cd $${HOME}/packages && \
 		./autogen.sh &&\
 		./configure &&\
@@ -39,7 +38,7 @@ build-emacs:
 
 # Install xrdp to be ablet to use gui applications on WSL. reference : https://yoshimemo.com/post-723/
 build-xrdp:
-	sudo apt-get upate && sudo apt-get upgrade -y
+	sudo apt-get update && sudo apt-get upgrade -y
 	sudo apt-get install -y xrdp xubuntu-desktop
 	sudo sed -i -e '/^port/s/3389/13390/g' /etc/xrdp/xrdp.ini
 	sudo /etc/init.d/dbus start
