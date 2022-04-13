@@ -606,6 +606,8 @@
                            '("[/\\\\][^/\\\\]+\\.o"
                              "[/\\\\][^/\\\\]+\\.a"
                              "[/\\\\]\\.[/\\\\]+"))
+  ;; rustのdebug用環境変数
+  (setenv "RUST_BACKTRACE" "1")
   :hook
   ((lsp-mode . lsp-enable-which-key-integration)
    (python-mode . lsp-deferred)

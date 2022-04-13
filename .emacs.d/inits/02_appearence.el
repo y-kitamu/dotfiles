@@ -115,7 +115,7 @@ ex. (my/hide-minor-mode-from-mode-line 'rainbow-mode)"
   :config
   (toggle-highlight-column-when-idle 0))
 
-;;; mode-lineの見た目をおしゃれにする
+;;; mode-lineの見た目をおしゃれにする ;;; not working in webrender
 (use-package powerline
   :straight t
   :config
