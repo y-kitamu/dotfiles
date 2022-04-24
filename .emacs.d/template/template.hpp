@@ -1,9 +1,8 @@
-/*
- * %file%
- * 
- * 
- * Create Date : %date%
- * Copyright (c) 2019- %name% <%mail%>
+/**
+ * @file %file%
+ * @brief
+ * @author %name% <%mail%>
+ * @date %date%
  */
 
 #ifndef %include-guard%

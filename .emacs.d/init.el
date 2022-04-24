@@ -240,6 +240,7 @@
   :custom
   (undo-tree-mode-lighter nil)
   :config
+  (setq undo-tree-auto-save-history nil)
   (global-undo-tree-mode))
 
 ;;; buffer-move setting
