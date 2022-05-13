@@ -370,3 +370,9 @@
 [submodule ".emacs.d/straight/repos/tramp"]
 	path = .emacs.d/straight/repos/tramp
 	url = https://github.com/emacs-straight/tramp.git
+[submodule ".emacs.d/straight/repos/emacs-prisma-mode"]
+	path = .emacs.d/straight/repos/emacs-prisma-mode
+	url = https://github.com/pimeys/emacs-prisma-mode.git
+[submodule ".emacs.d/straight/repos/js2-mode"]
+	path = .emacs.d/straight/repos/js2-mode
+	url = https://github.com/mooz/js2-mode.git
