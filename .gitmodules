@@ -358,3 +358,27 @@
 [submodule ".emacs.d/straight/repos/queue"]
 	path = .emacs.d/straight/repos/queue
 	url = https://github.com/emacs-straight/queue.git
+[submodule ".emacs.d/straight/repos/emacs-web-server"]
+	path = .emacs.d/straight/repos/emacs-web-server
+	url = https://github.com/eschulte/emacs-web-server.git
+[submodule ".emacs.d/straight/repos/markdown-preview-mode"]
+	path = .emacs.d/straight/repos/markdown-preview-mode
+	url = https://github.com/ancane/markdown-preview-mode.git
+[submodule ".emacs.d/straight/repos/mozc"]
+	path = .emacs.d/straight/repos/mozc
+	url = https://github.com/google/mozc.git
+[submodule ".emacs.d/straight/repos/mpv.el"]
+	path = .emacs.d/straight/repos/mpv.el
+	url = https://github.com/kljohann/mpv.el.git
+[submodule ".emacs.d/straight/repos/string-inflection"]
+	path = .emacs.d/straight/repos/string-inflection
+	url = https://github.com/akicho8/string-inflection.git
+[submodule ".emacs.d/straight/repos/tramp"]
+	path = .emacs.d/straight/repos/tramp
+	url = https://github.com/emacs-straight/tramp.git
+[submodule ".emacs.d/straight/repos/emacs-prisma-mode"]
+	path = .emacs.d/straight/repos/emacs-prisma-mode
+	url = https://github.com/pimeys/emacs-prisma-mode.git
+[submodule ".emacs.d/straight/repos/js2-mode"]
+	path = .emacs.d/straight/repos/js2-mode
+	url = https://github.com/mooz/js2-mode.git
