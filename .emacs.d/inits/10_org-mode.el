@@ -24,25 +24,34 @@
 
 ;;; Code:
 
+(use-package dash :straight t)
+
 (use-package org
   :straight t
   :custom
+  (org-directory "~/.emacs.d/documents/projects")
   (org-startup-indented t)
   (org-indent-indentation-per-level 2)
   (org-startup-folded 'showall)
   (org-confirm-babel-evaluate nil) ; 評価時に確認メッセージをださない
-  (org-directory "~/.emacs.d/documents/")
   (org-archive-location (concat "%s_archive_" (format-time-string "%Y" (current-time))))
-  (org-agenda-files (list org-directory))
-  (org-agenda-skip-scheduled-if-done t) ; agenda に DONE を表示しない
+  ;; (org-agenda-files (directory-files org-directory))
   (org-log-done 'time) ; DONE の時間を記録
+  ;; org-agenda settings
+  (org-agenda-skip-scheduled-if-done t) ; agenda に DONE を表示しない
   :config
+  (defun update-org-agenda-files ()
+    (interactive)
+    (setq org-agenda-files (-filter (lambda (file) (string= "org" (file-name-extension file)))
+                                    (directory-files org-directory))))
+  (update-org-agenda-files)
   ; python コードブロックを評価できるようにする
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)))
-  ;; :bind
-  ;; ("C-c a" . 'org-agenda)
+  :bind
+  ("C-c a" . 'org-agenda)
+  ("C-c l" . 'org-store-link)
   ;; ("C-c e X" . 'org-publish-project)
   )
 

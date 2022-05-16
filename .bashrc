@@ -242,6 +242,7 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 
 
 # poetry config
-if [ -e ${HOME}/.local/bin/poetry ]; then
-    ~/.local/bin/poetry config virtualenvs.in-project true
+if [ -e ${HOME}/.poetry/bin/poetry ]; then
+    export PATH=${HOME}/.poetry/bin${PATH:+:${PATH}}
+    ~/.poetry/bin/poetry config virtualenvs.in-project true
 fi

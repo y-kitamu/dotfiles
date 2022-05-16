@@ -63,7 +63,7 @@
   :straight (yk-util :type git :host github :repo "y-kitamu/yk_elisp"))
 
 ;;; Increase a bit garbage collection threshold:
-(setq gc-cons-threshold 3200000)
+(setq gc-cons-threshold 51200000)
 
 ;;; Make sure we can debug init errors more easily:
 (if init-file-debug
@@ -788,7 +788,8 @@
                              ("test_.*\\.cpp$" . ["test_template.cpp" my-template])
                              ("\\.hpp$" . ["template.hpp" my-template])
                              ("CMakeLists.txt$" . ["template.CMakeLists.txt" my-template])
-                             ("\\.py$" . ["template.py" my-template])))
+                             ("\\.py$" . ["template.py" my-template])
+                             ("[0-9]+_[0-9]+_[0-9]+.org" . ["template_todo.org" my-template])))
   (defvar template-replacements-alists
     '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
       ("%file-without-ext%" .
@@ -810,7 +811,7 @@
     (message "Successfully insert template."))
   (add-hook 'find-file-not-found-hooks 'auto-insert))
 
-(message "!!!Finish load init.el Successfully!!!")
+(message "!!!!! Finish loading init.el successfully !!!!!")
 ;;; init.el ends here
 
 ;; Local Variables:

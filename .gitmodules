@@ -352,3 +352,9 @@
 [submodule ".emacs.d/straight/repos/clang-format"]
 	path = .emacs.d/straight/repos/clang-format
 	url = https://github.com/emacsmirror/clang-format.git
+[submodule ".emacs.d/straight/repos/emacs-aio"]
+	path = .emacs.d/straight/repos/emacs-aio
+	url = https://github.com/skeeto/emacs-aio.git
+[submodule ".emacs.d/straight/repos/queue"]
+	path = .emacs.d/straight/repos/queue
+	url = https://github.com/emacs-straight/queue.git
