@@ -38,7 +38,7 @@
   ;; (org-agenda-files (directory-files org-directory))
   (org-log-done 'time) ; DONE の時間を記録
   ;; org-agenda settings
-  (org-agenda-skip-scheduled-if-done t) ; agenda に DONE を表示しない
+  (org-agenda-skip-scheduled-if-done nil) ; agenda に DONE を表示しない
   :config
   (defun update-org-agenda-files ()
     (interactive)
