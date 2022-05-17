@@ -52,6 +52,15 @@
   :bind
   ("C-c a" . 'org-agenda)
   ("C-c l" . 'org-store-link)
+  (:map org-read-date-minibuffer-local-map
+        ("C-f" . (lambda () (interactive)
+                   (org-eval-in-calendar '(calendar-forward-day 1))))
+        ("C-b" . (lambda () (interactive)
+                   (org-eval-in-calendar '(calendar-backward-day 1))))
+        ("C-n" . (lambda () (interactive)
+                   (org-eval-in-calendar '(calendar-forward-week 1))))
+        ("C-p" . (lambda () (interactive)
+                  (org-eval-in-calendar '(calendar-backward-week 1)))))
   ;; ("C-c e X" . 'org-publish-project)
   )
 
