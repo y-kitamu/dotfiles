@@ -6,3 +6,9 @@ known_hosts*
 build-cache.el
 # backup file
 *~
+
+# org gcal
+.org-generic-id-locations
+.org-id-locations
+org-gcal/
+persist/

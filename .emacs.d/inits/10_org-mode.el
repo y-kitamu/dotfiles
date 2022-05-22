@@ -34,7 +34,6 @@
   (org-indent-indentation-per-level 2)
   (org-startup-folded 'showall)
   (org-confirm-babel-evaluate nil) ; 評価時に確認メッセージをださない
-  (org-archive-location (concat "%s_archive_" (format-time-string "%Y" (current-time))))
   ;; (org-agenda-files (directory-files org-directory))
   (org-log-done 'time) ; DONE の時間を記録
   ;; org-agenda settings
@@ -63,6 +62,18 @@
                   (org-eval-in-calendar '(calendar-backward-week 1)))))
   ;; ("C-c e X" . 'org-publish-project)
   )
+
+;;; org-agendaとgoogle calendarの連携
+(use-package org-gcal
+  :straight t
+  :config
+  (let ((confidential-file "~/.emacs.d/inits/confidential.el"))
+    (if (file-exists-p confidential-file)
+        (progn
+          (load-file confidential-file)
+          (setq org-gcal-fetch-file-alist
+                '(("ymyk6602@gmail.com" . "~/.emacs.d/documents/projects/gcalendar.org")))))))
+
 
 (defun override-org-html-src-block (src-block _contents info)
   "Jekyll ブログエクスポート用のコードブロック生成。

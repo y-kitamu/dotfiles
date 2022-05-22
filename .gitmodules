@@ -382,3 +382,18 @@
 [submodule ".emacs.d/straight/repos/js2-mode"]
 	path = .emacs.d/straight/repos/js2-mode
 	url = https://github.com/mooz/js2-mode.git
+[submodule ".emacs.d/straight/repos/alert"]
+	path = .emacs.d/straight/repos/alert
+	url = https://github.com/jwiegley/alert.git
+[submodule ".emacs.d/straight/repos/gntp.el"]
+	path = .emacs.d/straight/repos/gntp.el
+	url = https://github.com/tekai/gntp.el.git
+[submodule ".emacs.d/straight/repos/log4e"]
+	path = .emacs.d/straight/repos/log4e
+	url = https://github.com/aki2o/log4e.git
+[submodule ".emacs.d/straight/repos/org-gcal.el"]
+	path = .emacs.d/straight/repos/org-gcal.el
+	url = https://github.com/kidd/org-gcal.el.git
+[submodule ".emacs.d/straight/repos/persist"]
+	path = .emacs.d/straight/repos/persist
+	url = https://github.com/emacs-straight/persist.git
