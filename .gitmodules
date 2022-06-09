@@ -397,3 +397,9 @@
 [submodule ".emacs.d/straight/repos/persist"]
 	path = .emacs.d/straight/repos/persist
 	url = https://github.com/emacs-straight/persist.git
+[submodule ".emacs.d/straight/repos/orderless"]
+	path = .emacs.d/straight/repos/orderless
+	url = https://github.com/oantolin/orderless.git
+[submodule ".emacs.d/straight/repos/vertico"]
+	path = .emacs.d/straight/repos/vertico
+	url = https://github.com/emacs-straight/vertico.git

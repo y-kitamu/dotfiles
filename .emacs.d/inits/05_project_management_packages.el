@@ -72,9 +72,6 @@
   :bind
   ("C-x g" . magit-status))
 
-(use-package helm-ls-git
-  :straight t)
-
 ;;; reference : https://emacs-jp.github.io/packages/git-gutter
 (use-package git-gutter
   :straight t
@@ -91,16 +88,9 @@
   :init
   (setq projectile-dynamic-mode-line nil)
   (setq projectile-mode-line-prefix nil)
-  (setq projectile-completion-system 'helm)
   :config
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1))
-
-(use-package helm-projectile
-  :straight t
-  :config
-  (define-key projectile-mode-map (kbd "C-c p f") 'helm-projectile)
-  :after projectile)
 
 (provide '05_project_management_packages)
 ;;; 05_project_management_packages.el ends here

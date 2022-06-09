@@ -214,8 +214,101 @@
          (text-mode . flyspell-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;; Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;; Third Party Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; completion packages (vertico)
+(use-package vertico
+  :straight t
+  :init
+  (vertico-mode)
+  (setq vertico-count 20)
+  (setq vertico-resize t)
+  ;; (setq vertico-cycle t)
+  :bind
+  (:map vertico-map
+        ("C-v" . vertico-scroll-up)
+        ("M-v" . vertico-scroll-down)))
+
+(use-package vertico-buffer
+  :after vertico
+  :straight nil
+  :load-path "straight/repos/vertico/extensions/")
+
+(use-package vertico-flat
+  :after vertico
+  :straight nil
+  :load-path "straight/repos/vertico/extensions/")
+
+(use-package vertico-grid
+  :after vertico
+  :straight nil
+  :load-path "straight/repos/vertico/extensions/")
+
+(use-package vertico-unobtrusive
+  :after vertico
+  :straight nil
+  :load-path "straight/repos/vertico/extensions/")
+
+(use-package vertico-directory
+  :after vertico
+  :straight nil
+  :load-path "straight/repos/vertico/extensions/"
+  :bind ( :map vertico-map
+          ("RET" . vertico-directory-enter)
+          ("DEL" . vertico-directory-delete-char)
+          ("M-DEL" . vertico-directory-delete-word))
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
+(use-package vertico-multiform
+  :after vertico vertico-buffer
+  :straight nil
+  :load-path "straight/repos/vertico/extensions/"
+  :config
+  (vertico-multiform-mode)
+  (setq vertico-multiform-categories
+        '((file grid)
+          (buffer grid)
+          (consult-grep buffer))))
+
+(use-package savehist
+  :init
+  (savehist-mode))
+
+(use-package emacs
+  :init
+  ;; Add prompt indicator to `completing-read-multiple'.
+  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+  (defun crm-indicator (args)
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string
+                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                   crm-separator)
+                  (car args))
+          (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  (setq read-extended-command-predicate
+        #'command-completion-default-include-p)
+
+  ;; Enable recursive minibuffers
+  (setq enable-recursive-minibuffers t))
+
+
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+
+;;;
 
 (use-package ag
   :straight t
@@ -442,53 +535,6 @@
    ("C-." .   avy-goto-word-1)
    ("M-g f" . avy-goto-line)))
 
-;;; Helm
-(use-package helm
-  :straight t
-  :custom
-  (helm-completion-style 'emacs)
-  (helm-for-document-sources '(helm-source-info-elisp
-                               helm-source-info-cl
-                               helm-source-info-pages
-                               helm-source-man-pages))
-  :config
-  (defun helm-for-document ()
-  "Preconfigured `helm' for helm-for-document."
-  (interactive)
-  (let ((default (thing-at-point 'symbol)))
-    (helm :sources
-          (nconc
-           (mapcar (lambda (func)
-                           (funcall func default))
-                   helm-apropos-function-list)
-           helm-for-document-sources)
-          :buffer "*helm for document*")))
-  :bind
-  (("M-y" . helm-show-kill-ring) ; helm-kill-ring への keybind の割当
-   ("C-x b" . helm-for-files)
-   ("C-x C-f" . helm-find-files)
-   ("C-h a" . helm-apropos)
-   ("M-x" . helm-M-x)))
-
-(use-package helm-descbinds
-  :straight t
-  :config
-  ; C-h b (keybind display list) をhelmで表示
-  (helm-descbinds-mode))
-
-(use-package helm-tramp
-  :straight t
-  :custom
-  (tramp-default-method "ssh")
-  :bind
-  (("C-c s" . helm-tramp))
-  :config
-  (defun helm-tramp-open (path)
-    "Tramp open with PATH."
-    (helm-find-files-1 path)))
-
-(use-package helm-ag :straight t)
-
 (use-package docker
   :straight t
   :bind ("C-c d" . docker))
@@ -615,15 +661,6 @@
    (c++-mode . lsp-deferred)
    (rust-mode . lsp-deferred)
    (typescript-mode . lsp-deferred)))
-
-(use-package helm-lsp
-  :straight t
-  :config
-  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
-  :bind
-  (("C-c h a" . helm-lsp-code-actions))
-  (("C-c h s" . helm-lsp-workspace-symbol))
-  (("C-c h d" . helm-lsp-diagnostics)))
 
 (use-package lsp-docker+
   :straight (lsp-docker+ :type git :host github :repo "y-kitamu/emacs-lsp-docker-plus")

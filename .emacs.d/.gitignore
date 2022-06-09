@@ -29,3 +29,5 @@ forge-database.sqlite
 /.cask/
 projects
 projectile-bookmarks.eld
+/history
+/network-security.data
