@@ -789,8 +789,8 @@
                              ("\\.hpp$" . ["template.hpp" my-template])
                              ("CMakeLists.txt$" . ["template.CMakeLists.txt" my-template])
                              ("\\.py$" . ["template.py" my-template])
-                             ("[0-9]+_[0-9]+_[0-9]+.org" . ["template_todo.org" my-template])
-                             ("[0-9]+_\\w+.org" . ["template_paper.org" my-template])))
+                             ("[0-9]+\\(_\\w+\\)+\\.org$" . ["template_paper.org" my-template])
+                             ("[0-9]+_[0-9]+_[0-9]+\\.org$" . ["template_todo.org" my-template])))
   (defvar template-replacements-alists
     '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
       ("%file-without-ext%" .

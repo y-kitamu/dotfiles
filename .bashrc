@@ -246,3 +246,5 @@ if [ -e ${HOME}/.poetry/bin/poetry ]; then
     export PATH=${HOME}/.poetry/bin${PATH:+:${PATH}}
     ~/.poetry/bin/poetry config virtualenvs.in-project true
 fi
+
+# export NPM_CONFIG_PREFIX="/usr/local"
