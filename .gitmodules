@@ -403,3 +403,15 @@
 [submodule ".emacs.d/straight/repos/vertico"]
 	path = .emacs.d/straight/repos/vertico
 	url = https://github.com/emacs-straight/vertico.git
+[submodule ".emacs.d/straight/repos/compat"]
+	path = .emacs.d/straight/repos/compat
+	url = https://github.com/emacs-straight/compat.git
+[submodule ".emacs.d/straight/repos/consult"]
+	path = .emacs.d/straight/repos/consult
+	url = https://github.com/minad/consult.git
+[submodule ".emacs.d/straight/repos/embark"]
+	path = .emacs.d/straight/repos/embark
+	url = https://github.com/oantolin/embark.git
+[submodule ".emacs.d/straight/repos/marginalia"]
+	path = .emacs.d/straight/repos/marginalia
+	url = https://github.com/minad/marginalia.git
