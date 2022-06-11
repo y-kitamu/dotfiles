@@ -144,11 +144,6 @@
   :config
   (add-hook 'c-mode-common-hook #'clang-format+-mode))
 
-;; enable Semantic mode (helm-semantic-or-imenu)
-(add-hook 'prog-mode (lambda ()
-                       (semantic-mode 1)
-                       (imenu--rescan-item)))
-
 ;; (use-package smartparens
 ;;   :straight t
 ;;   :commands smartparens-mode
@@ -213,6 +208,16 @@
          (org-mode . flyspell-mode)
          (text-mode . flyspell-mode)))
 
+(defun rename-file-with-buffer (old-filename new-filename &optional _)
+  "Rename file with buffer.  Rename from `OLD-FILENAME' to `NEW-FILENAME'."
+  (interactive "fRename file: \nGRename %s to file: \np")
+  (rename-file old-filename new-filename)
+  (let ((buf (get-file-buffer old-filename)))
+    (if buf
+        (with-current-buffer buf
+          (set-visited-file-name new-filename nil t)
+          (set-buffer-modified-p nil)))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;; Third Party Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -257,6 +262,7 @@
   :bind ( :map vertico-map
           ("RET" . vertico-directory-enter)
           ("DEL" . vertico-directory-delete-char)
+          ("C-l" . vertico-directory-delete-char)
           ("M-DEL" . vertico-directory-delete-word))
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
@@ -323,16 +329,45 @@
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("M-." . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+   ("C-h B" . embark-bindings)
+   :map embark-file-map
+   ("r" . rename-file-with-buffer)) ;; alternative for `describe-bindings'
   :init
   ;; Optionally replace the key help with a completing-read interface
-  (setq prefix-help-command #'embark-prefix-help-command)
+  ;; (setq prefix-help-command #'embark-prefix-help-command)
+  (setq embark-indicators '(embark-minimal-indicator))
+  (setq embark-prompter 'embark-completing-read-prompter)
   :config
+  ;; helm like tab
+  (defun with-minibuffer-keymap (keymap)
+         (lambda (fn &rest args)
+           (minibuffer-with-setup-hook
+               (lambda ()
+                 (use-local-map
+                  (make-composed-keymap keymap (current-local-map))))
+             (apply fn args))))
+
+  (defvar embark-completing-read-prompter-map
+    (let ((map (make-sparse-keymap)))
+      (define-key map (kbd "<tab>") 'abort-recursive-edit)
+      map))
+
+  (advice-add 'embark-completing-read-prompter :around
+              (with-minibuffer-keymap embark-completing-read-prompter-map))
+  (define-key vertico-map (kbd "<tab>") 'embark-act-with-completing-read)
+
+  (defun embark-act-with-completing-read (&optional arg)
+    (interactive "P")
+    (let* ((embark-prompter 'embark-completing-read-prompter)
+           (act (propertize "Act" 'face 'highlight))
+           (embark-indicator (lambda (_keymap targets) nil)))
+      (embark-act arg)))
   ;; Hide the mode line of the Embark live/completions buffers
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none)))))
+  ;; (add-to-list 'display-buffer-alist
+  ;;              '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+  ;;                nil
+  ;;                (window-parameters (mode-line-format . none))))
+  )
 
 ;; Example configuration for Consult
 (use-package consult
@@ -371,6 +406,7 @@
          ("M-s g" . consult-grep)
          ("M-s G" . consult-git-grep)
          ("M-s r" . consult-ripgrep)
+         ("C-S-f" . consult-ripgrep)      ; same for vscode keybind
          ("M-s l" . consult-line)
          ("M-s L" . consult-line-multi)
          ("M-s m" . consult-multi-occur)
@@ -689,7 +725,6 @@
   (avy-background t)
   :bind
   (("C-:" .   avy-goto-char-timer)
-   ("C-." .   avy-goto-word-1)
    ("M-g f" . avy-goto-line)))
 
 (use-package docker
@@ -876,6 +911,9 @@
   :custom
   (ccls-initialization-options (list :compilationDatabaseDirectory "build")))
 
+(use-package doxygen
+  :straight t)
+
 (use-package yasnippet
   :straight t
   :config
@@ -883,14 +921,21 @@
   (my/hide-minor-mode-from-mode-line 'yas-minor-mode)
   :diminish yas-minor-mode
   :bind
-  (:map yas-minor-mode-map
-        ("C-c y i" . yas-insert-snippet) ;; 既存スニペットを挿入
-        ("C-c y n" . yas-new-snippet) ;; スニペットを作成するバッファを用意
-        ("C-c y v" . yas-visit-snippet-file) ;; 既存スニペットを閲覧・編集
-        )
   (:map yas-keymap
         ("<tab>" . nil)) ;; because of avoiding conflict with company keymap
   :after lsp-mode)
+
+(use-package yasnippet-snippets
+  :straight t
+  :init
+  (yasnippet-snippets-initialize))
+
+(use-package consult-yasnippet
+  :after yasnippet
+  :straight t
+  :bind
+  (:map yas-minor-mode-map
+        ("C-c y" . consult-yasnippet)))
 
 (use-package company
   :straight t

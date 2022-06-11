@@ -1,0 +1,12 @@
+/**
+ * @file `(file-name-nondirectory (buffer-file-name))`
+ * @brief
+ * @author
+ * @date `(format-time-string "%Y-%m-%d %H:%M:%S")`
+ */
+#ifndef ${1:_`(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))`_H_}
+#define $1
+
+$0
+
+#endif // $1

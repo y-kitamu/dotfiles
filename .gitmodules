@@ -415,3 +415,12 @@
 [submodule ".emacs.d/straight/repos/marginalia"]
 	path = .emacs.d/straight/repos/marginalia
 	url = https://github.com/minad/marginalia.git
+[submodule ".emacs.d/straight/repos/consult-yasnippet"]
+	path = .emacs.d/straight/repos/consult-yasnippet
+	url = https://github.com/mohkale/consult-yasnippet.git
+[submodule ".emacs.d/straight/repos/yasnippet-snippets"]
+	path = .emacs.d/straight/repos/yasnippet-snippets
+	url = https://github.com/AndreaCrotti/yasnippet-snippets.git
+[submodule ".emacs.d/straight/repos/doxygen"]
+	path = .emacs.d/straight/repos/doxygen
+	url = https://github.com/emacsmirror/doxygen.git
