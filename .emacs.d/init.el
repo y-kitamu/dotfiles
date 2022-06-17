@@ -209,7 +209,7 @@
          (text-mode . flyspell-mode)))
 
 (defun rename-file-with-buffer (old-filename new-filename &optional _)
-  "Rename file with buffer.  Rename from `OLD-FILENAME' to `NEW-FILENAME'."
+  "Rename file and the corresponding buffer.  Rename from `OLD-FILENAME' to `NEW-FILENAME'."
   (interactive "fRename file: \nGRename %s to file: \np")
   (rename-file old-filename new-filename)
   (let ((buf (get-file-buffer old-filename)))
@@ -217,6 +217,9 @@
         (with-current-buffer buf
           (set-visited-file-name new-filename nil t)
           (set-buffer-modified-p nil)))))
+
+(defun delete-file-with-buffer (filename)
+  "Delete file of `FILENAME' and the corresponding buffer.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;; Third Party Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -230,6 +233,26 @@
   (setq vertico-count 20)
   (setq vertico-resize t)
   ;; (setq vertico-cycle t)
+  (defface yk-highlight '((t :foreground "red"))
+    "Basic face for highlighting.")
+
+  (defun yk-vertico-format-candidates (original-func buf-name &rest rest)
+    ;; (let ((cat (vertico--metadata-get 'category)))
+    ;;   ;; (cond ((eq 'buffer cat)             ; cantegory : file
+    ;;   ;;        (with-current-buffer cand
+    ;;   ;;          (let* ((fname (buffer-file-name)))
+    ;;   ;;            (unless fname
+    ;;   ;;              (add-face-text-property 0 (length cand) 'yk-highlight 'append cand))))
+    ;;   ;;        ))
+    ;;   (vertico--format-candidate cand prefix suffix index _start))
+
+    (let* ((cand (apply original-func buf-name rest)))
+      (with-current-buffer (vertico--display-string buf-name)
+        (unless (buffer-file-name)
+          (add-face-text-property 0 (length cand) 'yk-highlight 'append cand)))
+      cand))
+  (advice-remove #'vertico--format-candidate #'yk-vertico-format-candidates)
+  (advice-add #'vertico--format-candidate :around #'yk-vertico-format-candidates)
   :bind
   (:map vertico-map
         ("C-v" . vertico-scroll-up)
