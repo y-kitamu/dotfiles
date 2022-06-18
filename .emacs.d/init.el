@@ -586,18 +586,22 @@
 
 ;;; multi-term
 ;; .bashrc に $TERM が eterm-color の場合にも color-prompt にするように設定を追記する
-(use-package multi-term
+;; (use-package multi-term
+;;   :straight t
+;;   :config
+;;   (add-to-list 'term-unbind-key-list "C-t")
+;;   (add-to-list 'term-unbind-key-list "C-o")
+;;   (add-to-list 'term-bind-key-alist '("C-c z" . term-send-ctrl-z))
+;;   (add-to-list 'term-bind-key-alist '("C-c x" . term-send-ctrl-x))
+;;   :hook
+;;   (term-mode .
+;;    (lambda ()
+;;      (define-key term-raw-map "\C-y" 'term-paste)           ; char-mode でペースト
+;;      (define-key term-raw-map "\C-c\C-j" 'term-line-mode))))  ; line-mode へ切り替え
+;;; vterm
+(use-package vterm
   :straight t
-  :config
-  (add-to-list 'term-unbind-key-list "C-t")
-  (add-to-list 'term-unbind-key-list "C-o")
-  (add-to-list 'term-bind-key-alist '("C-c z" . term-send-ctrl-z))
-  (add-to-list 'term-bind-key-alist '("C-c x" . term-send-ctrl-x))
-  :hook
-  (term-mode .
-   (lambda ()
-     (define-key term-raw-map "\C-y" 'term-paste)           ; char-mode でペースト
-     (define-key term-raw-map "\C-c\C-j" 'term-line-mode))))  ; line-mode へ切り替え
+  :ensure t)
 
 ;; automatically update gtags
 ;; project root で gtags -v とかで GTAGS, GPATH, GRTAGS を作成する

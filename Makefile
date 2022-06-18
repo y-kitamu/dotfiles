@@ -36,6 +36,9 @@ build-emacs:
 		make -j$(nproc) &&\
 		sudo make install
 
+install-emacs-deps:
+	sudo apt-get install libtool libtool-bin -y
+
 # Install xrdp to be ablet to use gui applications on WSL. reference : https://yoshimemo.com/post-723/
 build-xrdp:
 	sudo apt-get update && sudo apt-get upgrade -y
