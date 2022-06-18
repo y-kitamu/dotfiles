@@ -233,24 +233,26 @@
   (setq vertico-count 20)
   (setq vertico-resize t)
   ;; (setq vertico-cycle t)
-  (defface yk-highlight '((t :foreground "red"))
-    "Basic face for highlighting.")
+  (defface yk-vertico-alert '((t :foreground "red")) "Face used to alert on vertico")
+  (defface yk-vertico-warn '((t :foreground "cyan")) "Face used to warn on vertico")
 
-  (defun yk-vertico-format-candidates (original-func buf-name &rest rest)
-    ;; (let ((cat (vertico--metadata-get 'category)))
-    ;;   ;; (cond ((eq 'buffer cat)             ; cantegory : file
-    ;;   ;;        (with-current-buffer cand
-    ;;   ;;          (let* ((fname (buffer-file-name)))
-    ;;   ;;            (unless fname
-    ;;   ;;              (add-face-text-property 0 (length cand) 'yk-highlight 'append cand))))
-    ;;   ;;        ))
-    ;;   (vertico--format-candidate cand prefix suffix index _start))
+  (defun yk-vertico-format-multi-category  (cand buffer-name)
+    "Highlight buffer of which file is deleted or buffer is modified"
+    (if (get-buffer buffer-name)
+        (with-current-buffer buffer-name
+          (if-let ((file-name (buffer-file-name)))
+              (cond ((null (file-exists-p file-name))
+                     (add-face-text-property 0 (length cand) 'yk-vertico-alert 'append cand))
+                    ((buffer-modified-p)
+                     (add-face-text-property 0 (length cand) 'yk-vertico-warn 'append cand)))
+            t))))
 
-    (let* ((cand (apply original-func buf-name rest)))
-      (with-current-buffer (vertico--display-string buf-name)
-        (unless (buffer-file-name)
-          (add-face-text-property 0 (length cand) 'yk-highlight 'append cand)))
-      cand))
+  (defun yk-vertico-format-candidates (original-func cand &rest rest)
+    (let* ((formatted (apply original-func cand rest)))
+      (message (vertico--metadata-get 'category))
+      (cond ((eq 'multi-category (vertico--metadata-get 'category))
+             (yk-vertico-format-multi-category formatted (vertico--display-string cand))))
+      formatted))
   (advice-remove #'vertico--format-candidate #'yk-vertico-format-candidates)
   (advice-add #'vertico--format-candidate :around #'yk-vertico-format-candidates)
   :bind
@@ -297,7 +299,6 @@
   (vertico-multiform-mode)
   (setq vertico-multiform-categories
         '((file grid)
-          (buffer grid)
           ;; (consult-grep buffer)
           )))
 
