@@ -249,7 +249,6 @@
 
   (defun yk-vertico-format-candidates (original-func cand &rest rest)
     (let* ((formatted (apply original-func cand rest)))
-      (message (vertico--metadata-get 'category))
       (cond ((eq 'multi-category (vertico--metadata-get 'category))
              (yk-vertico-format-multi-category formatted (vertico--display-string cand))))
       formatted))
@@ -350,6 +349,7 @@
 
 (use-package embark
   :ensure t
+  :after vertico
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("M-." . embark-dwim)        ;; good alternative: M-.
@@ -361,31 +361,22 @@
   ;; (setq prefix-help-command #'embark-prefix-help-command)
   (setq embark-indicators '(embark-minimal-indicator))
   (setq embark-prompter 'embark-completing-read-prompter)
-  :config
   ;; helm like tab
+  (define-key vertico-map (kbd "<tab>") 'embark-act)
   (defun with-minibuffer-keymap (keymap)
-         (lambda (fn &rest args)
-           (minibuffer-with-setup-hook
-               (lambda ()
-                 (use-local-map
-                  (make-composed-keymap keymap (current-local-map))))
-             (apply fn args))))
-
+    (lambda (fn &rest args)
+      (minibuffer-with-setup-hook
+          (lambda ()
+            (use-local-map
+             (make-composed-keymap keymap (current-local-map))))
+        (apply fn args))))
   (defvar embark-completing-read-prompter-map
     (let ((map (make-sparse-keymap)))
       (define-key map (kbd "<tab>") 'abort-recursive-edit)
       map))
-
   (advice-add 'embark-completing-read-prompter :around
               (with-minibuffer-keymap embark-completing-read-prompter-map))
-  (define-key vertico-map (kbd "<tab>") 'embark-act-with-completing-read)
-
-  (defun embark-act-with-completing-read (&optional arg)
-    (interactive "P")
-    (let* ((embark-prompter 'embark-completing-read-prompter)
-           (act (propertize "Act" 'face 'highlight))
-           (embark-indicator (lambda (_keymap targets) nil)))
-      (embark-act arg)))
+  :config
   ;; Hide the mode line of the Embark live/completions buffers
   ;; (add-to-list 'display-buffer-alist
   ;;              '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
@@ -524,6 +515,28 @@
 ;;; When reading a file name, completion ignores case.
 (setq read-file-name-completion-ignore-case t)
 
+;;; coding metrics
+(use-package wakatime-mode
+  :ensure t
+  :init
+  (global-wakatime-mode)
+  (setq wakatime-cli-path (expand-file-name "~/.local/"))
+  (setq wakatime-url "wakatime-cli-linux-amd64.zip")
+  (if (null (file-exists-p wakatime-cli-path))
+      (condition-case err
+          (let* ((base-url "https://github.com/wakatime/wakatime-cli/releases/download")
+                 (version "v1.49.0")
+                 (os (cond ((eq system-type 'windows-nt) "windows")
+                           ((eq system-type 'gnu/linux) "linux")
+                           ((eq system-type 'darwin "darwin"))
+                           (t (error "The system-type of '%s' is unsupported in wakatime"
+                                     (symbol-name systme-type)))))
+                 (arch "amd64")
+                 (url (format "%s/%s/wakatime-cli-%s-%s.zip" base-url version os arch)))
+            (url-coopy-file url )
+        ))
+    )
+)
 
 ;;;
 
@@ -601,7 +614,12 @@
 ;;; vterm
 (use-package vterm
   :straight t
-  :ensure t)
+  :ensure t
+  :config
+  (define-key vterm-mode-map [escape] nil)
+  (setq vterm-keymap-exceptions (remove "C-c" vterm-keymap-exceptions))
+  (yk/add-to-list-multiple 'vterm-keymap-exceptions '("ESC-x" "C-t" "C-o"))
+  (vterm--exclude-keys vterm-mode-map vterm-keymap-exceptions))
 
 ;; automatically update gtags
 ;; project root で gtags -v とかで GTAGS, GPATH, GRTAGS を作成する

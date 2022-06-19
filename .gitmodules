@@ -427,3 +427,6 @@
 [submodule ".emacs.d/straight/repos/emacs-libvterm"]
 	path = .emacs.d/straight/repos/emacs-libvterm
 	url = https://github.com/akermu/emacs-libvterm.git
+[submodule ".emacs.d/straight/repos/wakatime-mode"]
+	path = .emacs.d/straight/repos/wakatime-mode
+	url = https://github.com/wakatime/wakatime-mode.git
