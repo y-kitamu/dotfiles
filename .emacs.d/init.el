@@ -519,24 +519,11 @@
 (use-package wakatime-mode
   :ensure t
   :init
-  (global-wakatime-mode)
-  (setq wakatime-cli-path (expand-file-name "~/.local/"))
-  (setq wakatime-url "wakatime-cli-linux-amd64.zip")
-  (if (null (file-exists-p wakatime-cli-path))
-      (condition-case err
-          (let* ((base-url "https://github.com/wakatime/wakatime-cli/releases/download")
-                 (version "v1.49.0")
-                 (os (cond ((eq system-type 'windows-nt) "windows")
-                           ((eq system-type 'gnu/linux) "linux")
-                           ((eq system-type 'darwin "darwin"))
-                           (t (error "The system-type of '%s' is unsupported in wakatime"
-                                     (symbol-name systme-type)))))
-                 (arch "amd64")
-                 (url (format "%s/%s/wakatime-cli-%s-%s.zip" base-url version os arch)))
-            (url-coopy-file url )
-        ))
-    )
-)
+  ;; run `make install-wakatime'
+  (if (eq system-type 'gnu/linux)
+      (setq wakatime-cli-path (expand-file-name "~/.local/bin/wakatime-cli-linux-amd64")))
+  (setq wakatime-api-key "4c9b2c0a-0b0d-4630-bd29-d3af45e3a2e6")
+  (global-wakatime-mode))
 
 ;;;
 
@@ -616,10 +603,26 @@
   :straight t
   :ensure t
   :config
+  (defun yk/vterm-enable-copy-mode ()
+    (interactive)
+    (unless (bound-and-true-p vterm-copy-mode)
+      (vterm-copy-mode)))
+  (defun yk/vterm-disable-copy-mode ()
+    (interactive)
+    (if (bound-and-true-p vterm-copy-mode)
+        (progn
+          (vterm-copy-mode -1))))
+
+  (yk/add-to-list-multiple 'vterm-keymap-exceptions '("ESC-x" "C-t" "C-o" "C-z"))
+  (vterm--exclude-keys vterm-mode-map vterm-keymap-exceptions)
+
   (define-key vterm-mode-map [escape] nil)
-  (setq vterm-keymap-exceptions (remove "C-c" vterm-keymap-exceptions))
-  (yk/add-to-list-multiple 'vterm-keymap-exceptions '("ESC-x" "C-t" "C-o"))
-  (vterm--exclude-keys vterm-mode-map vterm-keymap-exceptions))
+  (define-key vterm-mode-map (kbd "C-c C-c") #'vterm-send-C-c)
+  (define-key vterm-mode-map (kbd "M-y") #'vterm-yank-pop)
+  (define-key vterm-mode-map (kbd "C-y") #'vterm-yank)
+  (define-key vterm-mode-map (kbd "C-c C-j") #'yk/vterm-enable-copy-mode)
+  (define-key vterm-copy-mode-map (kbd "C-c C-k") #'yk/vterm-disable-copy-mode)
+  )
 
 ;; automatically update gtags
 ;; project root で gtags -v とかで GTAGS, GPATH, GRTAGS を作成する
