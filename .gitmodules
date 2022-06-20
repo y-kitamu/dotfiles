@@ -430,3 +430,12 @@
 [submodule ".emacs.d/straight/repos/wakatime-mode"]
 	path = .emacs.d/straight/repos/wakatime-mode
 	url = https://github.com/wakatime/wakatime-mode.git
+[submodule ".emacs.d/straight/repos/multi-vterm"]
+	path = .emacs.d/straight/repos/multi-vterm
+	url = https://github.com/suonlight/multi-vterm.git
+[submodule ".emacs.d/straight/repos/project"]
+	path = .emacs.d/straight/repos/project
+	url = https://github.com/emacs-straight/project.git
+[submodule ".emacs.d/straight/repos/xref"]
+	path = .emacs.d/straight/repos/xref
+	url = https://github.com/emacs-straight/xref.git

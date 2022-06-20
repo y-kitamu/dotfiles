@@ -353,7 +353,7 @@
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("M-." . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)
+   ("C-h b" . embark-bindings)
    :map embark-file-map
    ("r" . rename-file-with-buffer)) ;; alternative for `describe-bindings'
   :init
@@ -584,20 +584,6 @@
   (interactive)
   (term-send-raw-string ""))
 
-;;; multi-term
-;; .bashrc に $TERM が eterm-color の場合にも color-prompt にするように設定を追記する
-;; (use-package multi-term
-;;   :straight t
-;;   :config
-;;   (add-to-list 'term-unbind-key-list "C-t")
-;;   (add-to-list 'term-unbind-key-list "C-o")
-;;   (add-to-list 'term-bind-key-alist '("C-c z" . term-send-ctrl-z))
-;;   (add-to-list 'term-bind-key-alist '("C-c x" . term-send-ctrl-x))
-;;   :hook
-;;   (term-mode .
-;;    (lambda ()
-;;      (define-key term-raw-map "\C-y" 'term-paste)           ; char-mode でペースト
-;;      (define-key term-raw-map "\C-c\C-j" 'term-line-mode))))  ; line-mode へ切り替え
 ;;; vterm
 (use-package vterm
   :straight t
@@ -618,11 +604,17 @@
 
   (define-key vterm-mode-map [escape] nil)
   (define-key vterm-mode-map (kbd "C-c C-c") #'vterm-send-C-c)
+  (define-key vterm-mode-map (kbd "C-c z") #'vterm-send-C-z)
   (define-key vterm-mode-map (kbd "M-y") #'vterm-yank-pop)
   (define-key vterm-mode-map (kbd "C-y") #'vterm-yank)
   (define-key vterm-mode-map (kbd "C-c C-j") #'yk/vterm-enable-copy-mode)
   (define-key vterm-copy-mode-map (kbd "C-c C-k") #'yk/vterm-disable-copy-mode)
   )
+
+(use-package multi-vterm
+  :straight t
+  :ensure t
+  :after vterm)  ; line-mode へ切り替え
 
 ;; automatically update gtags
 ;; project root で gtags -v とかで GTAGS, GPATH, GRTAGS を作成する
