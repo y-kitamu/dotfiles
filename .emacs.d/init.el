@@ -361,6 +361,7 @@
   ;; (setq prefix-help-command #'embark-prefix-help-command)
   (setq embark-indicators '(embark-minimal-indicator))
   (setq embark-prompter 'embark-completing-read-prompter)
+
   ;; helm like tab
   (define-key vertico-map (kbd "<tab>") 'embark-act)
   (defun with-minibuffer-keymap (keymap)
@@ -376,6 +377,43 @@
       map))
   (advice-add 'embark-completing-read-prompter :around
               (with-minibuffer-keymap embark-completing-read-prompter-map))
+
+  ;; multiple selection
+  (defun +embark-mark (&optional unmark)
+    (interactive)
+    (unless (derived-mode-p #'embark-collect-mode)
+      (error "Not in an Embark collect buffer"))
+    (when-let (target (embark-target-collect-candidate))
+      (pcase-let* ((`(,_type ,_cand ,beg . ,end) target)
+                   (ov (seq-find (lambda (ov) (overlay-get ov '+embark-mark)) (overlays-at beg))))
+        (unless (eq (not ov) unmark)
+          (if ov
+              (delete-overlay ov)
+            (unless (facep 'dired-marked)
+              (require 'dired))
+            (setq ov (make-overlay beg end))
+            (overlay-put ov '+embark-mark t)
+            (overlay-put ov 'face 'dired-marked)))))
+    (call-interactively #'next-line))
+
+  (defun +embark-unmark ()
+    (interactive)
+    (+embark-mark t))
+
+  (defun +embark-marked-candidates ()
+    (when-let (ovs (and (derived-mode-p #'embark-collect-mode)
+                        (nreverse (seq-filter (lambda (ov) (overlay-get ov '+embark-mark))
+                                              (overlays-in (point-min) (point-max))))))
+      (cons embark--type
+            (save-excursion
+              (mapcar (lambda (ov)
+                        (goto-char (overlay-start ov))
+                        (cadr (embark-target-collect-candidate)))
+                      ovs)))))
+
+  (add-to-list 'embark-candidate-collectors #'+embark-marked-candidates)
+  ;; (define-key embark-collect-mode-map "C-SPC" #'+embark-mark)
+  ;; (define-key embark-collect-mode-map "" #'+embark-unmark)
   :config
   ;; Hide the mode line of the Embark live/completions buffers
   ;; (add-to-list 'display-buffer-alist
