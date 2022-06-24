@@ -38,6 +38,10 @@
   (org-log-done 'time) ; DONE の時間を記録
   ;; org-agenda settings
   (org-agenda-skip-scheduled-if-done nil) ; agenda に DONE を表示しない
+  (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s %b")
+                              (todo . " %i %-12:c")
+                              (tags . " %i %-12:c")
+                              (search . " %i %-12:c")))
   :config
   (defun update-org-agenda-files ()
     (interactive)

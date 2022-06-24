@@ -377,7 +377,6 @@
       map))
   (advice-add 'embark-completing-read-prompter :around
               (with-minibuffer-keymap embark-completing-read-prompter-map))
-  (add-to-list 'embark-candidate-collectors #'+embark-marked-candidates)
   ;; (define-key embark-collect-mode-map "" #'+embark-unmark)
   :config
   )
