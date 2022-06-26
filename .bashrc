@@ -237,9 +237,10 @@ function create_xonsh_env {
 }
 
 # deno
-export DENO_INSTALL="/home/kitamura/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
-
+export DENO_INSTALL="${HOME}/.deno"
+if [ -e ${DENO_INSTALL} ]; then
+    export PATH="$DENO_INSTALL/bin:$PATH"
+fi
 
 # poetry config
 if [ -e ${HOME}/.poetry/bin/poetry ]; then
@@ -261,3 +262,9 @@ vterm_printf(){
         printf "\e]%s\e\\" "$1"
     fi
 }
+
+# ros setup
+ROS_SETUP_SCRIPT=/opt/ros/humble/setup.bash
+if [ -e ${ROS_SETUP_SCRIPT} ]; then
+    source ${ROS_SETUP_SCRIPT}
+fi
