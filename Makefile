@@ -10,9 +10,6 @@ WAKATIME_VERSION := wakatime-cli-darwin-amd64
 PKG_MANAGER := brew install
 endif
 
-# .PHONY: emacs-build
-# emacs-build:
-
 .PHONY: emacs-test
 emacs-test: install-emacs-deps
 	@$(EMACS) --batch --eval '(load "$(ROOT_DIR)/.emacs.d/init.el")'
