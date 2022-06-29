@@ -585,6 +585,8 @@
 (use-package vterm
   :straight t
   :ensure t
+  :init
+  (setq vterm-always-compile-module t)
   :config
   (defun yk/vterm-enable-copy-mode ()
     (interactive)

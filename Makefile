@@ -5,7 +5,7 @@ ROOT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 # emacs-build:
 
 .PHONY: emacs-test
-emacs-test:
+emacs-test: install-emacs-deps
 	@$(EMACS) --batch --eval '(load "$(ROOT_DIR)/.emacs.d/init.el")'
 
 ## WSL settings
@@ -37,7 +37,7 @@ build-emacs:
 		sudo make install
 
 install-emacs-deps: install-wakatime
-	sudo apt-get install libtool libtool-bin -y
+	sudo apt-get install cmake libtool libtool-bin -y
 
 install-wakatime:
 	cd $(ROOT_DIR)/.emacs.d/
