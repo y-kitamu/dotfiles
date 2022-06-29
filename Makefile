@@ -43,7 +43,7 @@ install-wakatime:
 	cd $(ROOT_DIR)/.emacs.d/
 	wget https://github.com/wakatime/wakatime-cli/releases/download/v1.49.0/wakatime-cli-linux-amd64.zip
 	unzip wakatime-cli-linux-amd64.zip && rm wakatime-cli-linux-amd64.zip
-	mv wakatime-cli-linux-amd64 ~/.local/bin/
+	mkdir -p ~/.local/bin; mv wakatime-cli-linux-amd64 ~/.local/bin/
 
 # Install xrdp to be ablet to use gui applications on WSL. reference : https://yoshimemo.com/post-723/
 build-xrdp:
