@@ -599,11 +599,33 @@
 
   (yk/add-to-list-multiple 'vterm-keymap-exceptions '("ESC-x" "C-t" "C-o" "C-z"))
   (vterm--exclude-keys vterm-mode-map vterm-keymap-exceptions)
+             
+  (defun yk/vterm--read-from-kill-ring ()
+    (current-kill 0)
+    (consult--lookup-member
+     (consult--read
+      (consult--remove-dups
+       (or kill-ring (user-error "Kill ring is empty")))
+      :prompt "Yank from kill-ring: "
+      :history t ;; disable history
+      :sort nil
+      :category 'kill-ring
+      :require-match t)
+     kill-ring))
+
+  (defun yk/vterm-yank-from-kill-ring (string &optional arg)
+    (interactive (list (yk/vterm--read-from-kill-ring) current-prefix-arg))
+    (when string
+      (deactivate-mark)
+      (vterm-goto-char (point))
+      (message "string = %s" string)
+      (let ((inhibit-read-only t))
+        (vterm-insert string))))
 
   (define-key vterm-mode-map [escape] nil)
   (define-key vterm-mode-map (kbd "C-c C-c") #'vterm-send-C-c)
   (define-key vterm-mode-map (kbd "C-c z") #'vterm-send-C-z)
-  (define-key vterm-mode-map (kbd "M-y") #'vterm-yank-pop)
+  (define-key vterm-mode-map (kbd "M-y") #'yk/vterm-yank-from-kill-ring)
   (define-key vterm-mode-map (kbd "C-y") #'vterm-yank)
   (define-key vterm-mode-map (kbd "C-c C-j") #'yk/vterm-enable-copy-mode)
   (define-key vterm-copy-mode-map (kbd "C-c C-k") #'yk/vterm-disable-copy-mode)
