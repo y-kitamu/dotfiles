@@ -1,5 +1,14 @@
-EMACS ?= emacs
 ROOT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+OS := $(shell uname)
+
+EMACS ?= emacs
+WAKATIME_VERSION := wakatime-cli-linux-amd64
+PKG_MANAGER := sudo apt-get install -y
+
+ifeq ($(OS), Darwin)
+WAKATIME_VERSION := wakatime-cli-darwin-amd64
+PKG_MANAGER := brew install
+endif
 
 # .PHONY: emacs-build
 # emacs-build:
@@ -25,7 +34,7 @@ build-emacs:
 	sudo apt-get update && sudo apt-get upgrade -y
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh
 	sh ./rustup.sh -y && rm rustup.sh
-	sudo apt install build-essential automake clang libclang-dev -y
+	sudo apt install -y build-essential automake clang libclang-dev
 	sudo apt install -y texinfo libjpeg-dev libtiff-dev \
 		libgif-dev libxpm-dev libgtk-3-dev gnutls-dev \
 		libncurses5-dev libxml2-dev libxt-dev
@@ -37,13 +46,13 @@ build-emacs:
 		sudo make install
 
 install-emacs-deps: install-wakatime
-	sudo apt-get install cmake libtool libtool-bin -y
+	$(PKG_MANAGER) cmake libtool libtool-bin
 
 install-wakatime:
 	cd $(ROOT_DIR)/.emacs.d/
-	wget https://github.com/wakatime/wakatime-cli/releases/download/v1.49.0/wakatime-cli-linux-amd64.zip
-	unzip wakatime-cli-linux-amd64.zip && rm wakatime-cli-linux-amd64.zip
-	mkdir -p ~/.local/bin; mv wakatime-cli-linux-amd64 ~/.local/bin/
+	wget https://github.com/wakatime/wakatime-cli/releases/download/v1.49.0/$(WAKATIME_VERSION).zip
+	unzip $(WAKATIME_VERSION).zip && rm $(WAKATIME_VERSION).zip
+	mkdir -p ~/.local/bin; mv $(WAKATIME_VERSION) ~/.local/bin/
 
 # Install xrdp to be ablet to use gui applications on WSL. reference : https://yoshimemo.com/post-723/
 build-xrdp:
