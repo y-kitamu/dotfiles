@@ -10,11 +10,11 @@ WAKATIME_VERSION := wakatime-cli-darwin-amd64
 PKG_MANAGER := brew install
 
 install-emacs-deps: install-wakatime
-	$(PKG_MANAGER) cmake libtool libtool-bin
+	$(PKG_MANAGER) cmake libtool
 else
 ifeq ($(OS), Linux)
 install-emacs-deps: install-wakatime
-	$(PKG_MANAGER) cmake libtool
+	$(PKG_MANAGER) cmake libtool libtool-bin
 endif
 endif
 
