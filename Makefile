@@ -3,6 +3,7 @@ OS := $(shell uname)
 
 EMACS ?= emacs
 WAKATIME_VERSION := wakatime-cli-linux-amd64
+RUST_TOOLCHAIN_VERSION := nightly-2021-09-15
 PKG_MANAGER := sudo apt-get install -y
 
 ifeq ($(OS), Darwin)
@@ -38,7 +39,7 @@ build-linux: build-emacs
 build-emacs:
 	sudo apt-get update && sudo apt-get upgrade -y
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh
-	sh ./rustup.sh -y && rm rustup.sh
+	sh ./rustup.sh -y --default-toolchain $(RUST_TOOLCHAIN_VERSION) --no-modify-path && rm rustup.sh
 	sudo apt install -y build-essential automake clang libclang-dev
 	sudo apt install -y texinfo libjpeg-dev libtiff-dev \
 		libgif-dev libxpm-dev libgtk-3-dev gnutls-dev \
@@ -48,7 +49,7 @@ build-emacs:
 		./autogen.sh &&\
 		./configure &&\
 		make -j$(nproc) &&\
-		sudo make install
+	sudo make install
 
 install-wakatime:
 	cd $(ROOT_DIR)/.emacs.d/
