@@ -8,6 +8,13 @@ PKG_MANAGER := sudo apt-get install -y
 ifeq ($(OS), Darwin)
 WAKATIME_VERSION := wakatime-cli-darwin-amd64
 PKG_MANAGER := brew install
+
+install-emacs-deps: install-wakatime
+	$(PKG_MANAGER) cmake libtool libtool-bin
+else
+ifeq ($(OS), Linux)
+install-emacs-deps: install-wakatime
+	$(PKG_MANAGER) cmake libtool
 endif
 
 .PHONY: emacs-test
@@ -41,9 +48,6 @@ build-emacs:
 		./configure &&\
 		make -j$(nproc) &&\
 		sudo make install
-
-install-emacs-deps: install-wakatime
-	$(PKG_MANAGER) cmake libtool libtool-bin
 
 install-wakatime:
 	cd $(ROOT_DIR)/.emacs.d/
