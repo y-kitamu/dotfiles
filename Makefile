@@ -16,6 +16,7 @@ ifeq ($(OS), Linux)
 install-emacs-deps: install-wakatime
 	$(PKG_MANAGER) cmake libtool
 endif
+endif
 
 .PHONY: emacs-test
 emacs-test: install-emacs-deps
