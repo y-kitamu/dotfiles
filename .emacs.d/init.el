@@ -597,9 +597,9 @@
     (if (bound-and-true-p vterm-copy-mode)
         (vterm-copy-mode -1)))
 
-  (yk/add-to-list-multiple 'vterm-keymap-exceptions '("ESC-x" "C-t" "C-o" "C-z"))
+  (yk/add-to-list-multiple 'vterm-keymap-exceptions '("C-t" "C-o" "C-z"))
   (vterm--exclude-keys vterm-mode-map vterm-keymap-exceptions)
-             
+
   (defun yk/vterm--read-from-kill-ring ()
     (current-kill 0)
     (consult--lookup-member
