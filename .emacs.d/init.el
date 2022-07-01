@@ -512,6 +512,20 @@
 ;;; When reading a file name, completion ignores case.
 (setq read-file-name-completion-ignore-case t)
 
+(use-package consult-tramp
+  :ensure t
+  :straight (consult-tramp :type git :host github :repo "Ladicle/consult-tramp")
+  :init
+  (setq consult-tramp-method "ssh")
+  (defun yk/consult-tramp ()
+    (interactive)
+    (let ((default-directory (consult--read (consult-tramp--candidates) :prompt "Tramp: ")))
+      (call-interactively #'find-file)))
+  :config
+  (advice-add 'consult-tramp :override #'yk/consult-tramp)
+  :bind
+  (("C-c C-s" . consult-tramp)))
+
 ;;; coding metrics
 (use-package wakatime-mode
   :ensure t
