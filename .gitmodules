@@ -439,3 +439,6 @@
 [submodule ".emacs.d/straight/repos/xref"]
 	path = .emacs.d/straight/repos/xref
 	url = https://github.com/emacs-straight/xref.git
+[submodule ".emacs.d/straight/repos/consult-dir"]
+	path = .emacs.d/straight/repos/consult-dir
+	url = https://github.com/karthink/consult-dir.git

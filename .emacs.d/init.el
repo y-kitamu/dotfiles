@@ -511,20 +511,45 @@
 
 ;;; When reading a file name, completion ignores case.
 (setq read-file-name-completion-ignore-case t)
+;;; enable recentf
+(recentf-mode)
 
-(use-package consult-tramp
+(use-package docker-tramp :ensure t)
+(use-package tramp :ensure t)
+
+(use-package consult-dir
+  :straight t
   :ensure t
-  :straight (consult-tramp :type git :host github :repo "Ladicle/consult-tramp")
-  :init
-  (setq consult-tramp-method "ssh")
-  (defun yk/consult-tramp ()
-    (interactive)
-    (let ((default-directory (consult--read (consult-tramp--candidates) :prompt "Tramp: ")))
-      (call-interactively #'find-file)))
   :config
-  (advice-add 'consult-tramp :override #'yk/consult-tramp)
+  ;; enable ssh
+  (add-to-list 'consult-dir-sources 'consult-dir--source-tramp-ssh t)
+  ;; enable docker
+  (defun consult-dir--tramp-docker-hosts ()
+    "Get a list of hosts from docker."
+    (when (require 'docker-tramp nil t)
+      (let ((hosts)
+            (docker-tramp-use-names t))
+        (dolist (cand (docker-tramp--parse-running-containers))
+          (let ((user (unless (string-empty-p (car cand))
+                        (concat (car cand) "@")))
+                (host (car (cdr cand))))
+            (push (concat "/docker:" user host ":/") hosts)))
+        hosts)))
+  (defvar consult-dir--source-tramp-docker
+    `(:name     "Docker"
+      :narrow   ?d
+      :category file
+      :face     consult-file
+      :history  file-name-history
+      :items    ,#'consult-dir--tramp-docker-hosts)
+    "Docker candiadate source for `consult-dir'.")
+;; Adding to the list of consult-dir sources
+  (add-to-list 'consult-dir-sources 'consult-dir--source-tramp-docker t)
   :bind
-  (("C-c C-s" . consult-tramp)))
+  (("C-x C-d" . consult-dir)
+         :map minibuffer-local-completion-map
+         ("C-x C-d" . consult-dir)
+         ("C-x C-j" . consult-dir-jump-file)))
 
 ;;; coding metrics
 (use-package wakatime-mode
