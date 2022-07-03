@@ -268,3 +268,14 @@ ROS_SETUP_SCRIPT=/opt/ros/humble/setup.bash
 if [ -e ${ROS_SETUP_SCRIPT} ]; then
     source ${ROS_SETUP_SCRIPT}
 fi
+unset ROS_SETUP_SCRIPT
+# colcon setup
+COLCON_CD=/usr/share/colcon_cd/function/colcon_cd.sh
+if [ -e ${COLCON_CD} ]; then
+    source ${COLCON_CD}
+    export _colcon_cd_root=/opt/ros/humble
+fi
+COLCON_ARG_COMP=/usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+if [ -e ${COLCON_ARG_COMP} ]; then
+    source ${COLCON_ARG_COMP}
+fi

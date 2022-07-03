@@ -221,6 +221,9 @@
 (defun delete-file-with-buffer (filename)
   "Delete file of `FILENAME' and the corresponding buffer.")
 
+;;; custom key binding
+(global-set-key (kbd "C-M-s") #'isearch-forward-symbol-at-point)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;; Third Party Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -559,7 +562,20 @@
   (if (eq system-type 'gnu/linux)
       (setq wakatime-cli-path (expand-file-name "~/.local/bin/wakatime-cli-linux-amd64")))
   (setq wakatime-api-key "4c9b2c0a-0b0d-4630-bd29-d3af45e3a2e6")
-  (global-wakatime-mode))
+  (global-wakatime-mode)
+  :config
+  (defun yk/wakatime-client-command (savep)
+    "Return client command executable and arguments.
+   Set SAVEP to non-nil for write action."
+    (format "%s--entity \"%s\" --plugin \"%s/%s\" --time %.2f%s%s"
+            (if (s-blank wakatime-cli-path) "wakatime-cli " (format "%s " wakatime-cli-path))
+            (buffer-file-name (current-buffer))
+            wakatime-user-agent
+            wakatime-version
+            (float-time)
+            (if savep " --write" "")
+            (if (s-blank wakatime-api-key) "" (format " --key %s" wakatime-api-key))))
+  (advice-add 'wakatime-client-command :override #'yk/wakatime-client-command))
 
 ;;;
 
@@ -1066,6 +1082,29 @@
   (emacs-lisp-mode . company-mode))
 
 ;; lsp configuration end
+
+(use-package copilot
+  :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
+  :ensure t
+  :hook
+  ((prog-mode . copilot-mode)))
+
+
+;; (defun yk/my-tab ()
+;;   "Complete by copilot first, then company-mode."
+;;   (interactive)
+;;   (or (copilot-accept-completion)
+;;       (company-indent-or-complete-common nil)))
+
+;; ; modify company-mode behaviors
+;; (with-eval-after-load 'company
+;;   ;; disable inline previews
+;;   (delq 'company-preview-if-just-one-frontend company-frontends)
+
+;;   (define-key company-mode-map (kbd "<tab>") 'yk/my-tab)
+;;   (define-key company-mode-map (kbd "TAB") 'yk/my-tab)
+;;   (define-key company-active-map (kbd "<tab>") 'yk/my-tab)
+;;   (define-key company-active-map (kbd "TAB") 'yk/my-tab))
 
 (use-package company-tabnine
   :straight t

@@ -442,3 +442,12 @@
 [submodule ".emacs.d/straight/repos/consult-dir"]
 	path = .emacs.d/straight/repos/consult-dir
 	url = https://github.com/karthink/consult-dir.git
+[submodule ".emacs.d/straight/repos/copilot.el"]
+	path = .emacs.d/straight/repos/copilot.el
+	url = https://github.com/zerolfx/copilot.el.git
+[submodule ".emacs.d/straight/repos/jsonrpc"]
+	path = .emacs.d/straight/repos/jsonrpc
+	url = https://github.com/emacs-straight/jsonrpc.git
+[submodule ".emacs.d/straight/repos/editorconfig-emacs"]
+	path = .emacs.d/straight/repos/editorconfig-emacs
+	url = https://github.com/editorconfig/editorconfig-emacs.git
