@@ -1092,23 +1092,6 @@
   :hook
   ((prog-mode . copilot-mode)))
 
-
-;; (defun yk/my-tab ()
-;;   "Complete by copilot first, then company-mode."
-;;   (interactive)
-;;   (or (copilot-accept-completion)
-;;       (company-indent-or-complete-common nil)))
-
-;; ; modify company-mode behaviors
-;; (with-eval-after-load 'company
-;;   ;; disable inline previews
-;;   (delq 'company-preview-if-just-one-frontend company-frontends)
-
-;;   (define-key company-mode-map (kbd "<tab>") 'yk/my-tab)
-;;   (define-key company-mode-map (kbd "TAB") 'yk/my-tab)
-;;   (define-key company-active-map (kbd "<tab>") 'yk/my-tab)
-;;   (define-key company-active-map (kbd "TAB") 'yk/my-tab))
-
 (use-package company-tabnine
   :straight t
   :config
