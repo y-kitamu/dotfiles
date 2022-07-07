@@ -223,6 +223,7 @@
 
 ;;; custom key binding
 (global-set-key (kbd "C-M-s") #'isearch-forward-symbol-at-point)
+(global-set-key (kbd "C-x C-f") #'find-file-at-point)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;; Third Party Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1086,6 +1087,8 @@
 (use-package copilot
   :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
   :ensure t
+  :bind
+  ("<backtab>" . copilot-accept-completion)
   :hook
   ((prog-mode . copilot-mode)))
 
