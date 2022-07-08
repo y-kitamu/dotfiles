@@ -513,11 +513,6 @@
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
-;;; When reading a file name, completion ignores case.
-(setq read-file-name-completion-ignore-case t)
-;;; enable recentf
-(recentf-mode)
-
 (use-package docker-tramp :ensure t)
 (use-package tramp :ensure t)
 
@@ -549,11 +544,18 @@
     "Docker candiadate source for `consult-dir'.")
 ;; Adding to the list of consult-dir sources
   (add-to-list 'consult-dir-sources 'consult-dir--source-tramp-docker t)
+  :after docker-tramp
   :bind
   (("C-x C-d" . consult-dir)
          :map minibuffer-local-completion-map
          ("C-x C-d" . consult-dir)
          ("C-x C-j" . consult-dir-jump-file)))
+
+;;; When reading a file name, completion ignores case.
+(setq read-file-name-completion-ignore-case t)
+;;; enable recentf
+(recentf-mode)                          ; docker-trampを呼んだ後に評価する
+
 
 ;;; coding metrics
 (use-package wakatime-mode
