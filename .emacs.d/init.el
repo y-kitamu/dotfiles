@@ -936,7 +936,7 @@
   ;; python
   (lsp-pyls-plugins-autopep8-enabled nil)
   (lsp-pyls-plugins-pycodestyle-enabled nil)
-  (lsp-pyls-plugins-yapf-enabled t)
+  (lsp-pyls-plugins-yapf-enabled nil)
   ;; rust
   (lsp-rust-analyzer-cargo-watch-command "clippy")
   :config
@@ -998,7 +998,8 @@
   (setq lsp-ui-doc-enable t)
   (setq lsp-ui-doc-header t)
   (setq lsp-ui-doc-include-signature t)
-  (setq lsp-ui-doc-position 'bottom)
+  (setq lsp-ui-doc-show-with-cursor t)
+  (setq lsp-ui-doc-position 'at-point)
   (setq lsp-ui-doc-max-height 30)
   (setq lsp-ui-doc-use-childframe t)
   (defun disable-tab-bar-in-lsp-ui-doc-frame (frame window)
@@ -1008,18 +1009,19 @@
   (setq lsp-ui-sideline-show-diagnostics t)
   (setq lsp-ui-sideline-update-mode 'line)
   (setq lsp-ui-sideline-ignore-duplicate t)
-  (setq lsp-ui-sideline-show-hover nil)
+
+  :config
+  ;; lsp-ui-peek
+  (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+
   :hook
   (lsp-ui-doc-frame . disable-tab-bar-in-lsp-ui-doc-frame)
+
   :bind
   (("s-l f" . lsp-ui-doc-focus-frame)
    ("s-l u" . lsp-ui-doc-unfocus-frame)))
 
-;; (use-package lsp-go :straight t)
-;; (use-package lsp-html :straight t)
-;; (use-package lsp-csharp :straight t)
-;; (use-package lsp-rust
-;;   :straight t)
 (use-package lsp-pyright :straight t)
 
 (use-package ccls
