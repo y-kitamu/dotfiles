@@ -556,7 +556,6 @@
 ;;; enable recentf
 (recentf-mode)                          ; docker-trampを呼んだ後に評価する
 
-
 ;;; coding metrics
 (use-package wakatime-mode
   :ensure t
@@ -579,8 +578,6 @@
             (if savep " --write" "")
             (if (s-blank wakatime-api-key) "" (format " --key %s" wakatime-api-key))))
   (advice-add 'wakatime-client-command :override #'yk/wakatime-client-command))
-
-;;;
 
 (use-package ag
   :straight t
@@ -1083,6 +1080,12 @@
   (global-company-mode t)
   :hook
   (emacs-lisp-mode . company-mode))
+
+(use-package company-box
+  :straight t
+  :after company
+  :hook
+  (company-mode . company-box-mode))
 
 ;; lsp configuration end
 

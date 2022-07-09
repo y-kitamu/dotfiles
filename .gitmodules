@@ -451,3 +451,9 @@
 [submodule ".emacs.d/straight/repos/editorconfig-emacs"]
 	path = .emacs.d/straight/repos/editorconfig-emacs
 	url = https://github.com/editorconfig/editorconfig-emacs.git
+[submodule ".emacs.d/straight/repos/company-box"]
+	path = .emacs.d/straight/repos/company-box
+	url = https://github.com/sebastiencs/company-box.git
+[submodule ".emacs.d/straight/repos/frame-local"]
+	path = .emacs.d/straight/repos/frame-local
+	url = https://github.com/sebastiencs/frame-local.git
