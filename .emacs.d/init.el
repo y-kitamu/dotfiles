@@ -224,6 +224,7 @@
 ;;; custom key binding
 (global-set-key (kbd "C-M-s") #'isearch-forward-symbol-at-point)
 (global-set-key (kbd "C-x C-f") #'find-file-at-point)
+(global-unset-key (kbd "C-x d"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;; Third Party Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -366,6 +367,9 @@
   (setq embark-indicators '(embark-minimal-indicator))
   (setq embark-prompter 'embark-completing-read-prompter)
 
+  ;; find file in directory
+
+
   ;; helm like tab
   (define-key vertico-map (kbd "<tab>") 'embark-act)
   (defun with-minibuffer-keymap (keymap)
@@ -430,6 +434,8 @@
          ("M-s u" . consult-focus-lines)
          ;; Isearch integration
          ("M-s e" . consult-isearch-history)
+         ;; custom
+         ("C-x d f" .  yk/find-file-in-directory)
          :map isearch-mode-map
          ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
          ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
@@ -501,7 +507,18 @@
   ;; (setq consult-project-function (lambda (_) (vc-root-dir)))
   ;;;; 4. locate-dominating-file
   ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
-)
+
+  (defun yk/find-file-in-directory (directory)
+    (interactive "DDirectory: ")
+    (consult--read
+     (project--files-in-directory directory nil)
+     ;; (consult--async-command project--files-in-directory directory nil)
+     :prompt (format "Find file in %s: " directory)
+     :category 'file
+     :require-match t
+     :sort nil
+     )))
+
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
