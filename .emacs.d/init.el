@@ -669,7 +669,7 @@
     (if (bound-and-true-p vterm-copy-mode)
         (vterm-copy-mode -1)))
 
-  (yk/add-to-list-multiple 'vterm-keymap-exceptions '("C-t" "C-o" "C-z"))
+  (yk/add-to-list-multiple 'vterm-keymap-exceptions '("C-t" "C-o" "C-z" "C-d"))
   (vterm--exclude-keys vterm-mode-map vterm-keymap-exceptions)
 
   (defun yk/vterm--read-from-kill-ring ()
@@ -695,6 +695,7 @@
         (vterm-insert string))))
 
   (define-key vterm-mode-map [escape] nil)
+  (define-key vterm-mode-map (kbd "C-d") #'vterm-send-delete)
   (define-key vterm-mode-map (kbd "C-c C-c") #'vterm-send-C-c)
   (define-key vterm-mode-map (kbd "C-c z") #'vterm-send-C-z)
   (define-key vterm-mode-map (kbd "M-y") #'yk/vterm-yank-from-kill-ring)
