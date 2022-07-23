@@ -260,15 +260,6 @@
   (advice-remove #'vertico--format-candidate #'yk-vertico-format-candidates)
   (advice-add #'vertico--format-candidate :around #'yk-vertico-format-candidates)
 
-  ;; Change the default sorting function.
-  ;; See `vertico-sort-function' and `vertico-sort-override-function'.
-  (setq vertico-multiform-commands
-        '((describe-symbol (vertico-sort-function . vertico-sort-alpha))))
-
-  (setq vertico-multiform-categories
-        '((symbol (vertico-sort-function . vertico-sort-alpha))
-          (file (vertico-sort-function . sort-directories-first))))
-
   ;; Sort directories before files
   (defun sort-directories-first (files)
     (setq files (vertico-sort-history-length-alpha files))
@@ -315,11 +306,17 @@
   :straight nil
   :load-path "straight/repos/vertico/extensions/"
   :config
-  (vertico-multiform-mode)
-  (setq vertico-multiform-categories
-        '((file grid)
-          ;; (consult-grep buffer)
-          )))
+  (vertico-multiform-mode))
+
+;; Change the default sorting function.
+;; See `vertico-sort-function' and `vertico-sort-override-function'.
+(setq vertico-multiform-commands
+      '((describe-symbol (vertico-sort-function . vertico-sort-alpha))))
+
+(setq vertico-multiform-categories
+      '((symbol (vertico-sort-function . vertico-sort-alpha))
+        (file grid (vertico-sort-function . sort-directories-first))))
+
 
 (use-package savehist
   :init
