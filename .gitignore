@@ -6,6 +6,7 @@ known_hosts*
 build-cache.el
 # backup file
 *~
+*.sql
 
 # org gcal
 .org-generic-id-locations

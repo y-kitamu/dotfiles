@@ -457,3 +457,18 @@
 [submodule ".emacs.d/straight/repos/frame-local"]
 	path = .emacs.d/straight/repos/frame-local
 	url = https://github.com/sebastiencs/frame-local.git
+[submodule ".emacs.d/straight/repos/closql"]
+	path = .emacs.d/straight/repos/closql
+	url = https://github.com/emacscollective/closql.git
+[submodule ".emacs.d/straight/repos/emacsql"]
+	path = .emacs.d/straight/repos/emacsql
+	url = https://github.com/skeeto/emacsql.git
+[submodule ".emacs.d/straight/repos/forge"]
+	path = .emacs.d/straight/repos/forge
+	url = https://github.com/magit/forge.git
+[submodule ".emacs.d/straight/repos/ghub"]
+	path = .emacs.d/straight/repos/ghub
+	url = https://github.com/magit/ghub.git
+[submodule ".emacs.d/straight/repos/treepy.el"]
+	path = .emacs.d/straight/repos/treepy.el
+	url = https://github.com/volrath/treepy.el.git

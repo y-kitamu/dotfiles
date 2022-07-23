@@ -79,9 +79,10 @@
   (setq git-gutter:lighter "")
   (global-git-gutter-mode t))
 
-;; (use-package forge
-;;   :straight t
-;;   :after magit)
+;;; require sqlite3 (apt-get install sqlite3)
+(use-package forge
+  :straight t
+  :after magit)
 
 (use-package projectile
   :straight t
