@@ -1124,10 +1124,13 @@
 (use-package copilot
   :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
   :ensure t
+  :init
+  (define-key python-mode-map (kbd "<backtab>") 'copilot-accept-completion)
   :bind
   ("<backtab>" . copilot-accept-completion)
   :hook
-  ((prog-mode . copilot-mode)))
+  ((prog-mode . copilot-mode))
+  :after python)
 
 (use-package company-tabnine
   :straight t

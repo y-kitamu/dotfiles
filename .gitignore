@@ -13,3 +13,6 @@ build-cache.el
 .org-id-locations
 org-gcal/
 persist/
+
+#
+seacrets
