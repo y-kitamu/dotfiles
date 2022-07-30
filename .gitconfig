@@ -19,3 +19,7 @@ required = true
 	user = kitamura
 [init]
 	defaultBranch = main
+[url "git@github-y-kitamu:y-kitamu"]
+    insteadOf = git@github.com:y-kitamu
+[url "git@github-kitamura12810630:kitamura12810630"]
+     insteadOf = git@github.com:kitamura12810630
