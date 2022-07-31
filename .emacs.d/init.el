@@ -226,6 +226,21 @@
 (global-set-key (kbd "C-x C-f") #'find-file-at-point)
 (global-unset-key (kbd "C-x d"))
 
+(defun yk/kill-unbind-buffers ()
+  "Kill all buffers which are unbinded to a file."
+  (interactive)
+  (mapc
+   (lambda (buf)
+     (with-current-buffer buf
+       (if-let ((file-name (buffer-file-name)))
+           (if (null (file-exists-p file-name))
+               (progn
+                 (message "Killed buffer %s of %s" buf file-name)
+                 (kill-buffer buf))
+             ))))
+   (buffer-list)))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;; Third Party Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
