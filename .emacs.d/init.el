@@ -1000,11 +1000,13 @@
                            '("[/\\\\]\\.cache"
                              "[/\\\\]build"
                              "[/\\\\]edk2"
+                             "[/\\\\]ext"
                              "[/\\\\]__pycache__"
                              "[/\\\\]\\.ccls"))
   (yk/add-to-list-multiple 'lsp-file-watch-ignored-files
                            '("[/\\\\][^/\\\\]+\\.o"
                              "[/\\\\][^/\\\\]+\\.a"
+                             "[/\\\\][^/\\\\]+\\.so"
                              "[/\\\\]\\.[/\\\\]+"))
   ;; rustのdebug用環境変数
   (setenv "RUST_BACKTRACE" "1")
