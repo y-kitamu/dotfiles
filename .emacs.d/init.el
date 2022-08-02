@@ -62,8 +62,11 @@
 (use-package yk-util
   :straight (yk-util :type git :host github :repo "y-kitamu/yk_elisp"))
 
+;;; Performance improvement
 ;;; Increase a bit garbage collection threshold:
 (setq gc-cons-threshold 51200000)
+;;; Avoid performance issues in files with very long lines
+(global-so-long-mode 1)
 
 ;;; Make sure we can debug init errors more easily:
 (if init-file-debug
@@ -978,6 +981,7 @@
   (lsp-prefer-flymake nil)
   (lsp-file-watch-threshold 2000)
   (lsp-enable-xref t)
+  (lsp-lens-enable nil)                 ; for performance reason
   ;; python
   (lsp-pyls-plugins-autopep8-enabled nil)
   (lsp-pyls-plugins-pycodestyle-enabled nil)
