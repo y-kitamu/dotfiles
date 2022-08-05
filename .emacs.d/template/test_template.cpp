@@ -4,14 +4,15 @@
  * Create Date : %date%
  * Copyright (c) 2019- %name% <%mail%>
  */
+#include <filesystem>
 #include <iostream>
+
 #include <glog/logging.h>
 #include <gperftools/profiler.h>
-#include <boost/filesystem.hpp>
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
-int main(int argc, char ** argv) {
+int main(int argc, char** argv) {
     // logging codes
     google::InitGoogleLogging(argv[0]);
     google::InstallFailureSignalHandler();
@@ -20,11 +21,17 @@ int main(int argc, char ** argv) {
     if (!fs::exists(save_dir)) {
         fs::create_directories(save_dir);
     }
-    auto save_path = (save_dir / fs::path(fs::basename(fs::path(argv[0])) + ".prof")).generic_string();
+    auto save_path =
+        (save_dir / fs::path((fs::path(argv[0])).stem().string() + ".prof")).generic_string();
     ProfilerStart(save_path.c_str());
     std::cout << "Profiling to " << save_path << std::endl;
     // end logging codes
-    
-    
+
+    // Insert your codes here!!!
+
+
+
+
+    // finish program
     ProfilerStop();
 }
