@@ -68,6 +68,12 @@
   (setq js-indent-level 2)
   (setq typescript-indent-level 2))
 
+(use-package markdown-mode
+  :straight t
+  :mode (("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode)
+         ("\\.mdx\\'" . markdown-mode)))
+
 ;; web mode setting
 (use-package web-mode
   :straight t
