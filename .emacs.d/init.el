@@ -600,8 +600,17 @@
 
 ;;; When reading a file name, completion ignores case.
 (setq read-file-name-completion-ignore-case t)
+
 ;;; enable recentf
-(recentf-mode)                          ; docker-trampを呼んだ後に評価する
+(use-package recentf
+  :ensure t
+  :config
+  (setq recentf-max-saved-items 100
+        recentf-max-menu-items 100
+        recentf-auto-cleanup 'never
+        recentf-auto-save-timer (run-with-idle-timer 30 t 'recentf-save-list)
+        )
+  (recentf-mode 1))
 
 ;;; coding metrics
 (use-package wakatime-mode
