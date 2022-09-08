@@ -135,32 +135,50 @@ fi
 
 ############# CUSTOM SETTING ##############
 
+ESC=$(printf '\033')            # escape sequence (echoコマンド内で使用)
+
+function echo_done() {
+    echo "${ESC}[32m Done. ${ESC}[m"
+}
+
+function echo_skip() {
+    echo "${ESC}[31m Skip. ${ESC}[m"
+}
+
+echo -n "Set up custom keybindings ..."
 if [ -e ~/dotfiles/load_xkbmap.sh ]; then
     source ~/dotfiles/load_xkbmap.sh
+    echo_done
+else
+    echo_skip
 fi
 
 ### environment variables ###
 # use emacs as default editor
 export EDITOR="emacs"
 
-if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-    export WORKON_HOME=$HOME/.pyenv
-    if [ -f /usr/bin/python3 ]; then
-        export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-    fi
-    source /usr/local/bin/virtualenvwrapper.sh
-fi
+# if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+#     export WORKON_HOME=$HOME/.pyenv
+#     if [ -f /usr/bin/python3 ]; then
+#         export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+#     fi
+#     source /usr/local/bin/virtualenvwrapper.sh
+# fi
 
-if [ -e ~/work/ ]; then
-    export PYTHONPATH=${HOME}/work/${PYTHONPATH:+:${PYHTHONPATH}}
-fi
+# if [ -e ~/work/ ]; then
+#     export PYTHONPATH=${HOME}/work/${PYTHONPATH:+:${PYHTHONPATH}}
+# fi
 
 # OS customize setting
 if [ "$(uname)" == 'Darwin' ]; then
     # for Mac
+    echo -n "Set up Darwin settings ... "
     if [ -e ~/dotfiles/.bashrc_mac ]; then
         # echo "read settings for Mac"
         . ~/dotfiles/.bashrc_mac
+        echo_done
+    else
+        echo_skip
     fi
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
     # for Linux
@@ -170,15 +188,23 @@ elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
 fi
 
 # rust
+echo -n "Set up rust settings ... "
 export RUSTUP_HOME=${HOME}/.rustup
 export CARGO_HOME=${HOME}/.cargo
 if [ -e $CARGO_HOME/env ]; then
     source "$CARGO_HOME/env"
+    echo_done
+else
+    echo_skip
 fi
 
 # cask (emacs package management tool)
+echo -n "Set up emacs cask path ... "
 if [ -e $HOME/.cask ]; then
     export PATH=${HOME}/.cask/bin${PATH:+:${PATH}}
+    echo_done
+else
+    echo_skip
 fi
 
 # android studio path
@@ -186,66 +212,70 @@ if [ -e //usr/local/android-studio/bin ]; then
     export PATH=/usr/local/android-studio/bin${PATH:+:${PATH}}
 fi
 
-# to use droidcam
-if [ -f /usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so ]; then
-    export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libv4l/v4l2convert.so
-fi
-
 # add local bin path
+echo -n "Set up local bin path ... "
 if [ -e ${HOME}/.local/bin ]; then
     export PATH=${HOME}/.local/bin${PATH:+:${PATH}}
     export PYTHONPATH=${HOME}/.local/bin${PYTHONPATH:+:${PYTHONPATH}}
+    echo_done
+else
+    echo_skip
 fi
+
 
 # for gsettings error
 export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules
 
+echo -n "Set up google cloud SDK ... "
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/kitamura/google-cloud-sdk/path.bash.inc' ]; then . '/home/kitamura/google-cloud-sdk/path.bash.inc'; fi
+if [ -f '/home/kitamura/google-cloud-sdk/path.bash.inc' ]; then
+    . '/home/kitamura/google-cloud-sdk/path.bash.inc'
+    echo_done
+else
+    echo_skip
+fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/kitamura/google-cloud-sdk/completion.bash.inc' ]; then . '/home/kitamura/google-cloud-sdk/completion.bash.inc'; fi
-
-# bash history integration
-function share_history {
-    history -a  # .bash_historyに前回コマンドを1行追記
-    history -c  # 端末ローカルの履歴を一旦消去
-    history -r  # .bash_historyから履歴を読み込み直す
-}
-PROMPT_COMMAND='share_history'  # 上記関数をプロンプト毎に自動実施
-shopt -u histappend   # .bash_history追記モードは不要なのでOFFに
-export HISTSIZE=99999  # 履歴のMAX保存数を指定
+if [ -f '/home/kitamura/google-cloud-sdk/completion.bash.inc' ]; then
+    . '/home/kitamura/google-cloud-sdk/completion.bash.inc'
+fi
 
 # cuda
+echo -n "Set up cuda path ... "
 if [ -e /usr/local/cuda ]; then
     export PATH="/usr/local/cuda/bin:$PATH"
     export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+    echo_done
+else
+    echo_skip
 fi
 
 # add time info to history command
 export HISTTIMEFORMAT='%Y-%m-%d %T%z '
 
-# xonsh
-function create_xonsh_env {
-    if [ ! -e ${HOME}/.venv ]; then
-        mkdir ${HOME}/.venv
-    fi
-    python3 -m venv ${HOME}/.venv/xonsh
-    source ${HOME}/.venv/xonsh/bin/activate
-    sudo apt install xsel
-    pip install xonsh[full]
-}
-
 # deno
+echo -n "Set up deno ... "
 export DENO_INSTALL="${HOME}/.deno"
 if [ -e ${DENO_INSTALL} ]; then
     export PATH="$DENO_INSTALL/bin:$PATH"
+    echo_done
+else
+    echo_skip
 fi
 
 # poetry config
+echo -n "Set up poetry ... "
 if [ -e ${HOME}/.poetry/bin/poetry ]; then
     export PATH=${HOME}/.poetry/bin${PATH:+:${PATH}}
     ~/.poetry/bin/poetry config virtualenvs.in-project true
+    echo_done
+else
+    if [ -e ${HOME}/.local/bin/poetry ]; then
+        ~/.local/bin/poetry config virtualenvs.in-project true
+        echo_done
+    else
+        echo_skip
+    fi
 fi
 
 # export NPM_CONFIG_PREFIX="/usr/local"
@@ -279,3 +309,14 @@ COLCON_ARG_COMP=/usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 if [ -e ${COLCON_ARG_COMP} ]; then
     source ${COLCON_ARG_COMP}
 fi
+
+
+# bash history integration
+function share_history {
+    history -a  # .bash_historyに前回コマンドを1行追記
+    history -c  # 端末ローカルの履歴を一旦消去
+    history -r  # .bash_historyから履歴を読み込み直す
+}
+PROMPT_COMMAND='share_history'  # 上記関数をプロンプト毎に自動実施
+shopt -u histappend   # .bash_history追記モードは不要なのでOFFに
+export HISTSIZE=99999  # 履歴のMAX保存数を指定
