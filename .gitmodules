@@ -472,3 +472,15 @@
 [submodule ".emacs.d/straight/repos/treepy.el"]
 	path = .emacs.d/straight/repos/treepy.el
 	url = https://github.com/volrath/treepy.el.git
+[submodule ".emacs.d/straight/repos/diff-hl"]
+	path = .emacs.d/straight/repos/diff-hl
+	url = https://github.com/dgutov/diff-hl.git
+[submodule ".emacs.d/straight/repos/hl-todo"]
+	path = .emacs.d/straight/repos/hl-todo
+	url = https://github.com/tarsius/hl-todo.git
+[submodule ".emacs.d/straight/repos/magit-todos"]
+	path = .emacs.d/straight/repos/magit-todos
+	url = https://github.com/alphapapa/magit-todos.git
+[submodule ".emacs.d/straight/repos/pcre2el"]
+	path = .emacs.d/straight/repos/pcre2el
+	url = https://github.com/joddie/pcre2el.git

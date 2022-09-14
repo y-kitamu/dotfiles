@@ -72,12 +72,18 @@
   :bind
   ("C-x g" . magit-status))
 
-;;; reference : https://emacs-jp.github.io/packages/git-gutter
-(use-package git-gutter
+(use-package magit-todos
   :straight t
+  :after magit
   :config
-  (setq git-gutter:lighter "")
-  (global-git-gutter-mode t))
+  (magit-todos-mode)
+  (setq magit-todos-scanner 'magit-todos--scan-with-git-grep))
+
+(use-package diff-hl
+  :straight t
+  :hook
+  ((magit-pre-refresh-hook . diff-hl-magit-pre-refresh)
+   (magit-post-refresh-hook . diff-hl-magit-post-refresh)))
 
 ;;; require sqlite3 (apt-get install sqlite3)
 (use-package forge

@@ -23,3 +23,5 @@ required = true
     insteadOf = git@github.com:y-kitamu
 [url "git@github-kitamura12810630:kitamura12810630"]
      insteadOf = git@github.com:kitamura12810630
+[url "git@github-ffsst:FFS-kiban"]
+     insteadOf = git@github.com:FFS-kiban
