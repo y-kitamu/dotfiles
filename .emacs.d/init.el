@@ -620,20 +620,7 @@
   (if (eq system-type 'gnu/linux)
       (setq wakatime-cli-path (expand-file-name "~/.local/bin/wakatime-cli-linux-amd64")))
   (setq wakatime-api-key "4c9b2c0a-0b0d-4630-bd29-d3af45e3a2e6")
-  (global-wakatime-mode)
-  :config
-  (defun yk/wakatime-client-command (savep)
-    "Return client command executable and arguments.
-   Set SAVEP to non-nil for write action."
-    (format "%s--entity \"%s\" --plugin \"%s/%s\" --time %.2f%s%s"
-            (if (s-blank wakatime-cli-path) "wakatime-cli " (format "%s " wakatime-cli-path))
-            (buffer-file-name (current-buffer))
-            wakatime-user-agent
-            wakatime-version
-            (float-time)
-            (if savep " --write" "")
-            (if (s-blank wakatime-api-key) "" (format " --key %s" wakatime-api-key))))
-  (advice-add 'wakatime-client-command :override #'yk/wakatime-client-command))
+  (global-wakatime-mode))
 
 (use-package ag
   :straight t
