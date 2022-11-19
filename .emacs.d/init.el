@@ -419,6 +419,7 @@
   :config
   )
 
+
 ;; Example configuration for Consult
 (use-package consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
@@ -537,18 +538,51 @@
   ;; (setq consult-project-function (lambda (_) (vc-root-dir)))
   ;;;; 4. locate-dominating-file
   ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
+  (defun yk/find-file-command-builder (dir ignores &optional files)
+    (require 'find-dired)
+    (require 'xref)
+    (defvar find-name-arg)
+    (let* ((default-directory dir)
+           ;; Make sure ~/ etc. in local directory name is
+           ;; expanded and not left for the shell command
+           ;; to interpret.
+           (localdir (file-name-unquote (file-local-name (expand-file-name dir))))
+           )
+      (format "%s -H %s %s -type f %s -print0"
+              find-program
+              (shell-quote-argument
+               (directory-file-name localdir)) ; Bug#48471
+              (xref--find-ignores-arguments ignores localdir)
+              (if files
+                  (concat (shell-quote-argument "(")
+                          " " find-name-arg " "
+                          (mapconcat
+                           #'shell-quote-argument
+                           (split-string files)
+                           (concat " -o " find-name-arg " "))
+                          " "
+                          (shell-quote-argument ")"))
+                ""))))
 
   (defun yk/find-file-in-directory (directory)
     (interactive "DDirectory: ")
+    (message "command = %s" (yk/find-file-command-builder directory nil))
     (consult--read
      (project--files-in-directory directory nil)
-     ;; (consult--async-command project--files-in-directory directory nil)
+     ;; (consult--async-command
+     ;;     (lambda ()
+     ;;       (message "directory = %s" directory)
+     ;;       (let ((command yk/find-file-command-builder directory nil))
+     ;;         (message "command = %s" command)
+     ;;         command))
+     ;;   )
      :prompt (format "Find file in %s: " directory)
      :category 'file
      :require-match t
      :sort nil
-     )))
-
+     )
+    )
+  )
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
