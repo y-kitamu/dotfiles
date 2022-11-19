@@ -145,6 +145,10 @@ function echo_skip() {
     echo "${ESC}[31m Skip. ${ESC}[m"
 }
 
+function echo_failed() {
+    echo "${ESC}[31m Failed. ${ESC}[m"
+}
+
 echo -n "Set up custom keybindings ..."
 if [ -e ~/dotfiles/load_xkbmap.sh ]; then
     source ~/dotfiles/load_xkbmap.sh
@@ -320,3 +324,19 @@ function share_history {
 PROMPT_COMMAND='share_history'  # 上記関数をプロンプト毎に自動実施
 shopt -u histappend   # .bash_history追記モードは不要なのでOFFに
 export HISTSIZE=99999  # 履歴のMAX保存数を指定
+
+# aws setup
+# AWSのAPIキーファイルが存在する場合は環境変数に設定する
+echo -n "Set up aws environment variables ... "
+AWS_ENV_FILE=${HOME}/.aws/credentials
+if [ -e ${AWS_CREDENTIAL_FILE} ]; then
+    export AWS_ACCESS_KEY_ID=`grep aws_access_key_id ${AWS_ENV_FILE} | awk '{print $3}'`
+    export AWS_SECRET_ACCESS_KEY=`grep aws_secret_access_key ${AWS_ENV_FILE} | awk '{print $3}'`
+    if [ $? -eq 0 ]; then
+        echo_done
+    else
+        echo_failed
+    fi
+else
+    echo_skip
+fi
