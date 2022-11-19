@@ -1103,7 +1103,10 @@
   (("s-l f" . lsp-ui-doc-focus-frame)
    ("s-l u" . lsp-ui-doc-unfocus-frame)))
 
-(use-package lsp-pyright :straight t)
+(use-package lsp-pyright
+  :straight t
+  :init
+  (setq lsp-pyright-multi-root nil))
 
 (use-package ccls
   :straight t
