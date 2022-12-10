@@ -88,6 +88,8 @@
 ;;; require sqlite3 (apt-get install sqlite3)
 (use-package forge
   :straight t
+  :config
+  (add-to-list 'forge-alist '("github-y-kitamu" "api.github.com" "github.com" forge-github-repository))
   :after magit)
 
 (use-package projectile
