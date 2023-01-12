@@ -1270,7 +1270,7 @@
           template-replacements-alists)
     (goto-char (point-max))
     (message "Successfully insert template."))
-  (add-hook 'find-file-not-found-hooks 'auto-insert))
+  (add-to-list 'find-file-not-found-functions 'auto-insert))
 
 (message "!!!!! Finish loading init.el successfully !!!!!")
 ;;; init.el ends here
