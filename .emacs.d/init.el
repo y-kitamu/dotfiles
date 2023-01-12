@@ -1029,6 +1029,7 @@
   (setq lsp-modeline-diagnostics-enable nil)
   (setq lsp-modeline-workspace-status-enable nil)
   (setq warning-minimum-log-level :error)
+  (setq lsp-enable-file-watchers nil)
   ;; lspの探索から除外するdirectory
   (yk/add-to-list-multiple 'lsp-file-watch-ignored-directories
                            '("[/\\\\]\\.cache"
@@ -1083,6 +1084,7 @@
   (setq lsp-ui-doc-position 'at-point)
   (setq lsp-ui-doc-max-height 30)
   (setq lsp-ui-doc-use-childframe t)
+  (setq lsp-ui-doc-delay 2.0)
   (defun disable-tab-bar-in-lsp-ui-doc-frame (frame window)
     "lsp-ui-docで作られるchild frameにtab-barを表示しない"
     (set-frame-parameter frame 'tab-bar-lines 0))
