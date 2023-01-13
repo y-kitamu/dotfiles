@@ -653,8 +653,10 @@
   ;; run `make install-wakatime'
   (if (eq system-type 'gnu/linux)
       (setq wakatime-cli-path (expand-file-name "~/.local/bin/wakatime-cli-linux-amd64")))
-  (setq wakatime-api-key "4c9b2c0a-0b0d-4630-bd29-d3af45e3a2e6")
-  (global-wakatime-mode))
+  (if (file-exists-p wakatime-cli-path)
+      (progn
+        (setq wakatime-api-key "4c9b2c0a-0b0d-4630-bd29-d3af45e3a2e6")
+        (global-wakatime-mode))))
 
 (use-package ag
   :straight t
