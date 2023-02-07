@@ -340,3 +340,15 @@ if [ -e ${AWS_CREDENTIAL_FILE} ]; then
 else
     echo_skip
 fi
+
+# mount google drive
+alias mount_gdrive="rclone mount gdrive: ~/remote/gdrive/ &"
+if [ -e ${HOME}/remote/gdrive ]; then
+    echo -n "Mount google drive ... "
+    if [ -z "$(ls -A ${HOME}/remote/gdrive)" ]; then
+        mount_gdrive
+        echo_done
+    else
+        echo_skip
+    fi
+fi
