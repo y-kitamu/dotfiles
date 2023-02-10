@@ -113,6 +113,7 @@
 (setq auto-save-interval 60)                                ; auto save file を作成するまでの type 間隔
 
 ;;; 変更されたfileの自動更新
+(setq auto-revert-remote-files t)
 (global-auto-revert-mode t)
 
 ;;; 再起動時に前回開いていたファイルを開く
