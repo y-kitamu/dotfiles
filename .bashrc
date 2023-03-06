@@ -197,6 +197,16 @@ export RUSTUP_HOME=${HOME}/.rustup
 export CARGO_HOME=${HOME}/.cargo
 if [ -e $CARGO_HOME/env ]; then
     source "$CARGO_HOME/env"
+
+    RUST_COMPLETION_DIR=~/.local/share/bash-completion/completions
+    if [ ! -e ${RUST_COMPLETION_DIR} ]; then
+        mkdir -p ${RUST_COMPLETION_DIR}
+    fi
+    rustup completions bash > ${RUST_COMPLETION_DIR}/rustup
+    rustup completions bash cargo >${RUST_COMPLETION_DIR}/cargo
+    source ${RUST_COMPLETION_DIR}/rustup
+    source ${RUST_COMPLETION_DIR}/cargo
+
     echo_done
 else
     echo_skip
