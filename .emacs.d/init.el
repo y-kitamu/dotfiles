@@ -1032,6 +1032,9 @@
   (setq lsp-modeline-diagnostics-enable nil)
   (setq lsp-modeline-workspace-status-enable nil)
   (setq warning-minimum-log-level :error)
+  ;; fileの更新を監視するかのフラグ。
+  ;; tにする場合は`lsp-session-file'をプロジェクトフォルダ内に指定して余計なフォルダで
+  ;; file watcherが動くことを回避するようにする
   (setq lsp-enable-file-watchers nil)
   ;; lspの探索から除外するdirectory
   (yk/add-to-list-multiple 'lsp-file-watch-ignored-directories
