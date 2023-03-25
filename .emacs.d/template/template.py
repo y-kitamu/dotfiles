@@ -1,6 +1,6 @@
 """%file%
 
 Author : %name%
-Create Date : %date%
+Create Date : %datetime%
 Copyright (c) 2019- %name% <%mail%>
 """

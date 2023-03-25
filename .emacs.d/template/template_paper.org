@@ -1,6 +1,6 @@
 #+TITLE:
 #+AUTHOR:
-#+DATE: %date%
+#+DATE: %datetime%
 
 
 * どんな論文なのか？

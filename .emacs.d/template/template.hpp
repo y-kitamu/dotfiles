@@ -2,7 +2,7 @@
  * @file %file%
  * @brief
  * @author %name% <%mail%>
- * @date %date%
+ * @date %datetime%
  */
 #ifndef %include-guard%
 #define %include-guard%

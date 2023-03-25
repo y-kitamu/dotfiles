@@ -1255,13 +1255,15 @@
                              ("\\.hpp$" . ["template.hpp" my-template])
                              ("CMakeLists.txt$" . ["template.CMakeLists.txt" my-template])
                              ("\\.py$" . ["template.py" my-template])
+                             ("\\.mdx$" . ["template.mdx" my-template])
                              ("[0-9]+\\(_\\w+\\)+\\.org$" . ["template_paper.org" my-template])
                              ("[0-9]+_[0-9]+_[0-9]+\\.org$" . ["template_todo.org" my-template])))
   (defvar template-replacements-alists
     '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
       ("%file-without-ext%" .
        (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
-      ("%date%" . (lambda () (format-time-string "%Y-%m-%d %H:%M:%S")))
+      ("%date%" . (lambda () (format-time-string "%Y-%m-%d")))
+      ("%datetime%" . (lambda () (format-time-string "%Y-%m-%d %H:%M:%S")))
       ("%mail%" . (lambda () (identity user-mail-address)))
       ("%name%" . (lambda () (identity user-full-name)))
       ("%include-guard%" .

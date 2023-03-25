@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: ImageHtml
+# key: ImageHtml
+# --
+<figure>
+<center>
+<img src="${0:image-path}" alt="${1:caption}" width="100%"/>
+<figcaption>$1</figcaption>
+</center>
+</figure>
