@@ -1,0 +1,14 @@
+{
+  "plugins": {
+    "org": true,
+    "@textlint/markdown": {
+      "extensions": [".mdx"]
+    }
+  },
+  "rules": {
+    "preset-ja-technical-writing": {
+      "no-exclamation-question-mark": false
+    },
+    "preset-japanese": true
+  }
+}

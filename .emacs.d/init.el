@@ -966,6 +966,7 @@
   :hook
   (before-save . py-isort-before-save))
 
+;;; 日本語の文章チェックはtextlintをインストールする
 (use-package flycheck
   :straight t
   :init
