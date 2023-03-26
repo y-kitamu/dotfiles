@@ -1257,6 +1257,7 @@
                              ("CMakeLists.txt$" . ["template.CMakeLists.txt" my-template])
                              ("\\.py$" . ["template.py" my-template])
                              ("\\.mdx$" . ["template.mdx" my-template])
+                             ("\\.md$" . ["template.mdx" my-template])
                              ("[0-9]+\\(_\\w+\\)+\\.org$" . ["template_paper.org" my-template])
                              ("[0-9]+_[0-9]+_[0-9]+\\.org$" . ["template_todo.org" my-template])))
   (defvar template-replacements-alists
