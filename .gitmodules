@@ -484,3 +484,27 @@
 [submodule ".emacs.d/straight/repos/pcre2el"]
 	path = .emacs.d/straight/repos/pcre2el
 	url = https://github.com/joddie/pcre2el.git
+[submodule ".emacs.d/straight/repos/nongnu-elpa"]
+	path = .emacs.d/straight/repos/nongnu-elpa
+	url = https://git.savannah.gnu.org/git/emacs/nongnu.git
+[submodule ".emacs.d/straight/repos/emacs-web"]
+	path = .emacs.d/straight/repos/emacs-web
+	url = https://github.com/nicferrier/emacs-web.git
+[submodule ".emacs.d/straight/repos/emacs-noflet"]
+	path = .emacs.d/straight/repos/emacs-noflet
+	url = https://github.com/nicferrier/emacs-noflet.git
+[submodule ".emacs.d/straight/repos/emacs-kv"]
+	path = .emacs.d/straight/repos/emacs-kv
+	url = https://github.com/nicferrier/emacs-kv.git
+[submodule ".emacs.d/straight/repos/emacs-fakir"]
+	path = .emacs.d/straight/repos/emacs-fakir
+	url = https://github.com/nicferrier/emacs-fakir.git
+[submodule ".emacs.d/straight/repos/emacs-db"]
+	path = .emacs.d/straight/repos/emacs-db
+	url = https://github.com/nicferrier/emacs-db.git
+[submodule ".emacs.d/straight/repos/elwikicreole"]
+	path = .emacs.d/straight/repos/elwikicreole
+	url = https://github.com/nicferrier/elwikicreole.git
+[submodule ".emacs.d/straight/repos/elnode"]
+	path = .emacs.d/straight/repos/elnode
+	url = https://github.com/jcaw/elnode.git
