@@ -15,4 +15,4 @@ org-gcal/
 persist/
 
 #
-seacrets
+secrets.sh

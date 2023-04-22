@@ -279,17 +279,11 @@ fi
 
 # poetry config
 echo -n "Set up poetry ... "
-if [ -e ${HOME}/.poetry/bin/poetry ]; then
-    export PATH=${HOME}/.poetry/bin${PATH:+:${PATH}}
-    ~/.poetry/bin/poetry config virtualenvs.in-project true
+if [ -e ${HOME}/.local/bin/poetry ]; then
+    ~/.local/bin/poetry config virtualenvs.in-project true
     echo_done
 else
-    if [ -e ${HOME}/.local/bin/poetry ]; then
-        ~/.local/bin/poetry config virtualenvs.in-project true
-        echo_done
-    else
-        echo_skip
-    fi
+    echo_skip
 fi
 
 # export NPM_CONFIG_PREFIX="/usr/local"
@@ -361,4 +355,15 @@ if [ -e ${HOME}/remote/gdrive ]; then
     else
         echo_skip
     fi
+fi
+
+# set open-api secret to environment variable
+echo -n "Set up open-api secret ... "
+SCRIPT_DIR=$( cd -- "$( dirname -- $(realpath "${BASH_SOURCE[0]}" ))" &> /dev/null && pwd )
+SECRET_FILE=${SCRIPT_DIR}/secrets.sh
+if [ -e ${SECRET_FILE} ]; then
+    source ${SECRET_FILE}
+    echo_done
+else
+    echo_skip
 fi
