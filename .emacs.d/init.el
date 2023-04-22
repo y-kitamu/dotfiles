@@ -1253,9 +1253,8 @@
           ((executable-find "python") "python")
           (t "python3")))
   ;; openapiの環境変数を設定
-  (let* ((emacsdir (cond ((file-symlink-p (buffer-file-name)) (file-name-directory (file-symlink-p (buffer-file-name))))
-                         (t (file-name-directory (buffer-file-name)))))
-         (secretfile (concat (file-name-as-directory (file-name-directory (directory-file-name emacsdir))) "secrets.sh")))
+  (let* ((secretdir (file-name-directory (file-truename (expand-file-name "~/.emacs.d"))))
+         (secretfile (concat (file-name-as-directory secretdir) "secrets.sh")))
     (when (file-exists-p secretfile)
       (message "Load secret file")
       (yk/read_shell_file_to_set_envvar secretfile)))
