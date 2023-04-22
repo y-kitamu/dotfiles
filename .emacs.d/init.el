@@ -650,10 +650,12 @@
   ;; run `make install-wakatime'
   (if (eq system-type 'gnu/linux)
       (setq wakatime-cli-path (expand-file-name "~/.local/bin/wakatime-cli-linux-amd64")))
-  (if (file-exists-p wakatime-cli-path)
-      (progn
-        (setq wakatime-api-key "4c9b2c0a-0b0d-4630-bd29-d3af45e3a2e6")
-        (global-wakatime-mode))))
+
+  (if (boundp 'wakatime-cli-path)
+      (if (file-exists-p wakatime-cli-path)
+          (progn
+            (setq wakatime-api-key "4c9b2c0a-0b0d-4630-bd29-d3af45e3a2e6")
+            (global-wakatime-mode)))))
 
 (use-package ag
   :straight t
@@ -1242,8 +1244,29 @@
   (global-set-key (kbd "M-RET d") 'srefactor-lisp-format-defun)
   (global-set-key (kbd "M-RET b") 'srefactor-lisp-format-buffer))
 
+(use-package chatgpt
+  :straight (:host github :repo "joshcho/ChatGPT.el" :files ("dist" "*.el"))
+  :init
+  (require 'python)
+  (setq python-interpreter
+    (cond ((executable-find "python3") "python3")
+          ((executable-find "python") "python")
+          (t "python3")))
+  ;; openapiの環境変数を設定
+  (let* ((emacsdir (file-symlink-p (expand-file-name "~/.emacs.d")))
+         (secretfile (concat (file-name-as-directory (file-name-directory emacsdir)) "secrets.sh")))
+    (when (file-exists-p secretfile)
+      (yk/read_shell_file_to_set_envvar secretfile)))
+  (let ((path (getenv "PATH")))
+    (setenv "PATH" (concat path ":" (expand-file-name "~/.local/bin"))))
+  (setq chatgpt-repo-path "~/.emacs.d/straight/repos/ChatGPT.el/")
+  :bind ("C-c q" . chatgpt-query))
+
+
+;;;;;;;;;;;;;;;;;;;; File Footer ;;;;;;;;;;;;;;;;;;;;
+
+;;; ここから下はinit.elの一番最後におくこと。
 ;;; ファイル作成時に生成するテンプレートの設定 (autoinsert)
-;;; init.elの一番最後におくこと。
 ;;; (straight.elがpackageをinstallするときに、elispのtemplateのinteractiveな設定を要求されるので)
 (use-package autoinsert
   :straight t
@@ -1286,26 +1309,6 @@
     (goto-char (point-max))
     (message "Successfully insert template."))
   (add-to-list 'find-file-not-found-functions 'auto-insert))
-
-
-(use-package chatgpt
-  :straight (:host github :repo "joshcho/ChatGPT.el" :files ("dist" "*.el"))
-  :init
-  (require 'python)
-  (setq python-interpreter
-    (cond ((executable-find "python3") "python3")
-          ((executable-find "python") "python")
-          (t "python3")))
-  ;; openapiの環境変数を設定
-  (let* ((emacsdir (file-symlink-p (expand-file-name "~/.emacs.d")))
-         (secretfile (concat (file-name-as-directory (file-name-directory emacsdir)) "secrets.sh")))
-    (when (file-exists-p secretfile)
-      (yk/read_shell_file_to_set_envvar secretfile)))
-  (let ((path (getenv "PATH")))
-    (setenv "PATH" (concat path ":" (expand-file-name "~/.local/bin"))))
-  (setq chatgpt-repo-path "~/.emacs.d/straight/repos/ChatGPT.el/")
-  :bind ("C-c q" . chatgpt-query))
-
 
 (message "!!!!! Finish loading init.el successfully !!!!!")
 ;;; init.el ends here
