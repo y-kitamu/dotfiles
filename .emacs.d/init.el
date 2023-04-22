@@ -424,11 +424,14 @@
 ;; Example configuration for Consult
 (use-package consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
-  :bind (;; C-c bindings (mode-specific-map)
+  :bind (;; C-c bindings in `mode-specific-map'
+         ("C-c M-x" . consult-mode-command)
          ("C-c h" . consult-history)
-         ("C-c m" . consult-mode-command)
          ("C-c k" . consult-kmacro)
-         ;; C-x bindings (ctl-x-map)
+         ("C-c m" . consult-man)
+         ("C-c i" . consult-info)
+         ([remap Info-search] . consult-info)
+         ;; C-x bindings in `ctl-x-map'
          ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
          ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
          ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
@@ -441,8 +444,7 @@
          ("C-M-#" . consult-register)
          ;; Other custom bindings
          ("M-y" . consult-yank-pop)                ;; orig. yank-pop
-         ("<help> a" . consult-apropos)            ;; orig. apropos-command
-         ;; M-g bindings (goto-map)
+         ;; M-g bindings in `goto-map'
          ("M-g e" . consult-compile-error)
          ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
          ("M-g g" . consult-goto-line)             ;; orig. goto-line
@@ -452,22 +454,18 @@
          ("M-g k" . consult-global-mark)
          ("M-g i" . consult-imenu)
          ("M-g I" . consult-imenu-multi)
-         ;; M-s bindings (search-map)
+         ;; M-s bindings in `search-map'
          ("M-s d" . consult-find)
          ("M-s D" . consult-locate)
          ("M-s g" . consult-grep)
          ("M-s G" . consult-git-grep)
          ("M-s r" . consult-ripgrep)
-         ("C-S-f" . consult-ripgrep)      ; same for vscode keybind
          ("M-s l" . consult-line)
          ("M-s L" . consult-line-multi)
-         ("M-s m" . consult-multi-occur)
          ("M-s k" . consult-keep-lines)
          ("M-s u" . consult-focus-lines)
          ;; Isearch integration
          ("M-s e" . consult-isearch-history)
-         ;; custom
-         ("C-x d f" .  yk/find-file-in-directory)
          :map isearch-mode-map
          ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
          ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
@@ -477,7 +475,6 @@
          :map minibuffer-local-map
          ("M-s" . consult-history)                 ;; orig. next-matching-history-element
          ("M-r" . consult-history))                ;; orig. previous-matching-history-element
-
   ;; Enable automatic preview at point in the *Completions* buffer. This is
   ;; relevant when you use the default completion UI.
   :hook (completion-list-mode . consult-preview-at-point-mode)
@@ -962,6 +959,15 @@
 
 (use-package py-isort
   :demand t
+  :init
+  (defun toggle-py-isort-before-save ()
+    (interactive)
+    (if (memq 'py-isort-before-save before-save-hook)
+        (progn
+          (remove-hook 'before-save-hook 'py-isort-before-save)
+          (message "py-isort-before-save disabled"))
+      (add-hook 'before-save-hook 'py-isort-before-save)
+      (message "py-isort-before-save enabled")))
   :hook
   (before-save . py-isort-before-save))
 
@@ -1194,20 +1200,20 @@
   ((prog-mode . copilot-mode))
   :after python)
 
-(use-package company-tabnine
-  :straight t
-  :config
-  (add-to-list 'company-backends #'company-tabnine)
-  (setq company-tabnine--disabled t)
-  (defun toggle-tabnine ()
-    "tabnineのenable, disableの切り替え"
-    (interactive)
-    (cond (company-tabnine--disabled
-           (setq company-tabnine--disabled nil)
-           (message "TabNine enabled"))
-          (t
-           (setq company-tabnine--disabled t)
-           (message "TabNine disabled")))))
+;; (use-package company-tabnine
+;;   :straight t
+;;   :config
+;;   (add-to-list 'company-backends #'company-tabnine)
+;;   (setq company-tabnine--disabled t)
+;;   (defun toggle-tabnine ()
+;;     "tabnineのenable, disableの切り替え"
+;;     (interactive)
+;;     (cond (company-tabnine--disabled
+;;            (setq company-tabnine--disabled nil)
+;;            (message "TabNine enabled"))
+;;           (t
+;;            (setq company-tabnine--disabled t)
+;;            (message "TabNine disabled")))))
 
 ;; dap-mode setting
 (use-package dap-mode
@@ -1280,6 +1286,26 @@
     (goto-char (point-max))
     (message "Successfully insert template."))
   (add-to-list 'find-file-not-found-functions 'auto-insert))
+
+
+(use-package chatgpt
+  :straight (:host github :repo "joshcho/ChatGPT.el" :files ("dist" "*.el"))
+  :init
+  (require 'python)
+  (setq python-interpreter
+    (cond ((executable-find "python3") "python3")
+          ((executable-find "python") "python")
+          (t "python3")))
+  ;; openapiの環境変数を設定
+  (let* ((emacsdir (file-symlink-p (expand-file-name "~/.emacs.d")))
+         (secretfile (concat (file-name-as-directory (file-name-directory emacsdir)) "secrets.sh")))
+    (when (file-exists-p secretfile)
+      (yk/read_shell_file_to_set_envvar secretfile)))
+  (let ((path (getenv "PATH")))
+    (setenv "PATH" (concat path ":" (expand-file-name "~/.local/bin"))))
+  (setq chatgpt-repo-path "~/.emacs.d/straight/repos/ChatGPT.el/")
+  :bind ("C-c q" . chatgpt-query))
+
 
 (message "!!!!! Finish loading init.el successfully !!!!!")
 ;;; init.el ends here

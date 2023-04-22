@@ -508,3 +508,12 @@
 [submodule ".emacs.d/straight/repos/elnode"]
 	path = .emacs.d/straight/repos/elnode
 	url = https://github.com/jcaw/elnode.git
+[submodule ".emacs.d/straight/repos/ChatGPT.el"]
+	path = .emacs.d/straight/repos/ChatGPT.el
+	url = https://github.com/joshcho/ChatGPT.el.git
+[submodule ".emacs.d/straight/repos/emacs-epc"]
+	path = .emacs.d/straight/repos/emacs-epc
+	url = https://github.com/kiwanami/emacs-epc.git
+[submodule ".emacs.d/straight/repos/emacs-ctable"]
+	path = .emacs.d/straight/repos/emacs-ctable
+	url = https://github.com/kiwanami/emacs-ctable.git
