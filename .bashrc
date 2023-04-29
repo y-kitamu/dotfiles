@@ -270,7 +270,7 @@ export HISTTIMEFORMAT='%Y-%m-%d %T%z '
 # deno
 echo -n "Set up deno ... "
 export DENO_INSTALL="${HOME}/.deno"
-if [ -e ${DENO_INSTALL} ]; then
+if [ -e "${DENO_INSTALL}" ]; then
     export PATH="$DENO_INSTALL/bin:$PATH"
     echo_done
 else
@@ -279,9 +279,11 @@ fi
 
 # poetry config
 echo -n "Set up poetry ... "
-if [ -e ${HOME}/.local/bin/poetry ]; then
-    ~/.local/bin/poetry config virtualenvs.in-project true
-    echo_done
+if command -v poetry > /dev/null; then
+    if [ ! -e "${HOME}/.config/pypoetry/config.toml" ]; then
+        poetry config virtualenvs.in-project true
+        echo_done
+    fi
 else
     echo_skip
 fi
