@@ -1,6 +1,5 @@
 {
   "plugins": {
-    "org": true,
     "@textlint/markdown": {
       "extensions": [".mdx"]
     }
