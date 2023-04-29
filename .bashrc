@@ -135,24 +135,28 @@ fi
 
 ############# CUSTOM SETTING ##############
 
-ESC=$(printf '\033')            # escape sequence (echoコマンド内で使用)
 
+ESC=$(printf '\033')            # escape sequence (echoコマンド内で使用)
+GREEN='\033[32m'
+RED='\033[31m'
+NC='\033[0m'  # No color
+
+# Define functions to print messages using the color codes
 function echo_done() {
-    echo "${ESC}[32m Done. ${ESC}[m"
+    echo "${ESC}${GREEN} Done. ${ESC}[m"
 }
 
 function echo_skip() {
-    echo "${ESC}[31m Skip. ${ESC}[m"
+    echo "${ESC}${RED} Skip. ${ESC}[m"
 }
 
 function echo_failed() {
-    echo "${ESC}[31m Failed. ${ESC}[m"
+    echo "${ESC}${RED} Failed. ${ESC}[m"
 }
 
 echo -n "Set up custom keybindings ..."
 if [ -e ~/dotfiles/load_xkbmap.sh ]; then
-    source ~/dotfiles/load_xkbmap.sh
-    echo_done
+    source ~/dotfiles/load_xkbmap.sh && echo_done || echo_failed
 else
     echo_skip
 fi
@@ -283,6 +287,8 @@ if command -v poetry > /dev/null; then
     if [ ! -e "${HOME}/.config/pypoetry/config.toml" ]; then
         poetry config virtualenvs.in-project true
         echo_done
+    else
+        echo_skip
     fi
 else
     echo_skip
