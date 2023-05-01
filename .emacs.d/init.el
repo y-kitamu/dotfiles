@@ -1129,6 +1129,15 @@
   :custom
   (ccls-initialization-options (list :compilationDatabaseDirectory "build")))
 
+;;; `lsp-install-server'でtailwindcssをinstallすると使用できる
+(use-package lsp-tailwindcss
+  :straight t
+  :init
+  (setq lsp-tailwindcss-add-on-mode t)
+  (setq lsp-tailwindcss-server-command "tailwindcss-language-server")
+  :after lsp-mode)
+
+
 (use-package doxygen
   :straight t)
 

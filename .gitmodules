@@ -517,3 +517,6 @@
 [submodule ".emacs.d/straight/repos/emacs-ctable"]
 	path = .emacs.d/straight/repos/emacs-ctable
 	url = https://github.com/kiwanami/emacs-ctable.git
+[submodule ".emacs.d/straight/repos/lsp-tailwindcss"]
+	path = .emacs.d/straight/repos/lsp-tailwindcss
+	url = https://github.com/merrickluo/lsp-tailwindcss.git
