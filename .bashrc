@@ -137,9 +137,9 @@ fi
 
 
 ESC=$(printf '\033')            # escape sequence (echoコマンド内で使用)
-GREEN='\033[32m'
-RED='\033[31m'
-NC='\033[0m'  # No color
+GREEN=$(printf '\033[32m')
+RED=$(printf '\033[31m')
+NC=$(printf '\033[0m')  # No color
 
 # Define functions to print messages using the color codes
 function echo_done() {
