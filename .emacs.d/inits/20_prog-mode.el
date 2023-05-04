@@ -117,6 +117,9 @@
 ;; glsl mode
 (use-package glsl-mode
   :straight t
+  :init
+  (define-key glsl-mode-map (kbd "<backtab>") 'copilot-accept-completion)
+  (define-key glsl-mode-map (kbd "S-<iso-lefttab>") 'copilot-accept-completion)
   :config
   (add-to-list 'auto-mode-alist '("\\.vs\\'" . glsl-mode))
   (add-to-list 'auto-mode-alist '("\\.fs\\'" . glsl-mode))
