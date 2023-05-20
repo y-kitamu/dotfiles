@@ -194,6 +194,13 @@
 (require 'abbrev)
 (my/hide-minor-mode-from-mode-line 'abbrev-mode)
 
+(require 'hexl)
+(define-key hexl-mode-map (kbd "C-t") 'other-window)
+(define-key hexl-mode-map (kbd "C-o") (lambda ()
+                                     (interactive)
+                                     (other-window -1)))
+
+
 ;; gdb
 (setq gdb-many-windows t)
 (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
@@ -244,6 +251,12 @@
              ))))
    (buffer-list)))
 
+(defun yk/copy-buffer-filename-as-kill ()
+  "Copy the current directory into the kill ring."
+  (interactive)
+  (if (null (buffer-file-name))
+      (message "No file is associated with this buffer")
+    (kill-new (buffer-file-name))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;; Third Party Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
