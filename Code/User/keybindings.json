@@ -1,0 +1,13 @@
+// Place your key bindings in this file to override the defaults
+[
+
+    {
+        "key": "escape x",
+        "command": "workbench.action.showCommands",
+    },
+    {
+        "key": "escape escape",
+        "command": "notebook.cell.quitEdit",
+        "when": "inputFocus && notebookEditorFocused && !editorHasMultipleSelections && !editorHasSelection && !editorHoverVisible"
+    }    
+]

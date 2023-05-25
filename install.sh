@@ -17,3 +17,7 @@ do
 
     ln -snfv ~/dotfiles/$basename ~/
 done
+
+
+# install vscode settings
+ln -snfv ~/dotfiles/Code ~/.config/

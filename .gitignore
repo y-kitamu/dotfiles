@@ -16,3 +16,8 @@ persist/
 
 #
 secrets.sh
+
+#
+Code/*
+!Code/User
+Code/User/*/
