@@ -1053,6 +1053,11 @@
   (setq lsp-modeline-diagnostics-enable nil)
   (setq lsp-modeline-workspace-status-enable nil)
   (setq warning-minimum-log-level :error)
+
+  ;; typescript
+  (setq lsp-clients-typescript-preferences
+   (list :preferences (list :includeCompletionsForModuleExports "false")))
+
   ;; fileの更新を監視するかのフラグ。
   ;; tにする場合は`lsp-session-file'をプロジェクトフォルダ内に指定して余計なフォルダで
   ;; file watcherが動くことを回避するようにする

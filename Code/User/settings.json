@@ -8,7 +8,6 @@
         "editor.codeActionsOnSave": {
             "source.organizeImports": true
         },
-        "editor.formatOnType": true,
     },
     "isort.args": [
         "--profile",
@@ -63,5 +62,13 @@
         "DOING",
         "DONE"
     ],
-    "hediet.vscode-drawio.resizeImages": null
+    "hediet.vscode-drawio.resizeImages": null,
+    "notebook.output.textLineLimit": 100,
+    "jupyter.widgetScriptSources": [
+        "jsdelivr.com",
+        "unpkg.com"
+    ],
+    "python.venvFolders": [
+        ".venv"
+    ]
 }

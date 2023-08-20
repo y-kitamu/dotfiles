@@ -94,5 +94,20 @@
         "key": "ctrl+c ctrl+t",
         "command": "org.incrementContext",
         "when": "editorLangId == 'org'"
+    },
+    {
+        "key": "shift+tab",
+        "command": "acceptSelectedSuggestion",
+        "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "shift+tab",
+        "command": "-acceptAlternativeSelectedSuggestion",
+        "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
     }
+    {
+        "key": "shift+tab",
+        "command": "editor.action.inlineSuggest.commit",
+        "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorTabMovesFocus"
+    }    
 ]
