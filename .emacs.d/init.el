@@ -1025,6 +1025,7 @@
   :straight t)
 
 ;; lsp configuration begin
+(setenv "LSP_USE_PLISTS" "true")
 (use-package lsp-mode
   :straight t
   :custom
@@ -1043,6 +1044,9 @@
   ;; rust
   (lsp-rust-analyzer-cargo-watch-command "clippy")
   :config
+  ;;
+  (add-to-list 'image-types 'svg)
+
   (custom-set-faces
    '(lsp-face-highlight-read
      ((t (:background "#F0DFAF" :foreground "#000000" :weight bold)))) ; zenburn-yellow
@@ -1056,7 +1060,7 @@
 
   ;; typescript
   (setq lsp-clients-typescript-preferences
-   (list :preferences (list :includeCompletionsForModuleExports "false")))
+        (list :preferences (list :includeCompletionsForModuleExports "false")))
 
   ;; fileの更新を監視するかのフラグ。
   ;; tにする場合は`lsp-session-file'をプロジェクトフォルダ内に指定して余計なフォルダで
@@ -1082,28 +1086,29 @@
    (python-mode . lsp-deferred)
    (c++-mode . lsp-deferred)
    (rust-mode . lsp-deferred)
-   (typescript-mode . lsp-deferred)))
+   (typescript-mode . lsp-deferred)
+   (web-mode . lsp-deferred)))
 
-(use-package lsp-docker+
-  :straight (lsp-docker+ :type git :host github :repo "y-kitamu/emacs-lsp-docker-plus")
-  :init
-  (lsp-docker+-enable)
-  ;; register default lsp server
-  (let ((lsp-docker+-image-id "arumatik/common-language-servers")
-        (lsp-docker+-client-configs
-         (list
-          (list :server-id 'bash-ls :docker-server-id 'bashls-docker
-                :server-command "bash-langauge-server start")
-          (list :server-id 'css-ls :docker-server-id 'cssls-docker
-                :server-command "css-languageserver --stdio")
-          (list :server-id 'gopls :docker-server-id 'gopls-docker :server-command "gopls")
-          (list :server-id 'html-ls :docker-server-id 'htmlls-docker
-                :server-command "html-languageserver --stdio")
-          (list :server-id 'ts-ls :docker-server-id 'tsls-docker
-                :server-command "typescript-language-server --stdio"))))
-    (lsp-docker+-init-clients :client-configs lsp-docker+-client-configs))
-  (message (lsp-docker+-format "Finish nitializing lsp-docker+"))
-  :after lsp-mode)
+;; (use-package lsp-docker+
+;;   :straight (lsp-docker+ :type git :host github :repo "y-kitamu/emacs-lsp-docker-plus")
+;;   :init
+;;   (lsp-docker+-enable)
+;;   ;; register default lsp server
+;;   (let ((lsp-docker+-image-id "arumatik/common-language-servers")
+;;         (lsp-docker+-client-configs
+;;          (list
+;;           (list :server-id 'bash-ls :docker-server-id 'bashls-docker
+;;                 :server-command "bash-langauge-server start")
+;;           (list :server-id 'css-ls :docker-server-id 'cssls-docker
+;;                 :server-command "css-languageserver --stdio")
+;;           (list :server-id 'gopls :docker-server-id 'gopls-docker :server-command "gopls")
+;;           (list :server-id 'html-ls :docker-server-id 'htmlls-docker
+;;                 :server-command "html-languageserver --stdio")
+;;           (list :server-id 'ts-ls :docker-server-id 'tsls-docker
+;;                 :server-command "typescript-language-server --stdio"))))
+;;     (lsp-docker+-init-clients :client-configs lsp-docker+-client-configs))
+;;   (message (lsp-docker+-format "Finish nitializing lsp-docker+"))
+;;   :after lsp-mode)
 
 (use-package lsp-ui
   :straight t

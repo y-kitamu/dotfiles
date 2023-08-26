@@ -375,3 +375,6 @@ if [ -e ${SECRET_FILE} ]; then
 else
     echo_skip
 fi
+
+# For emcacs configuration
+export LSP_USE_PLISTS=true

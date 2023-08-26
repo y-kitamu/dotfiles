@@ -36,20 +36,23 @@ build-linux: build-emacs
 	sudo apt-get update; sudo apt-get install git -y
 
 # Build emacs-ng
-# build-emacs:
-# 	sudo apt-get update && sudo apt-get upgrade -y
-# 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh
-# 	sh ./rustup.sh -y --default-toolchain $(RUST_TOOLCHAIN_VERSION) --no-modify-path && rm rustup.sh
-# 	sudo apt install -y build-essential automake clang libclang-dev
-# 	sudo apt install -y texinfo libjpeg-dev libtiff-dev \
-# 		libgif-dev libxpm-dev libgtk-3-dev gnutls-dev \
-# 		libncurses5-dev libxml2-dev libxt-dev
-# 	mkdir $${HOME}/packages; git clone https://github.com/emacs-ng/emacs-ng.git $${HOME}/packages || true
-# 	cd $${HOME}/packages && \
-# 		./autogen.sh &&\
-# 		./configure &&\
-# 		make -j$(nproc) &&\
-# 	sudo make install
+build-emacs:
+	sudo apt-get update && sudo apt-get upgrade -y
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh
+	sh ./rustup.sh -y --default-toolchain $(RUST_TOOLCHAIN_VERSION) --no-modify-path && rm rustup.sh
+	sudo apt install -y build-essential automake clang libclang-dev
+	sudo apt install -y texinfo libjpeg-dev libtiff-dev \
+		libgif-dev libxpm-dev libgtk-3-dev gnutls-dev \
+		libncurses5-dev libxml2-dev libxt-dev \
+		xaw3dg-dev webp \
+		libgccjit-11-dev \ # install済みのgccのversionと合わせる
+		libtree-sitter-dev
+	mkdir $${HOME}/packages; git clone https://github.com/emacs-ng/emacs-ng.git $${HOME}/packages || true
+	cd $${HOME}/packages && \
+		./autogen.sh &&\
+		./configure --with-native-compilation --with-tree-sitter &&\
+		make -j$(nproc) &&\
+	sudo make install
 
 install-wakatime:
 	cd $(ROOT_DIR)/.emacs.d/
