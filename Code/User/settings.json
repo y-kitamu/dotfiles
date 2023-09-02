@@ -70,5 +70,8 @@
     ],
     "python.venvFolders": [
         ".venv"
-    ]
+    ],
+    "remote.SSH.remotePlatform": {
+        "cloudhpc": "linux"
+    }
 }

@@ -23,6 +23,11 @@
 ;;
 
 ;;; Code:
+;; hide bars
+(tool-bar-mode 0)   ; tool bar を非表示
+(menu-bar-mode 0)   ; menu bar を非表示
+(if window-system
+    (scroll-bar-mode 0)) ; scroll bar を非表示
 
 ;;; tab-bar mode setting
 (setq tab-bar-new-button-show nil)

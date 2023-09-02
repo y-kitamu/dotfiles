@@ -125,6 +125,118 @@
   (define-key glsl-mode-map (kbd "<backtab>") 'copilot-accept-completion)
   (define-key glsl-mode-map (kbd "S-<iso-lefttab>") 'copilot-accept-completion)
 
+;;; python
+(setq-default python-indent-offset 4)
+
+(use-package blackify
+  :straight (blackify :type git :host github :repo "y-kitamu/blackify")
+  :hook (python-mode . blackify-mode))
+
+(use-package py-isort
+  :demand t
+  :init
+  (defun toggle-py-isort-before-save ()
+    (interactive)
+    (if (memq 'py-isort-before-save before-save-hook)
+        (progn
+          (remove-hook 'before-save-hook 'py-isort-before-save)
+          (message "py-isort-before-save disabled"))
+      (add-hook 'before-save-hook 'py-isort-before-save)
+      (message "py-isort-before-save enabled")))
+  :hook
+  (before-save . py-isort-before-save))
+
+;;; c/c++
+;; defaultのIndent Style を設定. M-x describe-variable RET c-style-alist RET で詳細表示
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (c-set-style `"stroustrup")))
+(c-add-style "briancpp" '((c-offsets-alist
+                           (access-label . /)
+                           (defun-open . 0)
+                           (defun-close . 0)
+                           (statement-block-intro . +)
+                           (substatement-open . 0)
+                           (substatement-label . 0)
+                           (label . 0)
+                           (statement-cont . +)
+                           (inline-open . 0)
+                           (inline-close . 0)
+                           (inlambda . 0)
+                           (innamespace . 0))))
+(add-hook 'c++-mode-hook (lambda ()
+                           (c-set-style "briancpp")))
+(use-package clang-format+
+  :straight t
+  :config
+  (add-hook 'c-mode-common-hook #'clang-format+-mode))
+
+(use-package srefactor
+  :straight t
+  :config
+  (require 'srefactor-lisp)
+  (global-set-key (kbd "M-RET o") 'srefactor-lisp-one-line)
+  (global-set-key (kbd "M-RET m") 'srefactor-lisp-format-sexp)
+  (global-set-key (kbd "M-RET d") 'srefactor-lisp-format-defun)
+  (global-set-key (kbd "M-RET b") 'srefactor-lisp-format-buffer))
+
+;;; Latex
+;;; YaTeX (melpa)
+(use-package yatex
+  :straight t
+  :mode ("\\.tex\\'" . yatex-mode)
+  :init
+  :config
+  (defun delete-indent (&optional arg)
+    "delete indent of this line."
+    (interactive "*P")
+    (beginning-of-line)
+    (if arg (forward-line 1))
+    (if (eq (preceding-char) ?\n)
+        (progn
+          (delete-region (point) (1- (point)))
+          (newline)
+          (fixup-whitespace))))
+  (let ((prefix "docker run --rm -v $PWD:/workdir paperist/alpine-texlive-ja ")
+        (cmds '(
+                bibtex-command
+                dvi2-command
+                makeindex-command
+                tex-command
+                YaTeX-dvipdf-command
+                )))
+    (cl-loop for cmd in cmds collect (set cmd (concat prefix (eval cmd)))))
+  :bind(:map YaTeX-mode-map
+             ("TAB" . 'delete-indent)
+             ("RET" . 'newline)))
+
+;; M-x align で自動で整形する設定 (align-regexp ではない)
+(defmacro lazyload (func lib docstring &rest body)
+  "遅延ロード．funcにオートロードさせたい関数を並べる．
+例：\(lazyload \(func1 func2\) \"hogehoge\"\)"
+  (declare (indent 3))
+  `(when (locate-library ,lib)
+     ,@(mapcar (lambda (f) `(autoload ',f ,lib ,docstring t)) func)
+     (eval-after-load ,lib
+       `(funcall #',(lambda () ,@body)))))
+(defmacro append-to-list (to list)
+  " list に append する際に要素を複数指定"
+  (declare (indent 1))
+  `(setq ,to (append ,list ,to)))
+
+;;; yatex-mode で　table を alignする
+(lazyload (align align-regexp align-newline-and-indent) "align" nil
+  (append-to-list align-rules-list
+    (list '(yatex-tabular
+            (regexp . "\\(\\s-*\\)&")
+            (modes . '(yatex-mode))
+            (repeat . t))
+          '(yatex-tabular2
+            (regexp . "\\(\\s-+\\)\\\\\\\\")
+            (modes . '(yatex-mode))))))
+
+
+
 (provide '20_prog-mode)
 ;;; 20_prog-mode.el ends here
 

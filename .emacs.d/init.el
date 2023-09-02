@@ -26,6 +26,15 @@
 ;;
 (setq package-enable-at-startup nil)
 
+;;; Make sure we can debug init errors more easily:
+(if init-file-debug
+    (setq use-package-verbose t
+          use-package-expand-minimally nil
+          use-package-compute-statistics t
+          debug-on-error t)
+  (setq use-package-verbose nil
+        use-package-expand-minimally t))
+
 ;;; straight.el setting
 ;; To be compatible with upstream Emacs
 (defvar bootstrap-version)
@@ -45,18 +54,10 @@
 ;; 本来は (use-package hoge :straight t) のように書く必要がある
 (setq straight-use-package-by-default t)
 
-;;; install use-package
-(straight-use-package 'use-package)
-
-;;; ELPAなどで自動で追加される設定をcustom.elに書き込む
+;;; 自動で追加される設定をcustom.elに書き込む
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (unless (file-exists-p custom-file)
   (write-region "" nil custom-file))
-
-;; これがないと use-package の Error (Symbol’s value as variable is void: personal-keybindings)が発生
-;; (use-package bind-key
-;;   :config
-;;   (add-to-list 'same-window-buffer-names "*Personal Keybindings*"))
 
 ;;; enable my utility functions
 (use-package yk-util
@@ -68,25 +69,11 @@
 ;;; Avoid performance issues in files with very long lines
 (global-so-long-mode 1)
 
-;;; Make sure we can debug init errors more easily:
-(if init-file-debug
-    (setq use-package-verbose t
-          use-package-expand-minimally nil
-          use-package-compute-statistics t
-          debug-on-error t)
-  (setq use-package-verbose nil
-        use-package-expand-minimally t))
-
 ;;; emacs internal shell path
 (when (equal system-type 'gnu/linux)
   (yk/add-to-list-multiple 'exec-path (list (expand-file-name "~/.local/bin")
                                             (expand-file-name "~/.cargo/bin")
                                             (expand-file-name "~/.deno/bin"))))
-(when (equal system-type 'windows-nt)
-  ;; windows上でhelm-locate を使うためにはscoop経由でEverythingをインストール、
-  ;; さらに、es.exeをダウンロードして~/../../scoop/shims/以下にes.exeを配置する。
-  ;; es.exe : https://www.voidtools.com
-  (add-to-list 'exec-path (expand-file-name "~/../../scoop/shims/")))
 
 ;;; inits 以下の設定ファイルを読み込む
 (use-package init-loader)
@@ -122,36 +109,8 @@
 ;;; Indent settings
 (setq-default tab-width 4)          ; default の tab の表示幅
 (setq-default indent-tabs-mode nil) ; indent に tab文字を使用しない
-(setq-default python-indent-offset 4)
-;; defaultのIndent Style を設定. M-x describe-variable RET c-style-alist RET で詳細表示
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (c-set-style `"stroustrup")))
 
-(c-add-style "briancpp" '((c-offsets-alist
-                           (access-label . /)
-                           (defun-open . 0)
-                           (defun-close . 0)
-                           (statement-block-intro . +)
-                           (substatement-open . 0)
-                           (substatement-label . 0)
-                           (label . 0)
-                           (statement-cont . +)
-                           (inline-open . 0)
-                           (inline-close . 0)
-                           (inlambda . 0)
-                           (innamespace . 0))))
-(add-hook 'c++-mode-hook (lambda ()
-                           (c-set-style "briancpp")))
-(use-package clang-format+
-  :straight t
-  :config
-  (add-hook 'c-mode-common-hook #'clang-format+-mode))
-
-;; (use-package smartparens
-;;   :straight t
-;;   :commands smartparens-mode
-;;   :hook (prog-mode . smartparens-mode))
+;;; paren settings
 ;;; insert parenthesis/brackets by pair
 (electric-pair-mode 1)
 ;; ;; ;; 対応する括弧を強調表示
@@ -162,29 +121,13 @@
   :straight t
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;; 行末の white space を削除して保存
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-;; markdown mode のときは無効
-(defvar delete-trailing-whitespece-before-save t)
-(make-variable-buffer-local 'delete-trailing-whitespece-before-save)
-(advice-add 'delete-trailing-whitespace :before-while
-            (lambda () delete-trailing-whitespece-before-save))
-(add-hook 'markdown-mode-hook
-          '(lambda ()
-             (set (make-local-variable 'delete-trailing-whitespece-before-save) nil)))
+;; markdown mode 以外では行末の white space を削除して保存
+(add-hook 'before-save-hook (lambda () (unless (eq major-mode 'markdown-mode)
+                                         (delete-trailing-whitespace))))
 
 ;; fileが!#で初まる場合、+x を付けて保存
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
-
-;;; goto matching parenthesis, Vi style. The last statement is a bit conked;
-(defun goto-match-paren (arg)
-  "Go to the matching parenthesis if on parenthesis, otherwise do nothing"
-  (interactive "p")
-  (cond
-   ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-   ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-   (t (digit-argument (or arg 1)))))
 
 ;; built-in packages
 (require 'uniquify)
@@ -200,7 +143,6 @@
                                      (interactive)
                                      (other-window -1)))
 
-
 ;; gdb
 (setq gdb-many-windows t)
 (add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
@@ -210,14 +152,15 @@
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
 
+;;; spellチェック
 (use-package flyspell
   :custom
   (flyspell-mode-line-string nil)
   :hook
   ((prog-mode . flyspell-prog-mode)
-       (yatex-mode . flyspell-mode)
-         (org-mode . flyspell-mode)
-         (text-mode . flyspell-mode)))
+   (yatex-mode . flyspell-mode)
+   (org-mode . flyspell-mode)
+   (text-mode . flyspell-mode)))
 
 (defun rename-file-with-buffer (old-filename new-filename &optional _)
   "Rename file and the corresponding buffer.  Rename from `OLD-FILENAME' to `NEW-FILENAME'."
@@ -261,6 +204,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;; Third Party Package Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 ;;; completion packages (vertico)
 (use-package vertico
@@ -604,9 +548,6 @@
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
-(use-package docker-tramp :ensure t)
-(use-package tramp :ensure t)
-
 (use-package consult-dir
   :straight t
   :ensure t
@@ -644,6 +585,8 @@
 
 ;;; When reading a file name, completion ignores case.
 (setq read-file-name-completion-ignore-case t)
+
+(use-package tramp :ensure t)
 
 ;;; enable recentf
 (use-package recentf
@@ -783,21 +726,10 @@
   :ensure t
   :after vterm)  ; line-mode へ切り替え
 
-;; automatically update gtags
-;; project root で gtags -v とかで GTAGS, GPATH, GRTAGS を作成する
-(defun c-mode-update-gtags ()
-  (let* ((file (buffer-file-name (current-buffer)))
-     (dir (directory-file-name (file-name-directory file))))
-    (when (executable-find "global")
-      (start-process "gtags-update" nil
-             "global" "-uv"))))
-(add-hook 'after-save-hook
-          'c-mode-update-gtags)
 (use-package gxref
   :straight t
   :config
   (add-to-list 'xref-backend-functions 'gxref-xref-backend))
-
 
 (use-package eldoc
   :straight t
@@ -832,59 +764,6 @@
     :init
     (pdf-tools-install t)))
 
-;;; YaTeX (melpa)
-(use-package yatex
-  :straight t
-  :mode ("\\.tex\\'" . yatex-mode)
-  :init
-  :config
-  (defun delete-indent (&optional arg)
-    "delete indent of this line."
-    (interactive "*P")
-    (beginning-of-line)
-    (if arg (forward-line 1))
-    (if (eq (preceding-char) ?\n)
-        (progn
-          (delete-region (point) (1- (point)))
-          (newline)
-          (fixup-whitespace))))
-  (let ((prefix "docker run --rm -v $PWD:/workdir paperist/alpine-texlive-ja ")
-        (cmds '(
-                bibtex-command
-                dvi2-command
-                makeindex-command
-                tex-command
-                YaTeX-dvipdf-command
-                )))
-    (cl-loop for cmd in cmds collect (set cmd (concat prefix (eval cmd)))))
-  :bind(:map YaTeX-mode-map
-        ("TAB" . 'delete-indent)
-        ("RET" . 'newline)))
-
-;; M-x align で自動で整形する設定 (align-regexp ではない)
-(defmacro lazyload (func lib docstring &rest body)
-  "遅延ロード．funcにオートロードさせたい関数を並べる．
-例：\(lazyload \(func1 func2\) \"hogehoge\"\)"
-  (declare (indent 3))
-  `(when (locate-library ,lib)
-     ,@(mapcar (lambda (f) `(autoload ',f ,lib ,docstring t)) func)
-     (eval-after-load ,lib
-       `(funcall #',(lambda () ,@body)))))
-(defmacro append-to-list (to list)
-  " list に append する際に要素を複数指定"
-  (declare (indent 1))
-  `(setq ,to (append ,list ,to)))
-
-;;; yatex-mode で　table を alignする
-(lazyload (align align-regexp align-newline-and-indent) "align" nil
-  (append-to-list align-rules-list
-    (list '(yatex-tabular
-            (regexp . "\\(\\s-*\\)&")
-            (modes . '(yatex-mode))
-            (repeat . t))
-          '(yatex-tabular2
-            (regexp . "\\(\\s-+\\)\\\\\\\\")
-            (modes . '(yatex-mode))))))
 
 ;;; カラーコードの色をbackgroundに表示する
 (use-package rainbow-mode
@@ -941,51 +820,6 @@
 
 (use-package hydra :straight t)
 
-;; (use-package yapfify
-;;   :straight t
-;;   :config
-;;   (setcar (cdr (assq 'yapf-mode minor-mode-alist)) nil)
-;;   :hook
-;;   (python-mode . yapf-mode))
-
-;; (defun around-yapfify-call-bin (original-func input-buffer output-buffer start-line end-line)
-;;   "Support docker command."
-;;   (let ((command-args (split-string yapfify-executable)))
-;;     (if (= (length command-args) 1)
-;;         (apply original-func (list input-buffer output-buffer start-line end-line))
-;;       (with-current-buffer input-buffer
-;;         (setq res (apply 'call-process-region
-;;                 (append (list (point-min) (point-max) (car command-args) nil output-buffer nil)
-;;                         (cdr command-args)
-;;                         (list "-l" (concat (number-to-string start-line) "-"
-;;                                            (number-to-string end-line))))))))))
-;; (advice-add 'yapfify-call-bin :around 'around-yapfify-call-bin)
-
-;; (defun around-yapfify-region (original-func &rest args)
-;;   "Wrap `yapfify-region` to catch error and make sure to kill *yapfify* buffer"
-;;      (-if-let (tmp-buffer (get-buffer "*yapfify*"))
-;;          (kill-buffer tmp-buffer))
-;;      (apply original-func args))
-;; (advice-add 'yapfify-region :around 'around-yapfify-region)
-
-(use-package blackify
-  :straight (blackify :type git :host github :repo "y-kitamu/blackify")
-  :hook (python-mode . blackify-mode))
-
-(use-package py-isort
-  :demand t
-  :init
-  (defun toggle-py-isort-before-save ()
-    (interactive)
-    (if (memq 'py-isort-before-save before-save-hook)
-        (progn
-          (remove-hook 'before-save-hook 'py-isort-before-save)
-          (message "py-isort-before-save disabled"))
-      (add-hook 'before-save-hook 'py-isort-before-save)
-      (message "py-isort-before-save enabled")))
-  :hook
-  (before-save . py-isort-before-save))
-
 ;;; 日本語の文章チェックはtextlintをインストールする
 (use-package flycheck
   :straight t
@@ -1007,7 +841,6 @@
   :hook
   (after-init . global-flycheck-mode))
 
-
 (use-package ace-window
   :straight t
   :config
@@ -1024,146 +857,10 @@
 (use-package package-lint
   :straight t)
 
-;; lsp configuration begin
-(setenv "LSP_USE_PLISTS" "true")
-(use-package lsp-mode
-  :straight t
-  :custom
-  (lsp-log-io nil)
-  (read-process-output-max (* 1024 1024)) ;; 1mb
-  (lsp-idle-delay 0.50)
-  (lsp-enable-snippet nil)
-  (lsp-prefer-flymake nil)
-  (lsp-file-watch-threshold 2000)
-  (lsp-enable-xref t)
-  (lsp-lens-enable nil)                 ; for performance reason
-  ;; python
-  (lsp-pyls-plugins-autopep8-enabled nil)
-  (lsp-pyls-plugins-pycodestyle-enabled nil)
-  (lsp-pyls-plugins-yapf-enabled nil)
-  ;; rust
-  (lsp-rust-analyzer-cargo-watch-command "clippy")
-  :config
-  ;;
-  (add-to-list 'image-types 'svg)
-
-  (custom-set-faces
-   '(lsp-face-highlight-read
-     ((t (:background "#F0DFAF" :foreground "#000000" :weight bold)))) ; zenburn-yellow
-   '(lsp-face-highlight-write
-     ((t (:background "#DFAF8F" :foreground "#000000" :weight bold))))) ; zenburn-orange
-  ;; modeline の表示をなくす
-  (setq lsp-modeline-code-actions-enable nil)
-  (setq lsp-modeline-diagnostics-enable nil)
-  (setq lsp-modeline-workspace-status-enable nil)
-  (setq warning-minimum-log-level :error)
-
-  ;; typescript
-  (setq lsp-clients-typescript-preferences
-        (list :preferences (list :includeCompletionsForModuleExports "false")))
-
-  ;; fileの更新を監視するかのフラグ。
-  ;; tにする場合は`lsp-session-file'をプロジェクトフォルダ内に指定して余計なフォルダで
-  ;; file watcherが動くことを回避するようにする
-  (setq lsp-enable-file-watchers nil)
-  ;; lspの探索から除外するdirectory
-  (yk/add-to-list-multiple 'lsp-file-watch-ignored-directories
-                           '("[/\\\\]\\.cache"
-                             "[/\\\\]build"
-                             "[/\\\\]edk2"
-                             "[/\\\\]ext"
-                             "[/\\\\]__pycache__"
-                             "[/\\\\]\\.ccls"))
-  (yk/add-to-list-multiple 'lsp-file-watch-ignored-files
-                           '("[/\\\\][^/\\\\]+\\.o"
-                             "[/\\\\][^/\\\\]+\\.a"
-                             "[/\\\\][^/\\\\]+\\.so"
-                             "[/\\\\]\\.[/\\\\]+"))
-  ;; rustのdebug用環境変数
-  (setenv "RUST_BACKTRACE" "1")
-  :hook
-  ((lsp-mode . lsp-enable-which-key-integration)
-   (python-mode . lsp-deferred)
-   (c++-mode . lsp-deferred)
-   (rust-mode . lsp-deferred)
-   (typescript-mode . lsp-deferred)
-   (web-mode . lsp-deferred)))
-
-;; (use-package lsp-docker+
-;;   :straight (lsp-docker+ :type git :host github :repo "y-kitamu/emacs-lsp-docker-plus")
-;;   :init
-;;   (lsp-docker+-enable)
-;;   ;; register default lsp server
-;;   (let ((lsp-docker+-image-id "arumatik/common-language-servers")
-;;         (lsp-docker+-client-configs
-;;          (list
-;;           (list :server-id 'bash-ls :docker-server-id 'bashls-docker
-;;                 :server-command "bash-langauge-server start")
-;;           (list :server-id 'css-ls :docker-server-id 'cssls-docker
-;;                 :server-command "css-languageserver --stdio")
-;;           (list :server-id 'gopls :docker-server-id 'gopls-docker :server-command "gopls")
-;;           (list :server-id 'html-ls :docker-server-id 'htmlls-docker
-;;                 :server-command "html-languageserver --stdio")
-;;           (list :server-id 'ts-ls :docker-server-id 'tsls-docker
-;;                 :server-command "typescript-language-server --stdio"))))
-;;     (lsp-docker+-init-clients :client-configs lsp-docker+-client-configs))
-;;   (message (lsp-docker+-format "Finish nitializing lsp-docker+"))
-;;   :after lsp-mode)
-
-(use-package lsp-ui
-  :straight t
-  :init
-  ;; lsp-ui-doc
-  (setq lsp-ui-doc-enable t)
-  (setq lsp-ui-doc-header t)
-  (setq lsp-ui-doc-include-signature t)
-  (setq lsp-ui-doc-show-with-cursor t)
-  (setq lsp-ui-doc-position 'at-point)
-  (setq lsp-ui-doc-max-height 30)
-  (setq lsp-ui-doc-use-childframe t)
-  (setq lsp-ui-doc-delay 2.0)
-  (defun disable-tab-bar-in-lsp-ui-doc-frame (frame window)
-    "lsp-ui-docで作られるchild frameにtab-barを表示しない"
-    (set-frame-parameter frame 'tab-bar-lines 0))
-  ;; lsp-ui-sideline
-  (setq lsp-ui-sideline-show-diagnostics t)
-  (setq lsp-ui-sideline-update-mode 'line)
-  (setq lsp-ui-sideline-ignore-duplicate t)
-
-  :config
-  ;; lsp-ui-peek
-  (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
-
-  :hook
-  (lsp-ui-doc-frame . disable-tab-bar-in-lsp-ui-doc-frame)
-
-  :bind
-  (("s-l f" . lsp-ui-doc-focus-frame)
-   ("s-l u" . lsp-ui-doc-unfocus-frame)))
-
-(use-package lsp-pyright
-  :straight t
-  :init
-  (setq lsp-pyright-multi-root nil))
-
-(use-package ccls
-  :straight t
-  :custom
-  (ccls-initialization-options (list :compilationDatabaseDirectory "build")))
-
-;;; `lsp-install-server'でtailwindcssをinstallすると使用できる
-(use-package lsp-tailwindcss
-  :straight t
-  :init
-  (setq lsp-tailwindcss-add-on-mode t)
-  (setq lsp-tailwindcss-server-command "tailwindcss-language-server")
-  :after lsp-mode)
-
-
 (use-package doxygen
   :straight t)
 
+;;; Yasnippet configurations
 (use-package yasnippet
   :straight t
   :config
@@ -1173,7 +870,7 @@
   :bind
   (:map yas-keymap
         ("<tab>" . nil)) ;; because of avoiding conflict with company keymap
-  :after lsp-mode)
+  )
 
 (use-package yasnippet-snippets
   :straight t
@@ -1187,42 +884,22 @@
   (:map yas-minor-mode-map
         ("C-c y" . consult-yasnippet)))
 
-(use-package company
+(use-package poetry
   :straight t
-  :demand t
+  :config
+  (poetry-tracking-mode))
+
+
+(use-package lsp-bridge
+  :straight '(lsp-bridge :type git :host github :repo "manateelazycat/lsp-bridge" :files (:defaults "*.py" "acm/*" "core/*") :build (:not compile))
   :init
-  (setq company-lighter-base nil)
-  (setq company-lighter nil)
-  :custom
-  (company-transformers '(company-sort-by-backend-importance))
-  (company-idle-delay 0.05)
-  (company-minimum-prefix-length 3)
-  (company-selection-wrap-around t)
-  (completion-ignore-case t)
+  (global-lsp-bridge-mode)
   :bind
-  (("C-M-i" . company-complete)) ; C-M-iで補完
-  (:map company-active-map
-        ("C-n" . company-select-next) ; 次の候補を選択
-        ("C-p" . company-select-previous) ; 前の候補を選択
-        ("C-s" . company-filter-candidates)  ; C-sで絞り込む
-        ("C-i" . company-complete-selection)
-        ([tab] . company-complete-selection)) ; TABで候補を設定
-  (:map company-search-map
-        ("C-n" . company-select-next)
-        ("C-p" . company-select-previous))
-  :init
-  (global-company-mode t)
-  :hook
-  (emacs-lisp-mode . company-mode))
+  (("M-." . lsp-bridge-find-def)
+   ("M-," . lsp-bridge-find-def-return))
+  :after (yasnippet markdown-mode))
 
-(use-package company-box
-  :straight t
-  :after company
-  :hook
-  (company-mode . company-box-mode))
-
-;; lsp configuration end
-
+;;; Chat AI configurations
 (use-package copilot
   :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
   :ensure t
@@ -1233,48 +910,6 @@
   :hook
   ((prog-mode . copilot-mode))
   :after python)
-
-;; (use-package company-tabnine
-;;   :straight t
-;;   :config
-;;   (add-to-list 'company-backends #'company-tabnine)
-;;   (setq company-tabnine--disabled t)
-;;   (defun toggle-tabnine ()
-;;     "tabnineのenable, disableの切り替え"
-;;     (interactive)
-;;     (cond (company-tabnine--disabled
-;;            (setq company-tabnine--disabled nil)
-;;            (message "TabNine enabled"))
-;;           (t
-;;            (setq company-tabnine--disabled t)
-;;            (message "TabNine disabled")))))
-
-;; dap-mode setting
-(use-package dap-mode
-  :straight t
-  :config
-  (require 'dap-gdb-lldb)
-  (require 'dap-cpptools)
-  (dap-gdb-lldb-setup)
-  (setq dap-auto-configure-features '(sessions locals breakpoints expressions repl controls tooltip))
-  (dap-register-debug-template "Rust::GDB Run Configuration"
-                               (list :type "gdb"
-                                     :request "launch"
-                                     :name "GDB::Run"
-                                     :gdbpath "rust-gdb"
-                                     :target nil
-                                     :cwd nil))
-  :hook
-  (lsp-mode . dap-mode))
-
-(use-package srefactor
-  :straight t
-  :config
-  (require 'srefactor-lisp)
-  (global-set-key (kbd "M-RET o") 'srefactor-lisp-one-line)
-  (global-set-key (kbd "M-RET m") 'srefactor-lisp-format-sexp)
-  (global-set-key (kbd "M-RET d") 'srefactor-lisp-format-defun)
-  (global-set-key (kbd "M-RET b") 'srefactor-lisp-format-buffer))
 
 (use-package chatgpt
   :straight (:host github :repo "joshcho/ChatGPT.el" :files ("dist" "*.el"))
