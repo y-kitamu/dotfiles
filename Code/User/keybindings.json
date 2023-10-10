@@ -28,6 +28,21 @@
     },
     // toggle comment
     {
+        "key": "alt+;",
+        "command": "editor.action.commentLine",
+        "when": "editorTextFocus && !config.emacs-mcx.useMetaPrefixMacCmd && !editorReadonly"
+    },
+    {
+        "key": "alt+;",
+        "command": "editor.action.commentLine",
+        "when": "config.emacs-mcx.useMetaPrefixMacCmd && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "escape ;",
+        "command": "editor.action.commentLine",
+        "when": "config.emacs-mcx.useMetaPrefixEscape && editorTextFocus && !editorReadonly"
+    },    
+    {
         "key": "alt+oem_plus",
         "command": "editor.action.commentLine",
         "when": "editorTextFocus && !editorReadonly"
@@ -104,7 +119,7 @@
         "key": "shift+tab",
         "command": "-acceptAlternativeSelectedSuggestion",
         "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
-    }
+    },
     {
         "key": "shift+tab",
         "command": "editor.action.inlineSuggest.commit",

@@ -101,25 +101,6 @@ alias l='ls -CF'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# sizebook local aliases
-if [ -f ~/.bash_sb_aliases ]; then
-    . ~/.bash_sb_aliases
-fi
-
-# Function definitions
-if [ -f ~/.bash_functions ]; then
-    . ~/.bash_functions
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -135,7 +116,7 @@ fi
 
 ############# CUSTOM SETTING ##############
 
-
+# Define color codes
 ESC=$(printf '\033')            # escape sequence (echoコマンド内で使用)
 GREEN=$(printf '\033[32m')
 RED=$(printf '\033[31m')
@@ -153,6 +134,24 @@ function echo_skip() {
 function echo_failed() {
     echo "${ESC}${RED} Failed. ${ESC}[m"
 }
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    echo -n "Load .bash_aliases ..."
+    . ~/.bash_aliases
+    echo_done
+fi
+
+# Function definitions
+if [ -f ~/.bash_functions ]; then
+    echo -n "Load .bash_functions ..."
+    . ~/.bash_functions
+    echo_done
+fi
 
 echo -n "Set up custom keybindings ..."
 if [ -e ~/dotfiles/load_xkbmap.sh ]; then
@@ -262,7 +261,7 @@ fi
 echo -n "Set up cuda path ... "
 if [ -e /usr/local/cuda ]; then
     export PATH="/usr/local/cuda/bin:$PATH"
-    export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+    export LD_LIBRARY_PATH="/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/compat/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:$LD_LIBRARY_PATH"
     echo_done
 else
     echo_skip

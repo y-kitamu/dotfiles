@@ -68,10 +68,12 @@
         "jsdelivr.com",
         "unpkg.com"
     ],
-    "python.venvFolders": [
-        ".venv"
-    ],
     "remote.SSH.remotePlatform": {
-        "cloudhpc": "linux"
-    }
+        "cloudhpc": "linux",
+        "engine": "linux"
+    },
+    "settingsSync.ignoredSettings": [
+        "-python.venvPath"
+    ],
+    "editor.multiCursorModifier": "ctrlCmd"
 }
