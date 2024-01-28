@@ -153,8 +153,22 @@ if [ -f ~/.bash_functions ]; then
     echo_done
 fi
 
+
+# add local bin path
+echo -n "Set up local bin path ... "
+if [ -e ${HOME}/.local/bin ]; then
+    export PATH=${HOME}/.local/bin${PATH:+:${PATH}}
+    export PYTHONPATH=${HOME}/.local/bin${PYTHONPATH:+:${PYTHONPATH}}
+    echo_done
+else
+    echo_skip
+fi
+
 echo -n "Set up custom keybindings ..."
-if [ -e ~/dotfiles/load_xkbmap.sh ]; then
+if [ -e ~/.local/bin/xremap ] && [ -e ~/dotfiles/xremap_config.yml ]; then
+    pkill xremap
+    nohup xremap ~/dotfiles/xremap_config.yml & &> /dev/null
+elif [ -e ~/dotfiles/load_xkbmap.sh ]; then
     source ~/dotfiles/load_xkbmap.sh && echo_done || echo_failed
 else
     echo_skip
@@ -228,17 +242,6 @@ fi
 if [ -e //usr/local/android-studio/bin ]; then
     export PATH=/usr/local/android-studio/bin${PATH:+:${PATH}}
 fi
-
-# add local bin path
-echo -n "Set up local bin path ... "
-if [ -e ${HOME}/.local/bin ]; then
-    export PATH=${HOME}/.local/bin${PATH:+:${PATH}}
-    export PYTHONPATH=${HOME}/.local/bin${PYTHONPATH:+:${PYTHONPATH}}
-    echo_done
-else
-    echo_skip
-fi
-
 
 # for gsettings error
 export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules

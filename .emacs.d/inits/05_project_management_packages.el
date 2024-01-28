@@ -25,6 +25,7 @@
 ;;; Code:
 
 ;;; magit
+(use-package sqlite3 :straight t)
 (use-package magit
   :straight t
   :custom
@@ -45,7 +46,7 @@
                    (overlay-get it 'before-string)
                    (get-text-property 0 'display it)
                    cadr
-                   (s-match (rx (group (1+ digit) ; number
+                   (s-match (rx (group (1+ digit)            ; number
                                        " " (1+ (not blank))) ; unit
                                 (1+ blank) eos) it)
                    cadr)

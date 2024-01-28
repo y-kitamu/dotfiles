@@ -901,7 +901,7 @@
 
 ;;; Chat AI configurations
 (use-package copilot
-  :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
+  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("dist" "*.el"))
   :ensure t
   :init
   (define-key python-mode-map (kbd "<backtab>") 'copilot-accept-completion)

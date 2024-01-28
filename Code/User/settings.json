@@ -1,12 +1,12 @@
 {
-    "workbench.colorTheme": "Default Dark+",
+    "workbench.colorTheme": "Default Dark Modern",
     "git.autofetch": true,
     "git.confirmSync": false,
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
-            "source.organizeImports": true
+            "source.organizeImports": "explicit"
         },
     },
     "isort.args": [
@@ -75,5 +75,9 @@
     "settingsSync.ignoredSettings": [
         "-python.venvPath"
     ],
-    "editor.multiCursorModifier": "ctrlCmd"
+    "editor.multiCursorModifier": "ctrlCmd",
+    "python.venvPath": "~/.cache/pypoetry/virtualenvs",
+    "python.venvFolders": [
+        ".venv"
+    ]
 }

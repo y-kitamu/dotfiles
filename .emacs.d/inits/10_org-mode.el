@@ -43,6 +43,9 @@
                               (tags . " %i %-12:c")
                               (search . " %i %-12:c")))
   :config
+  ;; create org-directory
+  (if (not (file-exists-p org-directory))
+      (make-directory org-directory t))
   (defun update-org-agenda-files ()
     (interactive)
     (setq org-agenda-files (-filter (lambda (file) (string= "org" (file-name-extension file)))
