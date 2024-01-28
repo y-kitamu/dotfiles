@@ -777,21 +777,21 @@
   ;; sudo apt-get install emacs-mozc-bin
   :straight t
   :custom
-  (default-input-method "japanese-mozc"))
+  (default-input-method "japanese-mozc")
 
-;; migemo (日本語のローマ字検索。とりあえずlinuxだけ)
-;; sudo apt-get instal -y cmigemo
-(when (equal system-type 'gnu/linux)
-  (use-package migemo
-    :straight t
-    :config
-    (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
-    (if (file-exists-p migemo-dictionary)
-        (progn
-          (setq migemo-user-dictionary nil)
-          (setq migemo-coding-system 'utf-8-unix)
-          (load-library "migemo")
-          (migemo-init)))))
+  ;; migemo (日本語のローマ字検索。とりあえずlinuxだけ)
+  ;; sudo apt-get instal -y cmigemo
+  (when (equal system-type 'gnu/linux)
+    (use-package migemo
+      :straight t
+      :config
+      (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
+      (if (file-exists-p migemo-dictionary)
+          (progn
+            (setq migemo-user-dictionary nil)
+            (setq migemo-coding-system 'utf-8-unix)
+            (load-library "migemo")
+            (migemo-init))))))
 
 (use-package google-translate
   :straight t
