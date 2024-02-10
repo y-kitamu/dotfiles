@@ -32,16 +32,16 @@
         ("C-c C-d" . 'lispxmp)))
 
 ;; カッコの対応を保持して編集する設定
-(use-package paredit
+(use-package smartparens
   :straight t
-  :init
-  (setq paredit-lighter nil)
   :hook
-  ((emacs-lisp-mode . enable-paredit-mode)
-   (lisp-interaction-mode . enable-paredit-mode)
-   (lisp-mode . enable-paredit-mode)
-   (lisp-data-mode . enable-paredit-mode)
-   (ielm-mode . enable-paredit-mode)))
+  ((emacs-lisp-mode . smartparens-strict-mode)
+   (lisp-interaction-mode . smartparens-strict-mode)
+   (ielm-mode . smartparens-strict-mode))
+  :config
+  (require 'smartparens-config)
+  (sp-use-smartparens-bindings)
+)
 
 (use-package auto-async-byte-compile
   :straight t
@@ -52,7 +52,7 @@
    (emacs-lisp-mode . turn-on-eldoc-mode)
    (lisp-interaction-mode . turn-on-eldoc-mode)
    (ielm-mode . turn-on-eldoc-mode))
-  :after eldoc)
+  :after) eldoc
 
 (use-package dash
   :straight t

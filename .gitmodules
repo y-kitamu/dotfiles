@@ -523,3 +523,6 @@
 [submodule ".emacs.d/documents"]
 	path = .emacs.d/documents
 	url = git@github.com:y-kitamu/org_docs.git
+[submodule ".emacs.d/straight/repos/smartparens"]
+	path = .emacs.d/straight/repos/smartparens
+	url = https://github.com/Fuco1/smartparens.git

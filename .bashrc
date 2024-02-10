@@ -380,3 +380,4 @@ fi
 
 # For emcacs configuration
 export LSP_USE_PLISTS=true
+. "$HOME/.cargo/env"
