@@ -40,7 +40,11 @@
    (ielm-mode . smartparens-strict-mode))
   :config
   (require 'smartparens-config)
+  (smartparens-global-mode)
   (sp-use-smartparens-bindings)
+  :bind (:map smartparens-mode-map
+              ("C-<right>" . sp-forward-sexp)
+              ("C-<left>" . sp-backward-sexp))
 )
 
 (use-package auto-async-byte-compile
@@ -52,7 +56,7 @@
    (emacs-lisp-mode . turn-on-eldoc-mode)
    (lisp-interaction-mode . turn-on-eldoc-mode)
    (ielm-mode . turn-on-eldoc-mode))
-  :after) eldoc
+  :after eldoc)
 
 (use-package dash
   :straight t
