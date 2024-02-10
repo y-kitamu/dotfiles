@@ -520,3 +520,6 @@
 [submodule ".emacs.d/straight/repos/lsp-tailwindcss"]
 	path = .emacs.d/straight/repos/lsp-tailwindcss
 	url = https://github.com/merrickluo/lsp-tailwindcss.git
+[submodule ".emacs.d/documents"]
+	path = .emacs.d/documents
+	url = git@github.com:y-kitamu/org_docs.git
