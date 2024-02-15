@@ -72,8 +72,7 @@
 ;;; emacs internal shell path
 (when (equal system-type 'gnu/linux)
   (yk/add-to-list-multiple 'exec-path (list (expand-file-name "~/.local/bin")
-                                            (expand-file-name "~/.cargo/bin")
-                                            (expand-file-name "~/.deno/bin"))))
+                                            (expand-file-name "~/.cargo/bin"))))
 
 ;;; inits 以下の設定ファイルを読み込む
 (use-package init-loader)

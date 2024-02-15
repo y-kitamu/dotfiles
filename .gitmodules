@@ -526,3 +526,15 @@
 [submodule ".emacs.d/straight/repos/smartparens"]
 	path = .emacs.d/straight/repos/smartparens
 	url = https://github.com/Fuco1/smartparens.git
+[submodule ".emacs.d/straight/repos/pyvenv"]
+	path = .emacs.d/straight/repos/pyvenv
+	url = https://github.com/jorgenschaefer/pyvenv.git
+[submodule ".emacs.d/straight/repos/poetry.el"]
+	path = .emacs.d/straight/repos/poetry.el
+	url = https://github.com/cybniv/poetry.el.git
+[submodule ".emacs.d/straight/repos/lsp-bridge"]
+	path = .emacs.d/straight/repos/lsp-bridge
+	url = https://github.com/manateelazycat/lsp-bridge.git
+[submodule ".emacs.d/straight/repos/emacs-sqlite3-api"]
+	path = .emacs.d/straight/repos/emacs-sqlite3-api
+	url = https://github.com/pekingduck/emacs-sqlite3-api.git

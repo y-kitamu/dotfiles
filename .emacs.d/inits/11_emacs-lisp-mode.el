@@ -41,10 +41,9 @@
   :config
   (require 'smartparens-config)
   (smartparens-global-mode)
+  (setf (cdr (assoc "C-<right>" sp-smartparens-bindings)) 'sp-forward-sexp)
+  (setf (cdr (assoc "C-<left>" sp-smartparens-bindings)) 'sp-backward-sexp)
   (sp-use-smartparens-bindings)
-  :bind (:map smartparens-mode-map
-              ("C-<right>" . sp-forward-sexp)
-              ("C-<left>" . sp-backward-sexp))
 )
 
 (use-package auto-async-byte-compile

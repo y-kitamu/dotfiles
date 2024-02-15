@@ -115,6 +115,7 @@ fi
 
 
 ############# CUSTOM SETTING ##############
+cd ~  # move to home directory
 
 # Define color codes
 ESC=$(printf '\033')            # escape sequence (echoコマンド内で使用)
