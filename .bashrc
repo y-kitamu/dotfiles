@@ -165,12 +165,13 @@ else
     echo_skip
 fi
 
+
 echo -n "Set up custom keybindings ..."
-if [ -e ~/.local/bin/xremap ] && [ -e ~/dotfiles/xremap_config.yml ]; then
+if [ $(loginctl show-session 2 -p Type) = "Type=x11" ] && [ -e ~/dotfiles/load_xkbmap.sh ]; then
+    source ~/dotfiles/load_xkbmap.sh && echo_done || echo_failed
+elif [ $(loginctl show-session 2 -p Type) = "Type=wayland" ] && [ -e ~/.local/bin/xremap ] && [ -e ~/dotfiles/xremap_config.yml ]; then
     pkill xremap
     nohup xremap ~/dotfiles/xremap_config.yml & &> /dev/null
-elif [ -e ~/dotfiles/load_xkbmap.sh ]; then
-    source ~/dotfiles/load_xkbmap.sh && echo_done || echo_failed
 else
     echo_skip
 fi
