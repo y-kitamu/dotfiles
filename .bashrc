@@ -288,7 +288,7 @@ fi
 # poetry config
 echo -n "Set up poetry ... "
 if command -v poetry > /dev/null; then
-    if [ ! -e "${HOME}/.config/pypoetry/config.toml" ]; then
+    if [ -e "${HOME}/.config/pypoetry/config.toml" ]; then
         poetry config virtualenvs.in-project true
         echo_done
     else
