@@ -893,6 +893,7 @@
   :straight '(lsp-bridge :type git :host github :repo "manateelazycat/lsp-bridge" :files (:defaults "*.py" "acm/*" "core/*") :build (:not compile))
   :init
   (global-lsp-bridge-mode)
+  (setq lsp-bridge-enable-hover-diagnostic t)
   :bind
   (("M-." . lsp-bridge-find-def)
    ("M-," . lsp-bridge-find-def-return))
