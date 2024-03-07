@@ -167,9 +167,10 @@ fi
 
 
 echo -n "Set up custom keybindings ..."
-if [ $(loginctl show-session 2 -p Type) = "Type=x11" ] && [ -e ~/dotfiles/load_xkbmap.sh ]; then
+SESSION_ID=($(loginctl list-sessions | grep kitamura))
+if [ $(loginctl show-session ${SESSION_ID[0]} -p Type) = "Type=x11" ] && [ -e ~/dotfiles/load_xkbmap.sh ]; then
     source ~/dotfiles/load_xkbmap.sh && echo_done || echo_failed
-elif [ $(loginctl show-session 2 -p Type) = "Type=wayland" ] && [ -e ~/.local/bin/xremap ] && [ -e ~/dotfiles/xremap_config.yml ]; then
+elif [ $(loginctl show-session ${SESSION_ID[0]} -p Type) = "Type=wayland" ] && [ -e ~/.local/bin/xremap ] && [ -e ~/dotfiles/xremap_config.yml ]; then
     pkill xremap
     nohup xremap ~/dotfiles/xremap_config.yml & &> /dev/null
 else
