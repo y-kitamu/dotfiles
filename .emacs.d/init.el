@@ -585,6 +585,18 @@
 ;;; When reading a file name, completion ignores case.
 (setq read-file-name-completion-ignore-case t)
 
+
+;; symbol highlight
+(use-package symbol-overlay
+  :straight t
+  :bind(
+        ( "M-h" . symbol-overlay-put)          ;; キーワードをハイライトする
+        ( "M-n" . symbol-overlay-jump-next)    ;; カーソルを当てて、ハイライトした次のキーワードに移動
+        ( "M-p" . symbol-overlay-jump-prev)    ;; カーソルを当てて、ハイライトした前のキーワードに移動
+        ( "M-q" . symbol-overlay-remove-all))  ;; ハイライトした全てをキャンセル
+  :init
+  (add-hook 'prog-mode-hook 'symbol-overlay-mode))
+
 (use-package tramp :ensure t)
 
 ;;; enable recentf
