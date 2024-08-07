@@ -3,6 +3,7 @@
 .ccls-cache/
 known_hosts*
 .ssh/github_actions*
+.ssh/id_*
 build-cache.el
 # backup file
 *~

@@ -346,7 +346,7 @@ export HISTSIZE=99999  # 履歴のMAX保存数を指定
 # AWSのAPIキーファイルが存在する場合は環境変数に設定する
 echo -n "Set up aws environment variables ... "
 AWS_ENV_FILE=${HOME}/.aws/credentials
-if [ -e ${AWS_CREDENTIAL_FILE} ]; then
+if [ -e ${AWS_ENV_FILE} ]; then
     export AWS_ACCESS_KEY_ID=`grep aws_access_key_id ${AWS_ENV_FILE} | awk '{print $3}'`
     export AWS_SECRET_ACCESS_KEY=`grep aws_secret_access_key ${AWS_ENV_FILE} | awk '{print $3}'`
     if [ $? -eq 0 ]; then
