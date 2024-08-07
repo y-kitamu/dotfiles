@@ -617,7 +617,7 @@
   :init
   ;; run `make install-wakatime'
   (if (eq system-type 'gnu/linux)
-      (setq wakatime-cli-path (expand-file-name "~/.local/bin/wakatime-cli-linux-amd64")))
+      (setq wakatime-cli-path (expand-file-name "~/.wakatime/wakatime-cli")))
 
   (if (boundp 'wakatime-cli-path)
       (if (file-exists-p wakatime-cli-path)
