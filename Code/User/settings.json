@@ -70,7 +70,8 @@
     ],
     "remote.SSH.remotePlatform": {
         "cloudhpc": "linux",
-        "engine": "linux"
+        "engine": "linux",
+        "laptop": "windows"
     },
     "settingsSync.ignoredSettings": [
         "-python.venvPath"

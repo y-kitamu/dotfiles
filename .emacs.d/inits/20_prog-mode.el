@@ -60,13 +60,34 @@
 
 ;;; typescript-modeの設定
 ;;; typescript-modeでlsp-dockerを使用する場合はhost側でnpm install -g typescriptする必要あり
-;; (use-package typescript-mode
-;;   :straight t
-;;   :mode (("\\.ts\\'" . typescript-mode)
-;;          ("\\.tsx\\'" . typescript-mode))
-;;   :config
-;;   (setq js-indent-level 2)
-;;   (setq typescript-indent-level 2))
+(use-package typescript-ts-mode
+  :mode (("\\.tsx\\'" . tsx-ts-mode)
+         ("\\.ts\\'" . tsx-ts-mode))
+  :config
+  (setq typescript-ts-mode-indent-offset 2))
+
+(use-package treesit-auto
+  :straight t
+  :init
+  (require 'treesit-auto)
+  (global-treesit-auto-mode)
+  :config
+  (setq treesit-auto-install t))
+
+(use-package tree-sitter
+  :ensure t
+  :hook ((typescript-ts-mode . tree-sitter-hl-mode)
+         (tsx-ts-mode . tree-sitter-hl-mode))
+  :config
+  (setq treesit-font-lock-level 4)
+  (global-tree-sitter-mode))
+
+(use-package tree-sitter-langs
+  :ensure t
+  :after tree-sitter
+  :config
+  (tree-sitter-require 'tsx)
+  (add-to-list 'tree-sitter-major-mode-language-alist '(tsx-ts-mode . tsx)))
 
 (use-package markdown-mode
   :straight t
@@ -80,11 +101,11 @@
   :mode
   (  ("\\.html\\'" . web-mode)
   ("\\.css\\'" . web-mode)
-  ("\\.js\\'" . web-mode)
-  ("\\.ts\\'" . web-mode)
+  ;; ("\\.js\\'" . web-mode)
+  ;; ("\\.ts\\'" . web-mode)
   ("\\.gs\\'" . web-mode)
-  ("\\.jsx\\'" . web-mode)
-  ("\\.tsx\\'" . web-mode)
+  ;; ("\\.jsx\\'" . web-mode)
+  ;; ("\\.tsx\\'" . web-mode)
   ("\\.php\\'" . web-mode)
   ("\\.tpl\\.php\\'" . web-mode)
   ("\\.ctp\\'" . web-mode)

@@ -22,3 +22,6 @@ secrets.sh
 Code/*
 !Code/User
 Code/User/*/
+
+/.emacs.d/tree-sitter/
+*.sqlite
