@@ -135,6 +135,7 @@
   :straight t
   :hook ((web-mode . prettier-js-mode)
          (typescript-mode . prettier-js-mode)
+         (tsx-ts-mode . prettier-js-mode)
          (javascript-mode . prettier-js-mode)
          (json-mode . prettier-js-mode)))
 
@@ -151,23 +152,39 @@
 ;;; python
 (setq-default python-indent-offset 4)
 
-(use-package blackify
-  :straight (blackify :type git :host github :repo "y-kitamu/blackify")
-  :hook (python-mode . blackify-mode))
+;; (use-package blackify
+;;   :straight (blackify :type git :host github :repo "y-kitamu/blackify")
+;;   :hook
+;;   ((python-mode . blackify-mode)
+;;    (python-ts-mode . blackify-mode))
+;;   )
 
-(use-package py-isort
-  :demand t
-  :init
-  (defun toggle-py-isort-before-save ()
-    (interactive)
-    (if (memq 'py-isort-before-save before-save-hook)
-        (progn
-          (remove-hook 'before-save-hook 'py-isort-before-save)
-          (message "py-isort-before-save disabled"))
-      (add-hook 'before-save-hook 'py-isort-before-save)
-      (message "py-isort-before-save enabled")))
+;; (use-package py-isort
+;;   :demand t
+;;   :init
+;;   (defun toggle-py-isort-before-save ()
+;;     (interactive)
+;;     (if (memq 'py-isort-before-save before-save-hook)
+;;         (progn
+;;           (remove-hook 'before-save-hook 'py-isort-before-save)
+;;           (message "py-isort-before-save disabled"))
+;;       (add-hook 'before-save-hook 'py-isort-before-save)
+;;       (message "py-isort-before-save enabled")))
+;;   :hook
+;;   (before-save . py-isort-before-save))
+(use-package lazy-ruff
+  :straight t
+  :bind (("C-c f" . lazy-ruff-lint-format-dwim)) ;; keybinding
+  :config
+  (lazy-ruff-global-mode t)
   :hook
-  (before-save . py-isort-before-save))
+  ((python-ts-mode . lazy-ruff-mode)))
+;; (use-package ruff-format
+;;   :straight t
+;;   :hook
+;;   ((python-mode . ruff-format-on-save)
+;;    (python-ts-mode . ruff-format-on-save))
+;;   )
 
 ;;; c/c++
 ;; defaultのIndent Style を設定. M-x describe-variable RET c-style-alist RET で詳細表示

@@ -833,25 +833,25 @@
 (use-package hydra :straight t)
 
 ;;; 日本語の文章チェックはtextlintをインストールする
-(use-package flycheck
-  :straight t
-  :init
-  (add-to-list 'display-buffer-alist
-               `(,(rx bos "*Flycheck errors*" eos)
-                 (display-buffer-reuse-window
-                  display-buffer-in-side-window)
-                 (side            . bottom)
-                 (reusable-frames . visible)
-                 (window-height   . 0.15)))
-  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
-  (setq flycheck-idle-change-delay 0.50)
-  (setq-default flycheck-flake8-maximum-line-length 105)
-  :config
-  ;; (push 'rustic-clippy flycheck-checkers)
-  :bind
-  (("C-c f" . flycheck-list-errors))
-  :hook
-  (after-init . global-flycheck-mode))
+;; (use-package flycheck
+;;   :straight t
+;;   :init
+;;   (add-to-list 'display-buffer-alist
+;;                `(,(rx bos "*Flycheck errors*" eos)
+;;                  (display-buffer-reuse-window
+;;                   display-buffer-in-side-window)
+;;                  (side            . bottom)
+;;                  (reusable-frames . visible)
+;;                  (window-height   . 0.15)))
+;;   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
+;;   (setq flycheck-idle-change-delay 0.50)
+;;   (setq-default flycheck-flake8-maximum-line-length 105)
+;;   :config
+;;   ;; (push 'rustic-clippy flycheck-checkers)
+;;   :bind
+;;   (("C-c f" . flycheck-list-errors))
+;;   :hook
+;;   (after-init . global-flycheck-mode))
 
 (use-package ace-window
   :straight t
@@ -918,8 +918,8 @@
   :ensure t
   :init
   (define-key python-mode-map (kbd "<backtab>") 'copilot-accept-completion)
-  :bind
-  ("<backtab>" . copilot-accept-completion)
+  :bind (:map copilot-completion-map
+    ("<backtab>" . copilot-accept-completion))
   :hook
   ((prog-mode . copilot-mode))
   :after python)

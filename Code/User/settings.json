@@ -80,5 +80,6 @@
     "python.venvPath": "~/.cache/pypoetry/virtualenvs",
     "python.venvFolders": [
         ".venv"
-    ]
+    ],
+    "cline.preferredLanguage": "Japanese - 日本語"
 }
