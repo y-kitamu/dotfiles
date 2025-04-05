@@ -58,11 +58,9 @@
   (with-eval-after-load 'rust-mode
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
-;;; typescript-modeの設定
-;;; typescript-modeでlsp-dockerを使用する場合はhost側でnpm install -g typescriptする必要あり
 (use-package typescript-ts-mode
   :mode (("\\.tsx\\'" . tsx-ts-mode)
-         ("\\.ts\\'" . tsx-ts-mode))
+         ("\\.ts\\'" . typescript-ts-mode))
   :config
   (setq typescript-ts-mode-indent-offset 2))
 
@@ -87,7 +85,8 @@
   :after tree-sitter
   :config
   (tree-sitter-require 'tsx)
-  (add-to-list 'tree-sitter-major-mode-language-alist '(tsx-ts-mode . tsx)))
+  (add-to-list 'tree-sitter-major-mode-language-alist '(tsx-ts-mode . tsx))
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-ts-mode . typescript)))
 
 (use-package markdown-mode
   :straight t
@@ -134,7 +133,7 @@
 (use-package prettier-js
   :straight t
   :hook ((web-mode . prettier-js-mode)
-         (typescript-mode . prettier-js-mode)
+         ;; (typescript-mode . prettier-js-mode)
          (tsx-ts-mode . prettier-js-mode)
          (javascript-mode . prettier-js-mode)
          (json-mode . prettier-js-mode)))
