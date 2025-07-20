@@ -1,4 +1,4 @@
-// Place your key bindings in this file to override the defaults
+    // Place your key bindings in this file to override the defaults
 [
     // window navigation
     {
@@ -7,16 +7,21 @@
         "when": "!terminalFocus"
     },
     {
+        "key": "ctrl+t",
+        "command": "workbench.action.focusLastEditorGroup",
+        "when": "terminalFocus"
+    },
+    {
         "key": "ctrl+o",
         "command": "workbench.action.navigateEditorGroups",
         "when": "!terminalFocus"
     },
-    // show command like emacs
     {
-        "key": "escape x",
-        "command": "workbench.action.showCommands",
+        "key": "ctrl+o",
+        "command": "workbench.action.focusLastEditorGroup",
+        "when": "terminalFocus"
     },
-    // remoe default configs
+    // show command like emacs
     {
         "key": "ctrl+a",
         "command": "emacs-mcx.moveBeginningOfLine",
@@ -124,5 +129,82 @@
         "key": "shift+tab",
         "command": "editor.action.inlineSuggest.commit",
         "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorTabMovesFocus"
-    }    
+    },
+    {
+        "key": "ctrl+x j",
+        "command": "-workbench.action.togglePanel",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "ctrl+c ctrl+r",
+        "command": "workbench.action.moveEditorToNextGroup"
+    },
+    {
+        "key": "ctrl+alt+right",
+        "command": "-workbench.action.moveEditorToNextGroup"
+    },
+    {
+        "key": "ctrl+c ctrl+l",
+        "command": "workbench.action.moveEditorToPreviousGroup"
+    },
+    {
+        "key": "ctrl+alt+left",
+        "command": "-workbench.action.moveEditorToPreviousGroup"
+    },
+    {
+        "key": "ctrl+t",
+        "command": "-workbench.action.showAllSymbols"
+    },
+    {
+        "key": "escape x",
+        "command": "workbench.action.showCommands",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+x b",
+        "command": "-workbench.action.showAllEditorsByMostRecentlyUsed",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "ctrl+x b",
+        "command": "workbench.action.showAllEditorsByMostRecentlyUsed",
+        "when": "true"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "-workbench.action.gotoLine"
+    },
+    {
+        "key": "f1",
+        "command": "-workbench.action.showCommands"
+    },
+    {
+        "key": "ctrl+shift+p",
+        "command": "-workbench.action.showCommands"
+    },
+    {
+        "key": "ctrl+shift+f",
+        "command": "workbench.action.quickTextSearch"
+    },
+    {
+        "key": "alt+s o",
+        "command": "-workbench.action.quickTextSearch"
+    },
+    {
+        "key": "ctrl+shift+f",
+        "command": "-workbench.action.findInFiles"
+    },
+    {
+        "key": "ctrl+x ctrl+f",
+        "command": "-workbench.action.quickOpen",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "ctrl+x ctrl+f",
+        "command": "file-browser.open"
+    },
+    {
+        "key": "ctrl+x ctrl+t",
+        "command": "workbench.action.createTerminalEditor"
+    }
 ]

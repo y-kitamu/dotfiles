@@ -71,7 +71,8 @@
     "remote.SSH.remotePlatform": {
         "cloudhpc": "linux",
         "engine": "linux",
-        "laptop": "windows"
+        "laptop": "windows",
+        "10.214.98.46": "linux"
     },
     "settingsSync.ignoredSettings": [
         "-python.venvPath"
@@ -81,5 +82,14 @@
     "python.venvFolders": [
         ".venv"
     ],
-    "cline.preferredLanguage": "Japanese - 日本語"
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "terminal.integrated.defaultLocation": "editor",
+    "emacs-mcx.emacsLikeTab": true,
+    "emacs-mcx.useMetaPrefixEscape": true,
+    "terminal.integrated.allowChords": false,
+    "terminal.integrated.commandsToSkipShell": [
+        "workbench.action.showCommands"
+    ],
+    "settingsSync.keybindingsPerPlatform": false
 }
