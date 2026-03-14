@@ -181,36 +181,6 @@ fi
 # use emacs as default editor
 export EDITOR="emacs"
 
-# if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-#     export WORKON_HOME=$HOME/.pyenv
-#     if [ -f /usr/bin/python3 ]; then
-#         export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-#     fi
-#     source /usr/local/bin/virtualenvwrapper.sh
-# fi
-
-# if [ -e ~/work/ ]; then
-#     export PYTHONPATH=${HOME}/work/${PYTHONPATH:+:${PYHTHONPATH}}
-# fi
-
-# OS customize setting
-if [ "$(uname)" == 'Darwin' ]; then
-    # for Mac
-    echo -n "Set up Darwin settings ... "
-    if [ -e ~/dotfiles/.bashrc_mac ]; then
-        # echo "read settings for Mac"
-        . ~/dotfiles/.bashrc_mac
-        echo_done
-    else
-        echo_skip
-    fi
-elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
-    # for Linux
-    if [ -e ~/dotfiles/.bashrc_linux ]; then
-        . ~/dotfiles/.bashrc_linux
-    fi
-fi
-
 # rust
 echo -n "Set up rust settings ... "
 export RUSTUP_HOME=${HOME}/.rustup
@@ -232,47 +202,6 @@ else
     echo_skip
 fi
 
-# cask (emacs package management tool)
-echo -n "Set up emacs cask path ... "
-if [ -e $HOME/.cask ]; then
-    export PATH=${HOME}/.cask/bin${PATH:+:${PATH}}
-    echo_done
-else
-    echo_skip
-fi
-
-# android studio path
-if [ -e //usr/local/android-studio/bin ]; then
-    export PATH=/usr/local/android-studio/bin${PATH:+:${PATH}}
-fi
-
-# for gsettings error
-export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules
-
-echo -n "Set up google cloud SDK ... "
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/kitamura/google-cloud-sdk/path.bash.inc' ]; then
-    . '/home/kitamura/google-cloud-sdk/path.bash.inc'
-    echo_done
-else
-    echo_skip
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/kitamura/google-cloud-sdk/completion.bash.inc' ]; then
-    . '/home/kitamura/google-cloud-sdk/completion.bash.inc'
-fi
-
-# cuda
-echo -n "Set up cuda path ... "
-if [ -e /usr/local/cuda ]; then
-    export PATH="/usr/local/cuda/bin:$PATH"
-    export LD_LIBRARY_PATH="/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/compat/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:$LD_LIBRARY_PATH"
-    echo_done
-else
-    echo_skip
-fi
-
 # add time info to history command
 export HISTTIMEFORMAT='%Y-%m-%d %T%z '
 
@@ -286,52 +215,6 @@ else
     echo_skip
 fi
 
-# poetry config
-echo -n "Set up poetry ... "
-if command -v poetry > /dev/null; then
-    if [ -e "${HOME}/.config/pypoetry/config.toml" ]; then
-        poetry config virtualenvs.in-project true
-        echo_done
-    else
-        echo_skip
-    fi
-else
-    echo_skip
-fi
-
-# export NPM_CONFIG_PREFIX="/usr/local"
-
-# vterm config
-vterm_printf(){
-    if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
-        # Tell tmux to pass the escape sequences through
-        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
-    elif [ "${TERM%%-*}" = "screen" ]; then
-        # GNU screen (screen, screen-256color, screen-256color-bce)
-        printf "\eP\e]%s\007\e\\" "$1"
-    else
-        printf "\e]%s\e\\" "$1"
-    fi
-}
-
-# ros setup
-ROS_SETUP_SCRIPT=/opt/ros/humble/setup.bash
-if [ -e ${ROS_SETUP_SCRIPT} ]; then
-    source ${ROS_SETUP_SCRIPT}
-fi
-unset ROS_SETUP_SCRIPT
-# colcon setup
-COLCON_CD=/usr/share/colcon_cd/function/colcon_cd.sh
-if [ -e ${COLCON_CD} ]; then
-    source ${COLCON_CD}
-    export _colcon_cd_root=/opt/ros/humble
-fi
-COLCON_ARG_COMP=/usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
-if [ -e ${COLCON_ARG_COMP} ]; then
-    source ${COLCON_ARG_COMP}
-fi
-
-
 # bash history integration
 function share_history {
     history -a  # .bash_historyに前回コマンドを1行追記
@@ -341,55 +224,6 @@ function share_history {
 PROMPT_COMMAND='share_history'  # 上記関数をプロンプト毎に自動実施
 shopt -u histappend   # .bash_history追記モードは不要なのでOFFに
 export HISTSIZE=99999  # 履歴のMAX保存数を指定
-
-# aws setup
-# AWSのAPIキーファイルが存在する場合は環境変数に設定する
-echo -n "Set up aws environment variables ... "
-AWS_ENV_FILE=${HOME}/.aws/credentials
-if [ -e ${AWS_ENV_FILE} ]; then
-    export AWS_ACCESS_KEY_ID=`grep aws_access_key_id ${AWS_ENV_FILE} | awk '{print $3}'`
-    export AWS_SECRET_ACCESS_KEY=`grep aws_secret_access_key ${AWS_ENV_FILE} | awk '{print $3}'`
-    if [ $? -eq 0 ]; then
-        echo_done
-    else
-        echo_failed
-    fi
-else
-    echo_skip
-fi
-
-# mount google drive
-alias mount_gdrive="rclone mount gdrive: ~/remote/gdrive/ &"
-if [ -e ${HOME}/remote/gdrive ]; then
-    echo -n "Mount google drive ... "
-    if [ -z "$(ls -A ${HOME}/remote/gdrive)" ]; then
-        mount_gdrive
-        echo_done
-    else
-        echo_skip
-    fi
-fi
-
-# set open-api secret to environment variable
-echo -n "Set up open-api secret ... "
-SCRIPT_DIR=$( cd -- "$( dirname -- $(realpath "${BASH_SOURCE[0]}" ))" &> /dev/null && pwd )
-SECRET_FILE=${SCRIPT_DIR}/secrets.sh
-if [ -e ${SECRET_FILE} ]; then
-    source ${SECRET_FILE}
-    echo_done
-else
-    echo_skip
-fi
-
-# For emcacs configuration
-export LSP_USE_PLISTS=true
-
-export NVM_DIR="$HOME/.nvm"
-if [ -e ${NVM_DIR} ]; then
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-. "$HOME/.cargo/env"
 
 # pnpm
 export PNPM_HOME="/home/kitamura/.local/share/pnpm"
