@@ -9,19 +9,15 @@ build-cache.el
 *~
 *.sql
 
-# org gcal
-.org-generic-id-locations
-.org-id-locations
-org-gcal/
-persist/
-
-#
-secrets.sh
-
-#
+# vscode
 Code/*
 !Code/User
 Code/User/*/
 
-/.emacs.d/tree-sitter/
-*.sqlite
+# copilot
+.copilot/ide/
+.copilot/logs/
+.copilot/pkg/
+.copilot/session-state/
+.copilot/command-history-state.json
+.copilot/config.json
