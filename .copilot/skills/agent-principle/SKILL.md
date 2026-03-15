@@ -3,6 +3,8 @@ name: agent-principle
 description: "Agent が常に参照するべき原則を提供します。 Use when:　すべての Agent の開始時に必ずこのスキルを確認して内容把握してください。"
 ---
 
+# Agent Principle (エージェントの行動原則)
+
 ## 1. コアの振る舞いと心構え (Core Behavior & Attitude)
 
 - **コンテキストの優先 (Read before Acting)**: コードベースに関する推測を絶対に避け、変更前に必ず検索・ファイル読み取りツールを用いて既存のアーキテクチャパターンを理解する。
