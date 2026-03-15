@@ -36,3 +36,7 @@ make build-emacs # must be run as user (not root)
 ### Keyboard layoutの変更
 - レジストリエディタで`コンピューター\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout`に新しいScancode Mapを追加する
 - keyhac + fakeymacsでemacs化
+
+
+## ubuntu setup
+- ubuntu proを使ってems appsの有効化

@@ -1,210 +1,257 @@
-    // Place your key bindings in this file to override the defaults
+// Place your key bindings in this file to override the defaults
 [
-    // window navigation
-    {
-        "key": "ctrl+t",
-        "command": "workbench.action.navigateEditorGroups",
-        "when": "!terminalFocus"
-    },
-    {
-        "key": "ctrl+t",
-        "command": "workbench.action.focusLastEditorGroup",
-        "when": "terminalFocus"
-    },
-    {
-        "key": "ctrl+o",
-        "command": "workbench.action.navigateEditorGroups",
-        "when": "!terminalFocus"
-    },
-    {
-        "key": "ctrl+o",
-        "command": "workbench.action.focusLastEditorGroup",
-        "when": "terminalFocus"
-    },
-    // show command like emacs
-    {
-        "key": "ctrl+a",
-        "command": "emacs-mcx.moveBeginningOfLine",
-        "when": "inputFocus"
-    },
-    {
-        "key": "ctrl+b",
-        "command": "-workbench.action.toggleSidebarVisibility"
-    },
-    // toggle comment
-    {
-        "key": "alt+;",
-        "command": "editor.action.commentLine",
-        "when": "editorTextFocus && !config.emacs-mcx.useMetaPrefixMacCmd && !editorReadonly"
-    },
-    {
-        "key": "alt+;",
-        "command": "editor.action.commentLine",
-        "when": "config.emacs-mcx.useMetaPrefixMacCmd && editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "escape ;",
-        "command": "editor.action.commentLine",
-        "when": "config.emacs-mcx.useMetaPrefixEscape && editorTextFocus && !editorReadonly"
-    },    
-    {
-        "key": "alt+oem_plus",
-        "command": "editor.action.commentLine",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "ctrl+oem_2",
-        "command": "-editor.action.commentLine",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "ctrl+oem_1",
-        "command": "-editor.action.commentLine",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    // emacs like tab
-    {
-        "key": "tab",
-        "command": "emacs-tab.reindentCurrentLine",
-        "when": "editorTextFocus && !inlineSuggestionVisible"
-    },
-    // copy
-    {
-        "key": "escape w",
-        "command": "emacs-mcx.copyRegion",
-        "when": "config.emacs-mcx.useMetaPrefixMacCmd && editorTextFocus"
-    },
-    {
-        "key": "escape w",
-        "command": "emacs-mcx.copyRegion",
-        "when": "editorTextFocus && !config.emacs-mcx.useMetaPrefixMacCmd"
-    },
-    {
-        "key": "ctrl+x g",
-        "command": "magit.status"
-    },
-    {
-        "key": "alt+x g",
-        "command": "-magit.status"
-    },
-    {
-        "key": "alt+oem_period",
-        "command": "editor.action.revealDefinition",
-        "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
-    },
-    {
-        "key": "f12",
-        "command": "-editor.action.revealDefinition",
-        "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
-    },
-    {
-        "key": "alt+oem_comma",
-        "command": "workbench.action.navigateBack"
-    },
-    {
-        "key": "alt+left",
-        "command": "-workbench.action.navigateBack"
-    },
-    {
-        "key": "escape",
-        "command": "notebook.cell.quitEdit",
-        "when": "inputFocus && notebookEditorFocused && !editorHasMultipleSelections && !editorHasSelection && !editorHoverVisible"
-    },
-    {
-        "key": "ctrl+c ctrl+t",
-        "command": "org.incrementContext",
-        "when": "editorLangId == 'org'"
-    },
-    {
-        "key": "shift+tab",
-        "command": "acceptSelectedSuggestion",
-        "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
-    },
-    {
-        "key": "shift+tab",
-        "command": "-acceptAlternativeSelectedSuggestion",
-        "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
-    },
-    {
-        "key": "shift+tab",
-        "command": "editor.action.inlineSuggest.commit",
-        "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorTabMovesFocus"
-    },
-    {
-        "key": "ctrl+x j",
-        "command": "-workbench.action.togglePanel",
-        "when": "!terminalFocus"
-    },
-    {
-        "key": "ctrl+c ctrl+r",
-        "command": "workbench.action.moveEditorToNextGroup"
-    },
-    {
-        "key": "ctrl+alt+right",
-        "command": "-workbench.action.moveEditorToNextGroup"
-    },
-    {
-        "key": "ctrl+c ctrl+l",
-        "command": "workbench.action.moveEditorToPreviousGroup"
-    },
-    {
-        "key": "ctrl+alt+left",
-        "command": "-workbench.action.moveEditorToPreviousGroup"
-    },
-    {
-        "key": "ctrl+t",
-        "command": "-workbench.action.showAllSymbols"
-    },
-    {
-        "key": "escape x",
-        "command": "workbench.action.showCommands",
-        "when": "terminalFocus"
-    },
-    {
-        "key": "ctrl+x b",
-        "command": "-workbench.action.showAllEditorsByMostRecentlyUsed",
-        "when": "!terminalFocus"
-    },
-    {
-        "key": "ctrl+x b",
-        "command": "workbench.action.showAllEditorsByMostRecentlyUsed",
-        "when": "true"
-    },
-    {
-        "key": "ctrl+g",
-        "command": "-workbench.action.gotoLine"
-    },
-    {
-        "key": "f1",
-        "command": "-workbench.action.showCommands"
-    },
-    {
-        "key": "ctrl+shift+p",
-        "command": "-workbench.action.showCommands"
-    },
-    {
-        "key": "ctrl+shift+f",
-        "command": "workbench.action.quickTextSearch"
-    },
-    {
-        "key": "alt+s o",
-        "command": "-workbench.action.quickTextSearch"
-    },
-    {
-        "key": "ctrl+shift+f",
-        "command": "-workbench.action.findInFiles"
-    },
-    {
-        "key": "ctrl+x ctrl+f",
-        "command": "-workbench.action.quickOpen",
-        "when": "!terminalFocus"
-    },
-    {
-        "key": "ctrl+x ctrl+f",
-        "command": "file-browser.open"
-    },
-    {
-        "key": "ctrl+x ctrl+t",
-        "command": "workbench.action.createTerminalEditor"
-    }
+  // window navigation
+  {
+    "key": "ctrl+t",
+    "command": "workbench.action.navigateEditorGroups",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+t",
+    "command": "workbench.action.focusLastEditorGroup",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+o",
+    "command": "workbench.action.navigateEditorGroups",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+o",
+    "command": "workbench.action.focusLastEditorGroup",
+    "when": "terminalFocus"
+  },
+  // show command like emacs
+  {
+    "key": "ctrl+a",
+    "command": "emacs-mcx.moveBeginningOfLine",
+    "when": "inputFocus"
+  },
+  {
+    "key": "ctrl+b",
+    "command": "-workbench.action.toggleSidebarVisibility"
+  },
+  // toggle comment
+  {
+    "key": "alt+;",
+    "command": "editor.action.commentLine",
+    "when": "editorTextFocus && !config.emacs-mcx.useMetaPrefixMacCmd && !editorReadonly"
+  },
+  {
+    "key": "alt+;",
+    "command": "editor.action.commentLine",
+    "when": "config.emacs-mcx.useMetaPrefixMacCmd && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "escape ;",
+    "command": "editor.action.commentLine",
+    "when": "config.emacs-mcx.useMetaPrefixEscape && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "alt+oem_plus",
+    "command": "editor.action.commentLine",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+oem_2",
+    "command": "-editor.action.commentLine",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+oem_1",
+    "command": "-editor.action.commentLine",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  // emacs like tab
+  {
+    "key": "tab",
+    "command": "emacs-tab.reindentCurrentLine",
+    "when": "editorTextFocus && !inlineSuggestionVisible"
+  },
+  // copy
+  {
+    "key": "escape w",
+    "command": "emacs-mcx.copyRegion",
+    "when": "config.emacs-mcx.useMetaPrefixMacCmd && editorTextFocus"
+  },
+  {
+    "key": "escape w",
+    "command": "emacs-mcx.copyRegion",
+    "when": "editorTextFocus && !config.emacs-mcx.useMetaPrefixMacCmd"
+  },
+  {
+    "key": "ctrl+x g",
+    "command": "magit.status"
+  },
+  {
+    "key": "alt+x g",
+    "command": "-magit.status"
+  },
+  {
+    "key": "alt+oem_period",
+    "command": "editor.action.revealDefinition",
+    "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
+  },
+  {
+    "key": "f12",
+    "command": "-editor.action.revealDefinition",
+    "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
+  },
+  {
+    "key": "alt+oem_comma",
+    "command": "workbench.action.navigateBack"
+  },
+  {
+    "key": "alt+left",
+    "command": "-workbench.action.navigateBack"
+  },
+  {
+    "key": "escape",
+    "command": "notebook.cell.quitEdit",
+    "when": "inputFocus && notebookEditorFocused && !editorHasMultipleSelections && !editorHasSelection && !editorHoverVisible"
+  },
+  {
+    "key": "ctrl+c ctrl+t",
+    "command": "org.incrementContext",
+    "when": "editorLangId == 'org'"
+  },
+  {
+    "key": "shift+tab",
+    "command": "-acceptAlternativeSelectedSuggestion",
+    "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "ctrl+x j",
+    "command": "-workbench.action.togglePanel",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+alt+right",
+    "command": "-workbench.action.moveEditorToNextGroup"
+  },
+  {
+    "key": "ctrl+alt+left",
+    "command": "-workbench.action.moveEditorToPreviousGroup"
+  },
+  {
+    "key": "ctrl+t",
+    "command": "-workbench.action.showAllSymbols"
+  },
+  {
+    "key": "escape x",
+    "command": "workbench.action.showCommands",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+x b",
+    "command": "-workbench.action.showAllEditorsByMostRecentlyUsed",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+x b",
+    "command": "workbench.action.showAllEditorsByMostRecentlyUsed",
+    "when": "true"
+  },
+  {
+    "key": "ctrl+g",
+    "command": "-workbench.action.gotoLine"
+  },
+  {
+    "key": "f1",
+    "command": "-workbench.action.showCommands"
+  },
+  {
+    "key": "ctrl+shift+p",
+    "command": "-workbench.action.showCommands"
+  },
+  {
+    "key": "ctrl+shift+f",
+    "command": "workbench.action.quickTextSearch"
+  },
+  {
+    "key": "alt+s o",
+    "command": "-workbench.action.quickTextSearch"
+  },
+  {
+    "key": "ctrl+shift+f",
+    "command": "-workbench.action.findInFiles"
+  },
+  {
+    "key": "ctrl+x ctrl+f",
+    "command": "-workbench.action.quickOpen",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+x ctrl+f",
+    "command": "file-browser.open"
+  },
+  {
+    "key": "ctrl+x ctrl+t",
+    "command": "workbench.action.createTerminalEditor"
+  },
+  {
+    "key": "shift+tab",
+    "command": "-outdent",
+    "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus"
+  },
+  {
+    "key": "shift+tab",
+    "command": "-jumpToPrevSnippetPlaceholder",
+    "when": "hasPrevTabstop && inSnippetMode && textInputFocus"
+  },
+  {
+    "key": "shift+tab",
+    "command": "-insertPrevSuggestion",
+    "when": "hasOtherSuggestions && textInputFocus && !inSnippetMode && !suggestWidgetVisible && config.editor.tabCompletion == 'on'"
+  },
+  {
+    "key": "shift+tab",
+    "command": "editor.action.inlineSuggest.commit",
+    "when": "inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+  },
+  {
+    "key": "tab",
+    "command": "-editor.action.inlineSuggest.commit",
+    "when": "inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+  },
+  {
+    "key": "shift+tab",
+    "command": "editor.action.inlineSuggest.commit",
+    "when": "inInlineEditsPreviewEditor"
+  },
+  {
+    "key": "tab",
+    "command": "-editor.action.inlineSuggest.commit",
+    "when": "inInlineEditsPreviewEditor"
+  },
+  {
+    "key": "shift+tab",
+    "command": "editor.action.accessibleViewAcceptInlineCompletion",
+    "when": "accessibleViewIsShown && accessibleViewCurrentProviderId == 'inlineCompletions'"
+  },
+  {
+    "key": "ctrl+/",
+    "command": "-editor.action.accessibleViewAcceptInlineCompletion",
+    "when": "accessibleViewIsShown && accessibleViewCurrentProviderId == 'inlineCompletions'"
+  },
+  {
+    "key": "ctrl+c y",
+    "command": "-emacs-mcx.browseKillRing",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "shift+tab",
+    "command": "-file-browser.tabPrev",
+    "when": "inFileBrowser"
+  },
+  {
+    "key": "ctrl+shift+tab",
+    "command": "-workbench.action.quickOpenNavigatePreviousInEditorPicker",
+    "when": "inEditorsPicker && inQuickOpen"
+  },
+  {
+    "key": "ctrl+shift+tab",
+    "command": "-workbench.action.quickOpenLeastRecentlyUsedEditorInGroup",
+    "when": "!activeEditorGroupEmpty"
+  }
 ]

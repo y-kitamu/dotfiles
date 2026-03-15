@@ -1,95 +1,78 @@
 {
-    "workbench.colorTheme": "Default Dark Modern",
-    "git.autofetch": true,
-    "git.confirmSync": false,
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": "explicit"
-        },
-    },
-    "isort.args": [
-        "--profile",
-        "black"
-    ],
-    "[javascript]": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[javascriptreact]": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescript]": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescriptreact]": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[json]": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[markdown]": {
-        "editor.formatOnSave": false,
-    },
-    "[cpp]": {
-        "files.encoding": "shiftjis",
-    },
-    "keyboard.dispatch": "keyCode",
-    "jupyter.askForKernelRestart": false,
-    "editor.inlineSuggest.enabled": true,
-    "files.associations": {
-        "*.mdx": "markdown"
-    },
-    "black-formatter.args": [
-        "--line-length",
-        "105"
-    ],
-    "python.formatting.provider": "black",
-    "security.workspace.trust.untrustedFiles": "open",
-    "editor.fontSize": 16,
-    "notebook.markup.fontSize": 14,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "settingsSync.ignoredExtensions": [
-        "WakaTime.vscode-wakatime"
-    ],
-    "org.todoKeywords": [
-        "TODO",
-        "DOING",
-        "DONE"
-    ],
-    "hediet.vscode-drawio.resizeImages": null,
-    "notebook.output.textLineLimit": 100,
-    "jupyter.widgetScriptSources": [
-        "jsdelivr.com",
-        "unpkg.com"
-    ],
-    "remote.SSH.remotePlatform": {
-        "cloudhpc": "linux",
-        "engine": "linux",
-        "laptop": "windows",
-        "10.214.98.46": "linux"
-    },
-    "settingsSync.ignoredSettings": [
-        "-python.venvPath"
-    ],
-    "editor.multiCursorModifier": "ctrlCmd",
-    "python.venvPath": "~/.cache/pypoetry/virtualenvs",
-    "python.venvFolders": [
-        ".venv"
-    ],
-    "editor.unicodeHighlight.invisibleCharacters": false,
-    "github.copilot.nextEditSuggestions.enabled": true,
-    "terminal.integrated.defaultLocation": "editor",
-    "emacs-mcx.emacsLikeTab": true,
-    "emacs-mcx.useMetaPrefixEscape": true,
-    "terminal.integrated.allowChords": false,
-    "terminal.integrated.commandsToSkipShell": [
-        "workbench.action.showCommands"
-    ],
-    "settingsSync.keybindingsPerPlatform": false
+  "workbench.colorTheme": "Default Dark Modern",
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
+    }
+  },
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
+  "[cpp]": {
+    "files.encoding": "shiftjis"
+  },
+  "keyboard.dispatch": "keyCode",
+  "jupyter.askForKernelRestart": false,
+  "editor.inlineSuggest.enabled": true,
+  "files.associations": {
+    "*.mdx": "markdown"
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+  "editor.fontSize": 16,
+  "notebook.markup.fontSize": 14,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "settingsSync.ignoredExtensions": ["WakaTime.vscode-wakatime"],
+  "org.todoKeywords": ["TODO", "DOING", "DONE"],
+  "hediet.vscode-drawio.resizeImages": null,
+  "notebook.output.textLineLimit": 100,
+  "jupyter.widgetScriptSources": ["jsdelivr.com", "unpkg.com"],
+  "remote.SSH.remotePlatform": {
+    "cloudhpc": "linux",
+    "engine": "linux",
+    "laptop": "windows",
+    "10.214.98.46": "linux",
+    "desktop-yk": "linux"
+  },
+  "settingsSync.ignoredSettings": ["-python.venvPath"],
+  "editor.multiCursorModifier": "ctrlCmd",
+  "python.venvFolders": [
+    ".venv"
+  ],
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "terminal.integrated.defaultLocation": "editor",
+  "emacs-mcx.emacsLikeTab": true,
+  "emacs-mcx.useMetaPrefixEscape": true,
+  "terminal.integrated.allowChords": false,
+  "terminal.integrated.commandsToSkipShell": ["workbench.action.showCommands"],
+  "settingsSync.keybindingsPerPlatform": false,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.formatOnPaste": true,
+  "python.defaultInterpreterPath": "/bin/python"
 }
