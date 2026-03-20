@@ -1,7 +1,6 @@
 ---
 name: skill-creation
 description: "Use when: ユーザーが新しくGitHub CopilotのAgent Skillを作成したい、または既存のSkillを更新・構造化・デバッグしたい時に使用します。要件定義からYAML Frontmatterの厳格な記述、段階的開示に基づく構成、マークダウンの生成までをステップバイステップでアシストします。"
-user-invocable: false
 ---
 
 # Skill Creation (エージェントスキルの作成)

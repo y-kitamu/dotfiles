@@ -1,7 +1,6 @@
 ---
 name: custom-agent-creation
 description: "Use when: ユーザーが新しいカスタムエージェント（*.agent.md）を設計・作成・更新したい時に使用します。アーキテクチャ設計からYAML定義、プロンプト構成、自律ワークフロー（Handoff）の構築までベストプラクティスに基づきアシストします。"
-user-invocable: false
 ---
 
 # Custom Agent Creation (カスタムエージェントの作成)

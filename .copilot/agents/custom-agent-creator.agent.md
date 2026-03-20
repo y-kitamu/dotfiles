@@ -32,6 +32,7 @@ handoffs:
 
 ## 📝 必要な知識 (Required Skills)
 
+- `agent-principle` スキルを理解し、行動する。
 - `custom-agent-creation` スキルを活用してカスタムエージェントを設計すること
 - `skill-creation` スキルを活用して Agent Skill を設計すること
 

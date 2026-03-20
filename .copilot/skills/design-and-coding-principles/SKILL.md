@@ -1,7 +1,6 @@
 ---
 name: design-and-coding-principles
 description: "Use when: ユーザーから設計や実装（コーディング）に関するタスクを依頼された時に使用します。KISSやYAGNI、SOLIDなどの基本原則に基づいて最適なコードや設計を提案・生成するために参照してください。"
-user-invocable: false
 ---
 
 # ソフトウェア設計・実装の基本原則とルール
