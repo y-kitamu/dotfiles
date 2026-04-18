@@ -21,3 +21,8 @@ done
 
 # install vscode settings
 ln -snfv ~/dotfiles/Code ~/.config/
+
+# install vscode user prompts for vscode-server (remote)
+if [ -d ~/.vscode-server/data/User ]; then
+    ln -snfv ~/dotfiles/Code/User/prompts ~/.vscode-server/data/User/prompts
+fi

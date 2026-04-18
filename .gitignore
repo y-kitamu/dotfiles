@@ -12,7 +12,8 @@ build-cache.el
 # vscode
 Code/*
 !Code/User
-Code/User/*/
+Code/User/*
+!Code/User/prompts
 
 # copilot
 .copilot/ide/
